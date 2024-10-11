@@ -6,6 +6,7 @@ namespace BTL_LTWeb.Controllers
 {
     public class HomeController : Controller
     {
+        QlbangHangBtlwebContext db = new QlbangHangBtlwebContext();
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -15,7 +16,8 @@ namespace BTL_LTWeb.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var list = db.TDanhMucSps.ToList();
+            return View(list);
         }
 
         public IActionResult Privacy()

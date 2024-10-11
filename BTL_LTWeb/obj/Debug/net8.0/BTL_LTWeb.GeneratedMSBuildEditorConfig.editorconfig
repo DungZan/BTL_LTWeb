@@ -1,47 +1,103 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BTL_LTWeb
 build_property.RootNamespace = BTL_LTWeb
-build_property.ProjectDir = C:\Dung\LTWeb\BTL_LTWeb\BTL_LTWeb\
+build_property.ProjectDir = D:\code\LTWeb\BTL_LTWeb\BTL_LTWeb\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Dung\LTWeb\BTL_LTWeb\BTL_LTWeb
+build_property.MSBuildProjectDirectory = D:\code\LTWeb\BTL_LTWeb\BTL_LTWeb
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Dung/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Home/Index.cshtml]
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Areas/Admin/Views/HomeAdmin/Chitiet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXENoaXRpZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Areas/Admin/Views/HomeAdmin/danhmucsanpham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXGRhbmhtdWNzYW5waGFtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Areas/Admin/Views/HomeAdmin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Areas/Admin/Views/HomeAdmin/SuaSanPham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXFN1YVNhblBoYW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Areas/Admin/Views/HomeAdmin/Themsanpham.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXFRoZW1zYW5waGFtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/DanhMucSp/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaE11Y1NwXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/DanhMucSp/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaE11Y1NwXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/DanhMucSp/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaE11Y1NwXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/DanhMucSp/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaE11Y1NwXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/DanhMucSp/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaE11Y1NwXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Dung/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Home/Privacy.cshtml]
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Dung/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Shared/Error.cshtml]
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Dung/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Shared/MyLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXE15TGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Dung/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/_ViewImports.cshtml]
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Dung/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/_ViewStart.cshtml]
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Dung/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Shared/_Layout.cshtml]
+[D:/code/LTWeb/BTL_LTWeb/BTL_LTWeb/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ll95k6dtiu

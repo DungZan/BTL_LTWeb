@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dung\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj": {}
+    "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj": {}
   },
   "projects": {
-    "C:\\Dung\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj": {
+    "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dung\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj",
+        "projectUniqueName": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj",
         "projectName": "BTL_LTWeb",
-        "projectPath": "C:\\Dung\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Dung\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\obj\\",
+        "projectPath": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\BTL_LTWeb.csproj",
+        "packagesPath": "C:\\Users\\dungc\\.nuget\\packages\\",
+        "outputPath": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\VisualStudio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dungc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,6 +49,34 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "X.PagedList": {
+              "target": "Package",
+              "version": "[10.2.1, )"
+            },
+            "X.PagedList.Mvc.Core": {
+              "target": "Package",
+              "version": "[10.2.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

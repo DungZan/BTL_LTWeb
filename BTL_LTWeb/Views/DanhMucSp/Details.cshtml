@@ -1,0 +1,72 @@
+﻿@model BTL_LTWeb.Models.TDanhMucSp
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TDanhMucSp</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TenSp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenSp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChatLieu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChatLieu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LoaiDt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LoaiDt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HangSx)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HangSx)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianBaoHanh)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianBaoHanh)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GioiThieuSp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GioiThieuSp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AnhDaiDien)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AnhDaiDien)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GiaNhoNhat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GiaNhoNhat)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GiaLonNhat)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.GiaLonNhat)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaSp">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
