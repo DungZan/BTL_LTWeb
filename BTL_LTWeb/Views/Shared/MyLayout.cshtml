@@ -95,7 +95,6 @@
                 </div>
             </nav>
         </header>
-        @RenderBody()
         <div class="site-blocks-cover" style="background-image: url(/ResourceTemplale/images/hero_1.jpg);" data-aos="fade">
             <div class="container">
                 <div class="row align-items-start align-items-md-center justify-content-end">
@@ -196,18 +195,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="nonloop-block-3 owl-carousel">
-                            <div class="item">
-                                <div class="block-4 text-center">
-                                    <figure class="block-4-image">
-                                        <img src="~/ResourceTemplale/images/cloth_1.jpg" alt="Image placeholder" class="img-fluid">
-                                    </figure>
-                                    <div class="block-4-text p-4">
-                                        <h3><a href="#">Tank Top</a></h3>
-                                        <p class="mb-0">Finding perfect t-shirt</p>
-                                        <p class="text-primary font-weight-bold">$50</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <!--
+                                danh mục sản phẩm
+                            -->
+                            @RenderBody();
                             <div class="item">
                                 <div class="block-4 text-center">
                                     <figure class="block-4-image">

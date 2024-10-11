@@ -22,31 +22,33 @@
 </p>
 <div class="alert alert-warning">
 
-<table class="table table-hover">
+    <table class="table table-hover table-responsive d-block">
     <thead>
         <tr class="table-warning">
-            <th>
+                <th class="text-nowrap">
                 Tên Sản Phẩm
             </th>
-            <th>
+                <th class="text-nowrap">
                 Chất liệu
             </th>
-            <th>
+                <th class="text-nowrap">
                 Loại
             </th>
-            <th>
+                <th class="text-nowrap">
                 Hãng sản xuất
             </th>
-            <th>
+                <th class="text-nowrap">
                 Thời gian bảo hành
             </th>
-            <th>
-                Giới thiệu sản phẩm
+                <th class="text-nowrap">
+                Giới thiệu
             </th>
-            <th>
-                Giá lớn nhất
+            <th class="text-nowrap">
+                Giá
             </th>
-            <th></th>
+            <th class="text-nowrap">
+                    Chức năng
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -73,7 +75,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GiaLonNhat)
             </td>
-            <td>
+                    <td class=" text-nowrap">
                 <a asp-action="suasanpham" asp-route-MaSP="@item.MaSp">Edit</a> |
                     <a asp-action="Chitiet" asp-route-MaSP="@item.MaSp">Details</a> |
                     <a asp-action="XoaSanPham" asp-route-MaSP="@item.MaSp">Delete</a>

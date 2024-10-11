@@ -9,63 +9,80 @@
 
 <h4>Danh mục sản phẩm</h4>
 <hr />
-<div class="row">
-    <div class="">
-        <form asp-action="Themsanpham">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group mt-3">
-                <label asp-for="TenSp" class="control-label form-label"></label>
-                <input asp-for="TenSp" class="form-control" />
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="p-3 p-lg-5 border">
+    <form asp-action="Themsanpham">
+        <div class="form-group row mt-3">
+            <div class="col-md-6">
+                <label asp-for="TenSp" class="text-black form-label">Tên sản phẩm <span class="text-danger">*</span></label>
+                <input asp-for="TenSp" class="form-control">
                 <span asp-validation-for="TenSp" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="ChatLieu" class="control-label form-label"></label>
-                <input asp-for="ChatLieu" class="form-control" />
-                <span asp-validation-for="ChatLieu" class="text-danger"></span>
+            <div class="col-md-6">
+                <label asp-for="ChatLieu" class="text-black form-label">Chất liệu <span class="text-danger">*</span></label>
+                <input asp-for="ChatLieu" class="form-control">
+                <span asp-validation-for="TenSp" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="LoaiDt" class="control-label form-label"></label>
-                <input asp-for="LoaiDt" class="form-control" />
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label asp-for="LoaiDt" class="text-black form-label">Loại <span class="text-danger">*</span></label>
+                <input asp-for="LoaiDt" class="form-control" placeholder="">
                 <span asp-validation-for="LoaiDt" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="HangSx" class="control-label form-label"></label>
-                <input asp-for="HangSx" class="form-control" />
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label asp-for="HangSx" class="text-black form-label"></label>
+                <input asp-for="HangSx" class="form-control" placeholder="Hãng sản xuất">
                 <span asp-validation-for="HangSx" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="ThoiGianBaoHanh" class="control-label form-label"></label>
-                <input asp-for="ThoiGianBaoHanh" class="form-control" />
+        </div>
+
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label asp-for="ThoiGianBaoHanh" class="text-black form-label"></label>
+                <input asp-for="ThoiGianBaoHanh" class="form-control" placeholder="Thời gian bảo hành">
                 <span asp-validation-for="ThoiGianBaoHanh" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="GioiThieuSp" class="control-label form-label"></label>
-                <input asp-for="GioiThieuSp" class="form-control" />
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label asp-for="GioiThieuSp" class="text-black form-label"></label>
+                <input asp-for="GioiThieuSp" class="form-control" placeholder="Thời gian bảo hành">
                 <span asp-validation-for="GioiThieuSp" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="AnhDaiDien" class="control-label form-label"></label>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label asp-for="AnhDaiDien" class="text-black form-label"></label>
                 <input asp-for="AnhDaiDien" class="form-control" />
                 <span asp-validation-for="AnhDaiDien" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="GiaNhoNhat" class="control-label form-label"></label>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label asp-for="GiaNhoNhat" class="control-label text-black form-label"></label>
                 <input asp-for="GiaNhoNhat" class="form-control" />
                 <span asp-validation-for="GiaNhoNhat" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="GiaLonNhat" class="control-label form-label"></label>
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label asp-for="GiaLonNhat" class="control-label text-black form-label"></label>
                 <input asp-for="GiaLonNhat" class="form-control" />
                 <span asp-validation-for="GiaLonNhat" class="text-danger"></span>
             </div>
-            <div class="form-group mt-3">
-                <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+        <div class="form-group row mt-3">
+            <div class="col-lg-12">
+                <input type="submit" class="btn btn-primary btn-lg btn-block">
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
-<div>
-    <a asp-action="danhmucsanpham">Back to List</a>
+<div class="col-lg-12">
+    <a class="btn btn-primary" asp-action="danhmucsanpham">Back to List</a>
 </div>
 

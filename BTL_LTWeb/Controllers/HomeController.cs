@@ -1,6 +1,9 @@
-using BTL_LTWeb.Models;
+﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using X.PagedList;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -14,12 +17,43 @@ namespace BTL_LTWeb.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? Page)
         {
-            var list = db.TDanhMucSps.ToList();
-            return View(list);
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp);
+            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+            return View(lst);
         }
+        public IActionResult Sanphamtheoloai(string Loai,int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TDanhMucSps.AsNoTracking().Where(x => x.LoaiDt == Loai).OrderBy(x => x.TenSp);
+            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+            ViewBag.Loai = Loai;
+            return View(lst);
+        }
+        public IActionResult ChitietSp(int MaSP)
+        {
+            var sp = db.TDanhMucSps.SingleOrDefault(x => x.MaSp == MaSP);
+            var anhSp = db.TAnhSps.Where(x => x.MaSp == MaSP).ToList();
+            ViewBag.AnhSP = anhSp;
+            return View(sp);
+        }
+        //action sử dụng viewModels
+        public IActionResult ChitietSpNew(int MaSP)
+        {
+            var sp = db.TDanhMucSps.SingleOrDefault(x => x.MaSp == MaSP);
+            var anhSp = db.TAnhSps.Where(x => x.MaSp == MaSP).ToList();
+            HomeProductDetailViewModel model = new HomeProductDetailViewModel
+                {
+                product = sp,
+                productImages = anhSp
+            };
 
+            return View(model);
+        }
         public IActionResult Privacy()
         {
             return View();

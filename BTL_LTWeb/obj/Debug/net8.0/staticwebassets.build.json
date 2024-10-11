@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pz1k7iWibw3/R94q7QR48LL0vVkSt4QJKMrX95KpiWU=",
+  "Hash": "amhSHMxwu05wIHDx9Amw7kZ7PaI5NQMV83Djqrm38Jw=",
   "Source": "BTL_LTWeb",
   "BasePath": "_content/BTL_LTWeb",
   "Mode": "Default",
@@ -3872,6 +3872,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\ResourceTemplaleAdmin\\images\\logos\\favicon.png"
+    },
+    {
+      "Identity": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplaleAdmin\\images\\logos\\logo.png",
+      "SourceId": "BTL_LTWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\",
+      "BasePath": "_content/BTL_LTWeb",
+      "RelativePath": "ResourceTemplaleAdmin/images/logos/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\ResourceTemplaleAdmin\\images\\logos\\logo.png"
     },
     {
       "Identity": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplaleAdmin\\images\\products\\s1.jpg",

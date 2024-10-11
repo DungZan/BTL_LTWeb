@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\ResourceTemplaleAdmin\\images\\logos\\favicon.png"
     },
     {
+      "Id": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplaleAdmin\\images\\logos\\logo.png",
+      "PackagePath": "staticwebassets\\ResourceTemplaleAdmin\\images\\logos\\logo.png"
+    },
+    {
       "Id": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplaleAdmin\\images\\products\\s1.jpg",
       "PackagePath": "staticwebassets\\ResourceTemplaleAdmin\\images\\products\\s1.jpg"
     },
