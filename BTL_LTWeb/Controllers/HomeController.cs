@@ -16,6 +16,11 @@ namespace BTL_LTWeb.Controllers
         {
             _logger = logger;
         }
+        public IActionResult Home()
+        {
+            var lst = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp).Take(5);
+            return View(lst);
+        }
 
         public IActionResult Index(int? Page)
         {

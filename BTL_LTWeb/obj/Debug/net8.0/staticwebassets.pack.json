@@ -2645,6 +2645,18 @@
       "PackagePath": "staticwebassets\\ResourceTemplale\\fonts\\icomoon\\style.css"
     },
     {
+      "Id": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplale\\images\\0.jpg",
+      "PackagePath": "staticwebassets\\ResourceTemplale\\images\\0.jpg"
+    },
+    {
+      "Id": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplale\\images\\1.jpg",
+      "PackagePath": "staticwebassets\\ResourceTemplale\\images\\1.jpg"
+    },
+    {
+      "Id": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplale\\images\\2.jpg",
+      "PackagePath": "staticwebassets\\ResourceTemplale\\images\\2.jpg"
+    },
+    {
       "Id": "D:\\code\\LTWeb\\BTL_LTWeb\\BTL_LTWeb\\wwwroot\\ResourceTemplale\\images\\blog_1.jpg",
       "PackagePath": "staticwebassets\\ResourceTemplale\\images\\blog_1.jpg"
     },
