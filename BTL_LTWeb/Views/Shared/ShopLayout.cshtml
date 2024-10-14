@@ -3,6 +3,7 @@
 *@
 @{
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,11 +64,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <form asp-controller="Home" asp-action="TimSanPham" method="get" class="site-block-top-search">
+                                    <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </form>
                             </div>
                         </div>
                         
                             <!-- danh mục sản phẩm-->
-                            @RenderBody();
+                            @RenderBody()
                         
                     </div>
 

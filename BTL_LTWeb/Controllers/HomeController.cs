@@ -16,12 +16,13 @@ namespace BTL_LTWeb.Controllers
         {
             _logger = logger;
         }
+        //action trang chủ
         public IActionResult Home()
         {
             var lst = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp).Take(5);
             return View(lst);
         }
-
+        //action trang danh sách sản phẩm
         public IActionResult Index(int? Page)
         {
             int pageSize = 9;
@@ -58,6 +59,15 @@ namespace BTL_LTWeb.Controllers
             };
 
             return View(model);
+        }
+        public IActionResult TimSanPham(string Tensanpham, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TDanhMucSps.AsNoTracking().Where(x => x.TenSp.Contains(Tensanpham)).OrderBy(x => x.TenSp);
+            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+            ViewBag.Tensanpham = Tensanpham;
+            return View(lst);
         }
         public IActionResult Privacy()
         {
