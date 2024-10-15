@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Models;
 
-public partial class QlbangHangBtlwebContext : DbContext
+public partial class QlbangHangBtlwebContext : IdentityDbContext<TUser>
 {
     public QlbangHangBtlwebContext()
     {
@@ -33,7 +33,7 @@ public partial class QlbangHangBtlwebContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=PTD-DESKTOP\\SQLEXPRESS;Initial Catalog=QLBangHangBTLWeb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=_1504_\\SQLEXPRESS;Initial Catalog=QLBangHangBTLWeb;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -189,6 +189,13 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
                 .HasColumnName("password");
+        });
+        base.OnModelCreating(modelBuilder); // Gọi phương thức cơ sở
+
+        // Cấu hình IdentityUserLogin
+        modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+        {
+            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
         });
 
         OnModelCreatingPartial(modelBuilder);
