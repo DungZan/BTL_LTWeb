@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace BTL_LTWeb.Models;
@@ -18,6 +19,6 @@ public partial class TKhachHang
     public string? DiaChi { get; set; }
 
     public string? GhiChu { get; set; }
-
+    [ValidateNever]
     public virtual TUser UsernameNavigation { get; set; } = null!;
 }

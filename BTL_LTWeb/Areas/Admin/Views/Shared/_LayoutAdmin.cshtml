@@ -40,11 +40,11 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                            <a asp-area = "Admin" asp-controller ="HomeAdmin" asp-action = "DashBoard" class="sidebar-link"aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
-                                <span class="hide-menu">Dashboard</span>
+                                <span class="hide-menu">Tổng Quan</span>
                             </a>
                         </li>
                         <li class="nav-small-cap">
@@ -60,19 +60,19 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action="danhsachkhachhang" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
-                                <span class="hide-menu">Alerts</span>
+                                <span class="hide-menu">Khách Hàng</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action ="Danhsachnhanvien" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-cards"></i>
                                 </span>
-                                <span class="hide-menu">Card</span>
+                                <span class="hide-menu">Nhân Viên</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -189,10 +189,8 @@
             
             <div class="container-fluid">
                 <!--  Row 1 -->
-                <div class="row">
-                    @RenderBody()
-                </div>
-                
+
+                @RenderBody()
                 
                 <div class="py-6 px-6 text-center">
                     <p class="mb-0 fs-4">Design and Developed by <a href="#" target="_blank" class="pe-1 text-primary text-decoration-underline">BEAFood</a></p>
