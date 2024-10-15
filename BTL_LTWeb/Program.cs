@@ -1,4 +1,5 @@
-using BTL_LTWeb.Models;
+﻿using BTL_LTWeb.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,18 @@ builder.Services.AddControllersWithViews();
 //database config
 var connectionString = builder.Configuration.GetConnectionString("QLBanHangBtlwebContext");
 builder.Services.AddDbContext<QlbangHangBtlwebContext>(options => options.UseSqlServer(connectionString));
+
+//set up identity cookie
+builder.Services.AddIdentity<TUser, IdentityRole>()
+    .AddEntityFrameworkStores<QlbangHangBtlwebContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login"; // Đường dẫn tới trang đăng nhập
+    options.LogoutPath = "/Account/Logout"; // Đường dẫn tới trang đăng xuất
+    options.AccessDeniedPath = "/Account/AccessDenied"; // Đường dẫn khi quyền bị từ chối
+});
 
 //
 var app = builder.Build();
@@ -29,6 +42,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Home}/{id?}");
+    pattern: "{controller=Account}/{action=Index}/{id?}");
 
 app.Run();
