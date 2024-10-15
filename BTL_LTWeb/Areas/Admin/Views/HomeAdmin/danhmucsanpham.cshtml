@@ -16,7 +16,10 @@
 }
 
 <h1>Danh mục sản phẩm</h1>
-
+<form asp-controller="Home" asp-action="TimSanPham" method="get" class="site-block-top-search">
+    <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
 <p>
     <a class="btn btn-info" asp-action="themsanpham">Create New</a>
 </p>
