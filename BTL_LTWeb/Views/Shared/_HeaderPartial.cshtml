@@ -19,7 +19,20 @@
                 <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                     <div class="site-top-icons">
                         <ul>
-                            <li><a href="#"><span class="icon icon-person"></span></a></li>
+                            <li class="dropdown">
+                                <!-- Khi click vào icon này, sẽ hiển thị dropdown -->
+                                <a href="#" class="dropdown-toggle" id="userDropdown">
+                                    <span class="icon icon-person"></span>
+                                </a>
+                                <!-- Dropdown Menu -->
+                                <div class="dropdown-menu" id="dropdownMenu">
+                                    <a href="#">Profile</a>
+                                    <a href="#">Settings</a>
+                                    <form action="Account/Logout" method="post">
+                                        <button type="submit" class="btn btn-link">Logout</button>
+                                    </form>
+                                </div>
+                            </li>
                             <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
                             <li>
                                 <a href="cart.html" class="site-cart">
