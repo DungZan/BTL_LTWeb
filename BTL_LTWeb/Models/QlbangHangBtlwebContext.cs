@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Models;
 
-public partial class QlbangHangBtlwebContext : IdentityDbContext<TUser>
-{
+public partial class QlbangHangBtlwebContext : DbContext
+{ 
     public QlbangHangBtlwebContext()
     {
     }
@@ -190,14 +189,6 @@ public partial class QlbangHangBtlwebContext : IdentityDbContext<TUser>
                 .HasMaxLength(255)
                 .HasColumnName("password");
         });
-        base.OnModelCreating(modelBuilder); // Gọi phương thức cơ sở
-
-        // Cấu hình IdentityUserLogin
-        modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
-        {
-            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-        });
-
         OnModelCreatingPartial(modelBuilder);
     }
 
