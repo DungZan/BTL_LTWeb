@@ -11,14 +11,17 @@ namespace BTL_LTWeb.Controllers
     {
         private readonly QlbangHangBtlwebContext _context;
 
-        // Sử dụng Dependency Injection để khởi tạo context
         public AccountController(QlbangHangBtlwebContext context)
         {
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Login()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -35,20 +38,34 @@ namespace BTL_LTWeb.Controllers
                     {
                         new Claim(ClaimTypes.Name, username)
                     };
+
+                    // Tạo ClaimsIdentity cho người dùng
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    // Thiết lập thuộc tính AuthenticationProperties
                     var authProperties = new AuthenticationProperties
                     {
-                        IsPersistent = false
+                        IsPersistent = rememberMe, // Ghi nhớ đăng nhập nếu "Remember me" được chọn
+                        ExpiresUtc = rememberMe ? DateTime.UtcNow.AddDays(30) : null    // Phiên đăng nhập kéo dài 30 ngày nếu có "Remember me"
                     };
+                    Console.WriteLine($"IsPersistent: {authProperties.IsPersistent}, ExpiresUtc: {authProperties.ExpiresUtc}");
+                    // Đăng nhập người dùng
+                    await HttpContext.SignInAsync("MyCookieAuthenticationScheme", new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home"); // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
                 }
             }
 
-            // Thêm thông báo lỗi cho người dùng
-            ModelState.AddModelError(string.Empty, "Invalid username or password.");
-            return View("Index");
+            // Thông báo lỗi nếu đăng nhập thất bại
+            ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không chính xác.");
+            return View("Login");
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("MyCookieAuthenticationScheme");
+            return RedirectToAction("Login", "Account");
+        }
+
     }
 }
