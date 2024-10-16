@@ -101,6 +101,16 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         {
             return View(sp);
         }
+        [Route("Timsanpham")]
+        public IActionResult TimSanPham(string Tensanpham, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TDanhMucSps.AsNoTracking().Where(x => x.TenSp.Contains(Tensanpham)).OrderBy(x => x.TenSp);
+            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+            return View(lst);
+        }
+        // dashBorad 
         [Route("DashBoard")]
         public IActionResult DashBoard()
         {
@@ -160,7 +170,6 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
             return View(lst);
         }
-
 
     }
 }

@@ -18,7 +18,7 @@
 }
 
 <h1>Danh mục sản phẩm</h1>
-<form asp-controller="Home" asp-action="TimSanPham" method="get" class="site-block-top-search d-flex">
+<form asp-area="Admin" asp-controller="HomeAdmin" asp-action="TimSanPham" method="get" class="site-block-top-search d-flex">
     <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
@@ -96,3 +96,17 @@ new X.PagedList.Mvc.Core.PagedListRenderOptions(){
     PageClasses = new List<String> {"page-link"}
  })
 </div>
+@section Scripts {
+    <script>
+        $("li").click(function(e){
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "HomeAdmin/test",
+                data: { mid: id },
+                success: function (response) {
+                    $("div#content").html(response);
+                }
+            });
+        });
+    </script>
+}
