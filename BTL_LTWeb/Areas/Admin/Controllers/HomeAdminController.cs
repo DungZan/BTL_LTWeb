@@ -1,7 +1,9 @@
 ﻿using BTL_LTWeb.Models;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using X.PagedList;
 
 namespace BTL_LTWeb.Areas.Admin.Controllers
@@ -100,5 +102,84 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         {
             return View(sp);
         }
+        [Route("Timsanpham")]
+        public IActionResult TimSanPham(string Tensanpham, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TDanhMucSps.AsNoTracking().Where(x => x.TenSp.Contains(Tensanpham)).OrderBy(x => x.TenSp);
+            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+            return View(lst);
+        }
+        [Route("Timsanphamnew")]
+        public IActionResult TimSanPhamNew(string Tensanpham, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TDanhMucSps.AsNoTracking().Where(x => x.TenSp.Contains(Tensanpham)).OrderBy(x => x.TenSp);
+            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+            return PartialView("BangSanPham", lst);
+        }
+        // dashBorad 
+        [Route("DashBoard")]
+        public IActionResult DashBoard()
+        {
+            var lst = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp).Take(4);
+            return View(lst);
+        }
+        // khách hàng
+        [Route("danhsachkhachhang")]
+        public IActionResult danhsachkhachhang(int? Page)
+        {
+            int pageSize = 10;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TKhachHangs.AsNoTracking().OrderBy(x => x.TenKhachHang);
+            PagedList<TKhachHang> lst = new PagedList<TKhachHang>(list, pageNumber, pageSize);
+            return View(lst);
+        }
+        //sửa khách hàng
+        [Route("SuaKhachHang")]
+        [HttpGet]
+        public IActionResult SuaKhachHang(int MaKH)
+        { 
+            ViewBag.Username = new SelectList(db.TUsers.ToList(), "Username", "Username");
+            var kh = db.TKhachHangs.Find(MaKH);
+            return View(kh);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("SuaKhachHang")]
+        public IActionResult SuaKhachHang(TKhachHang kh)
+        {
+            ViewBag.Username = new SelectList(db.TUsers.ToList(), "Username", "Username");
+            if (ModelState.IsValid)
+            {
+                db.Entry(kh).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("danhsachkhachhang","HomeAdmin");
+            }
+            return View(kh);
+        }
+        //xóa khách hàng
+        [Route("XoaKhachHang")]
+        [HttpGet]
+        public IActionResult XoaKhachHang(int MaKH)
+        {
+            var kh = db.TKhachHangs.Find(MaKH);
+            db.Remove(kh);
+            db.SaveChanges();
+            return RedirectToAction("danhsachkhachhang");
+        }
+        //nhân viên
+        [Route("danhsachnhanvien")]
+        public IActionResult danhsachnhanvien(int? Page)
+        {
+            int pageSize = 10;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.TenNhanVien);
+            PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
+            return View(lst);
+        }
+
     }
 }

@@ -5,6 +5,8 @@
     ViewData["Title"] = "danhmucsanpham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div class="row">
+
 @{
     var logMessage = TempData["Log"] as string;
     if (!string.IsNullOrEmpty(logMessage))
@@ -16,7 +18,7 @@
 }
 
 <h1>Danh mục sản phẩm</h1>
-<form asp-controller="Home" asp-action="TimSanPham" method="get" class="site-block-top-search">
+<form asp-area="Admin" asp-controller="HomeAdmin" asp-action="TimSanPham" method="get" class="site-block-top-search d-flex">
     <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
@@ -25,7 +27,7 @@
 </p>
 <div class="alert alert-warning">
 
-    <table class="table table-hover table-responsive d-block">
+    <table class="table table-hover table-responsive">
     <thead>
         <tr class="table-warning">
                 <th class="text-nowrap">
@@ -93,3 +95,18 @@ new X.PagedList.Mvc.Core.PagedListRenderOptions(){
     LiElementClasses = new List<String>{"page-item"},
     PageClasses = new List<String> {"page-link"}
  })
+</div>
+@section Scripts {
+    <script>
+        $("li").click(function(e){
+            var id = $(this).attr("id");
+            $.ajax({
+                url: "HomeAdmin/test",
+                data: { mid: id },
+                success: function (response) {
+                    $("div#content").html(response);
+                }
+            });
+        });
+    </script>
+}
