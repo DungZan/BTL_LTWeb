@@ -1,0 +1,45 @@
+﻿/* Định dạng icon */
+.icon-person {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Định dạng dropdown */
+.dropdown-menu {
+    display: none; /* Ẩn menu theo mặc định */
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+    /* Định dạng các item trong dropdown */
+    .dropdown-menu a,
+    .dropdown-menu button {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: #333;
+        border-radius: 5px;
+        background: none; /* Bỏ nền cho nút */
+        border: none; /* Bỏ viền cho nút */
+        cursor: pointer; /* Hiển thị con trỏ chuột khi hover */
+        transition: background-color 0.3s;
+    }
+
+        /* Hiệu ứng hover cho item */
+        .dropdown-menu a:hover,
+        .dropdown-menu button:hover {
+            background-color: #f0f0f0;
+        }
+
+    /* Thay đổi giao diện cho button để giống như link */
+    .dropdown-menu button {
+        text-align: left; /* Căn trái văn bản trong button */
+        padding: 0; /* Bỏ padding để giống như link */
+        margin: 0; /* Bỏ margin */
+        font: inherit; /* Kế thừa font từ các element cha */
+    }
