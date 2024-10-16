@@ -1,28 +1,29 @@
 ﻿using BTL_LTWeb.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//database config
+
+// Database config
 var connectionString = builder.Configuration.GetConnectionString("QLBanHangBtlwebContext");
-builder.Services.AddDbContext<QlbangHangBtlwebContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<QlbangHangBtlwebContext>(options =>
+    options.UseSqlServer(connectionString));
 
-//set up identity cookie
-builder.Services.AddIdentity<TUser, IdentityRole>()
-    .AddEntityFrameworkStores<QlbangHangBtlwebContext>()
-    .AddDefaultTokenProviders();
+// Add Authentication using Cookie
+builder.Services.AddAuthentication("MyCookieAuthenticationScheme")
+    .AddCookie("MyCookieAuthenticationScheme", options =>
+    {
+        options.LoginPath = "/Account/Login"; // Đường dẫn đến trang đăng nhập
+        options.AccessDeniedPath = "/Account/Login"; // Đường dẫn từ chối truy cập
+        options.SlidingExpiration = true;
+    });
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Account/Login"; // Đường dẫn tới trang đăng nhập
-    options.LogoutPath = "/Account/Logout"; // Đường dẫn tới trang đăng xuất
-    options.AccessDeniedPath = "/Account/AccessDenied"; // Đường dẫn khi quyền bị từ chối
-});
+// Add Authorization
+builder.Services.AddAuthorization();
 
-//
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,10 +39,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Add Authentication and Authorization middleware
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
