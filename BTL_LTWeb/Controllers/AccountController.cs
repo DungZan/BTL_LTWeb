@@ -1,9 +1,7 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace BTL_LTWeb.Controllers
@@ -30,6 +28,11 @@ namespace BTL_LTWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel login)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "");
+                return View(login);
+            }
             var user = _context.TUsers.FirstOrDefault(u => u.Email == login.Email);
             if (user != null)
             {
@@ -42,7 +45,7 @@ namespace BTL_LTWeb.Controllers
                     };
 
                     // Tạo ClaimsIdentity cho người dùng
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsIdentity = new ClaimsIdentity(claims, "MyCookieAuthenticationScheme");
 
                     // Thiết lập thuộc tính AuthenticationProperties
                     var authProperties = new AuthenticationProperties
@@ -50,7 +53,6 @@ namespace BTL_LTWeb.Controllers
                         IsPersistent = login.RememberMe, // Ghi nhớ đăng nhập nếu "Remember me" được chọn
                         ExpiresUtc = login.RememberMe ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddMinutes(30)    // Phiên đăng nhập kéo dài 30 ngày nếu có "Remember me"
                     };
-                    Console.WriteLine($"IsPersistent: {authProperties.IsPersistent}, ExpiresUtc: {authProperties.ExpiresUtc}");
                     // Đăng nhập người dùng
                     await HttpContext.SignInAsync("MyCookieAuthenticationScheme", new ClaimsPrincipal(claimsIdentity), authProperties);
 
@@ -74,31 +76,34 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
-
         [HttpPost]
-        public IActionResult Register(string username, string password, string confirmPassword)
+        public IActionResult Register(RegisterViewModel register)
         {
-            if (password != confirmPassword)
+            if (register.Password != register.ConfirmPassword)
             {
                 ModelState.AddModelError(string.Empty, "Mật khẩu không khớp.");
                 return View("Register");
             }
 
-            var user = _context.TUsers.FirstOrDefault(u => u.Email == username);
+            var user = _context.TUsers.FirstOrDefault(u => u.Email == register.Email);
             if (user != null)
             {
-                ModelState.AddModelError(string.Empty, "Tên đăng nhập đã tồn tại.");
+                ModelState.AddModelError(string.Empty, "Email đã được sử dụng.");
                 return View("Register");
             }
 
             var salt = SecurityHelper.GenerateSalt();
-            var hashedPassword = SecurityHelper.HashPasswordWithSalt(password, salt);
+            var hashedPassword = SecurityHelper.HashPasswordWithSalt(register.Password, salt);
 
             var newUser = new TUser
             {
-                Email = username,
+                Email = register.Email,
                 Password = hashedPassword,
                 Salt = salt,
                 LoaiUser = "KhachHang"
