@@ -1,4 +1,5 @@
-﻿
+﻿@model BTL_LTWeb.ViewModels.RegisterViewModel
+
 @{
     ViewData["Title"] = "Register";
     Layout = "~/Views/Shared/LoginLayout.cshtml";
@@ -6,20 +7,55 @@
 
 <form method="post" asp-controller="Account" asp-action="Register">
     <div class="mb-3">
-        <label for="exampleInputtext1" class="form-label">Email</label>
-        <input type="text" class="form-control" id="exampleInputtext1" aria-describedby="textHelp">
+        <label asp-for="Name" class="form-label">Họ tên</label>
+        <input asp-for="Name" class="form-control" id="Name" aria-describedby="nameHelp">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DateOfBirth" class="form-label">Ngày sinh</label>
+        <input asp-for="DateOfBirth" class="form-control" id="DateOfBirth" type="date">
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
     </div>
     <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email Address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <label asp-for="Address" class="form-label">Địa chỉ</label>
+        <input asp-for="Address" class="form-control" id="Address">
+        <span asp-validation-for="Address" class="text-danger"></span>
     </div>
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label">Số điện thoại</label>
+        <input asp-for="PhoneNumber" class="form-control" id="PhoneNumber">
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email Address</label>
+        <input asp-for="Email" class="form-control" id="Email" type="email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
     <div class="mb-4">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <label asp-for="Password" class="form-label">Mật khẩu</label>
+        <input asp-for="Password" class="form-control" id="Password" type="password">
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
-    <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign Up</a>
+
+    <div class="mb-4">
+        <label asp-for="ConfirmPassword" class="form-label">Xác nhận mật khẩu</label>
+        <input asp-for="ConfirmPassword" class="form-control" id="ConfirmPassword" type="password">
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <div>
+        <span class="text-danger">
+            @Html.ValidationSummary(true) <!-- Hiển thị thông báo lỗi chung -->
+        </span>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Đăng ký</button>
+
     <div class="d-flex align-items-center justify-content-center">
-        <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
-        <a class="text-primary fw-bold ms-2" href="./authentication-login.html">Sign In</a>
+        <p class="fs-4 mb-0 fw-bold">Đã có tài khoản?</p>
+        <a class="text-primary fw-bold ms-2" href="@Url.Action("Login", "Account")">Đăng nhập</a>
     </div>
 </form>
