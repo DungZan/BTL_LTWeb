@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Models;
 
 public partial class QlbangHangBtlwebContext : DbContext
-{
+{ 
     public QlbangHangBtlwebContext()
     {
     }
@@ -33,7 +32,7 @@ public partial class QlbangHangBtlwebContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=PTD-DESKTOP\\SQLEXPRESS;Initial Catalog=QLBangHangBTLWeb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=_1504_\\SQLEXPRESS;Initial Catalog=QLBangHangBTLWeb;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -148,12 +147,12 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.DiaChi).HasMaxLength(255);
             entity.Property(e => e.SoDienThoai).HasMaxLength(20);
             entity.Property(e => e.TenKhachHang).HasMaxLength(100);
-            entity.Property(e => e.Username)
+            entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("username");
 
             entity.HasOne(d => d.UsernameNavigation).WithMany(p => p.TKhachHangs)
-                .HasForeignKey(d => d.Username)
+                .HasForeignKey(d => d.Email)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_KhachHang_User");
         });
@@ -178,11 +177,11 @@ public partial class QlbangHangBtlwebContext : DbContext
 
         modelBuilder.Entity<TUser>(entity =>
         {
-            entity.HasKey(e => e.Username).HasName("PK__tUser__F3DBC5736648EC50");
+            entity.HasKey(e => e.Email).HasName("PK__tUser__F3DBC5736648EC50");
 
             entity.ToTable("tUser");
 
-            entity.Property(e => e.Username)
+            entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("username");
             entity.Property(e => e.LoaiUser).HasMaxLength(50);
@@ -190,7 +189,6 @@ public partial class QlbangHangBtlwebContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("password");
         });
-
         OnModelCreatingPartial(modelBuilder);
     }
 
