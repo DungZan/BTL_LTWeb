@@ -147,12 +147,12 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.DiaChi).HasMaxLength(255);
             entity.Property(e => e.SoDienThoai).HasMaxLength(20);
             entity.Property(e => e.TenKhachHang).HasMaxLength(100);
-            entity.Property(e => e.Username)
+            entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("username");
 
             entity.HasOne(d => d.UsernameNavigation).WithMany(p => p.TKhachHangs)
-                .HasForeignKey(d => d.Username)
+                .HasForeignKey(d => d.Email)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_KhachHang_User");
         });
@@ -177,11 +177,11 @@ public partial class QlbangHangBtlwebContext : DbContext
 
         modelBuilder.Entity<TUser>(entity =>
         {
-            entity.HasKey(e => e.Username).HasName("PK__tUser__F3DBC5736648EC50");
+            entity.HasKey(e => e.Email).HasName("PK__tUser__F3DBC5736648EC50");
 
             entity.ToTable("tUser");
 
-            entity.Property(e => e.Username)
+            entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("username");
             entity.Property(e => e.LoaiUser).HasMaxLength(50);
