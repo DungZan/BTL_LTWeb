@@ -18,7 +18,7 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -76,15 +76,22 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
             return View();
         }
+
         [HttpPost]
         public IActionResult Register(RegisterViewModel register)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "");
+                return View(register);
+            }
+
             if (register.Password != register.ConfirmPassword)
             {
                 ModelState.AddModelError(string.Empty, "Mật khẩu không khớp.");
@@ -101,6 +108,7 @@ namespace BTL_LTWeb.Controllers
             var salt = SecurityHelper.GenerateSalt();
             var hashedPassword = SecurityHelper.HashPasswordWithSalt(register.Password, salt);
 
+            // Tạo đối tượng mới cho người dùng
             var newUser = new TUser
             {
                 Email = register.Email,
@@ -110,9 +118,25 @@ namespace BTL_LTWeb.Controllers
             };
 
             _context.TUsers.Add(newUser);
-            _context.SaveChanges();
+            _context.SaveChanges(); // Lưu người dùng vào cơ sở dữ liệu
+
+            // Thêm thông tin khách hàng vào bảng TKhachHang
+            var newCustomer = new TKhachHang
+            {
+                Email = register.Email,
+                TenKhachHang = register.Name, // Giả sử bạn đã cập nhật ViewModel để bao gồm tên
+                NgaySinh = register.DateOfBirth, // Giả sử bạn đã thêm trường ngày sinh trong ViewModel
+                SoDienThoai = register.PhoneNumber,
+                DiaChi = register.Address,
+                GhiChu = null, // Hoặc một giá trị nào đó nếu cần
+                UsernameNavigation = newUser // Liên kết người dùng với khách hàng
+            };
+
+            _context.TKhachHangs.Add(newCustomer);
+            _context.SaveChanges(); // Lưu thông tin khách hàng vào cơ sở dữ liệu
 
             return RedirectToAction("Login", "Account");
         }
+
     }
 }
