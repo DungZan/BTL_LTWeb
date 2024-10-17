@@ -180,6 +180,7 @@
         @await Html.PartialAsync("_FooterPartial")
     </div>
 
+    <script src="~/js/action.js"></script>
     <script src="~/ResourceTemplale/js/jquery-3.3.1.min.js"></script>
     <script src="~/ResourceTemplale/js/jquery-ui.js"></script>
     <script src="~/ResourceTemplale/js/popper.min.js"></script>
@@ -189,7 +190,24 @@
     <script src="~/ResourceTemplale/js/aos.js"></script>
 
     <script src="~/ResourceTemplale/js/main.js"></script>
-    <script src="~/js/action.js"></script>
-
+    <script>
+        $(document).ready(function () {
+            $('#logout').on('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+                $.ajax({
+                    url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
+                    type: 'POST', // Phương thức POST
+                    success: function (response) {
+                        // Xử lý thành công
+                        window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                    },
+                    error: function (xhr, status, error) {
+                        // Xử lý lỗi
+                        alert('Có lỗi xảy ra trong quá trình đăng xuất.'); // Hiển thị thông báo lỗi
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
