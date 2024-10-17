@@ -8,7 +8,6 @@ using X.PagedList;
 
 namespace BTL_LTWeb.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         QlbangHangBtlwebContext db = new QlbangHangBtlwebContext();
