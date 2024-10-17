@@ -5,6 +5,7 @@ namespace BTL_LTWeb.ViewModels
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Email không được để trống")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Email không hợp lệ")]
         [EmailAddress]
         public string Email { get; set; }
 
