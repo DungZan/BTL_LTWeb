@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using BTL_LTWeb.Services;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -32,7 +33,7 @@ namespace BTL_LTWeb.Controllers
                 return Unauthorized("Tên đăng nhập hoặc mật khẩu không chính xác.");
             }
 
-            var hashedPassword = SecurityHelper.HashPasswordWithSalt(login.Password, user.Salt);
+            var hashedPassword = SecurityService.HashPasswordWithSalt(login.Password, user.Salt);
             if (hashedPassword != user.Password)
             {
                 return Unauthorized("Tên đăng nhập hoặc mật khẩu không chính xác.");
