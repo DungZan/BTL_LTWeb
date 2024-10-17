@@ -1,8 +1,10 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -36,7 +38,7 @@ namespace BTL_LTWeb.Controllers
             var user = _context.TUsers.FirstOrDefault(u => u.Email == login.Email);
             if (user != null)
             {
-                var hashedPassword = SecurityHelper.HashPasswordWithSalt(login.Password, user.Salt);
+                var hashedPassword = SecurityService.HashPasswordWithSalt(login.Password, user.Salt);
                 if (hashedPassword == user.Password)
                 {
                     var claims = new List<Claim>
@@ -105,8 +107,8 @@ namespace BTL_LTWeb.Controllers
                 return View("Register");
             }
 
-            var salt = SecurityHelper.GenerateSalt();
-            var hashedPassword = SecurityHelper.HashPasswordWithSalt(register.Password, salt);
+            var salt = SecurityService.GenerateSalt();
+            var hashedPassword = SecurityService.HashPasswordWithSalt(register.Password, salt);
 
             // Tạo đối tượng mới cho người dùng
             var newUser = new TUser
@@ -116,9 +118,7 @@ namespace BTL_LTWeb.Controllers
                 Salt = salt,
                 LoaiUser = "KhachHang"
             };
-
-            _context.TUsers.Add(newUser);
-            _context.SaveChanges(); // Lưu người dùng vào cơ sở dữ liệu
+            TempData["NewUser"] = JsonSerializer.Serialize(newUser);
 
             // Thêm thông tin khách hàng vào bảng TKhachHang
             var newCustomer = new TKhachHang
@@ -132,11 +132,51 @@ namespace BTL_LTWeb.Controllers
                 UsernameNavigation = newUser // Liên kết người dùng với khách hàng
             };
 
+            TempData["newCustomer"] = JsonSerializer.Serialize(newCustomer);
+
+            return RedirectToAction("VerifyEmail");
+        }
+
+        // verify email
+        [HttpGet]
+        public IActionResult VerifyEmail()
+        {
+            //  GenerateRandomCode
+            var verifyCode = SecurityService.GenerateRandomCode();
+            var newUser = JsonSerializer.Deserialize<TUser>(TempData["NewUser"].ToString());
+            var newCustomer = JsonSerializer.Deserialize<TKhachHang>(TempData["newCustomer"].ToString());
+            var email = newUser.Email;
+            var name = newCustomer.TenKhachHang;
+            new EmailService().SendEmail(email, name, verifyCode);
+
+            TempData["code"] = verifyCode;
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult VerifyEmail(VerifyCodeViewModel verify)
+        {
+            if(!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "");
+                return View(verify);
+            }
+
+            var code = TempData["code"].ToString();
+            if (verify.ConfirmationCode != code)
+            {
+                ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
+                return View(verify);
+            }
+
+            var newUser = JsonSerializer.Deserialize<TUser>(TempData["NewUser"].ToString());
+            var newCustomer = JsonSerializer.Deserialize<TKhachHang>(TempData["newCustomer"].ToString());
+            _context.TUsers.Add(newUser);
             _context.TKhachHangs.Add(newCustomer);
-            _context.SaveChanges(); // Lưu thông tin khách hàng vào cơ sở dữ liệu
+            _context.SaveChanges();
 
             return RedirectToAction("Login", "Account");
         }
-
     }
 }
