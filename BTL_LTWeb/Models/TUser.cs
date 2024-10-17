@@ -6,7 +6,7 @@ namespace BTL_LTWeb.Models;
 public partial class TUser
 {
     [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Email không hợp lệ")]
-    public string Username { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
     public string Password { get; set; } = null!;
 
