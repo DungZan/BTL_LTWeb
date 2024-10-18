@@ -10,13 +10,13 @@ namespace BTL_LTWeb.Services
         public EmailService()
         {
         }
-        public void SendEmail(string to, string name, string code)
+        public int SendEmail(string to, string name, string code)
         {
 
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);
-            message.Subject = "Test Subject";
+            message.Subject = "Xác thực email";
             message.To.Add(new MailAddress(to));
             message.Body = GetEmailTemplate(to, name, code);
             message.IsBodyHtml = true;
@@ -27,8 +27,15 @@ namespace BTL_LTWeb.Services
                 Credentials = new NetworkCredential(fromMail, fromPassword),
                 EnableSsl = true,
             };
-
-            smtpClient.Send(message);
+            try
+            {
+                smtpClient.Send(message);
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         private string GetEmailTemplate(string receiver, string name, string code)
@@ -89,7 +96,7 @@ namespace BTL_LTWeb.Services
                         <div class='content'>
                             <h2>Chào {register.Name},</h2>
                             <p>Cảm ơn bạn đã đăng ký tài khoản với chúng tôi!</p>
-                            <p>Để hoàn tất quá trình đăng ký, xin vui lòng nhấn vào nút bên dưới để xác nhận tài khoản của bạn:</p>
+                            <p>Để hoàn tất quá trình đăng ký, xin vui lòng nhập mã bên dưới để xác nhận tài khoản của bạn:</p>
                             <a href='{{ConfirmationLink}}' class='button'>{code}</a>
                             <p>Nếu bạn không thực hiện yêu cầu này, bạn có thể bỏ qua email này.</p>
                             <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>
@@ -103,8 +110,8 @@ namespace BTL_LTWeb.Services
             ;
 
             body = body.Replace("{register.Name}", name)
-            .Replace("{code}", code)    
-           .Replace("{CurrentYear}", DateTime.Now.ToString("hh:mm:ss dd:MM:yyyy"));
+            .Replace("{code}", code)
+           .Replace("{DateTime.Now.Year}", DateTime.Now.ToString("hh:mm:ss dd:MM:yyyy"));
 
             return body;
         }
