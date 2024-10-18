@@ -1,4 +1,4 @@
-﻿@*
+﻿﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -20,10 +20,10 @@
     <link rel="stylesheet" href="~/ResourceTemplale/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/ResourceTemplale/css/owl.theme.default.min.css">
 
-
     <link rel="stylesheet" href="~/ResourceTemplale/css/aos.css">
 
     <link rel="stylesheet" href="~/ResourceTemplale/css/style.css">
+    <link rel="stylesheet" href="~/css/dropdown.css">
 
 </head>
 <body>
@@ -50,7 +50,7 @@
                                 <div class="float-md-left mb-4"><h2 class="text-black h5">Shop All</h2></div>
                                 <div class="d-flex">
                                     <div class="dropdown mr-1 ml-md-auto">
-                                            @await Component.InvokeAsync("LoaiLatest")
+                                        @await Component.InvokeAsync("LoaiLatest")
                                     </div>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
@@ -65,21 +65,21 @@
                                     </div>
                                 </div>
                                 <form asp-controller="Home" asp-action="TimSanPham" method="get" class="site-block-top-search">
-                                      <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
-                                      <button type="submit" class="btn btn-primary">Search</button>
+                                    <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
+                                    <button type="submit" class="btn btn-primary">Search</button>
                                 </form>
                             </div>
                         </div>
-                        
-                            <!-- danh mục sản phẩm-->
-                            @RenderBody()
-                        
+
+                        <!-- danh mục sản phẩm-->
+                        @RenderBody()
+
                     </div>
 
                     <div class="col-md-3 order-1 mb-5 mb-md-0">
                         <div class="border p-4 rounded mb-4">
                             <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
-                                
+
                             @await Component.InvokeAsync("Loai")
                         </div>
 
@@ -149,7 +149,7 @@
                                 <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
                                     <a class="block-2-item" href="#">
                                         <figure class="image">
-                                             <img src="~/ResourceTemplale/images/children.jpg" alt="" class="img-fluid">
+                                            <img src="~/ResourceTemplale/images/children.jpg" alt="" class="img-fluid">
                                         </figure>
                                         <div class="text">
                                             <span class="text-uppercase">Collections</span>
@@ -180,6 +180,7 @@
         @await Html.PartialAsync("_FooterPartial")
     </div>
 
+    <script src="~/js/action.js"></script>
     <script src="~/ResourceTemplale/js/jquery-3.3.1.min.js"></script>
     <script src="~/ResourceTemplale/js/jquery-ui.js"></script>
     <script src="~/ResourceTemplale/js/popper.min.js"></script>
@@ -189,6 +190,24 @@
     <script src="~/ResourceTemplale/js/aos.js"></script>
 
     <script src="~/ResourceTemplale/js/main.js"></script>
-
+    <script>
+        $(document).ready(function () {
+            $('#logout').on('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+                $.ajax({
+                    url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
+                    type: 'POST', // Phương thức POST
+                    success: function (response) {
+                        // Xử lý thành công
+                        window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                    },
+                    error: function (xhr, status, error) {
+                        // Xử lý lỗi
+                        alert('Có lỗi xảy ra trong quá trình đăng xuất.'); // Hiển thị thông báo lỗi
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

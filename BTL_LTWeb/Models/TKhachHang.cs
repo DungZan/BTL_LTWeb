@@ -8,7 +8,7 @@ public partial class TKhachHang
 {
     public int MaKhachHang { get; set; }
 
-    public string Username { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
     public string? TenKhachHang { get; set; }
 
