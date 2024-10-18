@@ -1,8 +1,10 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -18,7 +20,7 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -36,7 +38,7 @@ namespace BTL_LTWeb.Controllers
             var user = _context.TUsers.FirstOrDefault(u => u.Email == login.Email);
             if (user != null)
             {
-                var hashedPassword = SecurityHelper.HashPasswordWithSalt(login.Password, user.Salt);
+                var hashedPassword = SecurityService.HashPasswordWithSalt(login.Password, user.Salt);
                 if (hashedPassword == user.Password)
                 {
                     var claims = new List<Claim>
@@ -76,15 +78,22 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            if(User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
             return View();
         }
+
         [HttpPost]
         public IActionResult Register(RegisterViewModel register)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "");
+                return View(register);
+            }
+
             if (register.Password != register.ConfirmPassword)
             {
                 ModelState.AddModelError(string.Empty, "Mật khẩu không khớp.");
@@ -97,10 +106,46 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Email đã được sử dụng.");
                 return View("Register");
             }
+            TempData["Register"] = JsonSerializer.Serialize(register);
 
-            var salt = SecurityHelper.GenerateSalt();
-            var hashedPassword = SecurityHelper.HashPasswordWithSalt(register.Password, salt);
+            return RedirectToAction("VerifyEmail");
+        }
 
+        // verify email
+        [HttpGet]
+        public IActionResult VerifyEmail()
+        {
+            var verifyCode = SecurityService.GenerateRandomCode();
+            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+            TempData.Keep();
+            var email = register.Email;
+            var name = register.Name;
+            int res = new EmailService().SendEmail(email, name, verifyCode);
+            TempData["code"] = verifyCode;
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult VerifyEmail(VerifyCodeViewModel verify)
+        {
+            if(!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "");
+                return View(verify);
+            }
+
+            var code = TempData["code"].ToString();
+            TempData.Keep();
+            if (verify.ConfirmationCode != code)
+            {
+                ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
+                return View(verify);
+            }
+
+            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+            var salt = SecurityService.GenerateSalt();
+            var hashedPassword = SecurityService.HashPasswordWithSalt(register.Password, salt);
             var newUser = new TUser
             {
                 Email = register.Email,
@@ -108,8 +153,19 @@ namespace BTL_LTWeb.Controllers
                 Salt = salt,
                 LoaiUser = "KhachHang"
             };
-
             _context.TUsers.Add(newUser);
+            _context.SaveChanges();
+            var newCustomer = new TKhachHang
+            {
+                Email = register.Email,
+                TenKhachHang = register.Name, 
+                NgaySinh = register.DateOfBirth, 
+                SoDienThoai = register.PhoneNumber,
+                DiaChi = register.Address,
+                GhiChu = null, 
+                UsernameNavigation = newUser 
+            };
+            _context.TKhachHangs.Add(newCustomer);
             _context.SaveChanges();
 
             return RedirectToAction("Login", "Account");

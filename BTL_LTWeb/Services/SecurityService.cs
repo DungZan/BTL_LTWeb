@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace BTL_LTWeb.Models
+namespace BTL_LTWeb.Services
 {
-    public class SecurityHelper
+    public class SecurityService
     {
         public static string GenerateSalt(int size = 32)
         {
@@ -11,6 +11,12 @@ namespace BTL_LTWeb.Models
             var saltBytes = new byte[size];
             rng.GetBytes(saltBytes);
             return Convert.ToBase64String(saltBytes);
+        }
+
+        public static string GenerateRandomCode(int length = 6)
+        {
+            Random random = new Random();
+            return string.Join("", Enumerable.Range(0, length).Select(_ => random.Next(0, 10)));
         }
 
         public static string HashPasswordWithSalt(string password, string salt)
