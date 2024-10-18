@@ -106,33 +106,7 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Email đã được sử dụng.");
                 return View("Register");
             }
-
-            var salt = SecurityService.GenerateSalt();
-            var hashedPassword = SecurityService.HashPasswordWithSalt(register.Password, salt);
-
-            // Tạo đối tượng mới cho người dùng
-            var newUser = new TUser
-            {
-                Email = register.Email,
-                Password = hashedPassword,
-                Salt = salt,
-                LoaiUser = "KhachHang"
-            };
-            TempData["NewUser"] = JsonSerializer.Serialize(newUser);
-
-            // Thêm thông tin khách hàng vào bảng TKhachHang
-            var newCustomer = new TKhachHang
-            {
-                Email = register.Email,
-                TenKhachHang = register.Name, // Giả sử bạn đã cập nhật ViewModel để bao gồm tên
-                NgaySinh = register.DateOfBirth, // Giả sử bạn đã thêm trường ngày sinh trong ViewModel
-                SoDienThoai = register.PhoneNumber,
-                DiaChi = register.Address,
-                GhiChu = null, // Hoặc một giá trị nào đó nếu cần
-                UsernameNavigation = newUser // Liên kết người dùng với khách hàng
-            };
-
-            TempData["newCustomer"] = JsonSerializer.Serialize(newCustomer);
+            TempData["Register"] = JsonSerializer.Serialize(register);
 
             return RedirectToAction("VerifyEmail");
         }
@@ -141,14 +115,12 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult VerifyEmail()
         {
-            //  GenerateRandomCode
             var verifyCode = SecurityService.GenerateRandomCode();
-            var newUser = JsonSerializer.Deserialize<TUser>(TempData["NewUser"].ToString());
-            var newCustomer = JsonSerializer.Deserialize<TKhachHang>(TempData["newCustomer"].ToString());
-            var email = newUser.Email;
-            var name = newCustomer.TenKhachHang;
-            new EmailService().SendEmail(email, name, verifyCode);
-
+            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+            TempData.Keep();
+            var email = register.Email;
+            var name = register.Name;
+            int res = new EmailService().SendEmail(email, name, verifyCode);
             TempData["code"] = verifyCode;
             return View();
 
@@ -164,15 +136,35 @@ namespace BTL_LTWeb.Controllers
             }
 
             var code = TempData["code"].ToString();
+            TempData.Keep();
             if (verify.ConfirmationCode != code)
             {
                 ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
                 return View(verify);
             }
 
-            var newUser = JsonSerializer.Deserialize<TUser>(TempData["NewUser"].ToString());
-            var newCustomer = JsonSerializer.Deserialize<TKhachHang>(TempData["newCustomer"].ToString());
+            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+            var salt = SecurityService.GenerateSalt();
+            var hashedPassword = SecurityService.HashPasswordWithSalt(register.Password, salt);
+            var newUser = new TUser
+            {
+                Email = register.Email,
+                Password = hashedPassword,
+                Salt = salt,
+                LoaiUser = "KhachHang"
+            };
             _context.TUsers.Add(newUser);
+            _context.SaveChanges();
+            var newCustomer = new TKhachHang
+            {
+                Email = register.Email,
+                TenKhachHang = register.Name, 
+                NgaySinh = register.DateOfBirth, 
+                SoDienThoai = register.PhoneNumber,
+                DiaChi = register.Address,
+                GhiChu = null, 
+                UsernameNavigation = newUser 
+            };
             _context.TKhachHangs.Add(newCustomer);
             _context.SaveChanges();
 
