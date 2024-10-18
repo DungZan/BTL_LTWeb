@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using BTL_LTWeb.Services;
+using System.Text.Json;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -61,6 +62,27 @@ namespace BTL_LTWeb.Controllers
         {
             await HttpContext.SignOutAsync("MyCookieAuthenticationScheme");
             return Ok();
+        }
+
+        [HttpPost("resend-verify-email")]
+        public IActionResult ResendVerifyEmail()
+        {
+            if (TempData["Register"] == null)
+            {
+                return BadRequest("Không có thông tin người dùng để gửi mã xác nhận.");
+            }
+
+            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+
+            var verifyCode = SecurityService.GenerateRandomCode();
+
+            new EmailService().SendEmail(register.Email, register.Name, verifyCode);
+
+            TempData["code"] = verifyCode;
+
+            TempData.Keep();
+
+            return Ok(new { message = "Mã xác nhận đã được gửi lại." });
         }
     }
 }
