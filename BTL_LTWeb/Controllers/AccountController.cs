@@ -167,7 +167,7 @@ namespace BTL_LTWeb.Controllers
             };
             _context.TKhachHangs.Add(newCustomer);
             _context.SaveChanges();
-
+            TempData.Clear();
             return RedirectToAction("Login", "Account");
         }
     }
