@@ -8,12 +8,12 @@
 <form method="post" asp-controller="Account" asp-action="Login">
     <div class="mb-3">
         <label asp-for="Email" class="form-label">Tên người dùng</label>
-        <input asp-for="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+        <input asp-for="Email" class="form-control" aria-describedby="emailHelp" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="mb-4">
         <label asp-for="Password" class="form-label">Mật khẩu</label>
-        <input asp-for="Password" type="password" class="form-control" id="exampleInputPassword1" />
+        <input asp-for="Password" type="password" class="form-control" />
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
     <div>
@@ -32,7 +32,7 @@
     </div>
     <button type="submit" class="btn btn-primary w-100 py-2 fs-4 mb-4 rounded-2">Đăng nhập</button>
     <div class="d-flex align-items-center justify-content-center">
-        <p class="fs-4 mb-0 fw-bold">Mới đến Modernize?</p>
+        <p class="fs-4 mb-0 fw-bold">Mới đến BeA Fashion?</p>
         <a class="text-primary fw-bold ms-2" href="@Url.Action("Register", "Account")">Tạo tài khoản</a>
     </div>
 </form>
