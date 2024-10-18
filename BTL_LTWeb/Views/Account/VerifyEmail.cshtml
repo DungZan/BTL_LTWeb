@@ -1,33 +1,93 @@
 ﻿@model BTL_LTWeb.ViewModels.VerifyCodeViewModel
 
 @{
-    ViewData["Title"] = "Nhập Mã Xác Nhận";
-    Layout = "~/Views/Shared/LoginLayout.cshtml"; 
+    ViewData["Title"] = "Xác Nhận Email";
+    Layout = "~/Views/Shared/LoginLayout.cshtml";
 }
-
+<br />
+<br />
 <h2>Nhập Mã Xác Nhận</h2>
+<br />
+<br />
+<div>
+    <p>Chúng tôi đã gửi mã xác nhận đến email của Bạn. Vui lòng nhập mã và xác nhận.</p>
 
-<form method="post" asp-controller="Account" asp-action="VerifyEmail">
-    <div class="mb-3">
-        <label asp-for="ConfirmationCode" class="form-label">Mã xác nhận</label>
-        <input asp-for="ConfirmationCode" class="form-control" />
-        <span asp-validation-for="ConfirmationCode" class="text-danger"></span>
-    </div>
 
-    <div>
-        <span class="text-danger">
-            @Html.ValidationSummary(true) <!-- Hiển thị thông báo lỗi chung -->
-        </span>
-    </div>
+    <!-- Form nhập mã xác nhận -->
+    <form method="post" asp-controller="Account" asp-action="VerifyEmail">
+        <div class="mb-3">
+            <label asp-for="ConfirmationCode" class="form-label">Mã xác nhận</label>
+            <input asp-for="ConfirmationCode" class="form-control" />
+            <span asp-validation-for="ConfirmationCode" class="text-danger"></span>
+        </div>
 
-    <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-primary">Xác Nhận</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='@Url.Action("Index", "Account")'">Hủy</button>
-    </div>
-</form>
-
+        <div>
+            <span class="text-danger">
+                @Html.ValidationSummary(true) <!-- Hiển thị thông báo lỗi chung -->
+            </span>
+        </div>
+        <p id="message">Gửi lại mã sau <span id="countdown">30</span> giây.</p>
+        <!-- Nút gửi lại mã (ban đầu bị vô hiệu hóa) -->
+        <a class="text-primary fw-bold ms-2" id="resendCodeBtn" onclick="resendCode()" style="cursor:pointer">Gửi lại mã</a><br />
+        <div class="d-flex justify-content-between align-items-sm-center">
+            <a class="text-primary fw-bold ms-2" onclick="window.location.href='@Url.Action("Login", "Account")'" style="cursor:pointer">Hủy</a>
+            <button type="submit" class="btn btn-primary">Xác Nhận</button>
+        </div>
+    </form>
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        let countdownElement = document.getElementById('countdown');
+        let message = document.getElementById('message');
+        let resendCodeBtn = document.getElementById('resendCodeBtn');
+        let countdown = 30;
+        resendCodeBtn.style.display = 'none';
+        // Hàm đếm ngược
+        let timer = setInterval(function () {
+            countdown--;
+            countdownElement.textContent = countdown;
+
+            // Khi hết thời gian, cho phép gửi lại mã
+            if (countdown <= 0) {
+                clearInterval(timer);
+
+                message.style.display = 'none';
+                resendCodeBtn.style.display = 'inline-block';
+            }
+        }, 1000);
+
+        // Hàm gửi lại mã
+        function resendCode() {
+            // Gửi yêu cầu AJAX tới API gửi lại mã
+            $.ajax({
+                url: '/api/AccountApi/resend-verify-email', // Đường dẫn đến API gửi lại mã xác thực
+                type: 'POST', // Phương thức POST
+                success: function (response) {
+                    alert('Mã xác thực mới đã được gửi lại.'); // Hiển thị thông báo khi gửi lại thành công
+                    countdown = 30;
+                    resendCodeBtn.style.display = 'none';
+                    message.style.display = 'inline-block';
+
+                   
+                    timer = setInterval(function () {
+                        countdown--;
+                        countdownElement.textContent = countdown;
+
+                        if (countdown <= 0) {
+                            clearInterval(timer);
+                            resendCodeBtn.style.display = 'inline-block';
+                            message.style.display = 'none';
+                        }
+                    }, 1000);
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi nếu không thành công
+                    alert('Có lỗi xảy ra trong quá trình gửi lại mã xác thực.');
+                }
+            });
+        }
+    </script>
 }
