@@ -5,7 +5,7 @@ namespace BTL_LTWeb.ViewModels
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Tên không được để trống")]
-        [RegularExpression(@"^[a-zA-Zàáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳỵỷỹý -]+$", ErrorMessage = "Tên không hợp lệ")]
+        [RegularExpression(@"^[a-zA-ZÀÁẢÃẠÂẦẤẨẪẬĂẰẮẲẴẶÈÉẺẼẸÊỀẾỂỄỆĐÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲỴỶỸÝàáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳỵỷỹý -]+$", ErrorMessage = "Tên không hợp lệ")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Ngày sinh không được để trống")]
