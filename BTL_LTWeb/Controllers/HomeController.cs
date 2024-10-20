@@ -1,5 +1,6 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -9,7 +10,7 @@ namespace BTL_LTWeb.Controllers
 {
     public class HomeController : Controller
     {
-        QlbangHangBtlwebContext db = new QlbangHangBtlwebContext();
+        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)

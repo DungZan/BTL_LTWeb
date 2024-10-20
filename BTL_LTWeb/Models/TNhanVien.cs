@@ -9,7 +9,7 @@ public partial class TNhanVien
 {
     public int MaNhanVien { get; set; }
 
-    public string Username { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
     public string? TenNhanVien { get; set; }
 

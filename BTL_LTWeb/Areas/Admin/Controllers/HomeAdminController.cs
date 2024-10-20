@@ -13,7 +13,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Route("Admin/HomeAdmin")]
     public class HomeAdminController : Controller
     {
-        QlbangHangBtlwebContext db = new QlbangHangBtlwebContext();
+        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
         [Route("")]
         [Route("Index")]
         public IActionResult Index()
@@ -142,7 +142,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult SuaKhachHang(int MaKH)
         { 
-            ViewBag.Username = new SelectList(db.TUsers.ToList(), "Username", "Username");
+            ViewBag.Username = new SelectList(db.TUsers.ToList(), "Email", "Email");
             var kh = db.TKhachHangs.Find(MaKH);
             return View(kh);
         }
@@ -151,7 +151,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("SuaKhachHang")]
         public IActionResult SuaKhachHang(TKhachHang kh)
         {
-            ViewBag.Username = new SelectList(db.TUsers.ToList(), "Username", "Username");
+            ViewBag.Username = new SelectList(db.TUsers.ToList(), "Email", "Email");
             if (ModelState.IsValid)
             {
                 db.Entry(kh).State = EntityState.Modified;

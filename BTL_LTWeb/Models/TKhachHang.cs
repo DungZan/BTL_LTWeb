@@ -8,7 +8,7 @@ public partial class TKhachHang
 {
     public int MaKhachHang { get; set; }
 
-    public string Username { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
     public string? TenKhachHang { get; set; }
 
@@ -20,5 +20,5 @@ public partial class TKhachHang
 
     public string? GhiChu { get; set; }
     [ValidateNever]
-    public virtual TUser UsernameNavigation { get; set; } = null!;
+    public virtual TUser User { get; set; } = null!;
 }
