@@ -11,5 +11,5 @@ public partial class TAnhSp
 
     public string? ViTri { get; set; }
 
-    public virtual TDanhMucSp MaSpNavigation { get; set; } = null!;
+    public virtual TDanhMucSp DangMucSp { get; set; } = null!;
 }

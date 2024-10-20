@@ -6,8 +6,8 @@ namespace BTL_LTWeb.ViewComponents
 {
     public class LoaiLatestViewComponent : ViewComponent
     {
-        QlbangHangBtlwebContext _context;
-        public LoaiLatestViewComponent(QlbangHangBtlwebContext context)
+        QLBanDoThoiTrangContext _context;
+        public LoaiLatestViewComponent(QLBanDoThoiTrangContext context)
         {
             _context = context;
         }

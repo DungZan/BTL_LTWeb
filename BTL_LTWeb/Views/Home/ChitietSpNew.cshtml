@@ -10,13 +10,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+                <img src="~/ResourceTemplale/images/@($"{Model.product.AnhDaiDien}.jpg")" alt="Image" class="img-fluid">
             </div>
             <div class="col-md-6">
                 <h2 class="text-black">@Model.product.TenSp</h2>
                 <p>@Model.product.GioiThieuSp</p>
                 <p class="mb-4">@Model.product.GioiThieuSp</p>
-                <p><strong class="text-primary h4">$@Model.product.GiaLonNhat</strong></p>
+                <p><strong class="text-primary h4">$@Model.product.Gia</strong></p>
                 <div class="mb-1 d-flex">
                     <label for="option-sm" class="d-flex mr-3 mb-3">
                         <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>

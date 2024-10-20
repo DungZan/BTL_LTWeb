@@ -5,6 +5,8 @@
     ViewData["Title"] = "danhmucsanpham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<div class="row" >
+
 @{
     var logMessage = TempData["Log"] as string;
     if (!string.IsNullOrEmpty(logMessage))
@@ -16,16 +18,16 @@
 }
 
 <h1>Danh mục sản phẩm</h1>
-<form asp-controller="Home" asp-action="TimSanPham" method="get" class="site-block-top-search">
-    <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
 <p>
     <a class="btn btn-info" asp-action="themsanpham">Create New</a>
 </p>
-<div class="alert alert-warning">
+    <form class="site-block-top-search d-flex">
+        <input type="text" class="form-control border-1" placeholder="Search" oninput="timSanPham(this.value)">
+    </form>
 
-    <table class="table table-hover table-responsive d-block">
+<div class="alert alert-warning" id="content" >
+
+    <table class="table table-hover table-responsive">
     <thead>
         <tr class="table-warning">
                 <th class="text-nowrap">
@@ -76,7 +78,7 @@
                 @Html.DisplayFor(modelItem => item.GioiThieuSp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiaLonNhat)
+                @Html.DisplayFor(modelItem => item.Gia)
             </td>
                     <td class=" text-nowrap">
                 <a asp-action="suasanpham" asp-route-MaSP="@item.MaSp">Edit</a> |
@@ -87,9 +89,45 @@
 }
     </tbody>
 </table>
-</div>
+
 @Html.PagedListPager(Model, page => Url.Action("danhmucsanpham", new {page=page}), 
 new X.PagedList.Mvc.Core.PagedListRenderOptions(){
     LiElementClasses = new List<String>{"page-item"},
     PageClasses = new List<String> {"page-link"}
  })
+ </div>
+</div>
+@section Scripts {
+    <script>
+        function timSanPham(value) {
+            if (value.length > 0) {
+                $.ajax({
+                    url: "TimSanPhamNew",
+                    data: { Tensanpham: value },
+                    success: function (response) {
+                        $("div#content").html(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Đã xảy ra lỗi: " + error);
+                    }
+
+                });
+            }
+            else {
+                $.ajax({
+                    url: "TimSanPhamNew1",
+                    data: { Tensanpham: value },
+                    success: function (response) {
+                        $("div#content").html(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Đã xảy ra lỗi: " + error);
+                    }
+
+                });
+            }
+        }
+    </script>
+}
