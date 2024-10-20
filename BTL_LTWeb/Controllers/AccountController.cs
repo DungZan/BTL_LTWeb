@@ -10,9 +10,9 @@ namespace BTL_LTWeb.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly QlbangHangBtlwebContext _context;
+        private readonly QLBanDoThoiTrangContext _context;
 
-        public AccountController(QlbangHangBtlwebContext context)
+        public AccountController(QLBanDoThoiTrangContext context)
         {
             _context = context;
         }
@@ -163,7 +163,7 @@ namespace BTL_LTWeb.Controllers
                 SoDienThoai = register.PhoneNumber,
                 DiaChi = register.Address,
                 GhiChu = null, 
-                UsernameNavigation = newUser 
+                User = newUser 
             };
             _context.TKhachHangs.Add(newCustomer);
             _context.SaveChanges();
