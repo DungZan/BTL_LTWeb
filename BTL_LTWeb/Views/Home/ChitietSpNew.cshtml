@@ -1,11 +1,17 @@
 ﻿
 @{
     ViewData["Title"] = "ChitietSp";
-    Layout = "~/Views/Shared/ShopLayout.cshtml";
+    Layout = "~/Views/Shared/DetailLayout.cshtml";
 }
 
 @model BTL_LTWeb.ViewModels.HomeProductDetailViewModel
-<h1>ChitietSp</h1>
+<div class="bg-light py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0"><a href="Home">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">@Model.product.TenSp</strong></div>
+        </div>
+    </div>
+</div>
 <div class="site-section">
     <div class="container">
         <div class="row">
