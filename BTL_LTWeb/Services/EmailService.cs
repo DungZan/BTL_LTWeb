@@ -1,25 +1,30 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using Microsoft.Extensions.Options;
 
 namespace BTL_LTWeb.Services
 {
     public class EmailService
     {
-        private readonly string fromMail = "caminh2k4@gmail.com";
-        private readonly string fromPassword = "ceed izuv cnhn nqxr";
-        public EmailService()
+        private readonly string fromMail;
+        private readonly string fromPassword;
+
+        public EmailService(IOptions<EmailSettings> emailSettings)
         {
+            fromMail = emailSettings.Value.FromMail;
+            fromPassword = emailSettings.Value.FromPassword;
         }
-        public int SendEmail(string to, string name, string code)
+
+        public async Task<int> SendEmailAsync(string to, string name, string code)
         {
-
-
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress(fromMail);
-            message.Subject = "Xác thực email";
+            MailMessage message = new MailMessage
+            {
+                From = new MailAddress(fromMail),
+                Subject = "Xác thực email",
+                Body = GetEmailTemplate(to, name, code),
+                IsBodyHtml = true
+            };
             message.To.Add(new MailAddress(to));
-            message.Body = GetEmailTemplate(to, name, code);
-            message.IsBodyHtml = true;
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
@@ -27,17 +32,25 @@ namespace BTL_LTWeb.Services
                 Credentials = new NetworkCredential(fromMail, fromPassword),
                 EnableSsl = true,
             };
+
             try
             {
-                smtpClient.Send(message);
-                return 1;
+                await smtpClient.SendMailAsync(message);
+                return 1; // Gửi thành công
             }
-            catch (Exception)
+            catch (SmtpException smtpEx)
             {
-                return 0;
+                // Xử lý lỗi SMTP
+                Console.WriteLine($"SMTP Error: {smtpEx.Message}");
+                return 0; // Gửi thất bại
+            }
+            catch (Exception ex)
+            {
+                // Xử lý các lỗi khác
+                Console.WriteLine($"Error: {ex.Message}");
+                return 0; // Gửi thất bại
             }
         }
-
         private string GetEmailTemplate(string receiver, string name, string code)
         {
             var body =
@@ -94,7 +107,7 @@ namespace BTL_LTWeb.Services
                             <h1>Xác Nhận Tài Khoản</h1>
                         </div>
                         <div class='content'>
-                            <h2>Chào {register.Name},</h2>
+                            <h2>Chào {name},</h2>
                             <p>Cảm ơn bạn đã đăng ký tài khoản với chúng tôi!</p>
                             <p>Để hoàn tất quá trình đăng ký, xin vui lòng nhập mã bên dưới để xác nhận tài khoản của bạn:</p>
                             <a href='{{ConfirmationLink}}' class='button'>{code}</a>
@@ -106,12 +119,11 @@ namespace BTL_LTWeb.Services
                         </div>
                     </div>
                 </body>
-                </html>"
-            ;
+                </html>";
 
-            body = body.Replace("{register.Name}", name)
-            .Replace("{code}", code)
-           .Replace("{DateTime.Now.Year}", DateTime.Now.ToString("hh:mm:ss dd:MM:yyyy"));
+            body = body.Replace("{name}", name)
+                       .Replace("{code}", code)
+                       .Replace("{DateTime.Now.Year}", DateTime.Now.Year.ToString());
 
             return body;
         }

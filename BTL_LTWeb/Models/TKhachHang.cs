@@ -20,5 +20,5 @@ public partial class TKhachHang
 
     public string? GhiChu { get; set; }
     [ValidateNever]
-    public virtual TUser UsernameNavigation { get; set; } = null!;
+    public virtual TUser User { get; set; } = null!;
 }

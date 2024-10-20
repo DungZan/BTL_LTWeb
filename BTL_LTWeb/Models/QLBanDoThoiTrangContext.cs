@@ -1,38 +1,31 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace BTL_LTWeb.Models;
 
-public partial class QlbangHangBtlwebContext : DbContext
-{ 
-    public QlbangHangBtlwebContext()
+public partial class QLBanDoThoiTrangContext : DbContext
+{
+    public QLBanDoThoiTrangContext()
     {
     }
 
-    public QlbangHangBtlwebContext(DbContextOptions<QlbangHangBtlwebContext> options)
+    public QLBanDoThoiTrangContext(DbContextOptions<QLBanDoThoiTrangContext> options)
         : base(options)
     {
     }
 
     public virtual DbSet<TAnhChiTietSp> TAnhChiTietSps { get; set; }
-
     public virtual DbSet<TAnhSp> TAnhSps { get; set; }
-
     public virtual DbSet<TChiTietSanPham> TChiTietSanPhams { get; set; }
-
     public virtual DbSet<TDanhMucSp> TDanhMucSps { get; set; }
-
+    public virtual DbSet<TChiTietHoaDonBan> TChiTietHoaDonBans { get; set; }
     public virtual DbSet<THoaDonBan> THoaDonBans { get; set; }
-
     public virtual DbSet<TKhachHang> TKhachHangs { get; set; }
-
     public virtual DbSet<TNhanVien> TNhanViens { get; set; }
-
     public virtual DbSet<TUser> TUsers { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=_1504_\\SQLEXPRESS;Initial Catalog=QLBangHangBTLWeb;Integrated Security=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=_1504_\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -46,7 +39,7 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.TenFileAnh).HasMaxLength(255);
             entity.Property(e => e.ViTri).HasMaxLength(255);
 
-            entity.HasOne(d => d.MaChiTietSpNavigation).WithMany(p => p.TAnhChiTietSps)
+            entity.HasOne(d => d.ChiTietSanPham).WithMany(p => p.TAnhChiTietSps)
                 .HasForeignKey(d => d.MaChiTietSp)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AnhChiTietSP_ChiTietSP");
@@ -62,10 +55,11 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.TenFileAnh).HasMaxLength(255);
             entity.Property(e => e.ViTri).HasMaxLength(255);
 
-            entity.HasOne(d => d.MaSpNavigation).WithMany(p => p.TAnhSps)
+            // Sửa chỗ này cho đúng với liên kết tới bảng tChiTietSanPham
+            entity.HasOne(d => d.DangMucSp).WithMany(p => p.TAnhSps)
                 .HasForeignKey(d => d.MaSp)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AnhSP_DanhMucSP");
+                .HasConstraintName("FK_AnhSP_ChiTietSanPham");
         });
 
         modelBuilder.Entity<TChiTietSanPham>(entity =>
@@ -82,7 +76,7 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.MauSac).HasMaxLength(50);
             entity.Property(e => e.Slton).HasColumnName("SLTon");
 
-            entity.HasOne(d => d.MaSpNavigation).WithMany(p => p.TChiTietSanPhams)
+            entity.HasOne(d => d.DanhMucSp).WithMany(p => p.TChiTietSanPhams)
                 .HasForeignKey(d => d.MaSp)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ChiTietSP_DanhMucSP");
@@ -97,8 +91,7 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.MaSp).HasColumnName("MaSP");
             entity.Property(e => e.AnhDaiDien).HasMaxLength(255);
             entity.Property(e => e.ChatLieu).HasMaxLength(100);
-            entity.Property(e => e.GiaLonNhat).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.GiaNhoNhat).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Gia).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.GioiThieuSp).HasColumnName("GioiThieuSP");
             entity.Property(e => e.HangSx)
                 .HasMaxLength(100)
@@ -111,31 +104,52 @@ public partial class QlbangHangBtlwebContext : DbContext
                 .HasColumnName("TenSP");
         });
 
+        modelBuilder.Entity<TChiTietHoaDonBan>(entity =>
+        {
+            entity.HasKey(e => new { e.MaHoaDonBan, e.MaSP }).HasName("PK__tChiTiet__D3A3E3A3D3A3E3A3");
+
+            entity.ToTable("tChiTietHoaDonBan");
+
+            entity.Property(e => e.MaHoaDonBan).HasColumnName("MaHoaDonBan");
+            entity.Property(e => e.MaSP).HasColumnName("MaSP");
+            entity.Property(e => e.SoLuongBan).HasColumnName("SoLuongBan");
+            entity.Property(e => e.DonGiaBan).HasColumnType("decimal(18, 2)").HasColumnName("DonGiaBan");
+
+            entity.HasOne(d => d.DanhMucSP).WithMany()
+                .HasForeignKey(d => d.MaSP)
+                .HasConstraintName("FK_tChiTietHoaDonBan_tDanhMucSP");
+
+            entity.HasOne(d => d.HoaDonBan).WithMany()
+                .HasForeignKey(d => d.MaHoaDonBan)
+                .HasConstraintName("FK_tChiTietHoaDonBan_tHoaDonBan");
+        });
+
         modelBuilder.Entity<THoaDonBan>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("tHoaDonBan");
+            entity.HasKey(e => e.MaHoaDonBan).HasName("PK__tHoaDonBan");
 
-            entity.Property(e => e.DonGiaBan).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.MaSp).HasColumnName("MaSP");
+            entity.ToTable("tHoaDonBan");
+
+            entity.Property(e => e.MaHoaDonBan).HasColumnName("MaHoaDonBan");
+            entity.Property(e => e.NgayHoaDon).HasColumnType("datetime");
+            entity.Property(e => e.MaKhachHang).HasColumnName("MaKhachHang");
+            entity.Property(e => e.MaNhanVien).HasColumnName("MaNhanVien");
+            entity.Property(e => e.TongTienHd).HasColumnType("decimal(18, 2)").HasColumnName("TongTienHD");
             entity.Property(e => e.PhuongThucThanhToan).HasMaxLength(100);
-            entity.Property(e => e.TongTienHd)
-                .HasColumnType("decimal(18, 2)")
-                .HasColumnName("TongTienHD");
+            entity.Property(e => e.GhiChu).HasColumnType("nvarchar(max)");
 
-            entity.HasOne(d => d.MaKhachHangNavigation).WithMany()
+            entity.HasOne(d => d.KhachHang).WithMany()
                 .HasForeignKey(d => d.MaKhachHang)
                 .HasConstraintName("FK_HoaDonBan_KhachHang");
 
-            entity.HasOne(d => d.MaNhanVienNavigation).WithMany()
+            entity.HasOne(d => d.NhanVien).WithMany()
                 .HasForeignKey(d => d.MaNhanVien)
                 .HasConstraintName("FK_HoaDonBan_NhanVien");
 
-            entity.HasOne(d => d.MaSpNavigation).WithMany()
-                .HasForeignKey(d => d.MaSp)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_HoaDonBan_DanhMucSP");
+            entity.HasMany(d => d.TChiTietHoaDonBans).WithOne(p => p.HoaDonBan)
+               .HasForeignKey(p => p.MaHoaDonBan)
+               .OnDelete(DeleteBehavior.ClientSetNull)
+               .HasConstraintName("FK_HoaDonBan_ChiTietHoaDonBan");
         });
 
         modelBuilder.Entity<TKhachHang>(entity =>
@@ -149,9 +163,9 @@ public partial class QlbangHangBtlwebContext : DbContext
             entity.Property(e => e.TenKhachHang).HasMaxLength(100);
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
-                .HasColumnName("username");
+                .HasColumnName("Email");
 
-            entity.HasOne(d => d.UsernameNavigation).WithMany(p => p.TKhachHangs)
+            entity.HasOne(d => d.User).WithMany(p => p.TKhachHangs)
                 .HasForeignKey(d => d.Email)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_KhachHang_User");
@@ -165,12 +179,12 @@ public partial class QlbangHangBtlwebContext : DbContext
 
             entity.Property(e => e.ChucVu).HasMaxLength(50);
             entity.Property(e => e.TenNhanVien).HasMaxLength(100);
-            entity.Property(e => e.Username)
+            entity.Property(e => e.Email)
                 .HasMaxLength(50)
-                .HasColumnName("username");
+                .HasColumnName("Email");
 
             entity.HasOne(d => d.UsernameNavigation).WithMany(p => p.TNhanViens)
-                .HasForeignKey(d => d.Username)
+                .HasForeignKey(d => d.Email)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tNhanVien_tUser");
         });
@@ -183,14 +197,10 @@ public partial class QlbangHangBtlwebContext : DbContext
 
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
-                .HasColumnName("username");
+                .HasColumnName("Email");
             entity.Property(e => e.LoaiUser).HasMaxLength(50);
-            entity.Property(e => e.Password)
-                .HasMaxLength(255)
-                .HasColumnName("password");
+            entity.Property(e => e.Password).HasMaxLength(50).HasColumnName("password");
+            entity.Property(e => e.Salt).HasMaxLength(50);
         });
-        OnModelCreatingPartial(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

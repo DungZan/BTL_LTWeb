@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BTL_LTWeb.Models;
+﻿namespace BTL_LTWeb.Models;
 
 public partial class TDanhMucSp
 {
@@ -21,9 +18,7 @@ public partial class TDanhMucSp
 
     public string? AnhDaiDien { get; set; }
 
-    public decimal? GiaNhoNhat { get; set; }
-
-    public decimal? GiaLonNhat { get; set; }
+    public decimal? Gia { get; set; }
 
     public virtual ICollection<TAnhSp> TAnhSps { get; set; } = new List<TAnhSp>();
 

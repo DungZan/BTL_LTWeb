@@ -1,6 +1,6 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using BTL_LTWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,9 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Database config
-var connectionString = builder.Configuration.GetConnectionString("QLBanHangBtlwebContext");
-builder.Services.AddDbContext<QlbangHangBtlwebContext>(options =>
+var connectionString = builder.Configuration.GetConnectionString("QLBanDoThoiTrangContext");
+builder.Services.AddDbContext<QLBanDoThoiTrangContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(3);
+});
+
+builder.Services.AddTransient<EmailService>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 // Add Authentication using Cookie
 builder.Services.AddAuthentication("MyCookieAuthenticationScheme")
@@ -45,6 +53,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

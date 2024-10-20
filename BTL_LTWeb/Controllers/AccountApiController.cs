@@ -14,10 +14,12 @@ namespace BTL_LTWeb.Controllers
     [ApiController]
     public class AccountApiController : Controller
     {
-        private readonly QlbangHangBtlwebContext _context;
-        public AccountApiController(QlbangHangBtlwebContext context)
+        private readonly QLBanDoThoiTrangContext _context;
+        private readonly EmailService _emailService;
+        public AccountApiController(QLBanDoThoiTrangContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [HttpPost("login")]
@@ -65,7 +67,7 @@ namespace BTL_LTWeb.Controllers
         }
 
         [HttpPost("resend-verify-email")]
-        public IActionResult ResendVerifyEmail()
+        public async Task<IActionResult> ResendVerifyEmail()
         {
             if (TempData["Register"] == null)
             {
@@ -76,7 +78,7 @@ namespace BTL_LTWeb.Controllers
 
             var verifyCode = SecurityService.GenerateRandomCode();
 
-            new EmailService().SendEmail(register.Email, register.Name, verifyCode);
+            await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode);
 
             TempData["code"] = verifyCode;
 

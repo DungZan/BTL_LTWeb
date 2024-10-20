@@ -11,5 +11,5 @@ public partial class TAnhChiTietSp
 
     public string? ViTri { get; set; }
 
-    public virtual TChiTietSanPham MaChiTietSpNavigation { get; set; } = null!;
+    public virtual TChiTietSanPham ChiTietSanPham { get; set; } = null!;
 }
