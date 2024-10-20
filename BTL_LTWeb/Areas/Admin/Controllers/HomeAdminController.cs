@@ -13,7 +13,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Route("Admin/HomeAdmin")]
     public class HomeAdminController : Controller
     {
-        QlbangHangBtlwebContext db = new QlbangHangBtlwebContext();
+        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
         [Route("")]
         [Route("Index")]
         public IActionResult Index()
