@@ -115,6 +115,10 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult VerifyEmail()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var verifyCode = SecurityService.GenerateRandomCode();
             var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
             TempData.Keep();
@@ -169,6 +173,109 @@ namespace BTL_LTWeb.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Login", "Account");
+        }
+
+        // forgot password
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgot)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "");
+                return View(forgot);
+            }
+
+            var user = _context.TUsers.FirstOrDefault(u => u.Email == forgot.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Email không tồn tại.");
+                return View(forgot);
+            }
+            return RedirectToAction("ForgotPassword", "Account");
+        }
+
+        //change password
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordViewModel change)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "");
+                return View(change);
+            }
+
+            //var user = _context.TUsers.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
+            //var hashedPassword = SecurityService.HashPasswordWithSalt(change.OldPassword, user.Salt);
+            //if (hashedPassword != user.Password)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Mật khẩu cũ không chính xác.");
+            //    return View(change);
+            //}
+
+            //if (change.NewPassword != change.ConfirmPassword)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Mật khẩu mới không khớp.");
+            //    return View(change);
+            //}
+
+            //var salt = SecurityService.GenerateSalt();
+            //var hashedNewPassword = SecurityService.HashPasswordWithSalt(change.NewPassword, salt);
+            //user.Password = hashedNewPassword;
+            //user.Salt = salt;
+            //_context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // confirm code
+        [HttpGet]
+        public IActionResult ConfirmCode()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ConfirmCode(VerifyCodeViewModel verify)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    ModelState.AddModelError(string.Empty, "");
+            //    return View(verify);
+            //}
+
+            //var user = _context.TUsers.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
+            //if (verify.ConfirmationCode != user.ConfirmationCode)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
+            //    return View(verify);
+            //}
+
+            //user.ConfirmationCode = null;
+            //_context.SaveChanges();
+
+            return RedirectToAction("ChangePassword", "Account");
         }
     }
 }
