@@ -5,7 +5,7 @@
     ViewData["Title"] = "danhmucsanpham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="row">
+<div class="row" id="content">
 
 @{
     var logMessage = TempData["Log"] as string;
@@ -18,10 +18,6 @@
 }
 
 <h1>Danh mục sản phẩm</h1>
-<form asp-area="Admin" asp-controller="HomeAdmin" asp-action="TimSanPham" method="get" class="site-block-top-search d-flex">
-    <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
 <p>
     <a class="btn btn-info" asp-action="themsanpham">Create New</a>
 </p>
@@ -98,15 +94,18 @@ new X.PagedList.Mvc.Core.PagedListRenderOptions(){
 </div>
 @section Scripts {
     <script>
-        $("li").click(function(e){
-            var id = $(this).attr("id");
+        function timSanPham(value) {
             $.ajax({
-                url: "HomeAdmin/test",
-                data: { mid: id },
+                url: "TimSanPhamNew",
+                data: { Tensanpham: value },
                 success: function (response) {
                     $("div#content").html(response);
+
+                },
+                error: function (xhr, status, error) {
+                    console.log("Đã xảy ra lỗi: " + error);
                 }
             });
-        });
+        }
     </script>
 }

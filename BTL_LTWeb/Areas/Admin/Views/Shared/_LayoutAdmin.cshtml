@@ -189,8 +189,11 @@
             
             <div class="container-fluid">
                 <!--  Row 1 -->
-
+                <form class="site-block-top-search d-flex">
+                    <input type="text" class="form-control border-1" placeholder="Search" oninput="timSanPham(this.value)">
+                </form>
                 @RenderBody()
+                
                 
                 <div class="py-6 px-6 text-center">
                     <p class="mb-0 fs-4">Design and Developed by <a href="#" target="_blank" class="pe-1 text-primary text-decoration-underline">BEAFood</a></p>
