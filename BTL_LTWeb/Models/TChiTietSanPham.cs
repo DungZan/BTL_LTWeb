@@ -19,7 +19,7 @@ public partial class TChiTietSanPham
 
     public int? Slton { get; set; }
 
-    public virtual TDanhMucSp MaSpNavigation { get; set; } = null!;
+    public virtual TDanhMucSp DanhMucSp { get; set; } = null!;
 
     public virtual ICollection<TAnhChiTietSp> TAnhChiTietSps { get; set; } = new List<TAnhChiTietSp>();
 }

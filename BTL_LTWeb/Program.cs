@@ -8,9 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Database config
-var connectionString = builder.Configuration.GetConnectionString("QLBanHangBtlwebContext");
-builder.Services.AddDbContext<QlbangHangBtlwebContext>(options =>
+var connectionString = builder.Configuration.GetConnectionString("QLBanDoThoiTrangContext");
+builder.Services.AddDbContext<QLBanDoThoiTrangContext>(options =>
     options.UseSqlServer(connectionString));
+
 
 // Add Authentication using Cookie
 builder.Services.AddAuthentication("MyCookieAuthenticationScheme")

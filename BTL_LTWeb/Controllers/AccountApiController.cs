@@ -14,8 +14,8 @@ namespace BTL_LTWeb.Controllers
     [ApiController]
     public class AccountApiController : Controller
     {
-        private readonly QlbangHangBtlwebContext _context;
-        public AccountApiController(QlbangHangBtlwebContext context)
+        private readonly QLBanDoThoiTrangContext _context;
+        public AccountApiController(QLBanDoThoiTrangContext context)
         {
             _context = context;
         }
