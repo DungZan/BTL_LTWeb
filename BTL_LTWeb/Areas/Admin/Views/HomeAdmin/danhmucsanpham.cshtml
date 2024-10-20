@@ -5,7 +5,7 @@
     ViewData["Title"] = "danhmucsanpham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="row" id="content">
+<div class="row" >
 
 @{
     var logMessage = TempData["Log"] as string;
@@ -21,7 +21,11 @@
 <p>
     <a class="btn btn-info" asp-action="themsanpham">Create New</a>
 </p>
-<div class="alert alert-warning">
+    <form class="site-block-top-search d-flex">
+        <input type="text" class="form-control border-1" placeholder="Search" oninput="timSanPham(this.value)">
+    </form>
+
+<div class="alert alert-warning" id="content" >
 
     <table class="table table-hover table-responsive">
     <thead>
@@ -85,27 +89,45 @@
 }
     </tbody>
 </table>
-</div>
+
 @Html.PagedListPager(Model, page => Url.Action("danhmucsanpham", new {page=page}), 
 new X.PagedList.Mvc.Core.PagedListRenderOptions(){
     LiElementClasses = new List<String>{"page-item"},
     PageClasses = new List<String> {"page-link"}
  })
+ </div>
 </div>
 @section Scripts {
     <script>
         function timSanPham(value) {
-            $.ajax({
-                url: "TimSanPhamNew",
-                data: { Tensanpham: value },
-                success: function (response) {
-                    $("div#content").html(response);
+            if (value.length > 0) {
+                $.ajax({
+                    url: "TimSanPhamNew",
+                    data: { Tensanpham: value },
+                    success: function (response) {
+                        $("div#content").html(response);
 
-                },
-                error: function (xhr, status, error) {
-                    console.log("Đã xảy ra lỗi: " + error);
-                }
-            });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Đã xảy ra lỗi: " + error);
+                    }
+
+                });
+            }
+            else {
+                $.ajax({
+                    url: "TimSanPhamNew1",
+                    data: { Tensanpham: value },
+                    success: function (response) {
+                        $("div#content").html(response);
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Đã xảy ra lỗi: " + error);
+                    }
+
+                });
+            }
         }
     </script>
 }

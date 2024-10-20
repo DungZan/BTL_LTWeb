@@ -120,6 +120,15 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
             return PartialView("BangSanPham", lst);
         }
+        [Route("Timsanphamnew1")]
+        public IActionResult TimSanPhamNew1(string Tensanpham, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp);
+            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+            return PartialView("BangSanPham", lst);
+        }
         // dashBorad 
         [Route("DashBoard")]
         public IActionResult DashBoard()
