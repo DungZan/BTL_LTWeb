@@ -11,10 +11,12 @@ namespace BTL_LTWeb.Controllers
     public class AccountController : Controller
     {
         private readonly QLBanDoThoiTrangContext _context;
+        private readonly EmailService _emailService;
 
-        public AccountController(QLBanDoThoiTrangContext context)
+        public AccountController(QLBanDoThoiTrangContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -107,20 +109,19 @@ namespace BTL_LTWeb.Controllers
                 return View("Register");
             }
             TempData["Register"] = JsonSerializer.Serialize(register);
-
-            return RedirectToAction("VerifyEmail");
+                return RedirectToAction("VerifyEmail");
         }
 
         // verify email
         [HttpGet]
-        public IActionResult VerifyEmail()
+        public async Task<IActionResult> VerifyEmail()
         {
             var verifyCode = SecurityService.GenerateRandomCode();
             var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
             TempData.Keep();
             var email = register.Email;
             var name = register.Name;
-            int res = new EmailService().SendEmail(email, name, verifyCode);
+            await _emailService.SendEmailAsync(email, name, verifyCode);
             TempData["code"] = verifyCode;
             return View();
 

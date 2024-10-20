@@ -26,9 +26,16 @@
                                 </a>
                                 <!-- Dropdown Menu -->
                                 <div class="dropdown-menu" id="dropdownMenu">
-                                    <a href="#">Hồ sơ</a>
-                                    <a href="#">Cài đặt</a>
-                                    <a href="#" id="logout">Đăng xuất</a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a href="#">Hồ sơ</a>
+                                        <a href="#">Cài đặt</a>
+                                        <a href="#" id="logout">Đăng xuất</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Login" asp-controller="Account">Đăng nhập</a>
+                                    }
                                 </div>
                             </li>
                             <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
