@@ -70,6 +70,16 @@ namespace BTL_LTWeb.Controllers
             ViewBag.Tensanpham = Tensanpham;
             return View(lst);
         }
+        public IActionResult Sanphamtheogia(int Gia, int? Page)
+        {
+
+                var list = db.TDanhMucSps.AsNoTracking().Where(x => x.Gia <= Gia).OrderBy(x => x.Gia).ToList();
+                int pageSize = 9;
+                int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+                PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
+                ViewBag.Gia = Gia;
+                return View(lst);
+        }
         public IActionResult Privacy()
         {
             return View();
