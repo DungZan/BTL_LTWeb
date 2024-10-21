@@ -29,6 +29,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TNhanVien> TNhanViens { get; set; }
     public virtual DbSet<TUser> TUsers { get; set; }
     public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
+    public virtual DbSet<TGioHang> TGioHangs { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
