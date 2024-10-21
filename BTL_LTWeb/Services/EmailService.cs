@@ -6,6 +6,36 @@ namespace BTL_LTWeb.Services
 {
     public class EmailService
     {
+        private readonly string _confirmEmailContent = 
+            "<div class='header'>" +
+            "   <h1>Xác thực tài khoản</h1>" +
+            "</div>" +
+            "<div class='content'>" +
+            "   <h2>Chào {name},</h2>" +
+            "   <p>Cảm ơn bạn đã đăng ký tài khoản với chúng tôi!</p>" +
+            "   <p>Để hoàn tất quá trình đăng ký, xin vui lòng nhập mã bên dưới để xác nhận tài khoản của bạn:</p>" +
+            "   <a href='{{ConfirmationLink}}' class='button'>{code}</a>" +
+            "   <p>Nếu bạn không thực hiện yêu cầu này, bạn có thể bỏ qua email này.</p>" +
+            "   <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>" +
+            "</div>" +
+            "<div class='footer'>" +
+            "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>" +
+            "</div>";
+        private readonly string _forgotPasswordContent =
+            "<div class='header'>" +
+            "   <h1>Đặt lại mật khẩu</h1>" +
+            "</div>" +
+            "<div class='content'>" +
+            "   <h2>Chào {name},</h2>" +
+            "   <p>Gần đây bạn đã gửi yêu cầu đặt lại mật khẩu!</p>" +
+            "   <p>Để tiếp tục, xin vui lòng nhập mã bên dưới:</p>" +
+            "   <a href='{{ConfirmationLink}}' class='button'>{code}</a>" +
+            "   <p>Nếu bạn không thực hiện yêu cầu này, bạn có thể bỏ qua email này.</p>" +
+            "   <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>" +
+            "</div>" +
+            "<div class='footer'>" +
+            "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>" +
+            "</div>";
         private readonly string fromMail;
         private readonly string fromPassword;
 
@@ -15,13 +45,13 @@ namespace BTL_LTWeb.Services
             fromPassword = emailSettings.Value.FromPassword;
         }
 
-        public async Task<int> SendEmailAsync(string to, string name, string code)
+        public async Task<int> SendEmailAsync(string to, string name, string code, int status)
         {
             MailMessage message = new MailMessage
             {
                 From = new MailAddress(fromMail),
-                Subject = "Xác thực email",
-                Body = GetEmailTemplate(to, name, code),
+                Subject = status == 1 ? "Xác thực tài khoản" : "Đặt lại mật khẩu",
+                Body = GetEmailTemplate(to, name, code, status),
                 IsBodyHtml = true
             };
             message.To.Add(new MailAddress(to));
@@ -51,7 +81,7 @@ namespace BTL_LTWeb.Services
                 return 0; // Gửi thất bại
             }
         }
-        private string GetEmailTemplate(string receiver, string name, string code)
+        private string GetEmailTemplate(string receiver, string name, string code, int status)
         {
             var body =
                 @"<!DOCTYPE html>
@@ -103,25 +133,13 @@ namespace BTL_LTWeb.Services
                 </head>
                 <body>
                     <div class='container'>
-                        <div class='header'>
-                            <h1>Xác Nhận Tài Khoản</h1>
-                        </div>
-                        <div class='content'>
-                            <h2>Chào {name},</h2>
-                            <p>Cảm ơn bạn đã đăng ký tài khoản với chúng tôi!</p>
-                            <p>Để hoàn tất quá trình đăng ký, xin vui lòng nhập mã bên dưới để xác nhận tài khoản của bạn:</p>
-                            <a href='{{ConfirmationLink}}' class='button'>{code}</a>
-                            <p>Nếu bạn không thực hiện yêu cầu này, bạn có thể bỏ qua email này.</p>
-                            <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>
-                        </div>
-                        <div class='footer'>
-                            <p>&copy; {DateTime.Now.Year} BeA Fashion. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>
-                        </div>
+                    {content}
                     </div>
                 </body>
                 </html>";
 
-            body = body.Replace("{name}", name)
+            body = body.Replace("{content}", status == 1 ? _confirmEmailContent : _forgotPasswordContent)
+                       .Replace("{name}", name)
                        .Replace("{code}", code)
                        .Replace("{DateTime.Now.Year}", DateTime.Now.Year.ToString());
 
