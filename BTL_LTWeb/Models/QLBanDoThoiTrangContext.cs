@@ -28,9 +28,10 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TKhachHang> TKhachHangs { get; set; }
     public virtual DbSet<TNhanVien> TNhanViens { get; set; }
     public virtual DbSet<TUser> TUsers { get; set; }
+    public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-PIULBJ0\\SQLEXPRESS01;Initial Catalog=QLBangHangBTLWeb;Integrated Security=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-PIULBJ0\\SQLEXPRESS01;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -207,5 +208,38 @@ public partial class QLBanDoThoiTrangContext : DbContext
             entity.Property(e => e.Password).HasMaxLength(50).HasColumnName("password");
             entity.Property(e => e.Salt).HasMaxLength(50);
         });
+        modelBuilder.Entity<TDanhSachCuaHang>(entity =>
+        {
+            entity.HasKey(e => e.SDTCuaHang).HasName("PK_TDanhSachCuaHang");  
+
+            entity.ToTable("tDanhSachCuaHang"); 
+
+            entity.Property(e => e.SDTCuaHang)
+                .HasColumnName("SDTCuaHang")
+                .HasMaxLength(10) 
+                .ValueGeneratedNever() 
+                .IsRequired(); 
+
+            entity.Property(e => e.DiaChi)
+                .HasColumnName("DiaChi")
+                .HasMaxLength(255) 
+                .IsRequired();
+
+            entity.Property(e => e.KhuVuc)
+                .HasColumnName("KhuVuc")
+                .HasMaxLength(100) 
+                .IsRequired(); 
+
+            entity.Property(e => e.KinhDo)
+                .HasColumnName("KinhDo")
+                .HasColumnType("float") 
+                .IsRequired(); 
+
+            entity.Property(e => e.ViDo)
+                .HasColumnName("ViDo")
+                .HasColumnType("float") 
+                .IsRequired();
+        });
+
     }
 }

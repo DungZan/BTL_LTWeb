@@ -1,11 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@{
+﻿@{
     ViewData["Title"] = "Map";
     Layout = "~/Views/Shared/LayoutMap.cshtml";
 }
+@model IEnumerable<TDanhSachCuaHang>
+
 <style>
     #map-container {
         width: 500px;
@@ -21,7 +19,6 @@
         top: 0;
         left: 0;
     }
-
 </style>
 <div class="map-panel">
     <div class="map-panel-head">
@@ -33,313 +30,119 @@
         </div>
         <div id="search-area" class="box-search tabcontent">
             <form id="store-form-search">
-                <fieldset class="fieldset select-filter">
-                    <input type="hidden" id="country" name="country" title="Country" value="VN" />
-                    <div class="field field-search-area">
-                        <div class="control">
-                            <label for="city" class="label">Tỉnh/Thành Phố</label>
-                            <select name="city" id="city" class="select-text">
-                                <option value="">
-                                    Vui lòng chọn thành phố của bạn
-                                </option>
-                                <option value="722">
-                                    Thành phố Hà Nội
-                                </option>
-                                <option value="771">
-                                    Thành phố Hồ Chí Minh
-                                </option>
-                                <option value="778">
-                                    Tỉnh An Giang
-                                </option>
-                                <option value="770">
-                                    Tỉnh Bà Rịa - Vũng Tàu
-                                </option>
-                                <option value="736">
-                                    Tỉnh Bắc Giang
-                                </option>
-                                <option value="725">
-                                    Tỉnh Bắc Kạn
-                                </option>
-                                <option value="783">
-                                    Tỉnh Bạc Liêu
-                                </option>
-                                <option value="739">
-                                    Tỉnh Bắc Ninh
-                                </option>
-                                <option value="774">
-                                    Tỉnh Bến Tre
-                                </option>
-                                <option value="756">
-                                    Tỉnh Bình Định
-                                </option>
-                                <option value="768">
-                                    Tỉnh Bình Dương
-                                </option>
-                                <option value="766">
-                                    Tỉnh Bình Phước
-                                </option>
-                                <option value="760">
-                                    Tỉnh Bình Thuận
-                                </option>
-                                <option value="784">
-                                    Tỉnh Cà Mau
-                                </option>
-                                <option value="780">
-                                    Thành phố Cần Thơ
-                                </option>
-                                <option value="724">
-                                    Tỉnh Cao Bằng
-                                </option>
-                                <option value="753">
-                                    Thành phố Đà Nẵng
-                                </option>
-                                <option value="763">
-                                    Tỉnh Đắk Lắk
-                                </option>
-                                <option value="764">
-                                    Tỉnh Đắk Nông
-                                </option>
-                                <option value="728">
-                                    Tỉnh Điện Biên
-                                </option>
-                                <option value="769">
-                                    Tỉnh Đồng Nai
-                                </option>
-                                <option value="777">
-                                    Tỉnh Đồng Tháp
-                                </option>
-                                <option value="762">
-                                    Tỉnh Gia Lai
-                                </option>
-                                <option value="723">
-                                    Tỉnh Hà Giang
-                                </option>
-                                <option value="744">
-                                    Tỉnh Hà Nam
-                                </option>
-                                <option value="749">
-                                    Tỉnh Hà Tĩnh
-                                </option>
-                                <option value="740">
-                                    Tỉnh Hải Dương
-                                </option>
-                                <option value="741">
-                                    Thành phố Hải Phòng
-                                </option>
-                                <option value="781">
-                                    Tỉnh Hậu Giang
-                                </option>
-                                <option value="732">
-                                    Tỉnh Hoà Bình
-                                </option>
-                                <option value="742">
-                                    Tỉnh Hưng Yên
-                                </option>
-                                <option value="758">
-                                    Tỉnh Khánh Hòa
-                                </option>
-                                <option value="779">
-                                    Tỉnh Kiên Giang
-                                </option>
-                                <option value="761">
-                                    Tỉnh Kon Tum
-                                </option>
-                                <option value="729">
-                                    Tỉnh Lai Châu
-                                </option>
-                                <option value="765">
-                                    Tỉnh Lâm Đồng
-                                </option>
-                                <option value="734">
-                                    Tỉnh Lạng Sơn
-                                </option>
-                                <option value="727">
-                                    Tỉnh Lào Cai
-                                </option>
-                                <option value="772">
-                                    Tỉnh Long An
-                                </option>
-                                <option value="745">
-                                    Tỉnh Nam Định
-                                </option>
-                                <option value="748">
-                                    Tỉnh Nghệ An
-                                </option>
-                                <option value="746">
-                                    Tỉnh Ninh Bình
-                                </option>
-                                <option value="759">
-                                    Tỉnh Ninh Thuận
-                                </option>
-                                <option value="737">
-                                    Tỉnh Phú Thọ
-                                </option>
-                                <option value="757">
-                                    Tỉnh Phú Yên
-                                </option>
-                                <option value="750">
-                                    Tỉnh Quảng Bình
-                                </option>
-                                <option value="754">
-                                    Tỉnh Quảng Nam
-                                </option>
-                                <option value="755">
-                                    Tỉnh Quảng Ngãi
-                                </option>
-                                <option value="735">
-                                    Tỉnh Quảng Ninh
-                                </option>
-                                <option value="751">
-                                    Tỉnh Quảng Trị
-                                </option>
-                                <option value="782">
-                                    Tỉnh Sóc Trăng
-                                </option>
-                                <option value="730">
-                                    Tỉnh Sơn La
-                                </option>
-                                <option value="767">
-                                    Tỉnh Tây Ninh
-                                </option>
-                                <option value="743">
-                                    Tỉnh Thái Bình
-                                </option>
-                                <option value="733">
-                                    Tỉnh Thái Nguyên
-                                </option>
-                                <option value="747">
-                                    Tỉnh Thanh Hóa
-                                </option>
-                                <option value="752">
-                                    Tỉnh Thừa Thiên Huế
-                                </option>
-                                <option value="773">
-                                    Tỉnh Tiền Giang
-                                </option>
-                                <option value="775">
-                                    Tỉnh Trà Vinh
-                                </option>
-                                <option value="726">
-                                    Tỉnh Tuyên Quang
-                                </option>
-                                <option value="776">
-                                    Tỉnh Vĩnh Long
-                                </option>
-                                <option value="738">
-                                    Tỉnh Vĩnh Phúc
-                                </option>
-                                <option value="731">
-                                    Tỉnh Yên Bái
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field field-search-area">
-                        <div class="control">
-                            <label id="label-district" for="district_id" class="label">Quận/Huyện</label>
-                            <select name="region" id="district_id" class="select-text">
-                                <option value=''>Vui lòng quận/huyện</option>
-                            </select>
-                        </div>
-                    </div>
-                </fieldset>
+                <select id="city" name="city">
+                    <option value="">Chọn tỉnh</option>
+                    @foreach (var city in Model.Select(store => store.KhuVuc.Split(',')[1].Trim()).Distinct())
+                    {
+                        <option value="@city">@city</option>
+                    }
+                </select>
+
+                <select id="district" name="district">
+                    <option value="">Chọn huyện</option>
+                </select>
+
                 <div class="action action-search btn-wap">
-                    <button id="search-area" type="submit" class="action primary btn-elise-black" title="Search">
+                    <button type="submit" class="action primary btn-elise-black" title="Search">
                         <span>Tìm Kiếm</span>
                     </button>
-                    <button id="reset-search-area" type="reset" class="action primary btn-elise-white" title="Reset">
+                    <button type="reset" class="action primary btn-elise-white" title="Reset">
                         <span>Cài lại</span>
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
     <div class="map-panel-container">
-        
         <div class="listStore">
-            <div id="ListContainer" class="scrollbar-inner">
-                <ul id="list_listitem" class="unstyled prettyListItems" cur-page="1">
-                    <li class="li-location see-map-location" style="" item-id="MBCH035" marker_order="0" data-lat="21.0278" data-lng="105.8342">
-                        <input type="radio" name="check_localtor" id="MBCH035">
-                        <label for="MBCH035">
-                            <div id="div_list_location"
-                                 class="corePrettyStyle prettylink map location div_list_location"
-                                 data-role="collapsible"
-                                 data-mage-init='{"accordion":{"collapsible": true, "active": false, "multipleCollapsible": false}}'>
-                                <div class="viewLocationDetail clearfix" data-role="title"
-                                     style="font-size: larger">
-                                    <p class="location-name">Đông Anh, Hà Nội</p>
-                                    <p class="location-address">Số 265 Cao Lỗ, Uy Nỗ, Đông Anh, Hà Nội</p>
-                                    <p class="location-telephone">Điện thoại: 02471093688</p>
-                                    <a class="locationLink" rel="nofollow" href="https://www.openstreetmap.org/?mlat=21.0278&mlon=105.8342#map=12/21.0278/105.8342" target="_blank"></a>
-                                </div>
-                            </div>
-                        </label>
-                    </li>
-                </ul>
-            </div>
+             <div id="storeList">
+                    @await Html.PartialAsync("_StoreList", Model)
+             </div>
         </div>
+
         <div id="map-container">
             <div id="map" style="width: 500px; height: 500px;"></div>
         </div>
-        
     </div>
 </div>
+
+
 
 @section scripts {
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script type="text/javascript">
-        var map = L.map('map').setView([21.0278, 105.8342], 13); // Khởi tạo bản đồ
-
-        // Thêm bản đồ OpenStreetMap
+        var map = L.map('map').setView([21.0278, 105.8342], 13); // Vị trí mặc định
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // Lấy thông tin địa chỉ và vị trí từ danh sách
-        var locations = [
-            {
-                name: 'Đông Anh, Hà Nội',
-                address: 'Số 265 Cao Lỗ, Uy Nỗ, Đông Anh, Hà Nội',
-                telephone: '02471093688',
-                lat: 21.0278,
-                lng: 105.8342
-            }
-            // Thêm các địa điểm khác nếu cần
-        ];
+        var markers = [];
 
-        // Vẽ marker trên bản đồ cho mỗi địa điểm
-        locations.forEach(function(location) {
-            var marker = L.marker([location.lat, location.lng]).addTo(map);
-            marker.bindPopup(`<b>${location.name}</b><br>${location.address}<br>Điện thoại: ${location.telephone}`);
+        @foreach (var store in Model)
+        {
+            <text>
+                    var marker = L.marker([@store.KinhDo, @store.ViDo]).addTo(map);
+                    marker.bindPopup(`<b>@store.KhuVuc</b><br>@store.DiaChi<br>Điện thoại: @store.SDTCuaHang`);
+                        markers.push(marker);
+            </text>
+        }
+        document.getElementById('city').addEventListener('change', function () {
+            var city = this.value;
+            if (city) {
+                fetch(`@Url.Action("GetDistrictsByCity")?city=${city}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        var districtSelect = document.getElementById('district');
+                        districtSelect.innerHTML = '<option value="">Chọn huyện</option>';
+                        data.forEach(function (district) {
+                            var option = document.createElement('option');
+                            option.value = district;
+                            option.text = district;
+                            districtSelect.appendChild(option);
+                        });
+                    });
+            } else {
+                document.getElementById('district').innerHTML = '<option value="">Chọn huyện</option>';
+            }
         });
 
-        // Tìm kiếm vị trí từ danh sách
-        document.getElementById('store-form-search').addEventListener('submit', function(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của form
+        document.getElementById('store-form-search').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            fetch('@Url.Action("SearchStores")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('storeList').innerHTML = html;
+                });
+        });
 
-            // Xóa tất cả các marker trên bản đồ
-            map.eachLayer(function(layer) {
-                if (layer instanceof L.Marker) {
-                    map.removeLayer(layer);
-                }
-            });
-
-            // Thêm lại marker cho vị trí được tìm kiếm
-            var selectedLocation = document.querySelector('input[name="check_localtor"]:checked');
-            if (selectedLocation) {
-                var selectedLat = parseFloat(selectedLocation.parentNode.dataset.lat);
-                var selectedLng = parseFloat(selectedLocation.parentNode.dataset.lng);
-                var selectedName = selectedLocation.parentNode.querySelector('.location-name').textContent;
-                var selectedAddress = selectedLocation.parentNode.querySelector('.location-address').textContent;
-                var selectedTelephone = selectedLocation.parentNode.querySelector('.location-telephone').textContent;
-
-                var marker = L.marker([selectedLat, selectedLng]).addTo(map);
-                marker.bindPopup(`<b>${selectedName}</b><br>${selectedAddress}<br>Điện thoại: ${selectedTelephone}`);
-                map.setView([selectedLat, selectedLng], 13); // Đặt lại vị trí bản đồ
+        document.addEventListener('click', function (event) {
+            if (event.target.matches('input[name="check_localtor"]')) {
+                var selectedLat = parseFloat(event.target.closest('li').dataset.lat);
+                var selectedLng = parseFloat(event.target.closest('li').dataset.lng);
+                map.setView([selectedLat, selectedLng], 13);
             }
+        });
+        document.getElementById('store-form-search').addEventListener('reset', function (event) {
+            event.preventDefault();
+            var formData = new FormData();
+            fetch('@Url.Action("SearchStores")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('storeList').innerHTML = html;
+                    document.getElementById('city').value = '';
+                    document.getElementById('district').innerHTML = '<option value="">Chọn huyện</option>';
+                });
         });
     </script>
+
 }
