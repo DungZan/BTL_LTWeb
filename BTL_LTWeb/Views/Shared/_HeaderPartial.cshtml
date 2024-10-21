@@ -19,23 +19,51 @@
                 <div class="col-6 col-md-4 order-3 order-md-3 text-right">
                     <div class="site-top-icons">
                         <ul>
-                            <li class="dropdown">
+                            <li class="nav-item dropdown">
                                 <!-- Khi click vào icon này, sẽ hiển thị dropdown -->
                                 <a href="#" class="dropdown-toggle" id="userDropdown">
                                     <span class="icon icon-person"></span>
                                 </a>
                                 <!-- Dropdown Menu -->
-                                <div class="dropdown-menu" id="dropdownMenu">
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" id="dropdownMenu" aria-labelledby="drop2">
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a href="#">Hồ sơ</a>
-                                        <a href="#">Cài đặt</a>
-                                        <a href="#" id="logout">Đăng xuất</a>
+                                        <div class="message-body">
+                                            <a class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-user fs-6"></i>
+                                                <p class="mb-0 fs-3">Hồ sơ</p>
+                                            </a>
+                                            <a class="d-flex align-items-center gap-2 dropdown-item">
+                                                <i class="ti ti-mail fs-6"></i>
+                                                <p class="mb-0 fs-3">Tài khoản</p>
+                                            </a>
+                                            <a id="logout" class="d-flex align-items-center gap-2 dropdown-item">Logout</a>
+                                        </div>
                                     }
                                     else
                                     {
                                         <a asp-action="Login" asp-controller="Account">Đăng nhập</a>
                                     }
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                    <div class="message-body">
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-user fs-6"></i>
+                                            <p class="mb-0 fs-3">My Profile</p>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-mail fs-6"></i>
+                                            <p class="mb-0 fs-3">My Account</p>
+                                        </a>
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <i class="ti ti-list-check fs-6"></i>
+                                            <p class="mb-0 fs-3">My Task</p>
+                                        </a>
+                                        <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                    </div>
                                 </div>
                             </li>
                             <li><a href="#"><span class="icon icon-heart-o"></span></a></li>

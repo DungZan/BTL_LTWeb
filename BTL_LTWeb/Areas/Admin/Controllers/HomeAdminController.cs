@@ -1,9 +1,8 @@
 ﻿using BTL_LTWeb.Models;
-using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Printing;
 using X.PagedList;
 
 namespace BTL_LTWeb.Areas.Admin.Controllers
