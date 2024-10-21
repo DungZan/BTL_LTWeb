@@ -3,6 +3,7 @@ using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -22,7 +23,7 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity == null || User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -37,7 +38,7 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "");
                 return View(login);
             }
-            var user = _context.TUsers.FirstOrDefault(u => u.Email == login.Email);
+            var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == login.Email);
             if (user != null)
             {
                 var hashedPassword = SecurityService.HashPasswordWithSalt(login.Password, user.Salt);
@@ -80,7 +81,7 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity == null || User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -88,7 +89,7 @@ namespace BTL_LTWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel register)
+        public async Task<IActionResult> Register(RegisterViewModel register)
         {
             if (!ModelState.IsValid)
             {
@@ -102,14 +103,14 @@ namespace BTL_LTWeb.Controllers
                 return View("Register");
             }
 
-            var user = _context.TUsers.FirstOrDefault(u => u.Email == register.Email);
+            var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == register.Email);
             if (user != null)
             {
                 ModelState.AddModelError(string.Empty, "Email đã được sử dụng.");
                 return View("Register");
             }
             TempData["Register"] = JsonSerializer.Serialize(register);
-            TempData["status"] = 1; // status = 1: register, status = 2: forgot password
+            TempData["status"] = 1; 
             return RedirectToAction("VerifyEmail");
         }
 
@@ -121,19 +122,13 @@ namespace BTL_LTWeb.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var verifyCode = SecurityService.GenerateRandomCode();
-            int status = 0;
-            if (TempData["status"] != null && int.TryParse(TempData["status"].ToString(), out status))
+            if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
             {
-                // status is successfully parsed
-            }
-            else
-            {
-                // handle the case where status is null or not a valid integer
                 ModelState.AddModelError(string.Empty, "Invalid status value.");
                 TempData.Keep();
                 return View();
             }
+            var verifyCode = SecurityService.GenerateRandomCode();
             if (status == 1)
             {
                 var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
@@ -142,7 +137,7 @@ namespace BTL_LTWeb.Controllers
             else
             {
                 var forgot = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
-                var khachHang = _context.TKhachHangs.FirstOrDefault(u => u.Email == forgot.Email);
+                var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(u => u.Email == forgot.Email);
                 await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang, verifyCode, status);
             }
             TempData["code"] = verifyCode;
@@ -167,6 +162,7 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
                 return View(verify);
             }
+            TempData.Remove("code");
             if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
             {
                 ModelState.AddModelError(string.Empty, "Invalid status value.");
@@ -229,7 +225,7 @@ namespace BTL_LTWeb.Controllers
                 return View(forgot);
             }
 
-            var user = _context.TUsers.FirstOrDefault(u => u.Email == forgot.Email);
+            var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == forgot.Email);
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "Email không tồn tại.");
@@ -243,14 +239,14 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult ChangePassword()
         {
-            if (!User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Login", "Account");
             }
             return View();
         }
         [HttpPost]
-        public IActionResult ChangePassword(ChangePasswordViewModel change)
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel change)
         {
             if (!ModelState.IsValid)
             {
@@ -263,14 +259,10 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Mật khẩu mới không khớp.");
                 return View(change);
             }
-            var email = TempData["Email"]?.ToString();
-            if (string.IsNullOrEmpty(email))
-            {
-                ModelState.AddModelError(string.Empty, "Email không tồn tại.");
-                return View("Login");
-            }
+            var email = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+            TempData.Keep();
 
-            var user = _context.TUsers.FirstOrDefault(u => u.Email == email);
+            var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == email.Email);
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "Người dùng không tồn tại.");
