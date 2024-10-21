@@ -109,7 +109,8 @@ namespace BTL_LTWeb.Controllers
                 return View("Register");
             }
             TempData["Register"] = JsonSerializer.Serialize(register);
-                return RedirectToAction("VerifyEmail");
+            TempData["status"] = 1; // status = 1: register, status = 2: forgot password
+            return RedirectToAction("VerifyEmail");
         }
 
         // verify email
@@ -121,12 +122,31 @@ namespace BTL_LTWeb.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var verifyCode = SecurityService.GenerateRandomCode();
-            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
-            TempData.Keep();
-            var email = register.Email;
-            var name = register.Name;
-            await _emailService.SendEmailAsync(email, name, verifyCode);
+            int status = 0;
+            if (TempData["status"] != null && int.TryParse(TempData["status"].ToString(), out status))
+            {
+                // status is successfully parsed
+            }
+            else
+            {
+                // handle the case where status is null or not a valid integer
+                ModelState.AddModelError(string.Empty, "Invalid status value.");
+                TempData.Keep();
+                return View();
+            }
+            if (status == 1)
+            {
+                var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+                await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
+            }
+            else
+            {
+                var forgot = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+                var khachHang = _context.TKhachHangs.FirstOrDefault(u => u.Email == forgot.Email);
+                await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang, verifyCode, status);
+            }
             TempData["code"] = verifyCode;
+            TempData.Keep();
             return View();
 
         }
@@ -134,7 +154,7 @@ namespace BTL_LTWeb.Controllers
         [HttpPost]
         public IActionResult VerifyEmail(VerifyCodeViewModel verify)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "");
                 return View(verify);
@@ -147,33 +167,46 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
                 return View(verify);
             }
-
-            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
-            var salt = SecurityService.GenerateSalt();
-            var hashedPassword = SecurityService.HashPasswordWithSalt(register.Password, salt);
-            var newUser = new TUser
+            if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
             {
-                Email = register.Email,
-                Password = hashedPassword,
-                Salt = salt,
-                LoaiUser = "KhachHang"
-            };
-            _context.TUsers.Add(newUser);
-            _context.SaveChanges();
-            var newCustomer = new TKhachHang
+                ModelState.AddModelError(string.Empty, "Invalid status value.");
+                TempData.Keep();
+                return View(verify);
+            }
+            if (status == 1)
             {
-                Email = register.Email,
-                TenKhachHang = register.Name, 
-                NgaySinh = register.DateOfBirth, 
-                SoDienThoai = register.PhoneNumber,
-                DiaChi = register.Address,
-                GhiChu = null, 
-                User = newUser 
-            };
-            _context.TKhachHangs.Add(newCustomer);
-            _context.SaveChanges();
-            TempData.Clear();
-            return RedirectToAction("Login", "Account");
+                var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+                var salt = SecurityService.GenerateSalt();
+                var hashedPassword = SecurityService.HashPasswordWithSalt(register.Password, salt);
+                var newUser = new TUser
+                {
+                    Email = register.Email,
+                    Password = hashedPassword,
+                    Salt = salt,
+                    LoaiUser = "KhachHang"
+                };
+                _context.TUsers.Add(newUser);
+                _context.SaveChanges();
+                var newCustomer = new TKhachHang
+                {
+                    Email = register.Email,
+                    TenKhachHang = register.Name,
+                    NgaySinh = register.DateOfBirth,
+                    SoDienThoai = register.PhoneNumber,
+                    DiaChi = register.Address,
+                    GhiChu = null,
+                    User = newUser
+                };
+                _context.TKhachHangs.Add(newCustomer);
+                _context.SaveChanges();
+                TempData.Clear();
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                TempData.Remove("status");
+                return RedirectToAction("ChangePassword", "Account");
+            }
         }
 
         // forgot password
@@ -202,10 +235,11 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Email không tồn tại.");
                 return View(forgot);
             }
-            return RedirectToAction("ForgotPassword", "Account");
+            TempData["status"] = 0;
+            TempData["Email"] = JsonSerializer.Serialize(forgot);
+            return RedirectToAction("VerifyEmail");
         }
 
-        //change password
         [HttpGet]
         public IActionResult ChangePassword()
         {
@@ -224,59 +258,31 @@ namespace BTL_LTWeb.Controllers
                 return View(change);
             }
 
-            //var user = _context.TUsers.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
-            //var hashedPassword = SecurityService.HashPasswordWithSalt(change.OldPassword, user.Salt);
-            //if (hashedPassword != user.Password)
-            //{
-            //    ModelState.AddModelError(string.Empty, "Mật khẩu cũ không chính xác.");
-            //    return View(change);
-            //}
+            if (change.Password != change.ConfirmPassword)
+            {
+                ModelState.AddModelError(string.Empty, "Mật khẩu mới không khớp.");
+                return View(change);
+            }
+            var email = TempData["Email"]?.ToString();
+            if (string.IsNullOrEmpty(email))
+            {
+                ModelState.AddModelError(string.Empty, "Email không tồn tại.");
+                return View("Login");
+            }
 
-            //if (change.NewPassword != change.ConfirmPassword)
-            //{
-            //    ModelState.AddModelError(string.Empty, "Mật khẩu mới không khớp.");
-            //    return View(change);
-            //}
-
-            //var salt = SecurityService.GenerateSalt();
-            //var hashedNewPassword = SecurityService.HashPasswordWithSalt(change.NewPassword, salt);
-            //user.Password = hashedNewPassword;
-            //user.Salt = salt;
-            //_context.SaveChanges();
+            var user = _context.TUsers.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Người dùng không tồn tại.");
+                return View(change);
+            }
+            var salt = SecurityService.GenerateSalt();
+            var hashedNewPassword = SecurityService.HashPasswordWithSalt(change.Password, salt);
+            user.Password = hashedNewPassword;
+            user.Salt = salt;
+            _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
-        }
-
-        // confirm code
-        [HttpGet]
-        public IActionResult ConfirmCode()
-        {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            return View();
-        }
-        [HttpPost]
-        public IActionResult ConfirmCode(VerifyCodeViewModel verify)
-        {
-            //if (!ModelState.IsValid)
-            //{
-            //    ModelState.AddModelError(string.Empty, "");
-            //    return View(verify);
-            //}
-
-            //var user = _context.TUsers.FirstOrDefault(u => u.Email == User.FindFirst(ClaimTypes.Email).Value);
-            //if (verify.ConfirmationCode != user.ConfirmationCode)
-            //{
-            //    ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
-            //    return View(verify);
-            //}
-
-            //user.ConfirmationCode = null;
-            //_context.SaveChanges();
-
-            return RedirectToAction("ChangePassword", "Account");
         }
     }
 }
