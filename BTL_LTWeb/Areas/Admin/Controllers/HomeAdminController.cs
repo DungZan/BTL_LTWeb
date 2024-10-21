@@ -1,4 +1,5 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -190,5 +191,72 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return View(lst);
         }
 
+        [Route("ThemNhanVien")]
+        [HttpGet]
+        public IActionResult Themnhanvien()
+        {
+            return View("Themnhanvien");
+        }
+        [HttpPost]
+        [Route("ThemNhanVien")]
+        public IActionResult Themnhanvien(TNhanVien nv)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = db.TUsers.FirstOrDefault(u => u.Email == nv.Email);
+                if(user == null)
+                {
+                    string salt = SecurityService.GenerateSalt();
+                    string hash = SecurityService.HashPasswordWithSalt("Abc1234@", salt);
+                    user = new TUser
+                    {
+                        Email = nv.Email,
+                        Password = hash,
+                        Salt = salt,
+                        LoaiUser = "NhanVien"
+                    };
+                    db.TUsers.Add(user);
+                    db.SaveChanges();
+                }
+                db.TNhanViens.Add(nv);
+                db.SaveChanges();
+                return RedirectToAction("danhsachnhanvien");
+            }
+            return View(nv);
+        }
+        
+        [Route("Suanhanvien")]
+        [HttpGet]
+        public IActionResult Suanhanvien(int MaNV)
+        {
+            var nv = db.TNhanViens.Find(MaNV);
+            return View(nv);
+        }
+        [HttpPost]
+        [Route("Suanhanvien")]
+        public IActionResult Suanhanvien(TNhanVien nv)
+        {
+            if(ModelState.IsValid)
+            {
+                db.Entry(nv).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("danhsachnhanvien");
+            }
+            return View(nv);
+        }
+
+        [Route("Xoanhanvien")]
+        [HttpGet]
+        public IActionResult XoaNhanVien(int MaNV)
+        {
+            var nv = db.TNhanViens.Find(MaNV);
+            if(nv != null)
+            {
+                db.TNhanViens.Remove(nv);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("danhsachnhanvien");
+        }
     }
 }
