@@ -1,4 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
 namespace BTL_LTWeb.Models;
@@ -23,9 +28,11 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TKhachHang> TKhachHangs { get; set; }
     public virtual DbSet<TNhanVien> TNhanViens { get; set; }
     public virtual DbSet<TUser> TUsers { get; set; }
+    public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=WANGAMRT\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -106,7 +113,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
 
         modelBuilder.Entity<TChiTietHoaDonBan>(entity =>
         {
-            entity.HasKey(e => new { e.MaHoaDonBan, e.MaSP }).HasName("PK__tChiTiet__D3A3E3A3D3A3E3A3");
+            entity.HasKey(e => new { e.MaHoaDonBan, e.MaSP }).HasName("PK__tChiTiet__6A50CA8AF98C3478");
 
             entity.ToTable("tChiTietHoaDonBan");
 
@@ -135,6 +142,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
             entity.Property(e => e.MaKhachHang).HasColumnName("MaKhachHang");
             entity.Property(e => e.MaNhanVien).HasColumnName("MaNhanVien");
             entity.Property(e => e.TongTienHd).HasColumnType("decimal(18, 2)").HasColumnName("TongTienHD");
+            entity.Property(e => e.MaGiamGia).HasColumnName("MaGiamGia");
             entity.Property(e => e.PhuongThucThanhToan).HasMaxLength(100);
             entity.Property(e => e.GhiChu).HasColumnType("nvarchar(max)");
 
@@ -150,6 +158,23 @@ public partial class QLBanDoThoiTrangContext : DbContext
                .HasForeignKey(p => p.MaHoaDonBan)
                .OnDelete(DeleteBehavior.ClientSetNull)
                .HasConstraintName("FK_HoaDonBan_ChiTietHoaDonBan");
+            entity.HasOne(d => d.GiamGia).WithMany()
+                .HasForeignKey(d => d.MaGiamGia)
+                .HasConstraintName("FK_HoaDonBan_MaGiamGia");
+        });
+
+        modelBuilder.Entity<TMaGiamGia>(entity =>
+        {
+            entity.HasKey(e => e.MaGiamGia).HasName("PK_tMaGiamGia");
+
+            entity.ToTable("tMaGiamGia");
+
+            entity.Property(e => e.Code).HasColumnName("Code");
+            entity.Property(e => e.TiLeGiam).HasColumnName("TiLeGiam");
+            entity.Property(e => e.NgayBatDau).HasColumnName("NgayBatDau");
+            entity.Property(e => e.NgayKetThuc).HasColumnName("NgayKetThuc");
+            entity.Property(e => e.Mota).HasColumnName("Mota");
+            entity.Property(e => e.TrangThai).HasColumnName("TrangThai");
         });
 
         modelBuilder.Entity<TKhachHang>(entity =>
@@ -169,6 +194,15 @@ public partial class QLBanDoThoiTrangContext : DbContext
                 .HasForeignKey(d => d.Email)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_KhachHang_User");
+        });
+
+        modelBuilder.Entity<TGioHang>(entity =>
+        {
+            entity.HasKey(e => new { e.Email, e.MaChiTietSP }).HasName("PK_tGioHang");
+
+            entity.ToTable("tGioHang");
+
+            entity.Property(e => e.SoLuong).HasColumnName("SoLuong");
         });
 
         modelBuilder.Entity<TNhanVien>(entity =>
@@ -202,5 +236,38 @@ public partial class QLBanDoThoiTrangContext : DbContext
             entity.Property(e => e.Password).HasMaxLength(50).HasColumnName("password");
             entity.Property(e => e.Salt).HasMaxLength(50);
         });
+        modelBuilder.Entity<TDanhSachCuaHang>(entity =>
+        {
+            entity.HasKey(e => e.SDTCuaHang).HasName("PK_TDanhSachCuaHang");
+
+            entity.ToTable("tDanhSachCuaHang");
+
+            entity.Property(e => e.SDTCuaHang)
+                .HasColumnName("SDTCuaHang")
+                .HasMaxLength(10)
+                .ValueGeneratedNever()
+                .IsRequired();
+
+            entity.Property(e => e.DiaChi)
+                .HasColumnName("DiaChi")
+                .HasMaxLength(255)
+                .IsRequired();
+
+            entity.Property(e => e.KhuVuc)
+                .HasColumnName("KhuVuc")
+                .HasMaxLength(100)
+                .IsRequired();
+
+            entity.Property(e => e.KinhDo)
+                .HasColumnName("KinhDo")
+                .HasColumnType("float")
+                .IsRequired();
+
+            entity.Property(e => e.ViDo)
+                .HasColumnName("ViDo")
+                .HasColumnType("float")
+                .IsRequired();
+        });
+
     }
 }

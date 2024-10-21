@@ -32,6 +32,7 @@ public partial class TNhanVien
 
     [Display(Name = "Ghi chú")]
     public string? GhiChu { get; set; }
+
     [ValidateNever]
     public virtual TUser UsernameNavigation { get; set; } = null!;
 }

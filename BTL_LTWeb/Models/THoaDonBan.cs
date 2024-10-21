@@ -14,10 +14,10 @@ public partial class THoaDonBan
     public string? PhuongThucThanhToan { get; set; }
 
     public string? GhiChu { get; set; }
-
+    public int? MaGiamGia { get; set; }
     public virtual TKhachHang? KhachHang { get; set; }
 
     public virtual TNhanVien? NhanVien { get; set; }
-
+    public virtual TMaGiamGia? GiamGia { get; set; }
     public virtual ICollection<TChiTietHoaDonBan> TChiTietHoaDonBans { get; set; } = new List<TChiTietHoaDonBan>();
 }
