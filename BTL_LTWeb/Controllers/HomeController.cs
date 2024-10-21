@@ -32,7 +32,7 @@ namespace BTL_LTWeb.Controllers
             PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
             return View(lst);
         }
-        public IActionResult Sanphamtheoloai(string Loai,int? Page)
+        public IActionResult Sanphamtheoloai(string Loai, int? Page)
         {
             int pageSize = 9;
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
@@ -54,7 +54,7 @@ namespace BTL_LTWeb.Controllers
             var sp = db.TDanhMucSps.SingleOrDefault(x => x.MaSp == MaSP);
             var anhSp = db.TAnhSps.Where(x => x.MaSp == MaSP).ToList();
             HomeProductDetailViewModel model = new HomeProductDetailViewModel
-                {
+            {
                 product = sp,
                 productImages = anhSp
             };
@@ -90,5 +90,50 @@ namespace BTL_LTWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        public IActionResult Map()
+        {
+            var stores = db.TDanhSachCuaHangs.AsNoTracking().ToList();
+            return View(stores);
+        }
+        public IActionResult SearchStores(string city, string district)
+        {
+            var query = db.TDanhSachCuaHangs.AsQueryable();
+            if (!string.IsNullOrEmpty(city))
+            {
+                query = query.AsEnumerable().Where(store => store.KhuVuc.Split(',')[1].Trim() == city).AsQueryable();
+            }
+            if (!string.IsNullOrEmpty(district))
+            {
+                query = query.AsEnumerable().Where(store => store.KhuVuc.Split(',')[0].Trim() == district).AsQueryable();
+            }
+
+            var stores = query.ToList();
+            return PartialView("_StoreList", stores);
+        }
+
+
+
+
+
+        public JsonResult GetDistrictsByCity(string city)
+        {
+            var districts = db.TDanhSachCuaHangs
+                              .AsEnumerable()
+                              .Where(store => store.KhuVuc != null && store.KhuVuc.Split(',')[1].Trim() == city)
+                              .AsEnumerable()
+                              .Select(store => store.KhuVuc.Split(',')[0].Trim())
+                              .Distinct()
+                              .ToList();
+
+            return Json(districts);
+        }
+
+
+
+
+
+
     }
 }
