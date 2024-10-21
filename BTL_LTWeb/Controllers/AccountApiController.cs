@@ -1,12 +1,10 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.ViewModels;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using BTL_LTWeb.Services;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -33,24 +31,33 @@ namespace BTL_LTWeb.Controllers
         [HttpPost("resend-verify-email")]
         public async Task<IActionResult> ResendVerifyEmail()
         {
-            if (TempData["Register"] == null)
+            if (TempData["Register"] == null && TempData["Email"] == null)
             {
                 return BadRequest("Không có thông tin người dùng để gửi mã xác nhận.");
             }
 
-            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
-
-            var verifyCode = SecurityService.GenerateRandomCode();
-
-            TempData["code"] = verifyCode;
             if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
             {
                 ModelState.AddModelError(string.Empty, "Invalid status value.");
                 TempData.Keep();
                 return View("VerifyEmail");
             }
+            var verifyCode = SecurityService.GenerateRandomCode();
+
+            TempData["code"] = verifyCode;
             TempData.Keep();
-            int result = await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, 0);
+            int result = 0;
+            if (status == 1)
+            {
+                var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+                result = await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
+            }
+            else
+            {
+                var fogotPassword = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+                var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(kh => kh.Email == fogotPassword.Email);
+                result = await _emailService.SendEmailAsync(fogotPassword.Email, khachHang.TenKhachHang, verifyCode, status);
+            }
 
             if (result == 0)
             {
