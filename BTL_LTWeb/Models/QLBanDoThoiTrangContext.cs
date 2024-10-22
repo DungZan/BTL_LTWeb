@@ -78,7 +78,6 @@ public partial class QLBanDoThoiTrangContext : DbContext
 
             entity.Property(e => e.MaChiTietSp).HasColumnName("MaChiTietSP");
             entity.Property(e => e.AnhDaiDien).HasMaxLength(255);
-            entity.Property(e => e.DonGiaBan).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.KichThuoc).HasMaxLength(50);
             entity.Property(e => e.MaSp).HasColumnName("MaSP");
             entity.Property(e => e.MauSac).HasMaxLength(50);
