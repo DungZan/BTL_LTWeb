@@ -53,10 +53,22 @@ namespace BTL_LTWeb.Controllers
         {
             var sp = db.TDanhMucSps.SingleOrDefault(x => x.MaSp == MaSP);
             var anhSp = db.TAnhSps.Where(x => x.MaSp == MaSP).ToList();
+            var sizes = db.TChiTietSanPhams
+                              .Where(x => x.MaSp == MaSP)
+                              .Select(x => x.KichThuoc)
+                              .Distinct() 
+                              .ToList();
+            var colors = db.TChiTietSanPhams
+                              .Where(x => x.MaSp == MaSP)
+                              .Select(x => x.MauSac)
+                              .Distinct()
+                              .ToList();
             HomeProductDetailViewModel model = new HomeProductDetailViewModel
             {
                 product = sp,
-                productImages = anhSp
+                productImages = anhSp,
+                Sizes = sizes,
+                Colors = colors
             };
 
             return View(model);

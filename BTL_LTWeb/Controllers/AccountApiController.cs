@@ -25,10 +25,10 @@ namespace BTL_LTWeb.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("MyCookieAuthenticationScheme");
-            return Ok();
+            return NoContent();
         }
 
-        [HttpPost("resend-verify-email")]
+        [HttpPost("verify-email/resend")]
         public async Task<IActionResult> ResendVerifyEmail()
         {
             if (TempData["Register"] == null && TempData["Email"] == null)
@@ -38,9 +38,8 @@ namespace BTL_LTWeb.Controllers
 
             if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
             {
-                ModelState.AddModelError(string.Empty, "Invalid status value.");
-                TempData.Keep();
-                return View("VerifyEmail");
+                TempData.Keep(); 
+                return BadRequest("Giá trị status không hợp lệ.");
             }
             var verifyCode = SecurityService.GenerateRandomCode();
 
@@ -50,13 +49,27 @@ namespace BTL_LTWeb.Controllers
             if (status == 1)
             {
                 var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+                if (register == null)
+                {
+                    return BadRequest("Thông tin đăng ký không hợp lệ.");
+                }
+
                 result = await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
             }
             else
             {
-                var fogotPassword = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
-                var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(kh => kh.Email == fogotPassword.Email);
-                result = await _emailService.SendEmailAsync(fogotPassword.Email, khachHang.TenKhachHang, verifyCode, status);
+                var forgotPassword = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+                if (forgotPassword == null)
+                {
+                    return BadRequest("Thông tin quên mật khẩu không hợp lệ.");
+                }
+                var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(kh => kh.Email == forgotPassword.Email);
+
+                if (khachHang == null)
+                {
+                    return BadRequest("Không tìm thấy khách hàng với email này.");
+                }
+                result = await _emailService.SendEmailAsync(forgotPassword.Email, khachHang.TenKhachHang, verifyCode, status);
             }
 
             if (result == 0)

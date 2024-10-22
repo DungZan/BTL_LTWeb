@@ -7,6 +7,6 @@
         public int SoLuong { get; set; }
 
         public virtual TUser User { get; set; } = null!;
-        public virtual ICollection<TChiTietSanPham> ChiTietSanPhams { get; set; } = new List<TChiTietSanPham>();
+        public virtual TChiTietSanPham ChiTietSanPham { get; set; }
     }
 }
