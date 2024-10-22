@@ -14,10 +14,27 @@ namespace BTL_LTWeb.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+
+            // Kiểm tra nếu email không có giá trị
+            if (string.IsNullOrEmpty(email))
+            {
+                // Có thể chuyển hướng tới trang đăng nhập hoặc thông báo lỗi
+                return RedirectToAction("Login", "Account"); // Hoặc một action khác
+            }
+
+            // Lấy danh sách giỏ hàng của người dùng
+            var gioHang = await _context.TGioHangs
+            .Include(x => x.ChiTietSanPham) 
+            .ThenInclude(x => x.DanhMucSp) 
+            .Where(x => x.Email == email)
+            .ToListAsync();
+
+            return View(gioHang);
         }
+
 
         // create action add to cart
         [HttpPost]
@@ -47,14 +64,17 @@ namespace BTL_LTWeb.Controllers
             {
                 product.SoLuong += Soluong;
             }
+
             await _context.SaveChangesAsync();
             return RedirectToAction("ChitietSpNew", "Home", new { Masp });
         }
 
-        public IActionResult Edit(int id) {
+        public IActionResult Edit(int id)
+        {
             return View();
         }
-        public IActionResult Delete(int id) {
+        public IActionResult Delete(int id)
+        {
             return View();
         }
         public ActionResult ShowImage()
