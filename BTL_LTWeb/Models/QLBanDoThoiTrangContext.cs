@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.EntityFrameworkCore;
-using System.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Models;
 
@@ -31,10 +25,20 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     public virtual DbSet<TGioHang> TGioHangs { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            var config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+            string connectionString = config.GetConnectionString("MyDataBase");
 
 
+            optionsBuilder.UseSqlServer(connectionString);
+        }
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TAnhChiTietSp>(entity =>
@@ -198,10 +202,14 @@ public partial class QLBanDoThoiTrangContext : DbContext
 
         modelBuilder.Entity<TGioHang>(entity =>
         {
-            entity.HasKey(e => new { e.Email, e.MaChiTietSP }).HasName("PK_tGioHang");
+            entity.HasKey(e => e.MaGioHang).HasName("PK__tGioHang__F5001DA3A48306EF");
 
             entity.ToTable("tGioHang");
 
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .HasColumnName("Email");
+            entity.Property(e => e.MaChiTietSP).HasColumnName("MaChiTietSP");
             entity.Property(e => e.SoLuong).HasColumnName("SoLuong");
         });
 
