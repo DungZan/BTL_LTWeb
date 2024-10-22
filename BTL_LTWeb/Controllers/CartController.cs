@@ -1,4 +1,5 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +57,11 @@ namespace BTL_LTWeb.Controllers
         public IActionResult Delete(int id) {
             return View();
         }
+        public ActionResult ShowImage()
+        {
+            ViewBag.ImageData = VietQrGenerator.GetQR(100000, "Truong van minh chuyen tien");
 
+            return View();
+        }
     }
 }
