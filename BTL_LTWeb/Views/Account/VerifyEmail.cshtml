@@ -72,8 +72,10 @@
 
         function resendCode() {
             $.ajax({
-                url: '/api/AccountApi/resend-verify-email',
+                url: '/api/Account/resend-verify-email',
                 type: 'POST',
+                contentType: 'application/json',
+                data:
                 success: function (response) {
                     alert('Mã xác thực mới đã được gửi lại.');
                     countdown = 30;
