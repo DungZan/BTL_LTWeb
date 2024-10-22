@@ -1,10 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Map";
-    Layout = "~/Views/Shared/LayoutMap.cshtml";
+    Layout = "~/Views/Shared/_LayoutMap.cshtml";
 }
 @model IEnumerable<TDanhSachCuaHang>
 
 <style>
+    
     #map-container {
         width: 500px;
         height: 500px;
@@ -24,6 +25,8 @@
         max-height: 500px; 
         overflow-y: auto; 
         padding-right: 10px;
+        overflow-x: hidden;
+        
     }
 
     .listStore::-webkit-scrollbar {
@@ -64,7 +67,7 @@
             <h1 class="title uppercase margin-bottom0">Hệ thống cửa hàng</h1>
         </div>
         <div class="box-title mobile-hidden">
-            <span>Nhập một vị trí (ví dụ: mã bưu điện, địa chỉ, thành phố, v.v.) để tìm cửa hàng gần nhất.</span>
+            <span>Chọn một vị trí (ví dụ: quận, huyện, thành phố, v.v.) để tìm cửa hàng gần nhất.</span>
         </div>
         <div id="search-area" class="box-search tabcontent">
             <form id="store-form-search">
