@@ -1,4 +1,5 @@
-﻿<header class="site-navbar" role="banner">
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<header class="site-navbar" role="banner">
     <div class="site-navbar-top">
         <div class="container">
             <div class="row align-items-center">
@@ -29,7 +30,7 @@
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <div class="message-body">
-                                            <a class="d-flex align-items-center gap-2 dropdown-item">
+                                            <a asp-controller = "KhachHang" asp-action="index" class="d-flex align-items-center gap-2 dropdown-item">
                                                 <i class="ti ti-user fs-6"></i>
                                                 <p class="mb-0 fs-3">Hồ sơ</p>
                                             </a>
