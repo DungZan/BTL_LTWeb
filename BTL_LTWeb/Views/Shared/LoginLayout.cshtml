@@ -12,10 +12,35 @@
     <title>Modernize Free</title>
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/ResourceTemplaleAdmin/css/styles.min.css" />
+
+    <style>
+
+        .notification {
+            position: fixed;
+            top: 20px; /* Khoảng cách từ trên xuống */
+            right: 20px; /* Khoảng cách từ bên phải */
+            background-color: #f0f0f0; /* Màu nền */
+            border: 1px solid #ccc; /* Đường viền */
+            border-radius: 5px; /* Bo góc */
+            padding: 10px 20px; /* Khoảng cách bên trong */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Bóng đổ */
+            transition: all 0.5s ease; /* Hiệu ứng chuyển tiếp */
+            opacity: 0; /* Ban đầu mờ đi */
+            transform: translateX(100%); /* Ban đầu nằm bên ngoài bên phải */
+            z-index: 1000; /* Đảm bảo nó nằm trên các phần khác */
+        }
+
+            .notification.show {
+                opacity: 1; /* Hiện thông báo */
+                transform: translateX(0); /* Di chuyển vào vị trí */
+            }
+    </style>
 </head>
 
 <body>
     <!--  Body Wrapper -->
+    <div id="notification" class="notification" style="display:none;"></div>
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
          data-sidebar-position="fixed" data-header-position="fixed">
         <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
@@ -40,5 +65,34 @@
     <script src="~/lib/bootstrap/dist/css/bootstrap.css"></script>
     @RenderSection("Scripts", required: false)
 </body>
+<script>
+    function showNotification(message, isError = false) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.style.color = isError ? 'red' : 'green'; // Đặt màu cho thông báo
+
+        // Đặt lại kiểu hiển thị và lớp để hiển thị thông báo
+        notification.classList.remove('show'); // Gỡ bỏ lớp show trước đó
+        notification.style.display = 'block'; // Hiện thông báo
+        notification.offsetHeight; // Thao tác này giúp khởi động lại animation
+
+        // Thêm lớp show để kích hoạt hiệu ứng
+        notification.classList.add('show');
+
+        // Sau 5 giây, làm mờ và ẩn thông báo
+        setTimeout(() => {
+            notification.style.opacity = '0'; // Mờ dần
+            notification.style.transform = 'translateX(100%)'; // Di chuyển ra ngoài
+
+            // Ẩn thông báo sau khi hoàn tất mờ dần
+            setTimeout(() => {
+                notification.style.display = 'none'; // Ẩn thông báo
+                notification.classList.remove('show'); // Gỡ lớp show
+                notification.style.opacity = '1'; // Đặt lại opacity cho lần hiển thị tiếp theo
+                notification.style.transform = 'translateX(0)'; // Đặt lại vị trí cho lần hiển thị tiếp theo
+            }, 500); // Thời gian trễ 500ms để hoàn tất hiệu ứng mờ
+        }, 5000); // Hiển thị trong 5000ms
+    }
+</script>
 
 </html>

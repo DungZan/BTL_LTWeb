@@ -26,7 +26,7 @@
                 @Html.ValidationSummary(true) <!-- Hiển thị thông báo lỗi chung -->
             </span>
         </div>
-        <p id="message">Gửi lại mã sau <span id="countdown">30</span> giây.</p>
+        <p id="message">Gửi lại mã sau <span id="countdown"></span> giây.</p>
         <!-- Nút gửi lại mã (ban đầu bị vô hiệu hóa) -->
         <a class="text-primary fw-bold ms-2" id="resendCodeBtn" onclick="resendCode()" style="cursor:pointer">Gửi lại mã</a><br />
         <div class="d-flex justify-content-between align-items-sm-center">
@@ -43,14 +43,25 @@
         let countdownElement = document.getElementById('countdown');
         let message = document.getElementById('message');
         let resendCodeBtn = document.getElementById('resendCodeBtn');
-        let countdown = 30;
+        let countdown = sessionStorage.getItem("countdown");
         resendCodeBtn.style.display = 'none';
-        // Hàm đếm ngược
+        if (countdown == null) {
+            countdown = 30;
+            countdownElement.textContent = countdown;
+            sessionStorage.setItem("countdown", countdown);
+        } else if (countdown <= 0) {
+            countdownElement.style.display = 'none';
+            resendCodeBtn.style.display = 'inline-block';
+        }
+        else {
+            countdown = sessionStorage.getItem("countdown");
+            countdownElement.textContent = countdown;
+        }
         let timer = setInterval(function () {
             countdown--;
             countdownElement.textContent = countdown;
+            sessionStorage.setItem("countdown", countdown);
 
-            // Khi hết thời gian, cho phép gửi lại mã
             if (countdown <= 0) {
                 clearInterval(timer);
 
@@ -59,22 +70,25 @@
             }
         }, 1000);
 
-        // Hàm gửi lại mã
         function resendCode() {
-            // Gửi yêu cầu AJAX tới API gửi lại mã
             $.ajax({
-                url: '/api/AccountApi/resend-verify-email', // Đường dẫn đến API gửi lại mã xác thực
-                type: 'POST', // Phương thức POST
+                url: '/api/Account/resend-verify-email',
+                type: 'POST',
+                contentType: 'application/json',
+                data:
                 success: function (response) {
-                    alert('Mã xác thực mới đã được gửi lại.'); // Hiển thị thông báo khi gửi lại thành công
+                    alert('Mã xác thực mới đã được gửi lại.');
                     countdown = 30;
+                    countdownElement.textContent = countdown;
                     resendCodeBtn.style.display = 'none';
                     message.style.display = 'inline-block';
+                    sessionStorage.setItem("countdown", countdown);
 
-                   
+
                     timer = setInterval(function () {
                         countdown--;
                         countdownElement.textContent = countdown;
+                        sessionStorage.setItem("countdown", countdown);
 
                         if (countdown <= 0) {
                             clearInterval(timer);
@@ -84,10 +98,11 @@
                     }, 1000);
                 },
                 error: function (xhr, status, error) {
-                    // Xử lý lỗi nếu không thành công
-                    alert('Có lỗi xảy ra trong quá trình gửi lại mã xác thực.');
+                    alert(error);
+                    // showNotification('Có lỗi xảy ra trong quá trình gửi lại mã xác thực.', true);
                 }
             });
         }
+
     </script>
 }

@@ -15,8 +15,6 @@ public partial class TChiTietSanPham
 
     public string? AnhDaiDien { get; set; }
 
-    public decimal? DonGiaBan { get; set; }
-
     public int? Slton { get; set; }
 
     public virtual TDanhMucSp DanhMucSp { get; set; } = null!;

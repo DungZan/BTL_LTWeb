@@ -12,11 +12,6 @@ var connectionString = builder.Configuration.GetConnectionString("QLBanDoThoiTra
 builder.Services.AddDbContext<QLBanDoThoiTrangContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(3);
-});
-
 builder.Services.AddTransient<EmailService>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
@@ -25,7 +20,7 @@ builder.Services.AddAuthentication("MyCookieAuthenticationScheme")
     .AddCookie("MyCookieAuthenticationScheme", options =>
     {
         options.LoginPath = "/Account/Login"; // Đường dẫn đến trang đăng nhập
-        options.AccessDeniedPath = "/Account/Login"; // Đường dẫn từ chối truy cập
+        options.AccessDeniedPath = "/Home/Index"; // Đường dẫn từ chối truy cập
         options.SlidingExpiration = true;
     });
 

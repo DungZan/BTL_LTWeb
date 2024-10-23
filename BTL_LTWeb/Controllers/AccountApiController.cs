@@ -1,12 +1,10 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.ViewModels;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 using BTL_LTWeb.Services;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -22,67 +20,62 @@ namespace BTL_LTWeb.Controllers
             _emailService = emailService;
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel login)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == login.Email);
-            if (user == null)
-            {
-                return Unauthorized("Tên đăng nhập hoặc mật khẩu không chính xác.");
-            }
-
-            var hashedPassword = SecurityService.HashPasswordWithSalt(login.Password, user.Salt);
-            if (hashedPassword != user.Password)
-            {
-                return Unauthorized("Tên đăng nhập hoặc mật khẩu không chính xác.");
-            }
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Email, login.Email)
-            };
-
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = login.RememberMe,
-                ExpiresUtc = login.RememberMe ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddMinutes(30)
-            };
-
-            await HttpContext.SignInAsync("MyCookieAuthenticationScheme", new ClaimsPrincipal(claimsIdentity), authProperties);
-
-            return Ok(new { message = "Đăng nhập thành công!" });
-        }
 
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("MyCookieAuthenticationScheme");
-            return Ok();
+            return NoContent();
         }
 
-        [HttpPost("resend-verify-email")]
+        [HttpPost("verify-email/resend")]
         public async Task<IActionResult> ResendVerifyEmail()
         {
-            if (TempData["Register"] == null)
+            if (TempData["Register"] == null && TempData["Email"] == null)
             {
                 return BadRequest("Không có thông tin người dùng để gửi mã xác nhận.");
             }
 
-            var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
-
+            if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
+            {
+                TempData.Keep(); 
+                return BadRequest("Giá trị status không hợp lệ.");
+            }
             var verifyCode = SecurityService.GenerateRandomCode();
 
-            await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode);
-
             TempData["code"] = verifyCode;
-
             TempData.Keep();
+            int result = 0;
+            if (status == 1)
+            {
+                var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+                if (register == null)
+                {
+                    return BadRequest("Thông tin đăng ký không hợp lệ.");
+                }
+
+                result = await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
+            }
+            else
+            {
+                var forgotPassword = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+                if (forgotPassword == null)
+                {
+                    return BadRequest("Thông tin quên mật khẩu không hợp lệ.");
+                }
+                var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(kh => kh.Email == forgotPassword.Email);
+
+                if (khachHang == null)
+                {
+                    return BadRequest("Không tìm thấy khách hàng với email này.");
+                }
+                result = await _emailService.SendEmailAsync(forgotPassword.Email, khachHang.TenKhachHang, verifyCode, status);
+            }
+
+            if (result == 0)
+            {
+                return BadRequest("Gửi mã xác nhận thất bại.");
+            }
 
             return Ok(new { message = "Mã xác nhận đã được gửi lại." });
         }
