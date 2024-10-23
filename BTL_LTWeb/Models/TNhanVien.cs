@@ -35,4 +35,7 @@ public partial class TNhanVien
 
     [ValidateNever]
     public virtual TUser UsernameNavigation { get; set; } = null!;
+
+    [Timestamp]
+    public byte[]? RowVersion { get; set; }
 }

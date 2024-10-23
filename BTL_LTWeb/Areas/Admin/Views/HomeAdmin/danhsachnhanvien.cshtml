@@ -8,7 +8,7 @@
 <div class="row">
     <h1>Danh Sách Nhân viên</h1>
     <p>
-        <a class="btn btn-info" asp-action="Themnhanvien">Create New</a>
+        <a class="btn btn-info" asp-action="Themnhanvien">Thêm nhân viên</a>
     </p>
     <form asp-controller="HomeAdmin" asp-action="" method="get" class="site-block-top-search d-flex">
         <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
@@ -65,9 +65,8 @@
                             @Html.DisplayFor(modelItem => item.GhiChu)
                         </td>
                         <td>
-                            <a asp-action="ThemNhanVien" asp-route-MaNV="@item.MaNhanVien">Edit</a> |
-                            <a asp-action="NhanVien" asp-route-id="@item.MaNhanVien">Details</a> |
-                            <a asp-action="XoaNhanVien" asp-route-id="@item.MaNhanVien">Delete</a>
+                            <a asp-action="SuaNhanVien" asp-route-MaNV="@item.MaNhanVien">Edit</a> |
+                            <a asp-action="XoaNhanVien" asp-route-MaNV="@item.MaNhanVien">Delete</a>
                         </td>
                     </tr>
                 }

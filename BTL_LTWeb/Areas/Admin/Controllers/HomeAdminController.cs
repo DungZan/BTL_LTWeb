@@ -186,7 +186,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         {
             int pageSize = 10;
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.TenNhanVien);
+            var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.MaNhanVien);
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
             return View(lst);
         }
@@ -236,11 +236,56 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("Suanhanvien")]
         public IActionResult Suanhanvien(TNhanVien nv)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                db.Entry(nv).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("danhsachnhanvien");
+                var existingnv = db.TNhanViens.Find(nv.MaNhanVien);
+                if (existingnv == null)
+                {
+                    ModelState.AddModelError("MaNhanVien", "Nhân viên không tồn tại");
+                    return View(nv);
+                }
+                //if (existingnv.Email != nv.Email)
+                //{
+                //    var _olderUser = db.TUsers.FirstOrDefault(u => u.Email == existingnv.Email);
+                //    if (_olderUser != null)
+                //    {
+                //        string oldpassword = _olderUser.Password;
+                //        string oldsalt = _olderUser.Salt;
+                //        var _newUser = new TUser
+                //        {
+                //            Email = nv.Email,
+                //            Password = oldpassword,
+                //            Salt = oldsalt,
+                //            LoaiUser = nv.ChucVu
+                //        };
+                //        db.TUsers.Add(_newUser);
+                //        db.TUsers.Remove(_olderUser);
+
+
+                //        db.SaveChanges();
+                //    }
+                //}
+                if (existingnv.Email != nv.Email)
+                {
+                    ModelState.AddModelError("Email", "Bạn không được phép thay đổi email.");
+                    nv.Email = existingnv.Email;
+                    return View(nv);  
+                }
+                existingnv.Email = nv.Email;
+                existingnv.TenNhanVien = nv.TenNhanVien;
+                existingnv.NgaySinh = nv.NgaySinh;
+                existingnv.ChucVu = nv.ChucVu;
+                existingnv.GhiChu = nv.GhiChu;
+                db.Entry(existingnv).State = EntityState.Modified;
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("danhsachnhanvien");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Lỗi khi lưu dữ liệu: " + ex.Message);
+                }
             }
             return View(nv);
         }
@@ -250,10 +295,27 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         public IActionResult XoaNhanVien(int MaNV)
         {
             var nv = db.TNhanViens.Find(MaNV);
-            if(nv != null)
+            if (nv != null)
             {
-                db.TNhanViens.Remove(nv);
-                db.SaveChanges();
+                try
+                {
+                    var user = db.TUsers.FirstOrDefault(u => u.Email == nv.Email);
+                    if (user != null)
+                    {
+                        db.TUsers.Remove(user);
+                    }
+                    db.TNhanViens.Remove(nv);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Lỗi khi xóa nhân viên và user: " + ex.Message);
+                    return RedirectToAction("danhsachnhanvien");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("MaNhanVien", "Nhân viên không tồn tại.");
             }
 
             return RedirectToAction("danhsachnhanvien");
