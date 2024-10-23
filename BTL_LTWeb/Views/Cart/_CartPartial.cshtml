@@ -6,10 +6,14 @@
     </td>
     <input type="hidden" value="@Model.MaGioHang"/>
     <td class="product-thumbnail">
-        <img src="@Model.ChiTietSanPham.AnhDaiDien" alt="Image" class="img-fluid">
+
+        <img src=~/ResourceTemplale/images/@($"{Model.ChiTietSanPham.DanhMucSp.AnhDaiDien}.jpg") alt="Image" class="img-fluid">
+
     </td>
     <td class="product-name">
-        <h2 class="h5 text-black">@Model.ChiTietSanPham.DanhMucSp.TenSp</h2>
+        <h2 style="cursor: pointer;" onclick="window.location.href='Home/ChitietSpNew?MaSp=@Model.ChiTietSanPham.DanhMucSp.MaSp'" class="h5 text-black">
+            @Model.ChiTietSanPham.DanhMucSp.TenSp
+        </h2>
     </td>
     <td>@Model.ChiTietSanPham.KichThuoc</td>
     <td>@Model.ChiTietSanPham.MauSac</td>
@@ -25,7 +29,7 @@
             </div>
         </div>
     </td>
-    <td>@(@Model.ChiTietSanPham.DanhMucSp.Gia * @Model.SoLuong)</td>
+    <td>@(Convert.ToInt32(Model.ChiTietSanPham.DanhMucSp.Gia) * Model.SoLuong)</td>
     <td><a id="remove" class="btn btn-primary btn-sm">X</a></td>
 </tr>
 

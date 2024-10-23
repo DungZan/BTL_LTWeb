@@ -1,0 +1,196 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<link rel="stylesheet" href="~/ResourceTemplale/Profile/style.css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<body>
+    @RenderBody()
+    <div class="container bootstrap snippets bootdey">
+        <div class="row">
+            <div class="profile-nav col-md-3">
+                <div class="panel">
+                    <div class="user-heading round">
+                        <a href="#">
+                            <img src="data:image/jpeg;base64,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"
+                                 alt="">
+                        </a>
+                        <h1>Camila Smith</h1>
+                        <p>deydey@theEmail.com</p>
+                    </div>
+
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-calendar"></i> Recent Activity <span class="label label-warning pull-right r-activity">9</span>
+                            </a>
+                        </li>
+                        <li><a href="#"> <i class="fa fa-edit"></i> Edit profile</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="profile-info col-md-9">
+                <div class="panel">
+                    <form>
+                        <textarea placeholder="Whats in your mind today?" rows="2"
+                                  class="form-control input-lg p-text-area"></textarea>
+                    </form>
+                    <footer class="panel-footer">
+                        <button class="btn btn-warning pull-right">Post</button>
+                        <ul class="nav nav-pills">
+                            <li>
+                                <a href="#"><i class="fa fa-map-marker"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-camera"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class=" fa fa-film"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-microphone"></i></a>
+                            </li>
+                        </ul>
+                    </footer>
+                </div>
+                <div class="panel">
+                    <div class="bio-graph-heading">
+                        Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac
+                        magna metus.
+                    </div>
+                    <div class="panel-body bio-graph-info">
+                        <h1>Bio Graph</h1>
+                        <div class="row">
+                            <div class="bio-row">
+                                <p><span>First Name </span>: Camila</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Last Name </span>: Smith</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Country </span>: Australia</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Birthday</span>: 13 July 1983</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Occupation </span>: UI Designer</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Email </span>: jsmith@flatlab.com</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Mobile </span>: (12) 03 4567890</p>
+                            </div>
+                            <div class="bio-row">
+                                <p><span>Phone </span>: 88 (02) 123456</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="bio-chart">
+                                        <div style="display:inline;width:100px;height:100px;">
+                                            <canvas width="100"
+                                                    height="100px"></canvas><input class="knob" data-width="100"
+                                                                                   data-height="100" data-displayprevious="true" data-thickness=".2"
+                                                                                   value="35" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8"
+                                                                                   style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;">
+                                        </div>
+                                    </div>
+                                    <div class="bio-desk">
+                                        <h4 class="red">Envato Website</h4>
+                                        <p>Started : 15 July</p>
+                                        <p>Deadline : 15 August</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="bio-chart">
+                                        <div style="display:inline;width:100px;height:100px;">
+                                            <canvas width="100"
+                                                    height="100px"></canvas><input class="knob" data-width="100"
+                                                                                   data-height="100" data-displayprevious="true" data-thickness=".2"
+                                                                                   value="63" data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8"
+                                                                                   style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(76, 197, 205); padding: 0px; -webkit-appearance: none; background: none;">
+                                        </div>
+                                    </div>
+                                    <div class="bio-desk">
+                                        <h4 class="terques">ThemeForest CMS </h4>
+                                        <p>Started : 15 July</p>
+                                        <p>Deadline : 15 August</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="bio-chart">
+                                        <div style="display:inline;width:100px;height:100px;">
+                                            <canvas width="100"
+                                                    height="100px"></canvas><input class="knob" data-width="100"
+                                                                                   data-height="100" data-displayprevious="true" data-thickness=".2"
+                                                                                   value="75" data-fgcolor="#96be4b" data-bgcolor="#e8e8e8"
+                                                                                   style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(150, 190, 75); padding: 0px; -webkit-appearance: none; background: none;">
+                                        </div>
+                                    </div>
+                                    <div class="bio-desk">
+                                        <h4 class="green">VectorLab Portfolio</h4>
+                                        <p>Started : 15 July</p>
+                                        <p>Deadline : 15 August</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="bio-chart">
+                                        <div style="display:inline;width:100px;height:100px;">
+                                            <canvas width="100"
+                                                    height="100px"></canvas><input class="knob" data-width="100"
+                                                                                   data-height="100" data-displayprevious="true" data-thickness=".2"
+                                                                                   value="50" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8"
+                                                                                   style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(203, 164, 219); padding: 0px; -webkit-appearance: none; background: none;">
+                                        </div>
+                                    </div>
+                                    <div class="bio-desk">
+                                        <h4 class="purple">Adobe Muse Template</h4>
+                                        <p>Started : 15 July</p>
+                                        <p>Deadline : 15 August</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
