@@ -39,10 +39,31 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         }
         [HttpPost]
         [Route("Themsanpham")]
-        public IActionResult Themsanpham(TDanhMucSp sp)
+        public async Task<IActionResult> ThemsanphamAsync(TDanhMucSp sp, IFormFile file)
         {
             if (ModelState.IsValid)
             {
+                if (file != null && file.Length > 0)
+                {
+                    // Define the target path in your project
+                    string targetDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    if (!Directory.Exists(targetDirectory))
+                    {
+                        Directory.CreateDirectory(targetDirectory);
+                    }
+
+                    string targetFilePath = Path.Combine(targetDirectory, file.FileName);
+
+                    // Copy the file to the target path
+                    using (var stream = new FileStream(targetFilePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    // Save the file name to the database
+                    sp.AnhDaiDien = file.FileName;
+                }
+
                 db.TDanhMucSps.Add(sp);
                 db.SaveChanges();
                 return RedirectToAction("danhmucsanpham");
@@ -190,31 +211,6 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
             return View(lst);
         }
-
-        //sửa nhân viên
-        //[Route("SuaNhanVien")]
-        //[HttpGet]
-        //public IActionResult Suanhanvien(int MaNhanVien)
-        //{
-
-        //    var nhanVien = db.TNhanViens.Find(MaNhanVien);
-        //    return View(nhanVien);
-        //}
-
-        //[HttpPost]
-        //[Route("SuaNhanVien")]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Suanhanvien(TNhanVien nhanVien)
-        //{
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(nhanVien).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("danhsachnhanvien", "HomeAdmin");
-        //    }
-        //    return View(nhanVien);
-        //}
 
     }
 }

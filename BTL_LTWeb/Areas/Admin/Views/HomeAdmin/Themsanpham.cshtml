@@ -11,7 +11,7 @@
 <hr />
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="p-3 p-lg-5 border">
-    <form asp-action="Themsanpham">
+    <form asp-action="Themsanpham" method="post" enctype="multipart/form-data">
         <div class="form-group row mt-3">
             <div class="col-md-6">
                 <label asp-for="TenSp" class="text-black form-label">Tên sản phẩm <span class="text-danger">*</span></label>
@@ -60,6 +60,14 @@
                 <span asp-validation-for="AnhDaiDien" class="text-danger"></span>
             </div>
         </div>
+
+        <div class="form-group row mt-3">
+            <div class="col-md-12">
+                <label for="file">Chọn ảnh:</label>
+                <input type="file" name="file" class="form-control" />
+            </div>
+        </div>
+
         <div class="form-group row mt-3">
             <div class="col-md-12">
                 <label asp-for="Gia" class="control-label text-black form-label"></label>
@@ -78,4 +86,3 @@
 <div class="col-lg-12">
     <a class="btn btn-primary" asp-action="danhmucsanpham">Back to List</a>
 </div>
-
