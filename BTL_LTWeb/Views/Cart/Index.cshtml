@@ -3,213 +3,81 @@
     Layout = "~/Views/Shared/_CartLayout.cshtml";
 }
 @model List<BTL_LTWeb.Models.TGioHang>
-
-@if (Model.Count < 1)
-{
-    <h2>Không có sản phẩm nào trong giỏ hàng</h2>
-}
-else
-{
-    <div class="row mb-5">
-        <form class="col-md-12">
-            <div class="site-blocks-table">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="product-select-all">
-                                <input type="checkbox" id="all" class="product-checkbox" />
-                            </th>
-                            <th class="product-thumbnail">Ảnh</th>
-                            <th class="product-name">Tên sản phẩm</th>
-                            <th class="product-size">Kích thước</th>
-                            <th class="product-color">Màu sắc</th>
-                            <th class="product-price">Giá</th>
-                            <th class="product-quantity">Số lượng</th>
-                            <th class="product-total">Tổng</th>
-                            <th class="product-remove">Xóa</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            if (item?.ChiTietSanPham != null && item.ChiTietSanPham.DanhMucSp != null)
-                            {
-                                @await Html.PartialAsync("_CartPartial", item)
-                                ;
-                            }
-                            else
-                            {
-                                // Nếu không có thông tin sản phẩm, hiển thị dòng thông báo
-                                <tr>
-                                    <td colspan="5" class="text-center">Sản phẩm không có thông tin.</td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </form>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row mb-5">
-                <div class="col-md-6 mb-3 mb-md-0">
-                    <a class="btn btn-primary btn-sm btn-block">Cập nhật giỏ hàng</a>
+<div id="cart-container">
+    @if (Model.Count < 1)
+    {
+        <h2>Không có sản phẩm nào trong giỏ hàng</h2>
+    }
+    else
+    {
+        <div class="row mb-5">
+            <form class="col-md-12">
+                <div class="site-blocks-table">
+                    @await Html.PartialAsync("_ListCart", Model)
                 </div>
-                <div class="col-md-6">
-                    <a class="btn btn-outline-primary btn-sm btn-block" asp-action="Index" asp-controller="Home">Tiếp tục mua hàng</a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label class="text-black h4" for="coupon">Mã giảm giá</label>
-                    <p>Nhập mã giảm giá</p>
-                </div>
-                <div class="col-md-8 mb-3 mb-md-0">
-                    <input type="text" class="form-control py-3" id="coupon" placeholder="Mã giảm giá">
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-primary btn-sm">Áp dụng mã giảm giá</button>
-                </div>
-            </div>
+            </form>
         </div>
-        <div class="col-md-6 pl-5">
-            <div class="row justify-content-end">
-                <div class="col-md-7">
-                    <div class="row">
-                        <div class="col-md-12 text-right border-bottom mb-5">
-                            <h3 class="text-black h4 text-uppercase">Tổng tiền</h3>
-                        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row mb-5">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <a class="btn btn-primary btn-sm btn-block">Cập nhật giỏ hàng</a>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <span class="text-black">Giảm</span>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <strong class="text-black">0</strong>
-                        </div>
+                    <div class="col-md-6">
+                        <a class="btn btn-outline-primary btn-sm btn-block" asp-action="Index" asp-controller="Home">Tiếp tục mua hàng</a>
                     </div>
-                    <div class="row mb-5">
-                        <div class="col-md-6">
-                            <span class="text-black">Phải thanh toán</span>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <strong class="text-black total-amount">0.00</strong>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="text-black h4" for="coupon">Mã giảm giá</label>
+                        <p>Nhập mã giảm giá</p>
                     </div>
+                    <div class="col-md-8 mb-3 mb-md-0">
+                        <input type="text" class="form-control py-3" id="coupon" placeholder="Mã giảm giá">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-sm">Áp dụng mã giảm giá</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 pl-5">
+                <div class="row justify-content-end">
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-12 text-right border-bottom mb-5">
+                                <h3 class="text-black h4 text-uppercase">Tổng tiền</h3>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <span class="text-black">Giảm</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong class="text-black">0</strong>
+                            </div>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-md-6">
+                                <span class="text-black">Phải thanh toán</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong id="total" class="text-black total-amount">0.00</strong>
+                            </div>
+                        </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Thanh toán</button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location='checkout.html'">Thanh toán</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+        <input id="customer" type="hidden" value=@Model[0].MaKhachHang />
+    }
+</div>
+
 @section Scripts {
-    <script>
-        $(document).on('change', '#all', function () {
-            let isChecked = $(this).is(':checked');
-            let grandTotal = 0;
-            $('.site-blocks-table tbody tr').each(function () {
-                $(this).find('#check').prop('checked', isChecked); // K
-                let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0; 
-                grandTotal += rowTotal; // Cộng vào grand total
-            });
-            $('.total-amount').text(grandTotal.toFixed(2));
-
-        });
-        $(document).ready(function () {
-            $(document).on('click', '.js-btn-plus', function () {
-                let input = $(this).closest('tr').find('input:eq(2)');
-                updateTotal(input.closest('tr'));
-            });
-
-            $(document).on('click', '.js-btn-minus', function () {
-                let input = $(this).closest('tr').find('input:eq(2)');
-                let value = parseInt(input.val());
-                if (value > 0) {
-                    updateTotal(input.closest('tr'));
-                } else {
-                    input.val(value + 1);
-                }
-            });
-
-
-        });
-
-        $(document).on('change', '.product-checkbox', function () {
-            updateTotalAmount(); // Gọi hàm cập nhật tổng tiền
-        });
-
-        function updateAllTotals(isChecked) {
-            let grandTotal = 0;
-            $('.site-blocks-table tbody tr').each(function () {
-                $(this).find('#check').prop('checked', isChecked); // K
-                let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0; // Lấy tổng tiền của hàng
-                grandTotal += rowTotal; // Cộng vào grand total
-            });
-
-            // Cập nhật hiển thị tổng phải thanh toán
-            $('.total-amount').text(grandTotal.toFixed(2)); // Định dạng 2 chữ số thập phân
-        }
-
-        function updateTotalAmount() {
-            let totalAmount = 0;
-            $('.product-checkbox:checked').each(function () {
-                let row = $(this).closest('tr');
-                let price = parseFloat(row.find('td:eq(5)').text()); // Giá sản phẩm
-                let quantity = parseInt(row.find('input:eq(2)').val()); // Số lượng
-                totalAmount += price * quantity; // Tính tổng
-            });
-
-            $('.total-amount').text(totalAmount.toFixed(2));
-
-        }
-
-        function updateTotal(row) {
-            // Lấy giá trị của price và quantity
-            let price = parseFloat(row.find('td:eq(5)').text());
-            let quantity = parseInt(row.find('input:eq(2)').val()); // Xác định đúng input
-            let total = price * quantity;
-            row.find('td:eq(7)').text(total);
-
-            // Tính tổng cho tất cả hàng
-            let grandTotal = 0;
-            $('.site-blocks-table tbody tr').each(function () {
-                if ($(this).find('#check').prop('checked')) {
-                let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0; // Lấy tổng tiền của hàng
-                grandTotal += rowTotal; // Cộng vào grand total
-                } // K
-            });
-            $('.total-amount').text(grandTotal.toFixed(2));
-
-        }
-
-
-        // create ajax call api remove item from cart follow email and product id
-        $(document).on('click', '#remove', function () {
-            let row = $(this).closest('tr');
-            let cartId = parseInt(row.find('input:eq(0)').val());
-            alert(cartId);
-            $.ajax({
-                url: '/api/Cart/remove',
-                type: 'DELETE',
-                data: {
-                    productId: cartId
-                },
-                success: function (response) {
-                    if (response) {
-                        row.remove();
-                        updateTotal(row);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert('Có lỗi xảy ra trong quá trình xóa .');
-                }
-            });
-        });
-    </script>
+    <script src="~/js/cart.js"></script>
 }
