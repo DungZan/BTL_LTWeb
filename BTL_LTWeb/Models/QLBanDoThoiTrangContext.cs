@@ -25,20 +25,20 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     public virtual DbSet<TGioHang> TGioHangs { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
+    //{
+    //    if (!optionsBuilder.IsConfigured)
+    //    {
+    //        var config = new ConfigurationBuilder()
+    //        .SetBasePath(Directory.GetCurrentDirectory())
+    //        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    //        .Build();
+    //string connectionString = config.GetConnectionString("MyDataBase");
 
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
-            string connectionString = config.GetConnectionString("MyDataBase");
 
-
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-    }
+    //optionsBuilder.UseSqlServer(connectionString);
+    //    }
+    //}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TAnhChiTietSp>(entity =>
