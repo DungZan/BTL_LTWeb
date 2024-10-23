@@ -7,14 +7,12 @@
 
 <h1>Sửa Khách Hàng</h1>
 
-<h4>TKhachHang</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post" asp-action="SuaKhachHang">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaKhachHang" />
-            <p>@ViewBag.test</p>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
 
