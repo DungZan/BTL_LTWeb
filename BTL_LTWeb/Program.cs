@@ -20,9 +20,10 @@ builder.Services.AddAuthentication("MyCookieAuthenticationScheme")
     .AddCookie("MyCookieAuthenticationScheme", options =>
     {
         options.LoginPath = "/Account/Login"; // Đường dẫn đến trang đăng nhập
-        options.AccessDeniedPath = "/Home/Index"; // Đường dẫn từ chối truy cập
+        options.LogoutPath = "/Home/Index"; // Đường dẫn từ chối truy cập
         options.SlidingExpiration = true;
     });
+    
 
 // Add Authorization
 builder.Services.AddAuthorization();
