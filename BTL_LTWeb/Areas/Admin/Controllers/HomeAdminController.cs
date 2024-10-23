@@ -3,6 +3,7 @@ using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Drawing.Printing;
 using X.PagedList;
 
@@ -189,6 +190,31 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
             return View(lst);
         }
+
+        //sửa nhân viên
+        //[Route("SuaNhanVien")]
+        //[HttpGet]
+        //public IActionResult Suanhanvien(int MaNhanVien)
+        //{
+
+        //    var nhanVien = db.TNhanViens.Find(MaNhanVien);
+        //    return View(nhanVien);
+        //}
+
+        //[HttpPost]
+        //[Route("SuaNhanVien")]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Suanhanvien(TNhanVien nhanVien)
+        //{
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(nhanVien).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("danhsachnhanvien", "HomeAdmin");
+        //    }
+        //    return View(nhanVien);
+        //}
 
     }
 }
