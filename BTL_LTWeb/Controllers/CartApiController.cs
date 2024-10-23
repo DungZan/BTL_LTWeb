@@ -13,13 +13,12 @@ namespace BTL_LTWeb.Controllers
         {
             _context = context;
         }
-        //create api remove item from cart follow by email and product id
-        [HttpDelete("remove")]
-        public async Task<IActionResult> RemoveItemFromCart(int productId)
-        {
 
-            //remove item from cart
-            var cart = await _context.TGioHangs.FirstOrDefaultAsync(x => x.MaChiTietSP == productId);
+
+        [HttpDelete("remove")]
+        public async Task<IActionResult> RemoveItemFromCart([FromBody] int cartId)
+        {
+            var cart = await _context.TGioHangs.FirstOrDefaultAsync(x => x.MaGioHang == cartId);
             if (cart == null)
             {
                 return NotFound();
