@@ -152,7 +152,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult SuaKhachHang(int MaKH)
         { 
-            ViewBag.Username = new SelectList(db.TUsers.ToList(), "MaKhachHang", "MaKhachHang");
+            //ViewBag.Username = new SelectList(db.TUsers.ToList(), "MaKhachHang", "MaKhachHang");
             var kh = db.TKhachHangs.Find(MaKH);
             return View(kh);
         }
@@ -161,7 +161,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("SuaKhachHang")]
         public IActionResult SuaKhachHang(TKhachHang kh)
         {
-            ViewBag.Username = new SelectList(db.TUsers.ToList(), "MaKhachHang", "MaKhachHang");
+            //ViewBag.Username = new SelectList(db.TUsers.ToList(), "MaKhachHang", "MaKhachHang");
             if (ModelState.IsValid)
             {
                 db.Entry(kh).State = EntityState.Modified;
