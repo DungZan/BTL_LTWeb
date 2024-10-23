@@ -16,80 +16,56 @@
 
 
 });
+$(document).on('change', '#all', function () {
+    let isChecked = $(this).is(':checked');
 
-$(document).on('change', '.product-checkbox', function () {
-    let isCheckALl = true;
     $('.site-blocks-table tbody tr').each(function () {
-        if (!$(this).find('#check').prop('checked')) {
-            isCheckALl = false;
+        $(this).find('.product-checkbox').prop('checked', isChecked);
+    });
+});
+$(document).on('change', '.product-checkbox', function () {
+    let isCheckAll = true;
+
+    $('.site-blocks-table tbody tr').each(function () {
+        if (!$(this).find('.product-checkbox').prop('checked')) {
+            isCheckAll = false;
         }
     });
-    $('#all').prop('checked', isCheckALl);
+
+    $('#all').prop('checked', isCheckAll);
     updateTotalAmount();
 });
 
-$(document).on('change', '#all', function () {
-    let isChecked = $(this).is(':checked');
-    let grandTotal = 0;
-    $('.site-blocks-table tbody tr').each(function () {
-        $(this).find('#check').prop('checked', isChecked);
-    });
 
-
-    if (isChecked) {
-        let grandTotal = 0;
-        $('.site-blocks-table tbody tr').each(function () {
-            if ($(this).find('#check').prop('checked')) {
-                let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0; // Lấy tổng tiền của hàng
-                grandTotal += rowTotal; // Cộng vào grand total
-            }
-        });
-        $('#total').text(grandTotal.toString());
-    }
-    else
-        $('.total-amount').text('0.00');
-});
-
-function updateAllTotals(isChecked) {
-    let grandTotal = 0;
-    $('.site-blocks-table tbody tr').each(function () {
-        $(this).find('#check').prop('checked', isChecked); // K
-        let price = parseFloat($(this).find('td:eq(5)').text()) || 0; // Đảm bảo giá trị số
-        let quantity = parseInt($(this).find('input:eq(2)').val()) || 0; // Đảm bảo giá trị số
-        grandTotal += price * quantity;
-    });
-}
 
 function updateTotalAmount() {
     let totalAmount = 0;
     $('.product-checkbox:checked').each(function () {
         let row = $(this).closest('tr');
-        let price = parseFloat(row.find('td:eq(5)').text()); // Giá sản phẩm
-        let quantity = parseInt(row.find('input:eq(2)').val()); // Số lượng
-        totalAmount += price * quantity; // Tính tổng
+        let price = parseFloat(row.find('td:eq(5)').text()); 
+        let quantity = parseInt(row.find('input:eq(2)').val());
+        totalAmount += price * quantity; 
+        alert(totalAmount);
     });
 
-    $('.total-amount').text(totalAmount.toFixed(2));
-
+    $('.total-amount').text(totalAmount);
 }
 
 function updateTotal(row) {
-    // Lấy giá trị của price và quantity
     let price = parseFloat(row.find('td:eq(5)').text());
-    let quantity = parseInt(row.find('input:eq(2)').val()); // Xác định đúng input
+    let quantity = parseInt(row.find('input:eq(2)').val()); 
     let total = price * quantity;
     row.find('td:eq(7)').text(total);
 
-    // Tính tổng cho tất cả hàng
     let grandTotal = 0;
     $('.site-blocks-table tbody tr').each(function () {
         if ($(this).find('#check').prop('checked')) {
-            let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0; // Lấy tổng tiền của hàng
-            grandTotal += rowTotal; // Cộng vào grand total
+            let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0; 
+            grandTotal += rowTotal;
         }
     });
-    $('.total-amount').text(grandTotal.toFixed(2));
-
+    $('.total-amount').text(grandTotal);
+    alert('hang');
 }
 
 
@@ -118,9 +94,7 @@ function updateCart() {
         url: `/items?makhachhang=${id}`,
         type: 'GET',
         success: function (response) {
-            // Xử lý kết quả trả về
             $('#items').html(response);
-            updateTotalAmount();
         },
         error: function (xhr, status, error) {
             $('#cart-container').html('<h2>Không có sản phẩm nào trong giỏ hàng</h2>')
