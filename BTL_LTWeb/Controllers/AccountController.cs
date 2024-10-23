@@ -106,11 +106,11 @@ namespace BTL_LTWeb.Controllers
             var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == register.Email);
             if (user != null)
             {
-                ModelState.AddModelError(string.Empty, "MaKhachHang đã được sử dụng.");
+                ModelState.AddModelError(string.Empty, "Email đã được sử dụng.");
                 return View("Register");
             }
             TempData["Register"] = JsonSerializer.Serialize(register);
-            TempData["status"] = 1; 
+            TempData["status"] = 1;
             return RedirectToAction("VerifyEmail");
         }
 
@@ -129,25 +129,54 @@ namespace BTL_LTWeb.Controllers
                 return View();
             }
             var verifyCode = SecurityService.GenerateRandomCode();
+            string email = "";
+            string name = "";
             if (status == 1)
             {
                 var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
                 await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
+                email = register.Email;
+                name = register.Name;
             }
             else
             {
                 var forgot = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["MaKhachHang"].ToString());
                 var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(u => u.Email == forgot.Email);
                 await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang, verifyCode, status);
+                email = khachHang.Email;
+                name = khachHang.TenKhachHang;
             }
-            TempData["code"] = verifyCode;
-            TempData.Keep();
-            return View();
 
+            var verify = new VerifyCodeViewModel
+            {
+                Email = email,
+                Name = name,
+                Status = status
+            };
+            var otp = await _context.TempUserOtps.FirstOrDefaultAsync(e => e.Email == email);
+            if (otp == null)
+            {
+                var newOtp = new TempUserOtp
+                {
+                    Email = email,
+                    OtpCode = verifyCode,
+                    OtpExpiration = DateTime.UtcNow.AddMinutes(2)
+                };
+                _context.TempUserOtps.Add(newOtp);
+                _context.SaveChanges();
+            }
+            else
+            {
+                otp.OtpCode = verifyCode;
+                otp.OtpExpiration = DateTime.UtcNow.AddMinutes(2);
+                _context.SaveChanges();
+            }
+            TempData.Keep();
+            return View(verify);
         }
 
         [HttpPost]
-        public IActionResult VerifyEmail(VerifyCodeViewModel verify)
+        public async Task<IActionResult> VerifyEmail(VerifyCodeViewModel verify)
         {
             if (!ModelState.IsValid)
             {
@@ -155,21 +184,22 @@ namespace BTL_LTWeb.Controllers
                 return View(verify);
             }
 
-            var code = TempData["code"].ToString();
-            TempData.Keep();
-            if (verify.ConfirmationCode != code)
+            var otp = await _context.TempUserOtps.FirstOrDefaultAsync(e => e.Email == verify.Email);
+            if (otp == null)
+            {
+                return BadRequest();
+            }
+            if (verify.ConfirmationCode != otp.OtpCode)
             {
                 ModelState.AddModelError(string.Empty, "Mã xác nhận không chính xác.");
                 return View(verify);
             }
-            TempData.Remove("code");
-            if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
+            if (otp.OtpExpiration < DateTime.UtcNow)
             {
-                ModelState.AddModelError(string.Empty, "Invalid status value.");
-                TempData.Keep();
+                ModelState.AddModelError(string.Empty, "Mã xác nhận đã hết hạn.");
                 return View(verify);
             }
-            if (status == 1)
+            if (verify.Status == 1)
             {
                 var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
                 var salt = SecurityService.GenerateSalt();
@@ -195,12 +225,13 @@ namespace BTL_LTWeb.Controllers
                 };
                 _context.TKhachHangs.Add(newCustomer);
                 _context.SaveChanges();
+                _context.Remove(otp);
+                _context.SaveChanges();
                 TempData.Clear();
                 return RedirectToAction("Login", "Account");
             }
             else
             {
-                TempData.Remove("status");
                 return RedirectToAction("ChangePassword", "Account");
             }
         }
