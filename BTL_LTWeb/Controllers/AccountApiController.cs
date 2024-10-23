@@ -29,54 +29,34 @@ namespace BTL_LTWeb.Controllers
         }
 
         [HttpPost("verify-email/resend")]
-        public async Task<IActionResult> ResendVerifyEmail()
+        public async Task<IActionResult> ResendVerifyEmail([FromBody] ResendEmailRequest request)
         {
-            if (TempData["Register"] == null && TempData["MaKhachHang"] == null)
-            {
-                return BadRequest("Không có thông tin người dùng để gửi mã xác nhận.");
-            }
-
-            if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
-            {
-                TempData.Keep(); 
-                return BadRequest("Giá trị status không hợp lệ.");
-            }
             var verifyCode = SecurityService.GenerateRandomCode();
 
-            TempData["code"] = verifyCode;
-            TempData.Keep();
-            int result = 0;
-            if (status == 1)
+            int result = await _emailService.SendEmailAsync(request.Email, request.Name, verifyCode, request.Status);
+            if (result == 0)
             {
-                var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
-                if (register == null)
-                {
-                    return BadRequest("Thông tin đăng ký không hợp lệ.");
-                }
-
-                result = await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
+                return BadRequest(new { message = "Gửi mã xác nhận thất bại." });
+            }
+            var otp = await _context.TempUserOtps.FirstOrDefaultAsync(x => x.Email == request.Email);
+            if (otp != null)
+            {
+                otp.OtpCode = verifyCode;
+                otp.OtpExpiration = DateTime.UtcNow.AddMinutes(2);
+                _context.TempUserOtps.Update(otp);
+                result = await _context.SaveChangesAsync();
             }
             else
             {
-                var forgotPassword = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["MaKhachHang"].ToString());
-                if (forgotPassword == null)
+                var newOtp = new TempUserOtp
                 {
-                    return BadRequest("Thông tin quên mật khẩu không hợp lệ.");
-                }
-                var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(kh => kh.Email == forgotPassword.Email);
-
-                if (khachHang == null)
-                {
-                    return BadRequest("Không tìm thấy khách hàng với email này.");
-                }
-                result = await _emailService.SendEmailAsync(forgotPassword.Email, khachHang.TenKhachHang, verifyCode, status);
+                    Email = request.Email,
+                    OtpCode = verifyCode,
+                    OtpExpiration = DateTime.UtcNow.AddMinutes(2)
+                };
+                _context.TempUserOtps.Add(newOtp);
             }
-
-            if (result == 0)
-            {
-                return BadRequest("Gửi mã xác nhận thất bại.");
-            }
-
+            _context.SaveChanges();
             return Ok(new { message = "Mã xác nhận đã được gửi lại." });
         }
     }
