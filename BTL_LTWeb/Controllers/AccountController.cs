@@ -106,7 +106,7 @@ namespace BTL_LTWeb.Controllers
             var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == register.Email);
             if (user != null)
             {
-                ModelState.AddModelError(string.Empty, "Email đã được sử dụng.");
+                ModelState.AddModelError(string.Empty, "MaKhachHang đã được sử dụng.");
                 return View("Register");
             }
             TempData["Register"] = JsonSerializer.Serialize(register);
@@ -136,7 +136,7 @@ namespace BTL_LTWeb.Controllers
             }
             else
             {
-                var forgot = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+                var forgot = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["MaKhachHang"].ToString());
                 var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(u => u.Email == forgot.Email);
                 await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang, verifyCode, status);
             }
@@ -228,11 +228,11 @@ namespace BTL_LTWeb.Controllers
             var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == forgot.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Email không tồn tại.");
+                ModelState.AddModelError(string.Empty, "MaKhachHang không tồn tại.");
                 return View(forgot);
             }
             TempData["status"] = 0;
-            TempData["Email"] = JsonSerializer.Serialize(forgot);
+            TempData["MaKhachHang"] = JsonSerializer.Serialize(forgot);
             return RedirectToAction("VerifyEmail");
         }
 
@@ -259,7 +259,7 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Mật khẩu mới không khớp.");
                 return View(change);
             }
-            var email = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+            var email = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["MaKhachHang"].ToString());
             TempData.Keep();
 
             var user = await _context.TUsers.FirstOrDefaultAsync(u => u.Email == email.Email);
