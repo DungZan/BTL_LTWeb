@@ -24,19 +24,9 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TUser> TUsers { get; set; }
     public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     public virtual DbSet<TGioHang> TGioHangs { get; set; }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
-            string connectionString = config.GetConnectionString("MyDataBase");
 
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TAnhChiTietSp>(entity =>
@@ -200,13 +190,13 @@ public partial class QLBanDoThoiTrangContext : DbContext
 
         modelBuilder.Entity<TGioHang>(entity =>
         {
-            entity.HasKey(e => e.MaGioHang).HasName("PK__tGioHang__F5001DA3A48306EF");
+            entity.HasKey(e => e.MaGioHang).HasName("PK__tGioHang__F5001DA30BA24EA8");
 
             entity.ToTable("tGioHang");
 
-            entity.Property(e => e.Email)
+            entity.Property(e => e.MaKhachHang)
                 .HasMaxLength(50)
-                .HasColumnName("Email");
+                .HasColumnName("MaKhachHang");
             entity.Property(e => e.MaChiTietSP).HasColumnName("MaChiTietSP");
             entity.Property(e => e.SoLuong).HasColumnName("SoLuong");
         });

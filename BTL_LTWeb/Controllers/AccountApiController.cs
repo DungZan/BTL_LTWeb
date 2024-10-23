@@ -31,7 +31,7 @@ namespace BTL_LTWeb.Controllers
         [HttpPost("verify-email/resend")]
         public async Task<IActionResult> ResendVerifyEmail()
         {
-            if (TempData["Register"] == null && TempData["Email"] == null)
+            if (TempData["Register"] == null && TempData["MaKhachHang"] == null)
             {
                 return BadRequest("Không có thông tin người dùng để gửi mã xác nhận.");
             }
@@ -58,7 +58,7 @@ namespace BTL_LTWeb.Controllers
             }
             else
             {
-                var forgotPassword = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["Email"].ToString());
+                var forgotPassword = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["MaKhachHang"].ToString());
                 if (forgotPassword == null)
                 {
                     return BadRequest("Thông tin quên mật khẩu không hợp lệ.");

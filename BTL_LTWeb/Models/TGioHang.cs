@@ -6,14 +6,14 @@ namespace BTL_LTWeb.Models
     {
         public int MaGioHang { get; set; }
 
-        [ForeignKey("User")]
-        public string Email { get; set; }
+        [ForeignKey("KhachHang")]
+        public int MaKhachHang { get; set; }
 
         [ForeignKey("ChiTietSanPham")]
         public int MaChiTietSP { get; set; }
         public int SoLuong { get; set; }
 
-        public virtual TUser User { get; set; } = null!;
+        public virtual TKhachHang KhachHang { get; set; } = null!;
         public virtual TChiTietSanPham ChiTietSanPham { get; set; }
     }
 }
