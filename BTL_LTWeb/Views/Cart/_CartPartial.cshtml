@@ -21,13 +21,13 @@
             <div class="input-group-prepend">
                 <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
             </div>
-            <input type="text" class="form-control text-center" value=@Model.SoLuong placeholder="" readonly>
+            <input type="text" class="form-control text-center" id="quantity" value=@Model.SoLuong placeholder="" readonly>
             <div class="input-group-append">
                 <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
             </div>
         </div>
     </td>
     <td>@(Convert.ToInt32(Model.ChiTietSanPham.DanhMucSp.Gia) * Model.SoLuong)</td>
-    <td><a id="remove" class="btn btn-primary btn-sm">X</a></td>
+    <td><button id="remove" class="btn btn-primary btn-sm">X</button></td>
 </tr>
 

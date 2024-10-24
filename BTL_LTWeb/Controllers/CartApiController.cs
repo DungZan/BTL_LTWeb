@@ -1,4 +1,5 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,5 +29,17 @@ namespace BTL_LTWeb.Controllers
             return Ok();
         }
 
+        [HttpPatch("update")]
+        public async Task<IActionResult> UpdateQuantityItem([FromBody] CartItemUpdateViewModel item)
+        {
+            var cart = await _context.TGioHangs.FirstOrDefaultAsync(x => x.MaGioHang == item.Id);
+            if (cart == null)
+            {
+                return NotFound();
+            }
+            cart.SoLuong = item.Quantity;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
