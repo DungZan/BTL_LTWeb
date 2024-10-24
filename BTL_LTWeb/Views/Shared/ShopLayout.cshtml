@@ -200,7 +200,7 @@
             $('#logout').on('click', function (event) {
                 event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
                 $.ajax({
-                    url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
+                    url: '/api/accountapi/logout', // Đường dẫn đến API Logout
                     type: 'POST', // Phương thức POST
                     success: function (response) {
                         // Xử lý thành công
