@@ -3,7 +3,6 @@ using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using BTL_LTWeb.Services;
-using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Controllers
