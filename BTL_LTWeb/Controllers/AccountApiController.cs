@@ -24,8 +24,8 @@ namespace BTL_LTWeb.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync("MyCookieAuthenticationScheme");
-            return NoContent();
+            await HttpContext.SignOutAsync("MyCookieAuthentication");
+            return Ok();
         }
 
         [HttpPost("verify-email/resend")]
