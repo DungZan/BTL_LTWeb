@@ -18,14 +18,13 @@
 });
 $(document).on('change', '#all', function () {
     let isChecked = $(this).is(':checked');
-
     $('.site-blocks-table tbody tr').each(function () {
         $(this).find('.product-checkbox').prop('checked', isChecked);
     });
+    updateTotalAmount();
 });
 $(document).on('change', '.product-checkbox', function () {
     let isCheckAll = true;
-
     $('.site-blocks-table tbody tr').each(function () {
         if (!$(this).find('.product-checkbox').prop('checked')) {
             isCheckAll = false;
@@ -45,7 +44,6 @@ function updateTotalAmount() {
         let price = parseFloat(row.find('td:eq(5)').text()); 
         let quantity = parseInt(row.find('input:eq(2)').val());
         totalAmount += price * quantity; 
-        alert(totalAmount);
     });
 
     $('.total-amount').text(totalAmount);
@@ -65,11 +63,7 @@ function updateTotal(row) {
         }
     });
     $('.total-amount').text(grandTotal);
-    alert('hang');
 }
-
-
-// create ajax call api remove item from cart follow email and product id
 $(document).on('click', '#remove', function () {
     let row = $(this).closest('tr');
     let cartId = parseInt(row.find('input:eq(1)').val());
