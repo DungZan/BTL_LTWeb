@@ -1,0 +1,87 @@
+﻿@model BTL_LTWeb.Models.TKhachHang
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/ProfileLayout.cshtml";
+}
+
+<div class="col-lg-8 pb-5">
+    <form class="row" id="updateForm" asp-controller="KhachHang" asp-action="Index" asp-route-id ="@Model.MaKhachHang" method="post">
+        <input type="hidden" asp-for="MaKhachHang" />
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="TenKhachHang" class="text-black form-label">Tên khách hàng</label>
+                <input class="form-control" asp-for="TenKhachHang" required="">
+                <span asp-validation-for="TenKhachHang" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Email" class="text-black form-label">Email</label>
+                <input class="form-control" asp-for="Email" required="">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="NgaySinh" class="text-black form-label">Ngày sinh</label>
+                <input class="form-control" asp-for="NgaySinh" required="">
+                <span asp-validation-for="NgaySinh" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="SoDienThoai" class="text-black form-label">Số điện thoại</label>
+                <input class="form-control" asp-for="SoDienThoai" required="">
+                <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="DiaChi" class="text-black form-label">Địa chỉ</label>
+                <input class="form-control" asp-for="DiaChi" required="">
+                <span asp-validation-for="DiaChi" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <div class="col-12">
+            <hr class="mt-2 mb-3">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <!-- Nút lưu đơn giản -->
+                <button class="btn btn-style-1 btn-primary" id="save-button" type="submit">Lưu</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#updateForm').on('submit', function (e) {  // Bắt sự kiện submit
+            e.preventDefault();  // Ngăn hành vi mặc định của form
+
+            var formData = $(this).serialize();  // Lấy dữ liệu form
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Suathongtin", "KhachHang")',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        if (response.reload) {
+                            // Reload lại trang với dữ liệu mới
+                            location.reload();
+                        } else {
+                            alert("Cập nhật thành công!");
+                        }
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Lỗi:', error);
+                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                }
+            });
+        });
+    });
+</script>
+
