@@ -10,7 +10,6 @@ using X.PagedList;
 namespace BTL_LTWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin")]
     [Route("Admin/HomeAdmin")]
     public class HomeAdminController : Controller
     {
@@ -45,7 +44,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    // Define the target path in your project
+                    
                     string targetDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
                     if (!Directory.Exists(targetDirectory))
                     {
@@ -54,13 +53,13 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 
                     string targetFilePath = Path.Combine(targetDirectory, file.FileName);
 
-                    // Copy the file to the target path
+                    
                     using (var stream = new FileStream(targetFilePath, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
                     }
 
-                    // Save the file name to the database
+                    
                     sp.AnhDaiDien = file.FileName;
                 }
 
@@ -79,23 +78,45 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         }
         [HttpPost]
         [Route("SuaSanPham")]
-        public IActionResult SuaSanPham(TDanhMucSp sp)
+        public async Task<IActionResult> SuaSanPham(TDanhMucSp sp, IFormFile file)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sp).State = EntityState.Modified;
-                db.SaveChanges();
+
+                if (file != null && file.Length > 0)
+                {
+                    string targetDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    if (!Directory.Exists(targetDirectory))
+                    {
+                        Directory.CreateDirectory(targetDirectory);
+                    }
+
+                    string targetFilePath = Path.Combine(targetDirectory, file.FileName);
+
+
+                    using (var stream = new FileStream(targetFilePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    sp.AnhDaiDien = file.FileName;
+                }
+
+                db.TDanhMucSps.Update(sp);
+                await db.SaveChangesAsync();
                 return RedirectToAction("danhmucsanpham");
             }
             return View(sp);
         }
+        // ...
+
         [Route("XoaSanPham")]
         [HttpGet]
         public IActionResult XoaSanPham(int MaSP)
         {
             TempData["Log"] = "";
             var chitietsp = db.TChiTietSanPhams.Where(x => x.MaSp == MaSP).ToList();
-            if (chitietsp.Count >0)
+            if (chitietsp.Count > 0)
             {
                 TempData["Log"] = "Xóa thất bại";
                 return RedirectToAction("danhmucsanpham");
@@ -104,8 +125,23 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             if (anhSp.Any())
             {
                 db.RemoveRange(anhSp);
+
+                //// Delete the image files from the project
+                //foreach (var anh in anhSp)
+                //{
+                //    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", anh.TenFileAnh);
+                //    if (System.IO.File.Exists(imagePath))
+                //    {
+                //        System.IO.File.Delete(imagePath);
+                //    }
+                //}
             }
             var sp = db.TDanhMucSps.Find(MaSP);
+            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images",sp.AnhDaiDien );
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
             db.Remove(sp);
             db.SaveChanges();
             TempData["Log"] = "Xóa thành công";
@@ -150,13 +186,6 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             var list = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp);
             PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
             return PartialView("BangSanPham", lst);
-        }
-        // dashBorad 
-        [Route("DashBoard")]
-        public IActionResult DashBoard()
-        {
-            var lst = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp).Take(4);
-            return View(lst);
         }
         // khách hàng
         [Route("danhsachkhachhang")]
@@ -209,6 +238,16 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
             var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.TenNhanVien);
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
+            return View(lst);
+        }
+        //hoá đơn bán
+        [Route("danhsachhoadon")]
+        public IActionResult danhsachhoadon(int? Page)
+        {
+            int pageSize = 10;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.THoaDonBans.Include(m=>m.NhanVien).Include(m=>m.KhachHang);
+            PagedList<THoaDonBan> lst = new PagedList<THoaDonBan>(list, pageNumber, pageSize);
             return View(lst);
         }
 

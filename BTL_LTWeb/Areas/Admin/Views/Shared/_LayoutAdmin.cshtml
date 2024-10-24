@@ -40,7 +40,7 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a asp-area = "Admin" asp-controller ="HomeAdmin" asp-action = "DashBoard" class="sidebar-link"aria-expanded="false">
+                            <a asp-area="Admin" asp-controller="DashBoard" asp-action="DashBoard" class="sidebar-link" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
@@ -76,11 +76,11 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+                            <a class="sidebar-link" asp-controller="HomeAdmin" asp-action="danhsachhoadon" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-file-description"></i>
                                 </span>
-                                <span class="hide-menu">Forms</span>
+                                <span class="hide-menu">Hoá Đơn Bán</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
