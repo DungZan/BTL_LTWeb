@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BTL_LTWeb.Models.THoaDonBan>
+
+@{
+    ViewData["Title"] = "danhsachhoadon";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>danhsachhoadon</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayHoaDon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTienHd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhuongThucThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GhiChu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NhanVien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiamGia)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayHoaDon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTienHd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GhiChu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiamGia.MaGiamGia)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaHoaDonBan">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaHoaDonBan">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaHoaDonBan">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
