@@ -369,6 +369,8 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             {
                 ModelState.AddModelError("MaNhanVien", "Nhân viên không tồn tại.");
             }
+            return RedirectToAction("danhsachnhanvien");
+        }
         //hoá đơn bán
         [Route("danhsachhoadon")]
         public IActionResult danhsachhoadon(int? Page)
@@ -380,7 +382,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return View(lst);
         }
 
-            return RedirectToAction("danhsachnhanvien");
-        }
+            
+        
     }
 }
