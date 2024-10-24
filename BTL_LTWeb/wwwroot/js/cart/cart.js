@@ -115,6 +115,13 @@ function updateCart() {
         type: 'GET',
         success: function (response) {
             $('#items').html(response);
+            var count = parseInt($('.count').text()); 
+            if (count == 1) {
+                $('.count').hide();
+            } else {
+                $('.count').show();
+                $('.count').text(count - 1);
+            }
         },
         error: function (xhr, status, error) {
             $('#cart-container').html('<h2>Không có sản phẩm nào trong giỏ hàng</h2>')
