@@ -6,7 +6,7 @@
     </td>
     <input type="hidden" id="id" value=@Model.MaGioHang />
     <td class="product-thumbnail">
-        <img src=~/ResourceTemplale/images/@($"{Model.ChiTietSanPham.DanhMucSp.AnhDaiDien}.jpg") alt="Image" class="img-fluid">
+        <img src=~/images/@($"{Model.ChiTietSanPham.DanhMucSp.AnhDaiDien}") alt="Image" class="img-fluid">
     </td>
     <td class="product-name">
         <h2 style="cursor: pointer;" onclick="window.location.href='Home/ChitietSpNew?MaSp=@Model.ChiTietSanPham.DanhMucSp.MaSp'" class="h5 text-black">
@@ -28,6 +28,6 @@
         </div>
     </td>
     <td>@(Convert.ToInt32(Model.ChiTietSanPham.DanhMucSp.Gia) * Model.SoLuong)</td>
-    <td><button id="remove" class="btn btn-primary btn-sm">X</button></td>
+    <td><a id="remove" class="btn btn-primary btn-sm" style="color:white">X</a></td>
 </tr>
 

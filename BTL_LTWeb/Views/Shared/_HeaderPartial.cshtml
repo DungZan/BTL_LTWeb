@@ -30,7 +30,7 @@
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <div class="message-body">
-                                            <a asp-controller = "KhachHang" asp-action="index" class="d-flex align-items-center gap-2 dropdown-item">
+                                            <a asp-controller="KhachHang" asp-action="index" class="d-flex align-items-center gap-2 dropdown-item">
                                                 <i class="ti ti-user fs-6"></i>
                                                 <p class="mb-0 fs-3">Hồ sơ</p>
                                             </a>
@@ -51,10 +51,7 @@
                             <li>
                                 <a asp-action="Index" asp-controller="Cart" class="site-cart">
                                     <span class="icon icon-shopping_cart"></span>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <span class="count">2</span>
-                                    }
+                                    @await Component.InvokeAsync("Cart")
                                 </a>
                             </li>
                             <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
