@@ -23,7 +23,7 @@ namespace BTL_LTWeb.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (User.Identity == null || User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -46,26 +46,23 @@ namespace BTL_LTWeb.Controllers
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Email, login.Email)
+                        new Claim(ClaimTypes.Email, login.Email),
+                        new Claim(ClaimTypes.Role, user.LoaiUser)
                     };
 
-                    // Tạo ClaimsIdentity cho người dùng
-                    var claimsIdentity = new ClaimsIdentity(claims, "MyCookieAuthenticationScheme");
+                    var claimsIdentity = new ClaimsIdentity(claims, "MyCookieAuthentication");
 
                     // Thiết lập thuộc tính AuthenticationProperties
                     var authProperties = new AuthenticationProperties
                     {
-                        IsPersistent = login.RememberMe, // Ghi nhớ đăng nhập nếu "Remember me" được chọn
-                        ExpiresUtc = login.RememberMe ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddMinutes(30)    // Phiên đăng nhập kéo dài 30 ngày nếu có "Remember me"
+                        IsPersistent = login.RememberMe,
+                        ExpiresUtc = login.RememberMe ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddMinutes(30)
                     };
-                    // Đăng nhập người dùng
-                    await HttpContext.SignInAsync("MyCookieAuthenticationScheme", new ClaimsPrincipal(claimsIdentity), authProperties);
+                    await HttpContext.SignInAsync("MyCookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                    return RedirectToAction("Index", "Home"); // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
+                    return RedirectToAction("Index", "Home"); 
                 }
             }
-
-            // Thông báo lỗi nếu đăng nhập thất bại
             ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không chính xác.");
             return View(login);
         }
@@ -77,11 +74,10 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        // register
         [HttpGet]
         public IActionResult Register()
         {
-            if (User.Identity == null || User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -114,7 +110,6 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("VerifyEmail");
         }
 
-        // verify email
         [HttpGet]
         public async Task<IActionResult> VerifyEmail()
         {
@@ -122,7 +117,7 @@ namespace BTL_LTWeb.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            if (TempData["status"] == null || !int.TryParse(TempData["status"].ToString(), out int status))
+            if (TempData["status"] == null || !int.TryParse(TempData["status"]?.ToString(), out int status))
             {
                 ModelState.AddModelError(string.Empty, "Invalid status value.");
                 TempData.Keep();
@@ -133,18 +128,42 @@ namespace BTL_LTWeb.Controllers
             string name = "";
             if (status == 1)
             {
-                var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
+                var registerJson = TempData["Register"]?.ToString();
+                if (string.IsNullOrEmpty(registerJson))
+                {
+                    return BadRequest();
+                }
+                var register = JsonSerializer.Deserialize<RegisterViewModel>(registerJson);
+                if (register == null)
+                {
+                    return BadRequest();
+                }
+                if (register == null)
+                    return BadRequest();
                 await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
                 email = register.Email;
                 name = register.Name;
             }
             else
             {
-                var forgot = JsonSerializer.Deserialize<ForgotPasswordViewModel>(TempData["MaKhachHang"].ToString());
+                var forgotJson = TempData["MaKhachHang"]?.ToString();
+                if (string.IsNullOrEmpty(forgotJson))
+                {
+                    return BadRequest();
+                }
+                var forgot = JsonSerializer.Deserialize<ForgotPasswordViewModel>(forgotJson);
+                if (forgot == null)
+                {
+                    return BadRequest();
+                }
                 var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(u => u.Email == forgot.Email);
-                await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang, verifyCode, status);
+                if (khachHang == null)
+                {
+                    return BadRequest("Customer not found.");
+                }
+                await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang ?? string.Empty, verifyCode, status);
                 email = khachHang.Email;
-                name = khachHang.TenKhachHang;
+                name = khachHang.TenKhachHang ?? string.Empty;
             }
 
             var verify = new VerifyCodeViewModel
@@ -236,7 +255,6 @@ namespace BTL_LTWeb.Controllers
             }
         }
 
-        // forgot password
         [HttpGet]
         public IActionResult ForgotPassword()
         {
