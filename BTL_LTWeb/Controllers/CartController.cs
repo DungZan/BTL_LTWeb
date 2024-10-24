@@ -95,7 +95,7 @@ namespace BTL_LTWeb.Controllers
         }
         public ActionResult ShowImage()
         {
-            ViewBag.ImageData = VietQrGenerator.GetQR(100000, "Truong van minh chuyen tien");
+            ViewBag.ImageData = VietQrGenerator.GetQR(200001, "Truong van minh chuyen tien");
 
             return View();
         }
