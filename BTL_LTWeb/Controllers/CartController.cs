@@ -19,14 +19,11 @@ namespace BTL_LTWeb.Controllers
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var KhacHang = await _context.TKhachHangs.FirstOrDefaultAsync(e => e.Email == email);
 
-            // Kiểm tra nếu email không có giá trị
             if (string.IsNullOrEmpty(email))
             {
-                // Có thể chuyển hướng tới trang đăng nhập hoặc thông báo lỗi
-                return RedirectToAction("Login", "Account"); // Hoặc một action khác
+                return RedirectToAction("Login", "Account");
             }
 
-            // Lấy danh sách giỏ hàng của người dùng
             var gioHang = await _context.TGioHangs
             .Include(x => x.ChiTietSanPham) 
             .ThenInclude(x => x.DanhMucSp) 
@@ -54,7 +51,6 @@ namespace BTL_LTWeb.Controllers
             return PartialView("_ListCart", cartItems);
         }
 
-        // create action add to cart
         [HttpPost]
         public async Task<IActionResult> AddToCart(int Masp, string Size, string Color, int Soluong)
         {
@@ -88,14 +84,10 @@ namespace BTL_LTWeb.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("ChitietSpNew", "Home", new { Masp });
         }
-
-        public IActionResult Edit(int id)
-        {
-            return View();
-        }
+        
         public ActionResult ShowImage()
         {
-            ViewBag.ImageData = VietQrGenerator.GetQR(100000, "Truong van minh chuyen tien");
+            ViewBag.ImageData = VietQrGenerator.GetQR(200001, "Truong van minh chuyen tien");
 
             return View();
         }
