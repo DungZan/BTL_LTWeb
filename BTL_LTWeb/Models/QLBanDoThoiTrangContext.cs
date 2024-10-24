@@ -24,33 +24,11 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TUser> TUsers { get; set; }
     public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     public virtual DbSet<TGioHang> TGioHangs { get; set; }
-    public virtual DbSet<TempUserOtp> TempUserOtps { get; set; }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var config = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
-            string connectionString = config.GetConnectionString("MyDataBase");
 
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<TempUserOtp>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__TempUser__3214EC0793EDB907");
-
-            entity.ToTable("TempUserOtp");
-
-            entity.Property(e => e.Id).HasColumnName("Id");
-            entity.Property(e => e.Email).HasMaxLength(50);
-            entity.Property(e => e.OtpCode).HasMaxLength(6);
-            entity.Property(e => e.OtpExpiration).HasColumnType("datetime");
-        });
         modelBuilder.Entity<TAnhChiTietSp>(entity =>
         {
             entity.HasKey(e => new { e.MaChiTietSp, e.TenFileAnh }).HasName("PK__tAnhChiT__6DFA63355C4D9532");
