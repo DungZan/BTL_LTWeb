@@ -2,7 +2,8 @@
     ViewData["Title"] = "Thanh toán";
     Layout = "~/Views/Shared/_PayLayout.cshtml";
 }
-@model IEnumerable<BTL_LTWeb.Models.TGioHang>
+@model BTL_LTWeb.Models.CheckoutViewModel
+
 <style>
     #h2td{
         text-align:center;
@@ -12,12 +13,14 @@
 
 <div class="site-section">
     <div class="container">
+        <form asp-action="ProcessPayment" method="post">
         <div class="row">
+                <input type="hidden" class="form-control" value="@Model.CustomerInfo.MaKhachHang" id="id" >
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
                 <div class="p-3 p-lg-5 border">
                     <div class="form-group">
-                        <label for="c_country" class="text-black">Thành phố(Tỉnh)<span class="text-danger">*</span></label>
+                            <label for="c_country" class="text-black">Thành phố(Tỉnh)<span class="text-danger">*</span></label>
                         <select id="c_country" class="form-control">
                             <option value="">Chọn thành phố(tỉnh)</option>
                             
@@ -32,15 +35,15 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="c_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_fname" name="c_fname">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.TenKhachHang" id="c_fname">
                         </div>
                         
                     </div>
-
+                        
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="c_address" class="text-black">Địa Chỉ <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.DiaChi" id="c_address" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
                         </div>
                     </div>
 
@@ -51,11 +54,11 @@
                     <div class="form-group row mb-5">
                         <div class="col-md-6">
                             <label for="c_email_address" class="text-black">Email<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_email_address" name="c_email_address">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.Email" id="c_email_address">
                         </div>
                         <div class="col-md-6">
                             <label for="c_phone" class="text-black">Số Điện Thoại<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Nhập Số Điện Thoại">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.SoDienThoai" id="c_phone" placeholder="Nhập Số Điện Thoại">
                         </div>
                     </div>
 
@@ -79,14 +82,14 @@
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="c_diff_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_fname" name="c_diff_fname">
+                                        <input type="text" class="form-control" id="c_diff_fname">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="c_address" class="text-black">Địa Chỉ <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_address" name="c_address" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
+                                        <input type="text" class="form-control" id="c_address" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
                                     </div>
                                 </div>
 
@@ -95,13 +98,10 @@
                                 </div>
 
                                 <div class="form-group row mb-5">
-                                    <div class="col-md-6">
-                                        <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_email_address" name="c_diff_email_address">
-                                    </div>
-                                    <div class="col-md-6">
+                                   
+                                    <div class="col-md-12">
                                         <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_phone" name="c_diff_phone" placeholder="Phone Number">
+                                        <input type="text" class="form-control" id="c_diff_phone" placeholder="Phone Number">
                                     </div>
                                 </div>
 
@@ -112,7 +112,7 @@
 
                     <div class="form-group">
                         <label for="c_order_notes" class="text-black">Ghi chú</label>
-                        <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Viết ghi chú vào đây ..."></textarea>
+                        <textarea id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Viết ghi chú vào đây ..."></textarea>
                     </div>
 
                 </div>
@@ -121,166 +121,126 @@
 
                 <div class="row mb-5">
                     <div class="col-md-12">
-                        <h2 class="h3 mb-3 text-black">Coupon Code</h2>
+                        <h2 class="h3 mb-3 text-black">Mã Giảm Giá</h2>
                         <div class="p-3 p-lg-5 border">
 
-                            <label for="c_code" class="text-black mb-3">Enter your coupon code if you have one</label>
+                            <label for="c_code" class="text-black mb-3">Nhập mã phiếu giảm giá của bạn nếu bạn có</label>
                             <div class="input-group w-75">
                                 <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm" type="button" id="button-addon2">Apply</button>
+                                    <button class="btn btn-primary btn-sm" type="button" id="button-addon2">Áp dụng</button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
+                @if (Model != null && Model.CartItems.Any())
+                {
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h2 class="h3 mb-3 text-black">Danh sách sản phẩm</h2>
+                            <div class="p-3 p-lg-5 border">
+                                <table class="table site-block-order-table mb-5">
+                                    <thead>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
 
-                <div class="row mb-5">
-                    <div class="col-md-12">
-                        <h2 class="h3 mb-3 text-black">Your Order</h2>
-                        <div class="p-3 p-lg-5 border">
-                            <table class="table site-block-order-table mb-5">
-                                <thead>
-                                <th>Product</th>
-                                <th>Total</th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Top Up T-Shirt <strong class="mx-2">x</strong> 1</td>
-                                        <td>$250.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Polo Shirt <strong class="mx-2">x</strong> 1</td>
-                                        <td>$100.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                                        <td class="text-black">$350.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                                        <td class="text-black font-weight-bold"><strong>$350.00</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                @foreach (var item in Model.CartItems)
+                                            {<thead>
+                                                <td>
+                                                    @(item.ChiTietSanPham?.DanhMucSp?.TenSp ?? "Không xác định")
+                                                    -
+                                                    @(item.ChiTietSanPham?.KichThuoc ?? "Không xác định")
+                                                    -
+                                                    @(item.ChiTietSanPham?.MauSac ?? "Không xác định")
+                                                    x
+                                                    @item.SoLuong
+                                                </td>
 
-                            <div class="border p-3 mb-3">
-                                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
+                                                <td>
+                                                    @((item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)
+                                                </td>
+                                            </thead>
+                                            }
+                                        </tr>
 
-                                <div class="collapse" id="collapsebank">
-                                    <div class="py-2">
-                                        <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Tổng tiền</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>@Model.CartItems.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                    <div class="border p-3 mb-3">
+                                        <h3 class="h6 mb-0">Chọn phương thức thanh toán</h3>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio"  id="payment_cash" value="cash" checked>
+                                            <label class="form-check-label" for="payment_cash">
+                                                Thanh toán khi nhận hàng
+                                            </label>
+                                            <p class="text-muted ml-4">Bạn sẽ trả tiền khi nhận được hàng.</p>
+                                        </div>
+
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="radio" id="payment_online" value="online">
+                                            <label class="form-check-label" for="payment_online">
+                                                Thanh toán trực tuyến
+                                            </label>
+                                            <p class="text-muted ml-4">Bạn sẽ trả tiền qua mã QR được cung cấp.</p>
+                                        </div>
                                     </div>
+
+                                <div class="form-group">
+                                        <button id ="ajaxPaymentButton" type="submit" class="btn btn-primary btn-lg py-3 btn-block">Thanh toán</button>
                                 </div>
+
                             </div>
-
-                            <div class="border p-3 mb-3">
-                                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
-
-                                <div class="collapse" id="collapsecheque">
-                                    <div class="py-2">
-                                        <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="border p-3 mb-5">
-                                <h3 class="h6 mb-0"><a class="d-block" data-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
-
-                                <div class="collapse" id="collapsepaypal">
-                                    <div class="py-2">
-                                        <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-lg py-3 btn-block" onclick="window.location='thankyou.html'">Place Order</button>
-                            </div>
-
                         </div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <p>Giỏ hàng của bạn đang trống.</p>
+                }
+                
 
             </div>
         </div>
-        <!-- </form> -->
+        </form>
     </div>
 </div>
 
-@if (Model != null && Model.Any())
-{
-    <form asp-action="Checkout" method="post">
-        <h3>Danh sách sản phẩm</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Tên sản phẩm</th>
-                    <th>Kích thước</th>
-                    <th>Màu sắc</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-                    <th>Tổng</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@(item.ChiTietSanPham?.DanhMucSp?.TenSp ?? "Không xác định")</td>
-                        <td>@(item.ChiTietSanPham?.KichThuoc ?? "Không xác định")</td>
-                        <td>@(item.ChiTietSanPham?.MauSac ?? "Không xác định")</td>
-                        <td>@(item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0)</td>
-                        <td>@item.SoLuong</td>
-                        <td>@((item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
-        <h3>Thông tin khách hàng</h3>
-        <input type="text" name="TenKhachHang" placeholder="Tên khách hàng" required />
-        <input type="email" name="Email" placeholder="Email" required />
-        <input type="tel" name="SoDienThoai" placeholder="Số điện thoại" required />
-
-        <h3>Phương thức thanh toán</h3>
-        <select name="paymentMethod">
-            <option value="Cash">Tiền mặt</option>
-            <option value="CreditCard">Thẻ tín dụng</option>
-        </select>
-
-        <button type="submit">Xác nhận thanh toán</button>
-    </form>
-}
-else
-{
-    <p>Giỏ hàng của bạn đang trống.</p>
-}
-
 @section Scripts{
     <script>
-        // Lấy danh sách tỉnh
-        fetch('https://provinces.open-api.vn/api/p/')
-            .then(response => response.json())
-            .then(data => {
-                let provinceSelect = document.getElementById('c_country');
-                data.forEach(province => {
-                    let option = document.createElement('option');
-                    option.value = province.code;
-                    option.textContent = province.name;
-                    provinceSelect.appendChild(option);
-                });
-            });
+        function loadProvinces(selectId, districtSelectId) {
+            fetch('https://provinces.open-api.vn/api/p/')
+                .then(response => response.json())
+                .then(data => {
+                    let provinceSelect = document.getElementById(selectId);
+                    data.forEach(province => {
+                        let option = document.createElement('option');
+                        option.value = province.code;
+                        option.textContent = province.name;
+                        provinceSelect.appendChild(option);
+                    });
 
-        // Lấy danh sách huyện khi chọn tỉnh
-        document.getElementById('c_country').addEventListener('change', function () {
-            let provinceCode = this.value;
+                    provinceSelect.addEventListener('change', function () {
+                        loadDistricts(provinceSelect.value, districtSelectId);
+                    });
+                });
+        }
+
+        function loadDistricts(provinceCode, districtSelectId) {
             fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
                 .then(response => response.json())
                 .then(data => {
-                    let districtSelect = document.getElementById('c_district');
-                    districtSelect.innerHTML = ''; // Xóa danh sách quận/huyện cũ
+                    let districtSelect = document.getElementById(districtSelectId);
+                    districtSelect.innerHTML = '';
                     data.districts.forEach(district => {
                         let option = document.createElement('option');
                         option.value = district.code;
@@ -288,35 +248,61 @@ else
                         districtSelect.appendChild(option);
                     });
                 });
-        });
-        // Lấy danh sách tỉnh
-        fetch('https://provinces.open-api.vn/api/p/')
-            .then(response => response.json())
-            .then(data => {
-                let provinceSelect = document.getElementById('c_country1');
-                data.forEach(province => {
-                    let option = document.createElement('option');
-                    option.value = province.code;
-                    option.textContent = province.name;
-                    provinceSelect.appendChild(option);
-                });
-            });
+        }
 
-        // Lấy danh sách huyện khi chọn tỉnh
-        document.getElementById('c_country1').addEventListener('change', function () {
-            let provinceCode = this.value;
-            fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
-                .then(response => response.json())
-                .then(data => {
-                    let districtSelect = document.getElementById('c_district1');
-                    districtSelect.innerHTML = ''; // Xóa danh sách quận/huyện cũ
-                    data.districts.forEach(district => {
-                        let option = document.createElement('option');
-                        option.value = district.code;
-                        option.textContent = district.name;
-                        districtSelect.appendChild(option);
+        loadProvinces('c_country', 'c_district');
+        loadProvinces('c_country1', 'c_district1');
+        document.addEventListener("DOMContentLoaded", function () {
+            const paymentButton = document.getElementById('ajaxPaymentButton');
+
+            if (paymentButton) {
+                paymentButton.addEventListener('click', function () {
+                    // Tạo đối tượng dữ liệu thanh toán
+                    let paymentData = {
+                        __RequestVerificationToken: document.querySelector('input[name="__RequestVerificationToken"]').value,
+                       parseInt(document.getElementById('id').value),
+                        document.getElementById('c_country').value,
+                        document.getElementById('c_district').value,
+                        document.getElementById('c_fname').value,
+                       document.getElementById('c_address').value,
+                        document.getElementById('c_phone').value,
+                         document.getElementById('c_order_notes').value,
+                         document.getElementById('c_diff_country').value,
+                         document.getElementById('c_diff_district').value,
+                        document.getElementById('c_diff_fname').value,
+                         document.getElementById('c_diff_address').value,
+                         document.getElementById('c_diff_phone').value,
+                         document.getElementById('c_ship_different_address').checked,
+                         document.querySelector('input[name="payment_method"]:checked').value
+                    };
+
+                    // Gửi yêu cầu AJAX
+                    $.ajax({
+                        url: '@Url.Action("ProcessPayment", "Pay")', // Đảm bảo URL đúng
+                        type: 'POST',
+                        data: JSON.stringify(paymentData), // Chuyển đổi thành chuỗi JSON
+                        contentType: 'application/json; charset=utf-8', // Thiết lập content type
+                        dataType: 'json', // Chỉ định kiểu dữ liệu mong đợi từ server
+                        success: function (response) {
+                            if (response.success) {
+                                alert('Thanh toán thành công!');
+                            } else {
+                                alert('Đã có lỗi xảy ra: ' + response.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Lỗi kết nối! Vui lòng thử lại sau. Mã lỗi: ' + xhr.status + ' - ' + error);
+                        }
                     });
+
                 });
+            } else {
+                console.error('Nút ajaxPaymentButton không tìm thấy!');
+            }
         });
+
+
+       
+       
     </script>
 }

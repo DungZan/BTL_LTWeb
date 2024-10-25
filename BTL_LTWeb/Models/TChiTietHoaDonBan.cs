@@ -9,5 +9,6 @@
 
         public TDanhMucSp DanhMucSP { get; set; }
         public THoaDonBan HoaDonBan { get; set; }
+        public virtual ICollection<TGiaoHang> TGiaoHangs { get; set; } = new List<TGiaoHang>();
     }
 }

@@ -24,6 +24,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TUser> TUsers { get; set; }
     public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     public virtual DbSet<TGioHang> TGioHangs { get; set; }
+    public virtual DbSet<TGiaoHang> TGiaoHangs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
@@ -278,6 +279,48 @@ public partial class QLBanDoThoiTrangContext : DbContext
                 .HasColumnType("float")
                 .IsRequired();
         });
+        modelBuilder.Entity<TGiaoHang>(entity =>
+        {
+            entity.HasKey(e => e.MaGiaoHang).HasName("PK_TGiaoHang");
+            entity.ToTable("tGiaoHang");
+
+            entity.Property(e => e.MaGiaoHang)
+                .HasColumnName("MaGiaoHang")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entity.Property(e => e.MaHoaDonBan)
+                .HasColumnName("MaHoaDonBan")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entity.Property(e => e.ThanhPho)
+                .HasMaxLength(100)
+                .HasColumnName("ThanhPho")
+                .IsRequired();
+
+            entity.Property(e => e.QuanHuyen)
+                .HasMaxLength(100)
+                .HasColumnName("QuanHuyen")
+                .IsRequired();
+
+            entity.Property(e => e.DiaChi)
+                .HasMaxLength(255)
+                .HasColumnName("DiaChi")
+                .IsRequired();
+
+            entity.Property(e => e.SoDienThoai)
+                .HasMaxLength(20)
+                .HasColumnName("SoDienThoai")
+                .IsRequired();
+
+            entity.Property(e => e.HoTenNguoiNhan)
+                .HasMaxLength(100)
+                .HasColumnName("HoTenNguoiNhan")
+                .IsRequired();
+
+        });
+
 
     }
 }
