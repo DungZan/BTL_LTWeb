@@ -20,7 +20,7 @@ namespace BTL_LTWeb.Controllers
         //action trang chủ
         public IActionResult Home()
         {
-            var lst = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp).Take(2);
+            var lst = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp).Take(5);
             return View(lst);
         }
         //action trang danh sách sản phẩm
