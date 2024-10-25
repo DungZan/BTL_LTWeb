@@ -49,10 +49,7 @@
                             <li>
                                 <a asp-action="Index" asp-controller="Cart" class="site-cart">
                                     <span class="icon icon-shopping_cart"></span>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <span class="count">3</span>
-                                    }
+                                    @await Component.InvokeAsync("Cart")
                                 </a>
                             </li>
                             <li class="d-inline-block d-md-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle"><span class="icon-menu"></span></a></li>
