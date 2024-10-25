@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>b3947ab1-a97a-4ffc-a9bd-86b533bb86d4</UserSecretsId>
     <UserSecretsId>72004e1a-05b9-453c-bc88-1a3db8a645fc</UserSecretsId>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\ResourceTemplale\images\" />
     <Folder Include="wwwroot\ResourceTemplale\Profile\" />
   </ItemGroup>
 

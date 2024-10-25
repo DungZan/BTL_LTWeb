@@ -49,5 +49,24 @@
     <script src="~/ResourceTemplale/js/aos.js"></script>
     <script src="~/ResourceTemplale/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('a#logout').on('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+                $.ajax({
+                    url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
+                    type: 'POST', // Phương thức POST
+                    success: function (response) {
+                        // Xử lý thành công
+                        window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                    },
+                    error: function (response) {
+                        // Xử lý khi có lỗi
+                        console.log(response);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -61,7 +61,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#logout').on('click', function (event) {
+            $('a#logout').on('click', function (event) {
                 event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
                 $.ajax({
                     url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
@@ -70,9 +70,9 @@
                         // Xử lý thành công
                         window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
                     },
-                    error: function (xhr, status, error) {
-                        // Xử lý lỗi
-                        alert('Có lỗi xảy ra trong quá trình đăng xuất.'); // Hiển thị thông báo lỗi
+                    error: function (response) {
+                        // Xử lý khi có lỗi
+                        console.log(response);
                     }
                 });
             });

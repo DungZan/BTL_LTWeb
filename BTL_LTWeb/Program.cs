@@ -16,13 +16,15 @@ builder.Services.AddTransient<EmailService>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 // Add Authentication using Cookie
-builder.Services.AddAuthentication("MyCookieAuthenticationScheme")
-    .AddCookie("MyCookieAuthenticationScheme", options =>
+builder.Services.AddAuthentication("MyCookieAuthentication")
+    .AddCookie("MyCookieAuthentication", options =>
     {
-        options.LoginPath = "/Account/Login"; // Đường dẫn đến trang đăng nhập
-        options.AccessDeniedPath = "/Home/Index"; // Đường dẫn từ chối truy cập
+        options.LoginPath = "/Account/Login"; 
+        options.LogoutPath = "/Home/Index";
+        options.AccessDeniedPath = "/Home/Home";
         options.SlidingExpiration = true;
     });
+    
 
 // Add Authorization
 builder.Services.AddAuthorization();
@@ -48,6 +50,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Home}/{id?}");
 
 app.Run();

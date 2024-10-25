@@ -7,7 +7,7 @@ namespace BTL_LTWeb.Services
 {
     public class VietQrGenerator
     {
-        public Bank GetBankList()
+        public static Bank GetBankList()
         {
             using (WebClient webClient = new WebClient())
             {
@@ -34,13 +34,13 @@ namespace BTL_LTWeb.Services
 
             var client = new RestClient("https://api.vietqr.io/v2/generate");
             var request = new RestRequest();
-            request.Method = RestSharp.Method.Post;
+            request.Method = Method.Post;
             request.AddHeader("Accept", "application/json");
             request.AddParameter("application/json", json, ParameterType.RequestBody);
 
             var response = client.Execute(request);
             var content = response.Content;
-
+            
             var data = JsonConvert.DeserializeObject<ApiResponse>(content);
 
             return data.data.qrDataURL;
