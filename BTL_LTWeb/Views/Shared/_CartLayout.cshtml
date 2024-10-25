@@ -61,16 +61,18 @@
 
     <script>
         $(document).ready(function () {
-            $('#logout').on('click', function (event) {
-                event.preventDefault(); 
+            $('a#logout').on('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
                 $.ajax({
-                    url: '/api/AccountApi/logout',
-                    type: 'POST', 
+                    url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
+                    type: 'POST', // Phương thức POST
                     success: function (response) {
-                        window.location.href = '/Account/Login'; 
+                        // Xử lý thành công
+                        window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
                     },
-                    error: function (xhr, status, error) {
-                        alert('Có lỗi xảy ra trong quá trình đăng xuất.'); 
+                    error: function (response) {
+                        // Xử lý khi có lỗi
+                        console.log(response);
                     }
                 });
             });
