@@ -26,7 +26,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TGioHang> TGioHangs { get; set; }
 
     public virtual DbSet<TGiaoHang> TGiaoHangs { get; set; }
-
+    public virtual DbSet<TempUserOtp> TempUserOtps { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
     //{
