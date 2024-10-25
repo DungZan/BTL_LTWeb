@@ -260,20 +260,20 @@
                     // Tạo đối tượng dữ liệu thanh toán
                     let paymentData = {
                         __RequestVerificationToken: document.querySelector('input[name="__RequestVerificationToken"]').value,
-                       parseInt(document.getElementById('id').value),
-                        document.getElementById('c_country').value,
-                        document.getElementById('c_district').value,
-                        document.getElementById('c_fname').value,
-                       document.getElementById('c_address').value,
-                        document.getElementById('c_phone').value,
-                         document.getElementById('c_order_notes').value,
-                         document.getElementById('c_diff_country').value,
-                         document.getElementById('c_diff_district').value,
-                        document.getElementById('c_diff_fname').value,
-                         document.getElementById('c_diff_address').value,
-                         document.getElementById('c_diff_phone').value,
-                         document.getElementById('c_ship_different_address').checked,
-                         document.querySelector('input[name="payment_method"]:checked').value
+                        MaKhachHang: parseInt(document.getElementById('id').value),
+                        ThanhPho: document.getElementById('c_country').value,
+                        QuanHuyen: document.getElementById('c_district').value,
+                        HoTen: document.getElementById('c_fname').value,
+                        DiaChi: document.getElementById('c_address').value,
+                        SDT: document.getElementById('c_phone').value,
+                        GhiChu: document.getElementById('c_order_notes').value,
+                        ThanhPhoKhac: document.getElementById('c_diff_country').value,
+                        QuanHuyenKhac: document.getElementById('c_diff_district').value,
+                        HoTenKhac: document.getElementById('c_diff_fname').value,
+                        DiaChiKhac: document.getElementById('c_diff_address').value,
+                        SDTKhac: document.getElementById('c_diff_phone').value,
+                        GiaoHangDiaChiKhac: document.getElementById('c_ship_different_address').checked,
+                        PhuongThucThanhToan: document.querySelector('input[name="payment_method"]:checked').value
                     };
 
                     // Gửi yêu cầu AJAX
