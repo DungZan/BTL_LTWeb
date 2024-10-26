@@ -12,7 +12,7 @@ namespace BTL_LTWeb.Models
         public string SoDienThoai { get; set; }
         public string HoTenNguoiNhan { get; set; }
 
-        public THoaDonBan HoaDonBan { get; set; }
+        public virtual THoaDonBan HoaDonBan { get; set; }
     }
     
 }

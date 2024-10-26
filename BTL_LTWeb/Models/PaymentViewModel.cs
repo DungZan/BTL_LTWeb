@@ -14,7 +14,7 @@
         public string GhiChu { get; set; }
 
         // Thông tin giao hàng ở địa chỉ khác
-        public bool GiaoHangDiaChiKhac { get; set; } // Checkbox để chọn giao hàng ở địa chỉ khác
+        public int GiaoHangDiaChiKhac { get; set; } // Checkbox để chọn giao hàng ở địa chỉ khác
         public string DiaChiKhac { get; set; }
         public string ThanhPhoKhac { get; set; }
         public string QuanHuyenKhac { get; set; }

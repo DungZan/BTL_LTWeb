@@ -13,29 +13,29 @@
 
 <div class="site-section">
     <div class="container">
-        <form asp-action="ProcessPayment" method="post">
+        <form asp-controller="Pay" asp-action="ProcessPayment" method="post">
         <div class="row">
-                <input type="hidden" class="form-control" value="@Model.CustomerInfo.MaKhachHang" id="id" >
+                <input type="hidden" class="form-control" value="@Model.CustomerInfo.MaKhachHang" id="id" name="MaKhachHang">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
                 <div class="p-3 p-lg-5 border">
                     <div class="form-group">
                             <label for="c_country" class="text-black">Thành phố(Tỉnh)<span class="text-danger">*</span></label>
-                        <select id="c_country" class="form-control">
+                            <select id="c_country" name="ThanhPho" class="form-control">
                             <option value="">Chọn thành phố(tỉnh)</option>
                             
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
-                        <select id="c_district" class="form-control">
+                            <select id="c_district" name="QuanHuyen" class="form-control">
                             <option value="">Chọn Quận (Huyện)</option>
                         </select>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="c_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="@Model.CustomerInfo.TenKhachHang" id="c_fname">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.TenKhachHang" id="c_fname" name="HoTen">
                         </div>
                         
                     </div>
@@ -43,7 +43,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="c_address" class="text-black">Địa Chỉ <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="@Model.CustomerInfo.DiaChi" id="c_address" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.DiaChi" id="c_address" name="DiaChi" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
                         </div>
                     </div>
 
@@ -54,42 +54,42 @@
                     <div class="form-group row mb-5">
                         <div class="col-md-6">
                             <label for="c_email_address" class="text-black">Email<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="@Model.CustomerInfo.Email" id="c_email_address">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.Email" >
                         </div>
                         <div class="col-md-6">
                             <label for="c_phone" class="text-black">Số Điện Thoại<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="@Model.CustomerInfo.SoDienThoai" id="c_phone" placeholder="Nhập Số Điện Thoại">
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.SoDienThoai" id="c_phone" name="SDT" placeholder="Nhập Số Điện Thoại">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="c_ship_different_address" class="text-black" data-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address"> Giao hàng ở địa chỉ khác?</label>
+                            <label for="c_ship_different_address" class="text-black" data-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address" name="GiaoHangDiaChiKhac"> Giao hàng ở địa chỉ khác?</label>
                         <div class="collapse" id="ship_different_address">
                             <div class="py-2">
 
                                 <div class="form-group">
                                     <label for="c_country" class="text-black">Thành Phố(Tỉnh)<span class="text-danger">*</span></label>
-                                    <select id="c_country1" class="form-control">
+                                        <select id="c_diff_country" name="ThanhPhoKhac" class="form-control">
                                         <option value="">Chọn Thành Phố(Tỉnh)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
-                                    <select id="c_district1" class="form-control">
+                                        <select id="c_diff_district" name="QuanHuyenKhac" class="form-control">
                                         <option value="">Chọn Quận (Huyện)</option>
                                     </select>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="c_diff_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_fname">
+                                            <input type="text" class="form-control" id="c_diff_fname" name="HoTenKhac">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="c_address" class="text-black">Địa Chỉ <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_address" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
+                                            <input type="text" class="form-control" id="c_diff_address" name="DiaChiKhac" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
                                     </div>
                                 </div>
 
@@ -101,7 +101,7 @@
                                    
                                     <div class="col-md-12">
                                         <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_diff_phone" placeholder="Phone Number">
+                                            <input type="text" class="form-control" id="c_diff_phone" name="SDTKhac" placeholder="Phone Number">
                                     </div>
                                 </div>
 
@@ -112,7 +112,7 @@
 
                     <div class="form-group">
                         <label for="c_order_notes" class="text-black">Ghi chú</label>
-                        <textarea id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Viết ghi chú vào đây ..."></textarea>
+                            <textarea id="c_order_notes" name="GhiChu" cols="30" rows="5" class="form-control" placeholder="Viết ghi chú vào đây ..."></textarea>
                     </div>
 
                 </div>
@@ -135,8 +135,7 @@
                         </div>
                     </div>
                 </div>
-                @if (Model != null && Model.CartItems.Any())
-                {
+                
                     <div class="row mb-5">
                         <div class="col-md-12">
                             <h2 class="h3 mb-3 text-black">Danh sách sản phẩm</h2>
@@ -179,7 +178,7 @@
                                         <h3 class="h6 mb-0">Chọn phương thức thanh toán</h3>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"  id="payment_cash" value="cash" checked>
+                                            <input class="form-check-input" type="radio" id="payment_cash" name="PhuongThucThanhToan" value="cash" checked>
                                             <label class="form-check-label" for="payment_cash">
                                                 Thanh toán khi nhận hàng
                                             </label>
@@ -187,7 +186,7 @@
                                         </div>
 
                                         <div class="form-check mt-3">
-                                            <input class="form-check-input" type="radio" id="payment_online" value="online">
+                                            <input class="form-check-input" type="radio" id="payment_online" name="PhuongThucThanhToan" value="online">
                                             <label class="form-check-label" for="payment_online">
                                                 Thanh toán trực tuyến
                                             </label>
@@ -202,11 +201,7 @@
                             </div>
                         </div>
                     </div>
-                }
-                else
-                {
-                    <p>Giỏ hàng của bạn đang trống.</p>
-                }
+                
                 
 
             </div>
@@ -251,15 +246,15 @@
         }
 
         loadProvinces('c_country', 'c_district');
-        loadProvinces('c_country1', 'c_district1');
+        loadProvinces('c_diff_country', 'c_diff_district');
         document.addEventListener("DOMContentLoaded", function () {
             const paymentButton = document.getElementById('ajaxPaymentButton');
-
+            
             if (paymentButton) {
                 paymentButton.addEventListener('click', function () {
+                    
                     // Tạo đối tượng dữ liệu thanh toán
                     let paymentData = {
-                        __RequestVerificationToken: document.querySelector('input[name="__RequestVerificationToken"]').value,
                         MaKhachHang: parseInt(document.getElementById('id').value),
                         ThanhPho: document.getElementById('c_country').value,
                         QuanHuyen: document.getElementById('c_district').value,
@@ -272,10 +267,10 @@
                         HoTenKhac: document.getElementById('c_diff_fname').value,
                         DiaChiKhac: document.getElementById('c_diff_address').value,
                         SDTKhac: document.getElementById('c_diff_phone').value,
-                        GiaoHangDiaChiKhac: document.getElementById('c_ship_different_address').checked,
+                        GiaoHangDiaChiKhac: parseInt(document.getElementById('c_ship_different_address').checked),
                         PhuongThucThanhToan: document.querySelector('input[name="payment_method"]:checked').value
                     };
-
+                    event.preventDefault();
                     // Gửi yêu cầu AJAX
                     $.ajax({
                         url: '@Url.Action("ProcessPayment", "Pay")', // Đảm bảo URL đúng
@@ -300,8 +295,7 @@
                 console.error('Nút ajaxPaymentButton không tìm thấy!');
             }
         });
-
-
+        
        
        
     </script>

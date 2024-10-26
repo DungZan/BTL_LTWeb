@@ -79,76 +79,73 @@ namespace BTL_LTWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProcessPayment([FromBody] PaymentViewModel model)
+        public IActionResult ProcessPayment([FromForm] PaymentViewModel model)
         {
-            if (ModelState.IsValid)
+            if (model == null)
             {
-                using (var transaction = _context.Database.BeginTransaction())
-                {
-                    try
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+            }
+            Console.WriteLine("MaKhachHang: " + model.MaKhachHang);
+            Console.WriteLine("PhuongThucThanhToan: " + model.PhuongThucThanhToan);
+
+            // 1. Lấy thông tin giỏ hàng từ session hoặc cơ sở dữ liệu
+            var gioHang = _context.TGioHangs
+                .Include(g => g.ChiTietSanPham)
+                .Where(g => g.MaKhachHang == model.MaKhachHang).ToList();
+           
+            if (gioHang == null || !gioHang.Any())
+            {
+                return Json(new { success = false, message = "Giỏ hàng trống." });
+            }
+            //var lastMaHoaDonBan = _context.THoaDonBans.OrderByDescending(g => g.MaHoaDonBan).FirstOrDefault()?.MaHoaDonBan ?? 0;
+            // 2. Tạo hóa đơn mới
+            var hoaDon = new THoaDonBan
+            {
+                //MaHoaDonBan = lastMaHoaDonBan + 1,
+                MaKhachHang = model.MaKhachHang,
+                NgayHoaDon = DateTime.Now,
+                TongTienHd = gioHang.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong),
+                PhuongThucThanhToan = model.PhuongThucThanhToan,
+                GhiChu = model.GhiChu
+            };
+            _context.THoaDonBans.Add(hoaDon);
+            _context.SaveChanges();
+
+            // 3. Thêm chi tiết hóa đơn
+            foreach (var item in gioHang)
+            {
+                
+                    var danhMuc = _context.TDanhMucSps
+                        .FirstOrDefault(e => e.MaSp == item.ChiTietSanPham.MaSp);
+                    var chiTiet = new TChiTietHoaDonBan
                     {
-                        // 1. Lấy thông tin giỏ hàng từ session hoặc cơ sở dữ liệu
-                        var gioHang = _context.TGioHangs
-                            .Include(g => g.ChiTietSanPham)
-                            .Where(g => g.MaKhachHang == model.MaKhachHang).ToList();
-
-                        if (gioHang == null || !gioHang.Any())
-                        {
-                            return Json(new { success = false, message = "Giỏ hàng trống." });
-                        }
-
-                        // 2. Tạo hóa đơn mới
-                        var hoaDon = new THoaDonBan
-                        {
-                            MaKhachHang = model.MaKhachHang,
-                            NgayHoaDon = DateTime.Now,
-                            TongTienHd = gioHang.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong),
-                            PhuongThucThanhToan = model.PhuongThucThanhToan,
-                            GhiChu = model.GhiChu
-                        };
-                        _context.THoaDonBans.Add(hoaDon);
-                        _context.SaveChanges();
-
-                        // 3. Thêm chi tiết hóa đơn
-                        foreach (var item in gioHang)
-                        {
-                            var chiTiet = new TChiTietHoaDonBan
-                            {
-                                MaHoaDonBan = hoaDon.MaHoaDonBan,
-                                MaSP = item.MaChiTietSP,
-                                SoLuongBan = item.SoLuong,
-                                DonGiaBan = item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0
-                            };
-                            _context.TChiTietHoaDonBans.Add(chiTiet);
-                        }
-
-                        // 4. Xử lý thông tin giao hàng
-                        var giaoHang = new TGiaoHang
-                        {
-                            MaGiaoHang = hoaDon.MaHoaDonBan,
-                            MaHoaDonBan = hoaDon.MaHoaDonBan,
-                            DiaChi = model.GiaoHangDiaChiKhac ? model.DiaChiKhac : model.DiaChi,
-                            ThanhPho = model.GiaoHangDiaChiKhac ? model.ThanhPhoKhac : model.ThanhPho,
-                            QuanHuyen = model.GiaoHangDiaChiKhac ? model.QuanHuyenKhac : model.QuanHuyen,
-                            SoDienThoai = model.GiaoHangDiaChiKhac ? model.SDTKhac : model.SDT,
-                            HoTenNguoiNhan = model.GiaoHangDiaChiKhac ? model.HoTenKhac : model.HoTen
-                        };
-                        _context.TGiaoHangs.Add(giaoHang);
-
-                        // 5. Lưu tất cả
-                        _context.SaveChanges();
-                        transaction.Commit();
-                        return Json(new { success = true });
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        return Json(new { success = false, message = ex.Message });
-                    }
-                }
+                        MaHoaDonBan = hoaDon.MaHoaDonBan,
+                        MaChiTietSP = item.MaChiTietSP,
+                        SoLuongBan = item.SoLuong,
+                        DonGiaBan = danhMuc.Gia
+                    };
+                    _context.TChiTietHoaDonBans.Add(chiTiet);
+                
+                
             }
 
-            return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+            // 4. Xử lý thông tin giao hàng
+            var giaoHang = new TGiaoHang
+            {
+                MaHoaDonBan = hoaDon.MaHoaDonBan,
+                DiaChi = model.GiaoHangDiaChiKhac==1 ? model.DiaChiKhac : model.DiaChi,
+                ThanhPho = model.GiaoHangDiaChiKhac==1 ? model.ThanhPhoKhac : model.ThanhPho,
+                QuanHuyen = model.GiaoHangDiaChiKhac == 1 ? model.QuanHuyenKhac : model.QuanHuyen,
+                SoDienThoai = model.GiaoHangDiaChiKhac == 1 ? model.SDTKhac : model.SDT,
+                HoTenNguoiNhan = model.GiaoHangDiaChiKhac == 1 ? model.HoTenKhac : model.HoTen
+            };
+            _context.TGiaoHangs.Add(giaoHang);
+
+            // 5. Lưu tất cả
+            _context.SaveChanges();
+
+            return (Success());
+
         }
 
 
