@@ -1,0 +1,302 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán";
+    Layout = "~/Views/Shared/_PayLayout.cshtml";
+}
+@model BTL_LTWeb.Models.CheckoutViewModel
+
+<style>
+    #h2td{
+        text-align:center;
+    }
+</style>
+<h2 id="h2td">Thông tin Thanh toán</h2>
+
+<div class="site-section">
+    <div class="container">
+        <form asp-controller="Pay" asp-action="ProcessPayment" method="post">
+        <div class="row">
+                <input type="hidden" class="form-control" value="@Model.CustomerInfo.MaKhachHang" id="id" name="MaKhachHang">
+            <div class="col-md-6 mb-5 mb-md-0">
+                <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
+                <div class="p-3 p-lg-5 border">
+                    <div class="form-group">
+                            <label for="c_country" class="text-black">Thành phố(Tỉnh)<span class="text-danger">*</span></label>
+                            <select id="c_country" name="ThanhPho" class="form-control">
+                            <option value="">Chọn thành phố(tỉnh)</option>
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
+                            <select id="c_district" name="QuanHuyen" class="form-control">
+                            <option value="">Chọn Quận (Huyện)</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="c_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.TenKhachHang" id="c_fname" name="HoTen">
+                        </div>
+                        
+                    </div>
+                        
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label for="c_address" class="text-black">Địa Chỉ <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.DiaChi" id="c_address" name="DiaChi" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nhập số nhà">
+                    </div>
+
+                    <div class="form-group row mb-5">
+                        <div class="col-md-6">
+                            <label for="c_email_address" class="text-black">Email<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.Email" >
+                        </div>
+                        <div class="col-md-6">
+                            <label for="c_phone" class="text-black">Số Điện Thoại<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" value="@Model.CustomerInfo.SoDienThoai" id="c_phone" name="SDT" placeholder="Nhập Số Điện Thoại">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="c_ship_different_address" class="text-black" data-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address"><input type="checkbox" value="1" id="c_ship_different_address" name="GiaoHangDiaChiKhac"> Giao hàng ở địa chỉ khác?</label>
+                        <div class="collapse" id="ship_different_address">
+                            <div class="py-2">
+
+                                <div class="form-group">
+                                    <label for="c_country" class="text-black">Thành Phố(Tỉnh)<span class="text-danger">*</span></label>
+                                        <select id="c_diff_country" name="ThanhPhoKhac" class="form-control">
+                                        <option value="">Chọn Thành Phố(Tỉnh)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
+                                        <select id="c_diff_district" name="QuanHuyenKhac" class="form-control">
+                                        <option value="">Chọn Quận (Huyện)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_diff_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="c_diff_fname" name="HoTenKhac">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_address" class="text-black">Địa Chỉ <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="c_diff_address" name="DiaChiKhac" placeholder="Nhập Ngõ, Đường, Quận(Huyện)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+                                </div>
+
+                                <div class="form-group row mb-5">
+                                   
+                                    <div class="col-md-12">
+                                        <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="c_diff_phone" name="SDTKhac" placeholder="Phone Number">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="c_order_notes" class="text-black">Ghi chú</label>
+                            <textarea id="c_order_notes" name="GhiChu" cols="30" rows="5" class="form-control" placeholder="Viết ghi chú vào đây ..."></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <h2 class="h3 mb-3 text-black">Mã Giảm Giá</h2>
+                        <div class="p-3 p-lg-5 border">
+
+                            <label for="c_code" class="text-black mb-3">Nhập mã phiếu giảm giá của bạn nếu bạn có</label>
+                            <div class="input-group w-75">
+                                <input type="text" class="form-control" id="c_code" placeholder="Coupon Code" aria-label="Coupon Code" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm" type="button" id="button-addon2">Áp dụng</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                
+                    <div class="row mb-5">
+                        <div class="col-md-12">
+                            <h2 class="h3 mb-3 text-black">Danh sách sản phẩm</h2>
+                            <div class="p-3 p-lg-5 border">
+                                <table class="table site-block-order-table mb-5">
+                                    <thead>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+
+                                                @foreach (var item in Model.CartItems)
+                                            {<thead>
+                                                <td>
+                                                    @(item.ChiTietSanPham?.DanhMucSp?.TenSp ?? "Không xác định")
+                                                    -
+                                                    @(item.ChiTietSanPham?.KichThuoc ?? "Không xác định")
+                                                    -
+                                                    @(item.ChiTietSanPham?.MauSac ?? "Không xác định")
+                                                    x
+                                                    @item.SoLuong
+                                                </td>
+
+                                                <td>
+                                                    @((item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)
+                                                </td>
+                                            </thead>
+                                            }
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Tổng tiền</strong></td>
+                                            <td class="text-black font-weight-bold"><strong>@Model.CartItems.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                    <div class="border p-3 mb-3">
+                                        <h3 class="h6 mb-0">Chọn phương thức thanh toán</h3>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="payment_cash" name="PhuongThucThanhToan" value="cash" checked>
+                                            <label class="form-check-label" for="payment_cash">
+                                                Thanh toán khi nhận hàng
+                                            </label>
+                                            <p class="text-muted ml-4">Bạn sẽ trả tiền khi nhận được hàng.</p>
+                                        </div>
+
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="radio" id="payment_online" name="PhuongThucThanhToan" value="online">
+                                            <label class="form-check-label" for="payment_online">
+                                                Thanh toán trực tuyến
+                                            </label>
+                                            <p class="text-muted ml-4">Bạn sẽ trả tiền qua mã QR được cung cấp.</p>
+                                        </div>
+                                    </div>
+
+                                <div class="form-group">
+                                        <button id ="ajaxPaymentButton" type="submit" class="btn btn-primary btn-lg py-3 btn-block">Thanh toán</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+                
+
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function loadProvinces(selectId, districtSelectId) {
+            fetch('https://provinces.open-api.vn/api/p/')
+                .then(response => response.json())
+                .then(data => {
+                    let provinceSelect = document.getElementById(selectId);
+                    data.forEach(province => {
+                        let option = document.createElement('option');
+                        option.value = province.code;
+                        option.textContent = province.name;
+                        provinceSelect.appendChild(option);
+                    });
+
+                    provinceSelect.addEventListener('change', function () {
+                        loadDistricts(provinceSelect.value, districtSelectId);
+                    });
+                });
+        }
+
+        function loadDistricts(provinceCode, districtSelectId) {
+            fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+                .then(response => response.json())
+                .then(data => {
+                    let districtSelect = document.getElementById(districtSelectId);
+                    districtSelect.innerHTML = '';
+                    data.districts.forEach(district => {
+                        let option = document.createElement('option');
+                        option.value = district.code;
+                        option.textContent = district.name;
+                        districtSelect.appendChild(option);
+                    });
+                });
+        }
+
+        loadProvinces('c_country', 'c_district');
+        loadProvinces('c_diff_country', 'c_diff_district');
+        document.addEventListener("DOMContentLoaded", function () {
+            const paymentButton = document.getElementById('ajaxPaymentButton');
+            
+            if (paymentButton) {
+                paymentButton.addEventListener('click', function () {
+                    
+                    // Tạo đối tượng dữ liệu thanh toán
+                    let paymentData = {
+                        MaKhachHang: parseInt(document.getElementById('id').value),
+                        ThanhPho: document.getElementById('c_country').value,
+                        QuanHuyen: document.getElementById('c_district').value,
+                        HoTen: document.getElementById('c_fname').value,
+                        DiaChi: document.getElementById('c_address').value,
+                        SDT: document.getElementById('c_phone').value,
+                        GhiChu: document.getElementById('c_order_notes').value,
+                        ThanhPhoKhac: document.getElementById('c_diff_country').value,
+                        QuanHuyenKhac: document.getElementById('c_diff_district').value,
+                        HoTenKhac: document.getElementById('c_diff_fname').value,
+                        DiaChiKhac: document.getElementById('c_diff_address').value,
+                        SDTKhac: document.getElementById('c_diff_phone').value,
+                        GiaoHangDiaChiKhac: parseInt(document.getElementById('c_ship_different_address').checked),
+                        PhuongThucThanhToan: document.querySelector('input[name="payment_method"]:checked').value
+                    };
+                    event.preventDefault();
+                    // Gửi yêu cầu AJAX
+                    $.ajax({
+                        url: '@Url.Action("ProcessPayment", "Pay")', // Đảm bảo URL đúng
+                        type: 'POST',
+                        data: JSON.stringify(paymentData), // Chuyển đổi thành chuỗi JSON
+                        contentType: 'application/json; charset=utf-8', // Thiết lập content type
+                        dataType: 'json', // Chỉ định kiểu dữ liệu mong đợi từ server
+                        success: function (response) {
+                            if (response.success) {
+                                alert('Thanh toán thành công!');
+                            } else {
+                                alert('Đã có lỗi xảy ra: ' + response.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert('Lỗi kết nối! Vui lòng thử lại sau. Mã lỗi: ' + xhr.status + ' - ' + error);
+                        }
+                    });
+
+                });
+            } else {
+                console.error('Nút ajaxPaymentButton không tìm thấy!');
+            }
+        });
+        
+       
+       
+    </script>
+}

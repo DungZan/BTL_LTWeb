@@ -16,20 +16,21 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult DashBoard()
         {
+            
             var topProducts = db.TChiTietHoaDonBans
-                            .GroupBy(x => x.MaSP)
+                            .GroupBy(x => x.MaChiTietSP)
                             .Select(g => new
             {
-                MaSP = g.Key,
+                MaChiTietSP = g.Key,
                 TotalRevenue = g.Sum(x => x.DonGiaBan * x.SoLuongBan)
             })
             .OrderByDescending(x => x.TotalRevenue)
             .Take(4)
             .ToList();
-
-            var Sanpham = db.TDanhMucSps
-                    .Where(x => topProducts.Select(p => p.MaSP).Contains(x.MaSp))
-                    .ToList();
+            var Sanpham = (from hdb in topProducts
+                           join ctp in db.TChiTietSanPhams on hdb.MaChiTietSP equals ctp.MaChiTietSp
+                           join dm in db.TDanhMucSps on ctp.MaSp equals dm.MaSp
+                           select dm).Distinct().ToList();
             var doanhThuNam = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Year == DateTime.Now.Year).Sum(x => x.TongTienHd);
             var doanhthuthang = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Month == DateTime.Now.Month).Sum(x => x.TongTienHd);
             HoaDonBanViewModel model = new HoaDonBanViewModel
