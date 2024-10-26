@@ -28,21 +28,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TGiaoHang> TGiaoHangs { get; set; }
     public virtual DbSet<TempUserOtp> TempUserOtps { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
-    //{
-    //    if (!optionsBuilder.IsConfigured)
-    //    {
-    //        var config = new ConfigurationBuilder()
-    //        .SetBasePath(Directory.GetCurrentDirectory())
-    //        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    //        .Build();
-    //string connectionString = config.GetConnectionString("MyDataBase");
-
-
-    //optionsBuilder.UseSqlServer(connectionString);
-    //    }
-    //}
-
+        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -133,17 +119,16 @@ public partial class QLBanDoThoiTrangContext : DbContext
 
         modelBuilder.Entity<TChiTietHoaDonBan>(entity =>
         {
-            entity.HasKey(e => new { e.MaHoaDonBan, e.MaSP }).HasName("PK__tChiTiet__6A50CA8AF98C3478");
-
+            entity.HasKey(e => new { e.MaHoaDonBan, e.MaChiTietSP }).HasName("PK__tChiTiet__6A50CA8AF98C3478");
             entity.ToTable("tChiTietHoaDonBan");
 
             entity.Property(e => e.MaHoaDonBan).HasColumnName("MaHoaDonBan");
-            entity.Property(e => e.MaSP).HasColumnName("MaSP");
+            entity.Property(e => e.MaChiTietSP).HasColumnName("MaChiTietSP");
             entity.Property(e => e.SoLuongBan).HasColumnName("SoLuongBan");
             entity.Property(e => e.DonGiaBan).HasColumnType("decimal(18, 2)").HasColumnName("DonGiaBan");
 
             entity.HasOne(d => d.DanhMucSP).WithMany()
-                .HasForeignKey(d => d.MaSP)
+                .HasForeignKey(d => d.MaChiTietSP)
                 .HasConstraintName("FK_tChiTietHoaDonBan_tDanhMucSP");
 
             entity.HasOne(d => d.HoaDonBan).WithMany()
@@ -181,6 +166,10 @@ public partial class QLBanDoThoiTrangContext : DbContext
             entity.HasOne(d => d.GiamGia).WithMany()
                 .HasForeignKey(d => d.MaGiamGia)
                 .HasConstraintName("FK_HoaDonBan_MaGiamGia");
+            entity.HasOne(h => h.GiaoHang)
+            .WithOne(g => g.HoaDonBan)
+            .HasForeignKey<TGiaoHang>(g => g.MaHoaDonBan)
+            .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<TMaGiamGia>(entity =>
@@ -331,7 +320,10 @@ public partial class QLBanDoThoiTrangContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("HoTenNguoiNhan")
                 .IsRequired();
-
+            entity.HasOne(g => g.HoaDonBan)
+            .WithOne(h => h.GiaoHang)
+            .HasForeignKey<TGiaoHang>(g => g.MaHoaDonBan)
+            .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
 
