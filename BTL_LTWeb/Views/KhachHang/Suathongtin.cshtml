@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/ProfileLayout.cshtml";
 }
-
+<div id="notification" style="display:none; padding: 10px; margin-bottom: 20px;"></div>
 <div class="col-lg-8 pb-5">
     <form class="row" id="updateForm" asp-controller="KhachHang" asp-action="Index" asp-route-id ="@Model.MaKhachHang" method="post">
         <input type="hidden" asp-for="MaKhachHang" />
@@ -48,37 +48,71 @@
             <hr class="mt-2 mb-3">
             <div class="d-flex flex-wrap justify-content-between align-items-center">
                 <!-- Nút lưu đơn giản -->
-                <button class="btn btn-style-1 btn-primary" id="save-button" type="submit">Lưu</button>
+                <a href="#" class="btn btn-style-1 btn-primary" id="save-button">Lưu</a>
             </div>
         </div>
     </form>
 </div>
+
 <script>
     $(document).ready(function () {
-        $('#updateForm').on('submit', function (e) {  // Bắt sự kiện submit
-            e.preventDefault();  // Ngăn hành vi mặc định của form
+        const originData = {
+            TenKhachHang: $('#TenKhachHang').val(),
+            Email: $('#Email').val(),
+            NgaySinh: $('#NgaySinh').val(),
+            SoDienThoai: $('#SoDienThoai').val(),
+            DiaChi: $('#DiaChi').val()
+        };
 
-            var formData = $(this).serialize();  // Lấy dữ liệu form
-
+        function restoreData() {
+            $('#TenKhachHang').val(originData.TenKhachHang);
+            $('#Email').val(originData.Email);
+            $('#NgaySinh').val(originData.NgaySinh);
+            $('#SoDienThoai').val(originData.SoDienThoai);
+            $('#DiaChi').val(originData.DiaChi);
+        }
+        $('#save-button').on('click', function (e) {
+            e.preventDefault();
+            
+            var formData = $('#updateForm').serialize();
+            
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("Suathongtin", "KhachHang")',
                 data: formData,
                 success: function (response) {
+                    let notification = $('#notification');
                     if (response.success) {
-                        if (response.reload) {
-                            // Reload lại trang với dữ liệu mới
-                            location.reload();
-                        } else {
-                            alert("Cập nhật thành công!");
-                        }
+                        notification.text("Cập nhật thành công!").css({
+                            "color": "green",
+                            "display": "block",
+                            "background-color": "#e6ffe6",
+                            "border": "1px solid green"
+                        });
+                        Object.keys(originData).forEach(key => {
+                            originData[key] = $('#' + key).val();
+                        });
                     } else {
-                        alert(response.message);
+                        notification.text(response.message || "Có lỗi xảy ra!").css({
+                            "color": "red",
+                            "display": "block",
+                            "background-color": "#ffe6e6",
+                            "border": "1px solid red"
+                        });
+                        restoreData();
                     }
+                    setTimeout(function () {
+                        notification.hide();
+                    }, 3000);
                 },
-                error: function (xhr, status, error) {
-                    console.error('Lỗi:', error);
-                    alert('Có lỗi xảy ra, vui lòng thử lại!');
+                error: function () {
+                    $('#notification').text("Có lỗi xảy ra, vui lòng thử lại!").css({
+                        "color": "red",
+                        "display": "block",
+                        "background-color": "#ffe6e6",
+                        "border": "1px solid red"
+                    });
+                    restoreData();
                 }
             });
         });

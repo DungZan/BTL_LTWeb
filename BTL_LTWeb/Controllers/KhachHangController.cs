@@ -1,7 +1,9 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -82,7 +84,7 @@ namespace BTL_LTWeb.Controllers
         //        return View();
         //    }
         //}
-        [Route("Suathongtin")]
+        [Route("KhachHang/Suathongtin")]
         [HttpGet]
         public IActionResult Suathongtin()
         {
@@ -98,35 +100,76 @@ namespace BTL_LTWeb.Controllers
             return View(_kh);
         }
 
-        [Route("Suathongtin")]
+        [Route("KhachHang/Suathongtin")]
         [HttpPost]
         public IActionResult Suathongtin(TKhachHang kh)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var userEmail = User.FindFirstValue(ClaimTypes.Email);
-                var _kh = db.TKhachHangs.FirstOrDefault(kh => kh.Email == userEmail);
-                if (_kh != null)
+                try
                 {
-                    if(_kh.Email != kh.Email)
-                    {
-                        return Json(new { success = false, message = "Bạn không thể thay đổi email." });
-                    }
-                    _kh.TenKhachHang = kh.TenKhachHang;
-                    _kh.NgaySinh = kh.NgaySinh;
-                    _kh.SoDienThoai = kh.SoDienThoai;
-                    _kh.DiaChi = kh.DiaChi;
+                    var userEmail = User.FindFirstValue(ClaimTypes.Email);
+                    var _kh = db.TKhachHangs.FirstOrDefault(kh => kh.Email == userEmail);
 
-                    db.SaveChanges();
-                    return Json(new { success = true });
+                    if (_kh != null)
+                    {
+                         if(_kh.Email != kh.Email)
+                        {
+                            return Json(new { success = false, message = "Không thể thay đổi địa chỉ email!" });
+                        }   
+                        _kh.TenKhachHang = kh.TenKhachHang;
+                        _kh.NgaySinh = kh.NgaySinh;
+                        _kh.SoDienThoai = kh.SoDienThoai;
+                        _kh.DiaChi = kh.DiaChi;
+
+                        db.SaveChanges(); 
+                        return Json(new { success = true });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Khách hàng không tồn tại." });
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    return Json(new { success = false, message = "Khách hàng không tồn tại." });
+                    Console.WriteLine("Error saving changes: " + ex.Message);
+                    return Json(new { success = false, message = "Có lỗi xảy ra khi lưu dữ liệu." });
                 }
             }
-            
-            return Json(new {success = false, MessageProcessingHandler = "Cập nhật thông tin thất bại!" });
+
+            return Json(new { success = false, message = "Cập nhật thông tin thất bại!" });
+        }
+
+        [Route("KhachHang/DonHang")]
+
+        public IActionResult DonHang(int? Page)
+        {
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            var _kh = db.TKhachHangs.FirstOrDefault(kh => kh.Email == userEmail);
+
+            if(_kh == null)
+            {
+                return NotFound();
+            }
+
+            int _khID = _kh.MaKhachHang;
+            var lst = db.THoaDonBans.Where(dh => dh.MaKhachHang == _khID).AsNoTracking();
+
+            int pageSize = 10;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            PagedList<THoaDonBan> lstDh = new PagedList<THoaDonBan>(lst, pageNumber, pageSize);
+
+            return View(lstDh);
+        }
+
+        public IActionResult ChiTietDonHang(int MaDH)
+        {
+            var donhang = db.TChiTietHoaDonBans.Include(ct => ct.DanhMucSP).Where(ct => ct.MaHoaDonBan == MaDH).ToList();
+            if (donhang == null)
+            {
+                return NotFound();
+            }
+            return View(donhang);
         }
 
 

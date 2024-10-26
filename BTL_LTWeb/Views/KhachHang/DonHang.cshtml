@@ -1,0 +1,50 @@
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<BTL_LTWeb.Models.THoaDonBan>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "DonHang";
+    Layout = "~/Views/Shared/ProfileLayout.cshtml";
+}
+
+<div class="container my-4" style="max-width: 80%; margin: auto;">
+    <h2 class="text-center mb-4">Danh sách đơn hàng</h2>
+    <form asp-controller="KhachHang" asp-action="" method="get" class="site-block-top-search d-flex">
+        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <p></p>
+    <table class="table table-bordered table-hover text-center">
+        <thead class="table-primary">
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Phương thức thanh toán</th>
+                <th>Ghi chú</th>
+                <th>Chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.MaHoaDonBan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgayHoaDon)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TongTienHd)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhuongThucThanhToan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+                    <td>
+                        <a asp-action="ChiTietDonHang" asp-route-MaDH="@item.MaHoaDonBan">Xem chi tiết</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("DonHang", new { page = page }),
+            new X.PagedList.Mvc.Core.PagedListRenderOptions()
+    {
+        LiElementClasses = new List<String> { "page-item" },
+        PageClasses = new List<String> { "page-link" }
+    })
+</div>
