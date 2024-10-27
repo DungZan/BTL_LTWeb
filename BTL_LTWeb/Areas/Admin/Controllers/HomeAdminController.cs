@@ -246,7 +246,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         {
             int pageSize = 10;
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            var list = db.THoaDonBans.Include(m=>m.NhanVien).Include(m=>m.KhachHang);
+            var list = db.THoaDonBans.Include(m=>m.KhachHang);
             PagedList<THoaDonBan> lst = new PagedList<THoaDonBan>(list, pageNumber, pageSize);
             return View(lst);
         }
