@@ -13,10 +13,6 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Route("Admin/HomeAdmin")]
     public class HomeAdminController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
-
-
-
-
+        
     }
 }
