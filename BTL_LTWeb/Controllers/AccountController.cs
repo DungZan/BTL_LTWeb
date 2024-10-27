@@ -238,7 +238,7 @@ namespace BTL_LTWeb.Controllers
                     TenKhachHang = register.Name,
                     NgaySinh = register.DateOfBirth,
                     SoDienThoai = register.PhoneNumber,
-                    DiaChi = register.Address,
+                    DiaChi = register.StreetAddress + "," + register.District + "," + register.Province,
                     GhiChu = null,
                     User = newUser
                 };

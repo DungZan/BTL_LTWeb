@@ -12,8 +12,14 @@ namespace BTL_LTWeb.ViewModels
         [CustomDateValidation(ErrorMessage = "Ngày sinh không hợp lệ.")]
         public DateOnly? DateOfBirth { get; set; }
 
+        [Required(ErrorMessage = "Chọn đủ thông tin")]
+        public string Province { get; set; }
+
+        [Required(ErrorMessage = "Chọn đủ thông tin")]
+        public string District { get; set; }
+
         [Required(ErrorMessage = "Địa chỉ không được để trống")]
-        public string Address { get; set; }
+        public string StreetAddress { get; set; }
 
         [Required(ErrorMessage = "Số điện thoại không được để trống")]
         [RegularExpression(@"^(0[35789][0-9]{8}|84[35789][0-9]{8}|\+84[35789][0-9]{8})$", ErrorMessage = "Số điện thoại không hợp lệ")]

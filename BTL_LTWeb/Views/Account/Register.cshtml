@@ -17,10 +17,27 @@
         <input asp-for="DateOfBirth" class="form-control" id="DateOfBirth" type="date">
         <span asp-validation-for="DateOfBirth" class="text-danger"></span>
     </div>
+    <div class="mb-3 row">
+        <div class="col-md-6">
+            <label asp-for="Province" class="form-label">Tỉnh/Thành phố<span class="text-danger">*</span></label>
+            <select asp-for="Province" id="c_country" class="form-control">
+                <option value="">Chọn Tỉnh/Thành phố</option>
+            </select>
+            <span asp-validation-for="Province" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="District" class="form-label">Quận/Huyện<span class="text-danger">*</span></label>
+            <select asp-for="District" id="c_district" class="form-control">
+                <option value="">Chọn Quận/Huyện</option>
+            </select>
+            <span asp-validation-for="District" class="text-danger"></span>
+        </div>
+    </div>
+
     <div class="mb-3">
-        <label asp-for="Address" class="form-label">Địa chỉ</label>
-        <input asp-for="Address" class="form-control" id="Address">
-        <span asp-validation-for="Address" class="text-danger"></span>
+        <label asp-for="StreetAddress" class="form-label">Số nhà, Ngõ, Xã/Phường</label>
+        <input asp-for="StreetAddress" class="form-control" id="Address">
+        <span asp-validation-for="StreetAddress" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
@@ -59,3 +76,58 @@
         <a class="text-primary fw-bold ms-2" href="@Url.Action("Login", "Account")">Đăng nhập</a>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        let code = [];
+
+        function loadProvinces(selectId, districtSelectId) {
+            $.get('https://provinces.open-api.vn/api/p/', function (data) {
+                let provinceSelect = $('#' + selectId);
+                data.forEach(province => {
+                    provinceSelect.append($('<option>', {
+                        value: province.name,
+                        text: province.name
+                    }));
+                    code.push(province.code);
+                });
+
+                provinceSelect.on('change', function () {
+                    let selectedIndex = provinceSelect[0].selectedIndex;
+                    if (selectedIndex == 0) {
+                        let districtSelect = $('#' + districtSelectId);
+                        districtSelect.empty().append($('<option>', {
+                            text: 'Chọn Quận/Huyện'
+                        }));
+                    } else {
+                        loadDistricts(code[selectedIndex - 1], districtSelectId);
+                    }
+                });
+            }).fail(function () {
+                console.error('Error loading provinces');
+            });
+        }
+
+        function loadDistricts(provinceCode, districtSelectId) {
+            $.get(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`, function (data) {
+                let districtSelect = $('#' + districtSelectId);
+                districtSelect.empty();
+                if (data.districts) {
+                    data.districts.forEach(district => {
+                        districtSelect.append($('<option>', {
+                            value: district.name,
+                            text: district.name
+                        }));
+                    });
+                }
+            }).fail(function () {
+                console.error('Error loading districts');
+            });
+        }
+
+        $(document).ready(function () {
+            loadProvinces('c_country', 'c_district'); // Gọi hàm loadProvinces khi DOM đã tải
+        });
+    </script>
+
+}
