@@ -1,10 +1,6 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Newtonsoft.Json;
-using System.Security.Claims;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -20,7 +16,7 @@ namespace BTL_LTWeb.Controllers
         }
         public IActionResult Index()
         {
-            return View(); 
+            return View();
         }
 
         [HttpPost]
@@ -92,7 +88,7 @@ namespace BTL_LTWeb.Controllers
             var gioHang = _context.TGioHangs
                 .Include(g => g.ChiTietSanPham)
                 .Where(g => g.MaKhachHang == model.MaKhachHang).ToList();
-           
+
             if (gioHang == null || !gioHang.Any())
             {
                 return Json(new { success = false, message = "Giỏ hàng trống." });
@@ -101,7 +97,6 @@ namespace BTL_LTWeb.Controllers
             // 2. Tạo hóa đơn mới
             var hoaDon = new THoaDonBan
             {
-                //MaHoaDonBan = lastMaHoaDonBan + 1,
                 MaKhachHang = model.MaKhachHang,
                 NgayHoaDon = DateTime.Now,
                 TongTienHd = gioHang.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong),
@@ -114,27 +109,24 @@ namespace BTL_LTWeb.Controllers
             // 3. Thêm chi tiết hóa đơn
             foreach (var item in gioHang)
             {
-                
-                    var danhMuc = _context.TDanhMucSps
-                        .FirstOrDefault(e => e.MaSp == item.ChiTietSanPham.MaSp);
-                    var chiTiet = new TChiTietHoaDonBan
-                    {
-                        MaHoaDonBan = hoaDon.MaHoaDonBan,
-                        MaChiTietSP = item.MaChiTietSP,
-                        SoLuongBan = item.SoLuong,
-                        DonGiaBan = danhMuc.Gia
-                    };
-                    _context.TChiTietHoaDonBans.Add(chiTiet);
-                
-                
+                var danhMuc = _context.TDanhMucSps
+                    .FirstOrDefault(e => e.MaSp == item.ChiTietSanPham.MaSp);
+                var chiTiet = new TChiTietHoaDonBan
+                {
+                    MaHoaDonBan = hoaDon.MaHoaDonBan,
+                    MaChiTietSP = item.MaChiTietSP,
+                    SoLuongBan = item.SoLuong,
+                    DonGiaBan = danhMuc.Gia
+                };
+                _context.TChiTietHoaDonBans.Add(chiTiet);
             }
 
             // 4. Xử lý thông tin giao hàng
             var giaoHang = new TGiaoHang
             {
                 MaHoaDonBan = hoaDon.MaHoaDonBan,
-                DiaChi = model.GiaoHangDiaChiKhac==1 ? model.DiaChiKhac : model.DiaChi,
-                ThanhPho = model.GiaoHangDiaChiKhac==1 ? model.ThanhPhoKhac : model.ThanhPho,
+                DiaChi = model.GiaoHangDiaChiKhac == 1 ? model.DiaChiKhac : model.DiaChi,
+                ThanhPho = model.GiaoHangDiaChiKhac == 1 ? model.ThanhPhoKhac : model.ThanhPho,
                 QuanHuyen = model.GiaoHangDiaChiKhac == 1 ? model.QuanHuyenKhac : model.QuanHuyen,
                 SoDienThoai = model.GiaoHangDiaChiKhac == 1 ? model.SDTKhac : model.SDT,
                 HoTenNguoiNhan = model.GiaoHangDiaChiKhac == 1 ? model.HoTenKhac : model.HoTen
