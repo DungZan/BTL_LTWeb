@@ -55,9 +55,8 @@
                 @Html.DisplayFor(modelItem => item.GhiChu)
             </td>
             <td>
-                <a asp-action="SuaKhachHang" asp-route-MaKH="@item.MaKhachHang">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaKhachHang">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaKhachHang">Delete</a>
+                <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
+                <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
             </td>
         </tr>
 }

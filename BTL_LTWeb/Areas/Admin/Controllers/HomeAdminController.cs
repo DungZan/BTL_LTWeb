@@ -227,10 +227,30 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult XoaKhachHang(int MaKH)
         {
-            var kh = db.TKhachHangs.Find(MaKH);
-            db.Remove(kh);
-            db.SaveChanges();
-            return RedirectToAction("danhsachkhachhang");
+            var _kh = db.TKhachHangs.Find(MaKH);
+            if (_kh != null)
+            {
+                try
+                {
+                    var user = db.TUsers.FirstOrDefault(u => u.Email == _kh.Email);
+                    if (user != null)
+                    {
+                        db.TUsers.Remove(user);
+                    }
+                    db.TKhachHangs.Remove(_kh);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Lỗi khi xóa nhân viên và user: " + ex.Message);
+                    return RedirectToAction("Danhsachkhachhang");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("MaKhachHang", "Khách hàng không tồn tại.");
+            }
+            return RedirectToAction("Danhsachkhachhang");
         }
         //nhân viên
         [Route("danhsachnhanvien")]
@@ -342,36 +362,80 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return View(nv);
         }
 
-        [Route("Xoanhanvien")]
-        [HttpGet]
+        [Route("XoaNhanVien")]
+        [HttpPost]
         public IActionResult XoaNhanVien(int MaNV)
         {
-            var nv = db.TNhanViens.Find(MaNV);
+            
+            var nv = db.TNhanViens.FirstOrDefault(x=> x.MaNhanVien == MaNV);
+            
             if (nv != null)
             {
                 try
                 {
+                    var email = nv.Email; // Lưu giá trị email vào biến để kiểm tra
+                    Console.WriteLine("Email nhân viên: " + email);
                     var user = db.TUsers.FirstOrDefault(u => u.Email == nv.Email);
                     if (user != null)
                     {
                         db.TUsers.Remove(user);
                     }
+                    else
+                    {
+                        Console.WriteLine("User không tìm thấy với email: " + nv.Email);  // Thêm dòng này để kiểm tra
+                    }
                     db.TNhanViens.Remove(nv);
                     db.SaveChanges();
+                    return Json(new { success = true, message = "Xóa nhân viên thành công." });
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Lỗi khi xóa nhân viên và user: " + ex.Message);
-                    return RedirectToAction("danhsachnhanvien");
+                    //ModelState.AddModelError("", "Lỗi khi xóa nhân viên và user: " + ex.Message);
+                    //return RedirectToAction("danhsachnhanvien");
+                    Console.WriteLine("Lỗi: " + ex.ToString());
+                    return Json(new { success = false, message = "Lỗi khi xóa nhân viên và user: " + ex.Message });
                 }
             }
             else
             {
-                ModelState.AddModelError("MaNhanVien", "Nhân viên không tồn tại.");
+                return Json(new { success = false, message = "Nhân viên không tồn tại." });
             }
-            return RedirectToAction("danhsachnhanvien");
+            //return RedirectToAction("danhsachnhanvien");
         }
-        //hoá đơn bán
+
+        [Route("TimNhanVien")]
+        [HttpGet]
+        public IActionResult TimNhanVien(string TenNhanVien, int? Page)
+        {
+            //int pageSize = 10;
+            //int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            //var dsNV = db.TNhanViens.Where(nv => nv.TenNhanVien.Contains(TenNhanVien) || string.IsNullOrEmpty(TenNhanVien)).OrderBy(nv => nv.TenNhanVien).ToPagedList(pageNumber, pageSize);
+
+            //if (Request.Headers["X-Requested-With"] == "XMLHttpRequest") 
+            //{
+            //    if (!dsNV.Any()) 
+            //    {   
+            //        return Json(new { success = false, message = "Không tìm thấy nhân viên!" });
+            //    }
+            //    return PartialView("_DanhSachNhanVienPartial", dsNV);
+            //}
+
+            //return View("danhsachnhanvien", dsNV);
+            int pageSize = 10;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+
+            var list = db.TNhanViens.AsNoTracking().Where(x => string.IsNullOrEmpty(TenNhanVien) || x.TenNhanVien.Contains(TenNhanVien)).OrderBy(x => x.TenNhanVien);
+
+            var pagedList = new PagedList<TNhanVien>(list, pageNumber, pageSize);
+
+            if (!pagedList.Any())
+            {
+                return Content(string.Empty);
+            }
+            ViewBag.TenNhanVien = TenNhanVien;
+
+            return PartialView("_DanhSachNhanVienPartial", pagedList);
+        }
         [Route("danhsachhoadon")]
         public IActionResult danhsachhoadon(int? Page)
         {

@@ -10,73 +10,144 @@
     <p>
         <a class="btn btn-info" asp-action="Themnhanvien">Thêm nhân viên</a>
     </p>
-    <form asp-controller="HomeAdmin" asp-action="" method="get" class="site-block-top-search d-flex">
-        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
+    <form id="searchForm" asp-controller="HomeAdmin" asp-action="TimNhanVien" method="get" class="site-block-top-search d-flex">
+        <input type="text" id="TenNhanVien" name="TenNhanVien" class="form-control border-1" placeholder="Search">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
     <p></p>
-    <div class="alert alert-warning">
-        <table class="table table-hover table-responsive d-block">
-            <thead>
-                <tr class="table-warning">
-                    <th>
-                        Mã nhân viên
-                    </th>
-                    <th>
-                        Tên Nhân viên
-                    </th>
-                    <th>
-                        Ngày sinh
-                    </th>
-                    <th>
-                        Chức vụ
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Ghi chú
-                    </th>
-                    <th>
-                        Chức năng
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr class="alert alert-primary">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MaNhanVien)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TenNhanVien)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NgaySinh)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ChucVu)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.GhiChu)
-                        </td>
-                        <td>
-                            <a asp-action="SuaNhanVien" asp-route-MaNV="@item.MaNhanVien">Edit</a> |
-                            <a asp-action="XoaNhanVien" asp-route-MaNV="@item.MaNhanVien">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div id="notification" style="display:none; padding: 10px; margin-bottom: 20px;"></div>
+    <div class="alert alert-warning" id="staffList">
+        @await Html.PartialAsync("_DanhSachNhanVienPartial", Model)
     </div>
-    @Html.PagedListPager(Model, page => Url.Action("Danhsachnhanvien", new { page = page }),
+     @Html.PagedListPager(Model, page => Url.Action("danhsachnhanvien", new { page = page }),
             new X.PagedList.Mvc.Core.PagedListRenderOptions()
     {
         LiElementClasses = new List<String> { "page-item" },
         PageClasses = new List<String> { "page-link" }
-    })
+    }) 
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let timeout = null;
+        $('#searchForm').submit(function (e) {
+            e.preventDefault();
+            var searchQuery = $('#TenNhanVien').val();
+            if(searchQuery) {
+                loadNhanVienList(1);
+            }
+            // else {
+            //     loadNhanVienList(1);
+            // }
+            
+        });
+        $('#TenNhanVien').on('input', function () {
+            clearTimeout(timeout); 
+            timeout = setTimeout(function () { 
+                var searchQuery = $('#TenNhanVien').val();
+                if (!searchQuery) { loadNhanVienList(1); }
+                
+            }, 1000);
+        });
+
+        
+        function loadNhanVienList(page) {
+            var searchQuery = $('#TenNhanVien').val();
+
+            $.ajax({
+                url: '@Url.Action("TimNhanVien", "HomeAdmin")',
+                type: 'GET',
+                data: { TenNhanVien: searchQuery, page: page },
+                success: function (result) {
+                    console.log("Kết quả trả về từ server:", result);
+                    let notification = $('#notification');
+                    if (typeof result === 'string' && result.trim() === "") {
+                        $('#staffList').empty();
+                        notification.text("Không tìm thấy nhân viên!").css({
+                            "color": "red",
+                            "display": "block",
+                            "background-color": "#ffe6e6",
+                            "border": "1px solid red"
+                        });
+                        setTimeout(function () {
+                            notification.hide();
+                        }, 3000);
+                    }
+                    else {
+                        $('#staffList').html(result);
+                        notification.hide();
+                        
+                    }  
+                },
+                error: function() {
+                    $('#notification').text("Có lỗi xảy ra, vui lòng thử lại!").css({
+                        "color": "red",
+                        "display": "block",
+                        "background-color": "#ffe6e6",
+                        "border": "1px solid red"
+                    });
+                    setTimeout(function () {
+                        notification.hide();
+                    }, 3000);
+                }
+            });
+        }
+        $(document).on('click', '#staffList .pagination a', function (e) {
+            e.preventDefault();
+            var page = $(this).attr('data-page');
+            loadNhanVienList(page);
+        });
+        $(document).on('click', '.edit-link', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id'); 
+            window.location.href = '@Url.Action("Suanhanvien", "HomeAdmin")' + '?MaNV=' + id;
+        });
+        $(document).on('click', '.delete-link', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id'); 
+            console.log("ID nhân viên cần xóa:", id);
+
+            if (confirm("Bạn có chắc chắn muốn xóa nhân viên này không?")) { 
+                $.ajax({
+                    url: '@Url.Action("XoaNhanVien", "HomeAdmin")',
+                    type: 'POST',
+                    data: { MaNV: id },
+                    success: function (result) {
+                        console.log("Response từ server:", result);
+                        let notification = $('#notification');
+                        if (result.success) {
+                            notification.text("Xóa nhân viên thành công!").css({
+                                "color": "green",
+                                "display": "block",
+                                "background-color": "#e6ffe6",
+                                "border": "1px solid green"
+                            });
+                            loadNhanVienList(1);
+                        } else {
+                            notification.text("Lỗi: " + result.message).css({
+                                "color": "red",
+                                "display": "block",
+                                "background-color": "#ffe6e6",
+                                "border": "1px solid red"
+                            });
+                        }
+                        setTimeout(function () {
+                            notification.hide();
+                        }, 20000);
+                    },
+                    error: function () {
+                        $('#notification').text("Có lỗi xảy ra khi xóa nhân viên.").css({
+                            "color": "red",
+                            "display": "block",
+                            "background-color": "#ffe6e6",
+                            "border": "1px solid red"
+                        });
+                        setTimeout(function () {
+                            notification.hide();
+                        }, 3000);
+                    }
+                });
+            }
+        });
+    });
+</script>
