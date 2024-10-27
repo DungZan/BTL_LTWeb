@@ -79,47 +79,55 @@
 
 @section Scripts {
     <script>
-        let code = 0;
+        let code = [];
+
         function loadProvinces(selectId, districtSelectId) {
-            fetch('https://provinces.open-api.vn/api/p/')
-                .then(response => response.json())
-                .then(data => {
-                    let provinceSelect = document.getElementById(selectId);
-                    data.forEach(province => {
-                        let option = document.createElement('option');
-                        option.value = province.name;
-                        option.textContent = province.name;
-                        provinceSelect.appendChild(option);
-                        code = province.code;
-                    });
-
-                    provinceSelect.addEventListener('change', function () {
-                        loadDistricts(code, districtSelectId);
-                    });
+            $.get('https://provinces.open-api.vn/api/p/', function (data) {
+                let provinceSelect = $('#' + selectId);
+                data.forEach(province => {
+                    provinceSelect.append($('<option>', {
+                        value: province.name,
+                        text: province.name
+                    }));
+                    code.push(province.code);
                 });
-        }
 
-        function loadDistricts(provinceName, districtSelectId) {
-            fetch(`https://provinces.open-api.vn/api/p/${provinceName}?depth=2`)
-                .then(response => response.json())
-                .then(data => {
-                    let districtSelect = document.getElementById(districtSelectId);
-                    districtSelect.innerHTML = '';
-                    if (data.districts) {
-                        data.districts.forEach(district => {
-                            let option = document.createElement('option');
-                            option.value = district.name;
-                            option.textContent = district.name;
-                            districtSelect.appendChild(option);
-                        });
+                provinceSelect.on('change', function () {
+                    let selectedIndex = provinceSelect[0].selectedIndex;
+                    if (selectedIndex == 0) {
+                        let districtSelect = $('#' + districtSelectId);
+                        districtSelect.empty().append($('<option>', {
+                            text: 'Chọn Quận/Huyện'
+                        }));
+                    } else {
+                        loadDistricts(code[selectedIndex - 1], districtSelectId);
                     }
-                })
-                .catch(error => console.error('Error loading districts:', error));
+                });
+            }).fail(function () {
+                console.error('Error loading provinces');
+            });
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            loadProvinces('c_country', 'c_district');
-        });
+        function loadDistricts(provinceCode, districtSelectId) {
+            $.get(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`, function (data) {
+                let districtSelect = $('#' + districtSelectId);
+                districtSelect.empty();
+                if (data.districts) {
+                    data.districts.forEach(district => {
+                        districtSelect.append($('<option>', {
+                            value: district.name,
+                            text: district.name
+                        }));
+                    });
+                }
+            }).fail(function () {
+                console.error('Error loading districts');
+            });
+        }
 
+        $(document).ready(function () {
+            loadProvinces('c_country', 'c_district'); // Gọi hàm loadProvinces khi DOM đã tải
+        });
     </script>
+
 }
