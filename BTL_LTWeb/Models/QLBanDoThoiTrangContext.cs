@@ -24,10 +24,12 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TUser> TUsers { get; set; }
     public virtual DbSet<TDanhSachCuaHang> TDanhSachCuaHangs { get; set; }
     public virtual DbSet<TGioHang> TGioHangs { get; set; }
+
+    public virtual DbSet<TGiaoHang> TGiaoHangs { get; set; }
     public virtual DbSet<TempUserOtp> TempUserOtps { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TempUserOtp>(entity =>
@@ -117,17 +119,16 @@ public partial class QLBanDoThoiTrangContext : DbContext
 
         modelBuilder.Entity<TChiTietHoaDonBan>(entity =>
         {
-            entity.HasKey(e => new { e.MaHoaDonBan, e.MaSP }).HasName("PK__tChiTiet__6A50CA8AF98C3478");
-
+            entity.HasKey(e => new { e.MaHoaDonBan, e.MaChiTietSP }).HasName("PK__tChiTiet__6A50CA8AF98C3478");
             entity.ToTable("tChiTietHoaDonBan");
 
             entity.Property(e => e.MaHoaDonBan).HasColumnName("MaHoaDonBan");
-            entity.Property(e => e.MaSP).HasColumnName("MaSP");
+            entity.Property(e => e.MaChiTietSP).HasColumnName("MaChiTietSP");
             entity.Property(e => e.SoLuongBan).HasColumnName("SoLuongBan");
             entity.Property(e => e.DonGiaBan).HasColumnType("decimal(18, 2)").HasColumnName("DonGiaBan");
 
             entity.HasOne(d => d.DanhMucSP).WithMany()
-                .HasForeignKey(d => d.MaSP)
+                .HasForeignKey(d => d.MaChiTietSP)
                 .HasConstraintName("FK_tChiTietHoaDonBan_tDanhMucSP");
 
             entity.HasOne(d => d.HoaDonBan).WithMany()
@@ -165,6 +166,10 @@ public partial class QLBanDoThoiTrangContext : DbContext
             entity.HasOne(d => d.GiamGia).WithMany()
                 .HasForeignKey(d => d.MaGiamGia)
                 .HasConstraintName("FK_HoaDonBan_MaGiamGia");
+            entity.HasOne(h => h.GiaoHang)
+            .WithOne(g => g.HoaDonBan)
+            .HasForeignKey<TGiaoHang>(g => g.MaHoaDonBan)
+            .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<TMaGiamGia>(entity =>
@@ -276,6 +281,51 @@ public partial class QLBanDoThoiTrangContext : DbContext
                 .HasColumnType("float")
                 .IsRequired();
         });
+        modelBuilder.Entity<TGiaoHang>(entity =>
+        {
+            entity.HasKey(e => e.MaGiaoHang).HasName("PK_TGiaoHang");
+            entity.ToTable("tGiaoHang");
+
+            entity.Property(e => e.MaGiaoHang)
+                .HasColumnName("MaGiaoHang")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entity.Property(e => e.MaHoaDonBan)
+                .HasColumnName("MaHoaDonBan")
+                .HasMaxLength(50)
+                .IsRequired();
+
+            entity.Property(e => e.ThanhPho)
+                .HasMaxLength(100)
+                .HasColumnName("ThanhPho")
+                .IsRequired();
+
+            entity.Property(e => e.QuanHuyen)
+                .HasMaxLength(100)
+                .HasColumnName("QuanHuyen")
+                .IsRequired();
+
+            entity.Property(e => e.DiaChi)
+                .HasMaxLength(255)
+                .HasColumnName("DiaChi")
+                .IsRequired();
+
+            entity.Property(e => e.SoDienThoai)
+                .HasMaxLength(20)
+                .HasColumnName("SoDienThoai")
+                .IsRequired();
+
+            entity.Property(e => e.HoTenNguoiNhan)
+                .HasMaxLength(100)
+                .HasColumnName("HoTenNguoiNhan")
+                .IsRequired();
+            entity.HasOne(g => g.HoaDonBan)
+            .WithOne(h => h.GiaoHang)
+            .HasForeignKey<TGiaoHang>(g => g.MaHoaDonBan)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+        });
+
 
     }
 }

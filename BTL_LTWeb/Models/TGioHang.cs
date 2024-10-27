@@ -15,5 +15,6 @@ namespace BTL_LTWeb.Models
 
         public virtual TKhachHang KhachHang { get; set; } = null!;
         public virtual TChiTietSanPham ChiTietSanPham { get; set; }
+
     }
 }

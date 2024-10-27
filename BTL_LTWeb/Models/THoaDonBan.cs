@@ -18,6 +18,7 @@ public partial class THoaDonBan
     public virtual TKhachHang? KhachHang { get; set; }
 
     public virtual TNhanVien? NhanVien { get; set; }
-    public virtual TMaGiamGia? GiamGia { get; set; }
+    public virtual TMaGiamGia? GiamGia { get; set; }    
+    public virtual TGiaoHang GiaoHang { get; set; }
     public virtual ICollection<TChiTietHoaDonBan> TChiTietHoaDonBans { get; set; } = new List<TChiTietHoaDonBan>();
 }

@@ -125,10 +125,6 @@ namespace BTL_LTWeb.Controllers
             return PartialView("_StoreList", stores);
         }
 
-
-
-
-
         public JsonResult GetDistrictsByCity(string city)
         {
             var districts = db.TDanhSachCuaHangs
