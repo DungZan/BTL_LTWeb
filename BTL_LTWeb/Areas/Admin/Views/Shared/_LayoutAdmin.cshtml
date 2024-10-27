@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!doctype html>
@@ -25,7 +21,7 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="homne" class="text-nowrap logo-img">
+                    <a asp-areas="Admin" asp-controller="DashBoard" asp-action="DashBoard" class="text-nowrap logo-img">
                         <img src="~/ResourceTemplaleAdmin/images/logos/logo.png" width="180" alt="" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -40,7 +36,7 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a asp-area="Admin" asp-controller="DashBoard" asp-action="DashBoard" class="sidebar-link" aria-expanded="false">
+                            <a asp-areas="Admin" asp-controller="DashBoard" asp-action="DashBoard" class="sidebar-link" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
