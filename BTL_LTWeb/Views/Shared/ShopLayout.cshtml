@@ -1,4 +1,4 @@
-﻿﻿@*
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -140,7 +140,7 @@
                                 <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade" data-aos-delay="">
                                     <a class="block-2-item" href="#">
                                         <figure class="image">
-                                            <img src="~/ResourceTemplale/images/women.jpg" alt="" class="img-fluid">
+                                            <img src="~/images/women.jpg" alt="" class="img-fluid">
                                         </figure>
                                         <div class="text">
                                             <span class="text-uppercase">Collections</span>
@@ -151,7 +151,7 @@
                                 <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="100">
                                     <a class="block-2-item" href="#">
                                         <figure class="image">
-                                            <img src="~/ResourceTemplale/images/children.jpg" alt="" class="img-fluid">
+                                            <img src="~/images/children.jpg" alt="" class="img-fluid">
                                         </figure>
                                         <div class="text">
                                             <span class="text-uppercase">Collections</span>
@@ -162,7 +162,7 @@
                                 <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0" data-aos="fade" data-aos-delay="200">
                                     <a class="block-2-item" href="#">
                                         <figure class="image">
-                                            <img src="~/ResourceTemplale/images/men.jpg" alt="" class="img-fluid">
+                                            <img src="~/images/men.jpg" alt="" class="img-fluid">
                                         </figure>
                                         <div class="text">
                                             <span class="text-uppercase">Collections</span>
@@ -193,27 +193,25 @@
 
     <script src="~/ResourceTemplale/js/main.js"></script>
 
-
-    <script>
-        $(document).ready(function () {
-            $('#logout').on('click', function (event) {
-                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
-                $.ajax({
-                    url: '/api/accountapi/logout', // Đường dẫn đến API Logout
-                    type: 'POST', // Phương thức POST
-                    success: function (response) {
-                        // Xử lý thành công
-                        window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
-                    },
-                    error: function (xhr, status, error) {
-                        // Xử lý lỗi
-                        alert('Có lỗi xảy ra trong quá trình đăng xuất.'); // Hiển thị thông báo lỗi
-                    }
+        <script>
+            $(document).ready(function () {
+                $('a#logout').on('click', function (event) {
+                    event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+                    $.ajax({
+                        url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
+                        type: 'POST', // Phương thức POST
+                        success: function (response) {
+                            // Xử lý thành công
+                            window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                        },
+                        error: function (xhr, status, error) {
+                            // Xử lý lỗi
+                            alert('Có lỗi xảy ra trong quá trình đăng xuất.'); // Hiển thị thông báo lỗi
+                        }
+                    });
                 });
             });
-        });
+        </script>
 
-        $('#'
-    </script>
 </body>
 </html>

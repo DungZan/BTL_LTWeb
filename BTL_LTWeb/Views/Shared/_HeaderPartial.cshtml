@@ -22,33 +22,30 @@
                     <div class="site-top-icons">
                         <ul>
                             <li class="nav-item dropdown">
-                                <!-- Khi click vào icon này, sẽ hiển thị dropdown -->
-                                <a href="#" class="dropdown-toggle" id="userDropdown">
-                                    <span class="icon icon-person"></span>
-                                </a>
+
                                 <!-- Dropdown Menu -->
-                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" id="dropdownMenu" aria-labelledby="drop2">
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <div class="message-body">
-                                            <a asp-controller = "KhachHang" asp-action="Suathongtin" class="d-flex align-items-center gap-2 dropdown-item">
-                                                <i class="ti ti-user fs-6"></i>
-                                                <p class="mb-0 fs-3">Hồ sơ</p>
-                                            </a>
-                                            <a class="d-flex align-items-center gap-2 dropdown-item">
-                                                <i class="ti ti-mail fs-6"></i>
-                                                <p class="mb-0 fs-3">Tài khoản</p>
-                                            </a>
-                                            <a id="logout" class="d-flex align-items-center gap-2 dropdown-item">Logout</a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <a asp-action="Login" asp-controller="Account">Đăng nhập</a>
-                                    }
-                                </div>
+                                <nav class="site-navigation text-right text-md-center" role="navigation">
+                                    <div class="container">
+                                        <ul class="site-menu js-clone-nav d-none d-md-block">
+                                            <li class="has-children">
+                                                <a href=""><span class="icon icon-person"></span><i class="ti ti-user fs-6"></i></i></a>
+                                                <ul class="dropdown">
+                                                    @if (User.Identity.IsAuthenticated)
+                                                    {
+                                                        <li><a asp-controller="KhachHang" asp-action="index">Hồ sơ</a></li>
+                                                        <li><a id="logout" href="">Đăng xuất</a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><a asp-action="Login" asp-controller="Account">Đăng nhập</a></li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+
                             </li>
-                            <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
                             <li>
                                 <a asp-action="Index" asp-controller="Cart" class="site-cart">
                                     <span class="icon icon-shopping_cart"></span>

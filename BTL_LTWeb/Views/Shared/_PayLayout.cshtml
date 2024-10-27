@@ -6,11 +6,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BTL_LTWeb.styles.css" asp-append-version="true" />
-   
+
     <title>BeA Store</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,19 +22,12 @@
     <link rel="stylesheet" href="~/ResourceTemplale/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="~/ResourceTemplale/css/aos.css">
     <link rel="stylesheet" href="~/ResourceTemplale/css/style.css">
-    <link rel="stylesheet" href="~/css/map/map.min.css" />
-    <link rel="stylesheet" href="~/css/map/theme.min.css" />
-    <link rel="stylesheet" href="~/css/map/theme_default.min.css" />
-
-
 </head>
 <body>
-    
+
     <div class="site-wrap">
         @await Html.PartialAsync("_HeaderPartial");
-        <div class="prettyMapList above cf">
-        @RenderBody()
-        </div>
+            @RenderBody()
         @await Html.PartialAsync("_FooterPartial")
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
