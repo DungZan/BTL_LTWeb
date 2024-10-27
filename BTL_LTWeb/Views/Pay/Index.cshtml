@@ -146,11 +146,13 @@
                                     <th>Giá</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
 
-                                                @foreach (var item in Model.CartItems)
-                                            {<thead>
+
+                                        @foreach (var item in Model.CartItems)
+                                        {
+                                            <tr>
                                                 <td>
+                                                    <input type="hidden" class="cart-item-id" value="@(item.MaGioHang)">
                                                     @(item.ChiTietSanPham?.DanhMucSp?.TenSp ?? "Không xác định")
                                                     -
                                                     @(item.ChiTietSanPham?.KichThuoc ?? "Không xác định")
@@ -159,13 +161,12 @@
                                                     x
                                                     @item.SoLuong
                                                 </td>
-
                                                 <td>
                                                     @((item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)
                                                 </td>
-                                            </thead>
-                                            }
-                                        </tr>
+                                            </tr>
+                                        }
+                                        
 
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Tổng tiền</strong></td>
@@ -195,7 +196,7 @@
                                     </div>
 
                                 <div class="form-group">
-                                        <button id ="ajaxPaymentButton" type="submit" class="btn btn-primary btn-lg py-3 btn-block">Thanh toán</button>
+                                        <a id ="ajaxPaymentButton" type="submit" class="btn btn-primary btn-lg py-3 btn-block">Thanh toán</a>
                                 </div>
 
                             </div>
@@ -247,14 +248,22 @@
 
         loadProvinces('c_country', 'c_district');
         loadProvinces('c_diff_country', 'c_diff_district');
+
         document.addEventListener("DOMContentLoaded", function () {
             const paymentButton = document.getElementById('ajaxPaymentButton');
             
             if (paymentButton) {
                 paymentButton.addEventListener('click', function () {
-                    
+                    //event.preventDefault();
+                    var cartItems = [];
+
+                    $('.cart-item-id').each(function () {
+                        var itemId = $(this).val();
+                        cartItems.push(itemId);
+                    });
                     // Tạo đối tượng dữ liệu thanh toán
                     let paymentData = {
+                        
                         MaKhachHang: parseInt(document.getElementById('id').value),
                         ThanhPho: document.getElementById('c_country').value,
                         QuanHuyen: document.getElementById('c_district').value,
@@ -268,16 +277,15 @@
                         DiaChiKhac: document.getElementById('c_diff_address').value,
                         SDTKhac: document.getElementById('c_diff_phone').value,
                         GiaoHangDiaChiKhac: parseInt(document.getElementById('c_ship_different_address').checked),
-                        PhuongThucThanhToan: document.querySelector('input[name="payment_method"]:checked').value
+                        PhuongThucThanhToan: document.querySelector('input[name="PhuongThucThanhToan"]:checked').value,
+                        CartID: cartItems
                     };
-                    event.preventDefault();
-                    // Gửi yêu cầu AJAX
+
                     $.ajax({
-                        url: '@Url.Action("ProcessPayment", "Pay")', // Đảm bảo URL đúng
+                        url: '@Url.Action("ProcessPayment", "Pay")',
                         type: 'POST',
-                        data: JSON.stringify(paymentData), // Chuyển đổi thành chuỗi JSON
-                        contentType: 'application/json; charset=utf-8', // Thiết lập content type
-                        dataType: 'json', // Chỉ định kiểu dữ liệu mong đợi từ server
+                        data: JSON.stringify(paymentData),
+                        contentType: 'application/json; charset=utf-8',
                         success: function (response) {
                             if (response.success) {
                                 alert('Thanh toán thành công!');
