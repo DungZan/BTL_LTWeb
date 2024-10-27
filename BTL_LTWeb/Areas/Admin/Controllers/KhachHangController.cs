@@ -57,5 +57,15 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("danhsachkhachhang");
         }
+        //tìm khách hàng
+        [Route("Timsanpham")]
+        public IActionResult TimKhachHang(string Tenkhachhang, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TKhachHangs.AsNoTracking().Where(x => x.TenKhachHang.Contains(Tenkhachhang)).OrderBy(x => x.TenKhachHang);
+            PagedList<TKhachHang> lst = new PagedList<TKhachHang>(list, pageNumber, pageSize);
+            return View(lst);
+        }
     }
 }

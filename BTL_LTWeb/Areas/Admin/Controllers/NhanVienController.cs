@@ -24,5 +24,15 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
             return View(lst);
         }
+        //tìm nhanvien
+        [Route("Timnhanvien")]
+        public IActionResult TimNhanVien(string Tennhanvien, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TNhanViens.AsNoTracking().Where(x => x.TenNhanVien.Contains(Tennhanvien)).OrderBy(x => x.TenNhanVien);
+            PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
+            return View(lst);
+        }
     }
 }

@@ -8,7 +8,7 @@
 <div class="row">
     <h1>Danh Sách Nhân viên</h1>
     <form asp-controller="NhanVien" asp-action="TimNhanVien" method="get" class="site-block-top-search d-flex">
-        <input type="text" name="TenNhanVien" class="form-control border-1" placeholder="Search">
+        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
     <p></p>
@@ -59,7 +59,7 @@
             </tbody>
         </table>
     </div>
-    @Html.PagedListPager(Model, page => Url.Action("Danhsachkhachhang", new { page = page }),
+    @Html.PagedListPager(Model, page => Url.Action("TimNhanVien", new { page = page }),
             new X.PagedList.Mvc.Core.PagedListRenderOptions()
     {
         LiElementClasses = new List<String> { "page-item" },
