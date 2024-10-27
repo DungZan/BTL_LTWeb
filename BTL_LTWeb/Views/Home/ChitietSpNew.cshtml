@@ -65,3 +65,18 @@
         </div>
     </div>
 </div>
+
+<div id="renderreview"></div>
+
+<script>
+    $(document).ready(function () {
+        alert("do ajax");
+        $.ajax({
+            url: '@Url.Action("GlobalReviewAJAX", "Review")',
+            data: { pid: @Model.product.MaSp },
+            success: function (response) {
+                $("div#renderreview").html(response)
+            }
+        });
+    });
+</script>
