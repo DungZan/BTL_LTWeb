@@ -375,16 +375,17 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                 {
                     var email = nv.Email; // Lưu giá trị email vào biến để kiểm tra
                     Console.WriteLine("Email nhân viên: " + email);
-                    var user = db.TUsers.FirstOrDefault(u => u.Email == nv.Email);
+                    var user = db.TUsers.FirstOrDefault(g => g.Email == email);
+                    db.TNhanViens.Remove(nv);
                     if (user != null)
                     {
+                        Console.WriteLine(user.Email);
                         db.TUsers.Remove(user);
                     }
                     else
                     {
                         Console.WriteLine("User không tìm thấy với email: " + nv.Email);  // Thêm dòng này để kiểm tra
                     }
-                    db.TNhanViens.Remove(nv);
                     db.SaveChanges();
                     return Json(new { success = true, message = "Xóa nhân viên thành công." });
                 }
