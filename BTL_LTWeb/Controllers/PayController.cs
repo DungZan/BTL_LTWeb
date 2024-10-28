@@ -27,15 +27,12 @@ namespace BTL_LTWeb.Controllers
         [HttpPost]
         public IActionResult ProceedToCheckout(int[] selectedItems)
         {
-            // Kiểm tra dữ liệu đầu vào
             if (selectedItems == null || selectedItems.Length == 0)
             {
                 Console.WriteLine("Không có sản phẩm nào được chọn.");
                 return RedirectToAction("Index", "Cart");
             }
 
-
-            // Lấy thông tin chi tiết các sản phẩm đã chọn từ database
             var cartItems = _context.TGioHangs
                 .Include(g => g.ChiTietSanPham)
                 .ThenInclude(sp => sp.DanhMucSp)
@@ -47,17 +44,17 @@ namespace BTL_LTWeb.Controllers
                 Console.WriteLine("Không tìm thấy sản phẩm trong giỏ hàng.");
                 return RedirectToAction("Index", "Cart");
             }
-            // Lấy thông tin khách hàng từ giỏ hàng
+
             var customerId = cartItems.FirstOrDefault()?.MaKhachHang;
             var customerInfo = _context.TKhachHangs.FirstOrDefault(c => c.MaKhachHang == customerId);
 
-            // Tạo một ViewModel để truyền thông tin giỏ hàng và thông tin khách hàng
+
             var viewModel = new CheckoutViewModel
             {
                 CartItems = cartItems,
                 CustomerInfo = customerInfo
             };
-            // Chuyển danh sách sản phẩm đã chọn sang view Thanh toán
+
             return View("Index", viewModel);
         }
 
@@ -85,14 +82,14 @@ namespace BTL_LTWeb.Controllers
             {
                 return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
             }
-            if (model.MaKhachHang == null)
+            var khachHang = _context.TKhachHangs.FirstOrDefault(e => e.MaKhachHang == model.MaKhachHang);
+            if (khachHang == null)
             {
-                return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàg." });
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
             }
 
-           
             //Console.WriteLine("MaKhachHang: " + model.MaKhachHang);
-            
+
 
             //// 1. Lấy thông tin giỏ hàng từ cơ sở dữ liệu dựa trên MaChiTietSPs
             //var gioHang = _context.TGioHangs
@@ -128,8 +125,6 @@ namespace BTL_LTWeb.Controllers
                         DonGiaBan = danhMuc.Gia
                     };
                     _context.TChiTietHoaDonBans.Add(chiTiet);
-                
-                
             }
 
             // 4. Xử lý thông tin giao hàng
