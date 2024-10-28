@@ -27,8 +27,11 @@ public partial class QLBanDoThoiTrangContext : DbContext
 
     public virtual DbSet<TGiaoHang> TGiaoHangs { get; set; }
     public virtual DbSet<TempUserOtp> TempUserOtps { get; set; }
+    public virtual DbSet<TDanhGia> TDanhGias { get; set; }
+    public virtual DbSet<TPhanHoi> TPhanHois { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
+        //=> optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS01;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -323,6 +326,16 @@ public partial class QLBanDoThoiTrangContext : DbContext
             .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-
+        //sao các a làm dài thế, build giúp e với
+        modelBuilder.Entity<TDanhGia>(entity =>
+        {
+            entity.HasKey(d => d.MaDanhGia);
+            entity.ToTable("tDanhGia");
+        });
+        modelBuilder.Entity<TPhanHoi>(entity =>
+        {
+            entity.HasKey(e => new { e.MaKhachHang, e.MaDanhGia });
+            entity.ToTable("tPhanHoi");
+        });
     }
 }

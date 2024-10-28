@@ -1,6 +1,11 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
     ViewData["Title"] = "ChitietSp";
     Layout = "~/Views/Shared/DetailLayout.cshtml";
+    var email = "";
+    if(User.Identity.IsAuthenticated)
+        email = User.FindFirst(ClaimTypes.Email)?.Value;
+
 }
 
 @model BTL_LTWeb.ViewModels.HomeProductDetailViewModel
@@ -63,5 +68,21 @@
                 </form>
             </div>
         </div>
+        <div id="renderreview"></div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var _pid = '@Model.product.MaSp';
+        var _Uid = '@email';
+        $.ajax({
+            url: '/review/GlobalReviewAJAX',
+            data: { pid: _pid, email: _Uid },
+            success: function (response) {
+                $("div#renderreview").html(response)
+            }
+        });
+    });
+</script>
