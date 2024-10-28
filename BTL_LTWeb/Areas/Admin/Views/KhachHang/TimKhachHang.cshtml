@@ -1,14 +1,14 @@
 ﻿@using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<BTL_LTWeb.Models.TNhanVien>
+@model X.PagedList.IPagedList<BTL_LTWeb.Models.TKhachHang>
 @{
     ViewData["Title"] = "Danhsachkhachhang";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="row">
-    <h1>Danh Sách Nhân viên</h1>
-    <form asp-controller="NhanVien" asp-action="TimNhanVien" method="get" class="site-block-top-search d-flex">
-        <input type="text" name="TenNhanVien" class="form-control border-1" placeholder="Search">
+    <h1>Danh Sách Khách Hàng</h1>
+    <form asp-controller="KhachHang" asp-action="TimKhachHang" method="get" class="site-block-top-search d-flex">
+        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
     <p></p>
@@ -17,19 +17,22 @@
             <thead>
                 <tr class="table-warning">
                     <th>
-                        Tên Nhân viên
+                        Tên khách hàng
                     </th>
                     <th>
                         Ngày sinh
                     </th>
                     <th>
-                        Chức vụ
+                        Số điện thoại
                     </th>
                     <th>
-                        ghi chú
+                        Địa chỉ
                     </th>
                     <th>
-                        chức năng
+                        Ghi chú
+                    </th>
+                    <th>
+                        Chức năng
                     </th>
                 </tr>
             </thead>
@@ -38,28 +41,31 @@
                 {
                     <tr class="alert alert-primary">
                         <td>
-                            @Html.DisplayFor(modelItem => item.TenNhanVien)
+                            @Html.DisplayFor(modelItem => item.TenKhachHang)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NgaySinh)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ChucVu)
+                            @Html.DisplayFor(modelItem => item.SoDienThoai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiaChi)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.GhiChu)
                         </td>
                         <td>
-                            <a asp-action="Suanhanvien" asp-route-MaNV="@item.MaNhanVien">Edit</a> |
-                            <a asp-action="ChiTietNhanVien" asp-route-MaNV="@item.MaNhanVien">Details</a> |
-                            <a asp-action="Delete" asp-route-MaNV="@item.MaNhanVien">Delete</a>
+                            <a asp-action="SuaKhachHang" asp-route-MaKH="@item.MaKhachHang">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.MaKhachHang">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.MaKhachHang">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-    @Html.PagedListPager(Model, page => Url.Action("Danhsachkhachhang", new { page = page }),
+    @Html.PagedListPager(Model, page => Url.Action("TimKhachHang", new { page = page }),
             new X.PagedList.Mvc.Core.PagedListRenderOptions()
     {
         LiElementClasses = new List<String> { "page-item" },
