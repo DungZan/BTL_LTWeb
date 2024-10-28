@@ -29,7 +29,6 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult SuaKhachHang(int MaKH)
         {
-            //ViewBag.Username = new SelectList(db.TUsers.ToList(), "MaKhachHang", "MaKhachHang");
             var kh = db.TKhachHangs.Find(MaKH);
             return View(kh);
         }
@@ -38,12 +37,11 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("SuaKhachHang")]
         public IActionResult SuaKhachHang(TKhachHang kh)
         {
-            //ViewBag.Username = new SelectList(db.TUsers.ToList(), "MaKhachHang", "MaKhachHang");
             if (ModelState.IsValid)
             {
                 db.Entry(kh).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("danhsachkhachhang", "HomeAdmin");
+                return RedirectToAction("danhsachkhachhang", "KhachHang");
             }
             return View(kh);
         }
@@ -56,6 +54,30 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             db.Remove(kh);
             db.SaveChanges();
             return RedirectToAction("danhsachkhachhang");
+        }
+        //Chitietkhachhang
+        [HttpGet]
+        [Route("Chitietkhachhang")]
+        public IActionResult ChiTietKhachHang(int MaKH)
+        {
+            var kh = db.TKhachHangs.Find(MaKH);
+            return View(kh);
+        }
+        [HttpPost]
+        [Route("Chitietkhachhang")]
+        public IActionResult ChiTietKhachHang(TKhachHang kh)
+        {
+            return View(kh);
+        }
+        //tìm khách hàng
+        [Route("Timsanpham")]
+        public IActionResult TimKhachHang(string Tenkhachhang, int? Page)
+        {
+            int pageSize = 9;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+            var list = db.TKhachHangs.AsNoTracking().Where(x => x.TenKhachHang.Contains(Tenkhachhang)).OrderBy(x => x.TenKhachHang);
+            PagedList<TKhachHang> lst = new PagedList<TKhachHang>(list, pageNumber, pageSize);
+            return View(lst);
         }
     }
 }

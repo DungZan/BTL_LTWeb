@@ -70,7 +70,7 @@ namespace BTL_LTWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync("MyCookieAuthenticationScheme");
+            await HttpContext.SignOutAsync("MyCookieAuthentication");
             return RedirectToAction("Login", "Account");
         }
 

@@ -1,6 +1,7 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BTL_LTWeb.ViewComponents
 {
@@ -15,7 +16,13 @@ namespace BTL_LTWeb.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var count = await _context.TGioHangs.CountAsync();
+            var count = 0;
+            if (User.Identity.IsAuthenticated)
+            {
+                var email = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Email)?.Value;
+                count = await _context.TGioHangs.CountAsync(e => e.KhachHang.Email == email);
+                int a = 0;
+            }
             return View("RenderCart", count);
         }
     }
