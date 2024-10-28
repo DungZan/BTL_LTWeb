@@ -7,7 +7,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="row">
 <h1>Danh Sách Khách Hàng</h1>
-    <form asp-controller="HomeAdmin" asp-action="" method="get" class="site-block-top-search d-flex">
+    <form asp-controller="KhachHang" asp-action="TimKhachHang" method="get" class="site-block-top-search d-flex">
         <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -56,8 +56,8 @@
             </td>
             <td>
                 <a asp-action="SuaKhachHang" asp-route-MaKH="@item.MaKhachHang">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaKhachHang">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaKhachHang">Delete</a>
+                <a asp-action="ChiTietKhachHang" asp-route-MaKH="@item.MaKhachHang">Details</a> |
+                <a asp-action="Delete" asp-route-MaKH="@item.MaKhachHang">Delete</a>
             </td>
         </tr>
 }
