@@ -113,7 +113,6 @@ namespace BTL_LTWeb.Controllers
             {
                 var user = _db.TUsers.FirstOrDefault(e => e.Email == email);
                 _utype = user.LoaiUser;
-                int b = 0;
                 switch (_utype)
                 {
                     case "KhachHang":
