@@ -22,5 +22,19 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         }
 
         
+        // chi tiet hoa don
+        [Route("Chitiethoadon")]
+        [HttpGet]
+        public IActionResult ChiTietHoaDon(int MaHD)
+        {
+            var hd = db.THoaDonBans.Find(MaHD);
+            return View(hd);
+        }
+        [HttpPost]
+        [Route("Chitiethoadon")]
+        public IActionResult ChiTietHoaDon(THoaDonBan hd)
+        {
+            return View(hd);
+        }
     }
 }
