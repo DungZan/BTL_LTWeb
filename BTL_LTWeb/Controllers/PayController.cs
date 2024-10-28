@@ -1,4 +1,5 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -90,35 +91,33 @@ namespace BTL_LTWeb.Controllers
                 return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
             }
 
-            //Console.WriteLine("MaKhachHang: " + model.MaKhachHang);
-
-
-            //// 1. Lấy thông tin giỏ hàng từ cơ sở dữ liệu dựa trên MaChiTietSPs
-            //var gioHang = _context.TGioHangs
-            //    .Include(g => g.ChiTietSanPham)
-            //    .Where(g => g.MaKhachHang == model.MaKhachHang)
-            //    .ToList();
-
-            //var lastMaHoaDonBan = _context.THoaDonBans.OrderByDescending(g => g.MaHoaDonBan).FirstOrDefault()?.MaHoaDonBan ?? 0;
-            // 2. Tạo hóa đơn mới
+            //Tạo hóa đơn mới
+            decimal TongTien = 0;
+            foreach (var item in model.CartID)
+            {
+                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                var danhMuc = _context.TDanhMucSps
+                    .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
+                TongTien = (decimal)(TongTien + (danhMuc.Gia * gioHang.SoLuong));
+            }
             var hoaDon = new THoaDonBan
             {
                 MaKhachHang = model.MaKhachHang,
                 NgayHoaDon = DateTime.Now,
-                TongTienHd = 0,
+                TongTienHd = TongTien,
                 PhuongThucThanhToan = model.PhuongThucThanhToan,
                 GhiChu = model.GhiChu
             };
             _context.THoaDonBans.Add(hoaDon);
             _context.SaveChanges();
 
-            // 3. Thêm chi tiết hóa đơn
+            //Thêm chi tiết hóa đơn
             foreach (var item in model.CartID)
             {
-                    var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
-                    var danhMuc = _context.TDanhMucSps
-                        .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
-                    var chiTiet = new TChiTietHoaDonBan
+                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                var danhMuc = _context.TDanhMucSps
+                    .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
+                var chiTiet = new TChiTietHoaDonBan
                     {
                         MaHoaDonBan = hoaDon.MaHoaDonBan,
                         MaChiTietSP = gioHang.MaChiTietSP,
@@ -129,7 +128,7 @@ namespace BTL_LTWeb.Controllers
 
             }
 
-            // 4. Xử lý thông tin giao hàng
+            //Xử lý thông tin giao hàng
             var giaoHang = new TGiaoHang
             {
                 MaHoaDonBan = hoaDon.MaHoaDonBan,
@@ -140,18 +139,32 @@ namespace BTL_LTWeb.Controllers
                 HoTenNguoiNhan = model.GiaoHangDiaChiKhac == 1 ? model.HoTenKhac : model.HoTen
             };
             _context.TGiaoHangs.Add(giaoHang);
-
-            // 5. Lưu tất cả
+            //Xóa sản phẩm trong giỏ hàng
+            foreach (var item in model.CartID)
+            {
+                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                if (gioHang != null)
+                {
+                    _context.TGioHangs.Remove(gioHang);
+                }
+            }
+            //Lưu tất cả
             _context.SaveChanges();
-
-            return (Success());
+            if (model.PhuongThucThanhToan == "cash") return (Success());
+            else return (ShowImage((int)TongTien, hoaDon.MaHoaDonBan+model.HoTen+"CHUYEN TIEN"));
 
         }
 
 
+        public ActionResult ShowImage(Int32 tien, string noiDung)
+        {
+            ViewBag.ImageData = VietQrGenerator.GetQR(tien, noiDung);
 
+            return View("PayOnline");
+        }
         public IActionResult Success()
         {
+
             return View("PayDone");
         }
 
