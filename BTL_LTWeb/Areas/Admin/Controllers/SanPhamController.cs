@@ -1,4 +1,5 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -145,14 +146,21 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult ChiTiet(int MaSP)
         {
+
             var sp = db.TDanhMucSps.Find(MaSP);
-            return View(sp);
+            var chitiet = db.TChiTietSanPhams.Find(MaSP);
+            ChiTietSanPhamViewModel chiTietsp = new ChiTietSanPhamViewModel
+            {
+                Sp = sp,
+                chiTietSanPham=chitiet
+            };
+            return View(chiTietsp);
         }
         [HttpPost]
         [Route("ChiTietSanPham")]
-        public IActionResult ChiTiet(TDanhMucSp sp)
+        public IActionResult ChiTiet(ChiTietSanPhamViewModel chiTietsp)
         {
-            return View(sp);
+            return View(chiTietsp);
         }
         [Route("Timsanpham")]
         public IActionResult TimSanPham(string Tensanpham, int? Page)
