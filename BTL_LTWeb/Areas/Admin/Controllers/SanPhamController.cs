@@ -141,7 +141,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             TempData["Log"] = "Xóa thành công";
             return RedirectToAction("danhmucsanpham");
         }
-        [Route("ChiTiet")]
+        [Route("ChiTietSanPham")]
         [HttpGet]
         public IActionResult ChiTiet(int MaSP)
         {
@@ -149,7 +149,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return View(sp);
         }
         [HttpPost]
-        [Route("ChiTiet")]
+        [Route("ChiTietSanPham")]
         public IActionResult ChiTiet(TDanhMucSp sp)
         {
             return View(sp);

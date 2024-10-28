@@ -34,5 +34,40 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
             return View(lst);
         }
+        //chi tiết nhân viên
+        [Route("Chitietnhanvien")]
+        [HttpGet]
+        public IActionResult ChiTietNhanVien(int MaNV)
+        {
+            var nv = db.TNhanViens.Find(MaNV);
+            return View(nv);
+        }
+        [HttpPost]
+        [Route("Chitietnhanvien")]
+        public IActionResult ChiTietNhanVien(TNhanVien nv)
+        {
+            return View(nv);
+        }
+        //sửa nhan vien
+        [Route("Suanhanvien")]
+        [HttpGet]
+        public IActionResult SuaNhanVien(int MaNV)
+        {
+            var nv = db.TNhanViens.Find(MaNV);
+            return View(nv);
+        }
+        [HttpPost]
+        [Route("Suanhanvien")]
+        public IActionResult SuaNhanVien(TNhanVien nv)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(nv).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("danhsachnhanvien","NhanVien");
+            }
+            return View(nv);
+
+        }
     }
 }
