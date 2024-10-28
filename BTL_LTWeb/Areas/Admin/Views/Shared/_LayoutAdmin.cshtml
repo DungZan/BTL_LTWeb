@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!doctype html>
@@ -25,7 +21,7 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="homne" class="text-nowrap logo-img">
+                    <a asp-areas="Admin" asp-controller="DashBoard" asp-action="DashBoard" class="text-nowrap logo-img">
                         <img src="~/ResourceTemplaleAdmin/images/logos/logo.png" width="180" alt="" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -40,7 +36,7 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a asp-area="Admin" asp-controller="DashBoard" asp-action="DashBoard" class="sidebar-link" aria-expanded="false">
+                            <a asp-areas="Admin" asp-controller="DashBoard" asp-action="DashBoard" class="sidebar-link" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
@@ -52,7 +48,7 @@
                             <span class="hide-menu">Quản lý sản phẩm</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action="danhmucsanpham" aria-expanded="false">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="SanPham" asp-action="danhmucsanpham" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-article"></i>
                                 </span>
@@ -60,7 +56,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action="danhsachkhachhang" aria-expanded="false">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="KhachHang" asp-action="danhsachkhachhang" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
@@ -68,7 +64,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action ="Danhsachnhanvien" aria-expanded="false">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="NhanVien" asp-action ="Danhsachnhanvien" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-cards"></i>
                                 </span>
@@ -76,7 +72,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-controller="HomeAdmin" asp-action="danhsachhoadon" aria-expanded="false">
+                            <a class="sidebar-link" asp-controller="HoaDon" asp-action="danhsachhoadon" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-file-description"></i>
                                 </span>
@@ -202,10 +198,11 @@
     <script src="~/ResourceTemplaleAdmin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/ResourceTemplaleAdmin/js/sidebarmenu.js"></script>
     <script src="~/ResourceTemplaleAdmin/js/app.min.js"></script>
-    <script src="~/ResourceTemplaleAdmin/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/ResourceTemplaleAdmin/js/ChartDashBoard.js"></script>
     <script src="~/ResourceTemplaleAdmin/libs/simplebar/dist/simplebar.js"></script>
-    <script src="~/ResourceTemplaleAdmin/js/dashboard.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 
 </html>

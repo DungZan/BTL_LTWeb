@@ -7,6 +7,7 @@ using System;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
+
 namespace BTL_LTWeb.Controllers
 {
     public class PayController : Controller
@@ -21,7 +22,7 @@ namespace BTL_LTWeb.Controllers
         }
         public IActionResult Index()
         {
-            return View(); 
+            return View();
         }
 
         [HttpPost]
@@ -84,6 +85,7 @@ namespace BTL_LTWeb.Controllers
             }
             var khachHang = _context.TKhachHangs.FirstOrDefault(e => e.MaKhachHang == model.MaKhachHang);
             if (khachHang == null)
+
             {
                 return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
             }
@@ -101,7 +103,6 @@ namespace BTL_LTWeb.Controllers
             // 2. Tạo hóa đơn mới
             var hoaDon = new THoaDonBan
             {
-                //MaHoaDonBan = lastMaHoaDonBan + 1,
                 MaKhachHang = model.MaKhachHang,
                 NgayHoaDon = DateTime.Now,
                 TongTienHd = 0,
@@ -125,14 +126,15 @@ namespace BTL_LTWeb.Controllers
                         DonGiaBan = danhMuc.Gia
                     };
                     _context.TChiTietHoaDonBans.Add(chiTiet);
+
             }
 
             // 4. Xử lý thông tin giao hàng
             var giaoHang = new TGiaoHang
             {
                 MaHoaDonBan = hoaDon.MaHoaDonBan,
-                DiaChi = model.GiaoHangDiaChiKhac==1 ? model.DiaChiKhac : model.DiaChi,
-                ThanhPho = model.GiaoHangDiaChiKhac==1 ? model.ThanhPhoKhac : model.ThanhPho,
+                DiaChi = model.GiaoHangDiaChiKhac == 1 ? model.DiaChiKhac : model.DiaChi,
+                ThanhPho = model.GiaoHangDiaChiKhac == 1 ? model.ThanhPhoKhac : model.ThanhPho,
                 QuanHuyen = model.GiaoHangDiaChiKhac == 1 ? model.QuanHuyenKhac : model.QuanHuyen,
                 SoDienThoai = model.GiaoHangDiaChiKhac == 1 ? model.SDTKhac : model.SDT,
                 HoTenNguoiNhan = model.GiaoHangDiaChiKhac == 1 ? model.HoTenKhac : model.HoTen

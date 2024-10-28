@@ -145,7 +145,6 @@ public partial class QLBanDoThoiTrangContext : DbContext
             entity.Property(e => e.MaHoaDonBan).HasColumnName("MaHoaDonBan");
             entity.Property(e => e.NgayHoaDon).HasColumnType("datetime");
             entity.Property(e => e.MaKhachHang).HasColumnName("MaKhachHang");
-            entity.Property(e => e.MaNhanVien).HasColumnName("MaNhanVien");
             entity.Property(e => e.TongTienHd).HasColumnType("decimal(18, 2)").HasColumnName("TongTienHD");
             entity.Property(e => e.MaGiamGia).HasColumnName("MaGiamGia");
             entity.Property(e => e.PhuongThucThanhToan).HasMaxLength(100);
@@ -155,17 +154,15 @@ public partial class QLBanDoThoiTrangContext : DbContext
                 .HasForeignKey(d => d.MaKhachHang)
                 .HasConstraintName("FK_HoaDonBan_KhachHang");
 
-            entity.HasOne(d => d.NhanVien).WithMany()
-                .HasForeignKey(d => d.MaNhanVien)
-                .HasConstraintName("FK_HoaDonBan_NhanVien");
-
             entity.HasMany(d => d.TChiTietHoaDonBans).WithOne(p => p.HoaDonBan)
                .HasForeignKey(p => p.MaHoaDonBan)
                .OnDelete(DeleteBehavior.ClientSetNull)
                .HasConstraintName("FK_HoaDonBan_ChiTietHoaDonBan");
+
             entity.HasOne(d => d.GiamGia).WithMany()
                 .HasForeignKey(d => d.MaGiamGia)
                 .HasConstraintName("FK_HoaDonBan_MaGiamGia");
+
             entity.HasOne(h => h.GiaoHang)
             .WithOne(g => g.HoaDonBan)
             .HasForeignKey<TGiaoHang>(g => g.MaHoaDonBan)
