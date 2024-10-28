@@ -1,4 +1,5 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -20,9 +21,154 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         {
             int pageSize = 10;
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.TenNhanVien);
+            var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.MaNhanVien);
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
             return View(lst);
+        }
+        [Route("ThemNhanVien")]
+        [HttpGet]
+        public IActionResult Themnhanvien()
+        {
+            return View("Themnhanvien");
+        }
+        [HttpPost]
+        [Route("ThemNhanVien")]
+        public IActionResult Themnhanvien(TNhanVien nv)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.TUsers.FirstOrDefault(u => u.Email == nv.Email);
+                if(user != null)
+                {
+                    ModelState.AddModelError("Email", "Email đã tồn tại. Không thể tạo tài khoản bằng email này!");
+                    return View(nv);
+                }
+               
+               
+                string salt = SecurityService.GenerateSalt();
+                string hash = SecurityService.HashPasswordWithSalt("Abc1234@", salt);
+                user = new TUser
+                {
+                    Email = nv.Email,
+                    Password = hash,
+                    Salt = salt,
+                    LoaiUser = "NhanVien"
+                };
+                db.TUsers.Add(user);
+                db.SaveChanges();
+                
+                db.TNhanViens.Add(nv);
+                db.SaveChanges();
+                return RedirectToAction("danhsachnhanvien", "NhanVien");
+            }
+            return View(nv);
+        }
+
+        [Route("Suanhanvien")]
+        [HttpGet]
+        public IActionResult Suanhanvien(int MaNV)
+        {
+            var nv = db.TNhanViens.Find(MaNV);
+            return View(nv);
+        }
+        [HttpPost]
+        [Route("Suanhanvien")]
+        public IActionResult Suanhanvien(TNhanVien nv)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingnv = db.TNhanViens.Find(nv.MaNhanVien);
+                if (existingnv == null)
+                {
+                    ModelState.AddModelError("MaNhanVien", "Nhân viên không tồn tại");
+                    return View(nv);
+                }
+                
+                if (existingnv.Email != nv.Email)
+                {
+                    ModelState.AddModelError("Email", "Bạn không được phép thay đổi email.");
+                    nv.Email = existingnv.Email;
+                    return View(nv);
+                }
+                existingnv.Email = nv.Email;
+                existingnv.TenNhanVien = nv.TenNhanVien;
+                existingnv.NgaySinh = nv.NgaySinh;
+                existingnv.ChucVu = nv.ChucVu;
+                existingnv.GhiChu = nv.GhiChu;
+                db.Entry(existingnv).State = EntityState.Modified;
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("danhsachnhanvien","NhanVien");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Lỗi khi lưu dữ liệu: " + ex.Message);
+                }
+            }
+            return View(nv);
+        }
+
+        [Route("XoaNhanVien")]
+        [HttpPost]
+        public IActionResult XoaNhanVien(int MaNV)
+        {
+
+            var nv = db.TNhanViens.FirstOrDefault(x => x.MaNhanVien == MaNV);
+            if (nv != null)
+            {
+                try
+                {
+                    var email = nv.Email; 
+                    Console.WriteLine("Email nhân viên: " + email);
+                    var user = db.TUsers.FirstOrDefault(g => g.Email == email);
+                    db.TNhanViens.Remove(nv);
+                    if (user != null)
+                    {
+                        Console.WriteLine(user.Email);
+                        db.TUsers.Remove(user);
+                    }
+                    else
+                    {
+                        Console.WriteLine("User không tìm thấy với email: " + nv.Email);  
+                    }
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Xóa nhân viên thành công." });
+                }
+                catch (Exception ex)
+                {
+                    //ModelState.AddModelError("", "Lỗi khi xóa nhân viên và user: " + ex.Message);
+                    //return RedirectToAction("danhsachnhanvien");
+                    Console.WriteLine("Lỗi: " + ex.ToString());
+                    return Json(new { success = false, message = "Lỗi khi xóa nhân viên và user: " + ex.Message });
+                }
+            }
+            else
+            {
+                return Json(new { success = false, message = "Nhân viên không tồn tại." });
+            }
+            
+        }
+
+        [Route("TimNhanVien")]
+        [HttpGet]
+        public IActionResult TimNhanVien(string TenNhanVien, int? Page)
+        {
+            
+            int pageSize = 10;
+            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+
+            var list = db.TNhanViens.AsNoTracking().Where(x => string.IsNullOrEmpty(TenNhanVien) || x.TenNhanVien.Contains(TenNhanVien)).OrderBy(x => x.MaNhanVien);
+
+            var pagedList = new PagedList<TNhanVien>(list, pageNumber, pageSize);
+
+            if (!pagedList.Any())
+            {
+                return Content(string.Empty);
+            }
+            ViewBag.TenNhanVien = TenNhanVien;
+
+            return PartialView("_DanhSachNhanVienPartial", pagedList);
         }
     }
 }

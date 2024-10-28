@@ -292,7 +292,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                 }
                 db.TNhanViens.Add(nv);
                 db.SaveChanges();
-                return RedirectToAction("danhsachnhanvien");
+                return RedirectToAction("danhsachnhanvien", "NhanVien");
             }
             return View(nv);
         }

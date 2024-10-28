@@ -8,9 +8,9 @@
 <div class="row">
     <h1>Danh Sách Nhân viên</h1>
     <p>
-        <a class="btn btn-info" asp-action="Themnhanvien">Thêm nhân viên</a>
+        <a class="btn btn-info" asp-controller="NhanVien" asp-action="Themnhanvien">Thêm nhân viên</a>
     </p>
-    <form id="searchForm" asp-controller="HomeAdmin" asp-action="TimNhanVien" method="get" class="site-block-top-search d-flex">
+    <form id="searchForm" asp-controller="NhanVien" asp-action="TimNhanVien" method="get" class="site-block-top-search d-flex">
         <input type="text" id="TenNhanVien" name="TenNhanVien" class="form-control border-1" placeholder="Search">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -55,14 +55,14 @@
             var searchQuery = $('#TenNhanVien').val();
 
             $.ajax({
-                url: '@Url.Action("TimNhanVien", "HomeAdmin")',
+                url: '@Url.Action("Timnhanvien", "NhanVien")',
                 type: 'GET',
                 data: { TenNhanVien: searchQuery, page: page },
                 success: function (result) {
                     console.log("Kết quả trả về từ server:", result);
                     let notification = $('#notification');
                     if (typeof result === 'string' && result.trim() === "") {
-                        $('#staffList').empty();
+                        $('#staffList').html(result);
                         notification.text("Không tìm thấy nhân viên!").css({
                             "color": "red",
                             "display": "block",
@@ -100,7 +100,7 @@
         $(document).on('click', '.edit-link', function (e) {
             e.preventDefault();
             var id = $(this).data('id'); 
-            window.location.href = '@Url.Action("Suanhanvien", "HomeAdmin")' + '?MaNV=' + id;
+            window.location.href = '@Url.Action("Suanhanvien", "NhanVien")' + '?MaNV=' + id;
         });
         $(document).on('click', '.delete-link', function (e) {
             e.preventDefault();
@@ -109,7 +109,7 @@
 
             if (confirm("Bạn có chắc chắn muốn xóa nhân viên này không?")) { 
                 $.ajax({
-                    url: '@Url.Action("XoaNhanVien", "HomeAdmin")',
+                    url: '@Url.Action("XoaNhanVien", "NhanVien")',
                     type: 'POST',
                     data: { MaNV: id },
                     success: function (result) {
