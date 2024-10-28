@@ -1,7 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Thanh toán khi giao hàng";
+    Layout = "~/Views/Shared/_PayLayout.cshtml";
 }
 <div class="site-section">
     <div class="container">
@@ -9,8 +8,8 @@
             <div class="col-md-12 text-center">
                 <span class="icon-check_circle display-3 text-success"></span>
                 <h2 class="display-3 text-black">Cảm ơn!</h2>
-                <p class="lead mb-5">Bạn đã thanh toán thành công.</p>
-                <p><a href="shop.html" class="btn btn-sm btn-primary">Trở lại shop</a></p>
+                <p class="lead mb-5">Bạn đã đặt hàng thành công.</p>
+                <p><a asp-action="Index" asp-controller="Home" type="button" class="btn btn-sm btn-primary">Trở lại shop</a></p>
             </div>
         </div>
     </div>

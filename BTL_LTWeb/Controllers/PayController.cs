@@ -1,6 +1,13 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
+using System;
+using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace BTL_LTWeb.Controllers
 {
@@ -22,16 +29,12 @@ namespace BTL_LTWeb.Controllers
         [HttpPost]
         public IActionResult ProceedToCheckout(int[] selectedItems)
         {
-            // Kiểm tra dữ liệu đầu vào
             if (selectedItems == null || selectedItems.Length == 0)
             {
                 Console.WriteLine("Không có sản phẩm nào được chọn.");
                 return RedirectToAction("Index", "Cart");
             }
 
-            Console.WriteLine("Các sản phẩm đã chọn: " + string.Join(", ", selectedItems));
-
-            // Lấy thông tin chi tiết các sản phẩm đã chọn từ database
             var cartItems = _context.TGioHangs
                 .Include(g => g.ChiTietSanPham)
                 .ThenInclude(sp => sp.DanhMucSp)
@@ -43,17 +46,17 @@ namespace BTL_LTWeb.Controllers
                 Console.WriteLine("Không tìm thấy sản phẩm trong giỏ hàng.");
                 return RedirectToAction("Index", "Cart");
             }
-            // Lấy thông tin khách hàng từ giỏ hàng
+
             var customerId = cartItems.FirstOrDefault()?.MaKhachHang;
             var customerInfo = _context.TKhachHangs.FirstOrDefault(c => c.MaKhachHang == customerId);
 
-            // Tạo một ViewModel để truyền thông tin giỏ hàng và thông tin khách hàng
+
             var viewModel = new CheckoutViewModel
             {
                 CartItems = cartItems,
                 CustomerInfo = customerInfo
             };
-            // Chuyển danh sách sản phẩm đã chọn sang view Thanh toán
+
             return View("Index", viewModel);
         }
 
@@ -79,49 +82,53 @@ namespace BTL_LTWeb.Controllers
         {
             if (model == null)
             {
-                return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
             }
-            Console.WriteLine("MaKhachHang: " + model.MaKhachHang);
-            Console.WriteLine("PhuongThucThanhToan: " + model.PhuongThucThanhToan);
+            var khachHang = _context.TKhachHangs.FirstOrDefault(e => e.MaKhachHang == model.MaKhachHang);
+            if (khachHang == null)
 
-            // 1. Lấy thông tin giỏ hàng từ session hoặc cơ sở dữ liệu
-            var gioHang = _context.TGioHangs
-                .Include(g => g.ChiTietSanPham)
-                .Where(g => g.MaKhachHang == model.MaKhachHang).ToList();
-
-            if (gioHang == null || !gioHang.Any())
             {
-                return Json(new { success = false, message = "Giỏ hàng trống." });
+                return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
             }
-            //var lastMaHoaDonBan = _context.THoaDonBans.OrderByDescending(g => g.MaHoaDonBan).FirstOrDefault()?.MaHoaDonBan ?? 0;
-            // 2. Tạo hóa đơn mới
+
+            //Tạo hóa đơn mới
+            decimal TongTien = 0;
+            foreach (var item in model.CartID)
+            {
+                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                var danhMuc = _context.TDanhMucSps
+                    .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
+                TongTien = (decimal)(TongTien + (danhMuc.Gia * gioHang.SoLuong));
+            }
             var hoaDon = new THoaDonBan
             {
                 MaKhachHang = model.MaKhachHang,
                 NgayHoaDon = DateTime.Now,
-                TongTienHd = gioHang.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong),
+                TongTienHd = TongTien,
                 PhuongThucThanhToan = model.PhuongThucThanhToan,
                 GhiChu = model.GhiChu
             };
             _context.THoaDonBans.Add(hoaDon);
             _context.SaveChanges();
 
-            // 3. Thêm chi tiết hóa đơn
-            foreach (var item in gioHang)
+            //Thêm chi tiết hóa đơn
+            foreach (var item in model.CartID)
             {
+                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
                 var danhMuc = _context.TDanhMucSps
-                    .FirstOrDefault(e => e.MaSp == item.ChiTietSanPham.MaSp);
+                    .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
                 var chiTiet = new TChiTietHoaDonBan
-                {
-                    MaHoaDonBan = hoaDon.MaHoaDonBan,
-                    MaChiTietSP = item.MaChiTietSP,
-                    SoLuongBan = item.SoLuong,
-                    DonGiaBan = danhMuc.Gia
-                };
-                _context.TChiTietHoaDonBans.Add(chiTiet);
+                    {
+                        MaHoaDonBan = hoaDon.MaHoaDonBan,
+                        MaChiTietSP = gioHang.MaChiTietSP,
+                        SoLuongBan = gioHang.SoLuong,
+                        DonGiaBan = danhMuc.Gia
+                    };
+                    _context.TChiTietHoaDonBans.Add(chiTiet);
+
             }
 
-            // 4. Xử lý thông tin giao hàng
+            //Xử lý thông tin giao hàng
             var giaoHang = new TGiaoHang
             {
                 MaHoaDonBan = hoaDon.MaHoaDonBan,
@@ -132,18 +139,32 @@ namespace BTL_LTWeb.Controllers
                 HoTenNguoiNhan = model.GiaoHangDiaChiKhac == 1 ? model.HoTenKhac : model.HoTen
             };
             _context.TGiaoHangs.Add(giaoHang);
-
-            // 5. Lưu tất cả
+            //Xóa sản phẩm trong giỏ hàng
+            foreach (var item in model.CartID)
+            {
+                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                if (gioHang != null)
+                {
+                    _context.TGioHangs.Remove(gioHang);
+                }
+            }
+            //Lưu tất cả
             _context.SaveChanges();
-
-            return (Success());
+            if (model.PhuongThucThanhToan == "cash") return (Success());
+            else return (ShowImage((int)TongTien, hoaDon.MaHoaDonBan+model.HoTen+"CHUYEN TIEN"));
 
         }
 
 
+        public ActionResult ShowImage(Int32 tien, string noiDung)
+        {
+            ViewBag.ImageData = VietQrGenerator.GetQR(tien, noiDung);
 
+            return View("PayOnline");
+        }
         public IActionResult Success()
         {
+
             return View("PayDone");
         }
 

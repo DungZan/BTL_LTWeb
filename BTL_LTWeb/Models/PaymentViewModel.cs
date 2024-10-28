@@ -20,5 +20,9 @@
         public string QuanHuyenKhac { get; set; }
         public string SDTKhac { get; set; }
         public string HoTenKhac { get; set; }
+
+        public List<int> CartID { get; set; }
+        
     }
+    
 }
