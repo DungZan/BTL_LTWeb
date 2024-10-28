@@ -5,6 +5,11 @@
 
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
+@if (Model.Count() == 0)
+{
+    <h5 class="noreviewannounce">Chưa có đánh giá cho sản phẩm này</h5>
+}
+
 @foreach (var it in Model)
 {
     <div class="rvlist-per" id="rvper_@(it._reviewID)">

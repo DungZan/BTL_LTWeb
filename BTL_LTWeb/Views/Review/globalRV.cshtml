@@ -6,20 +6,9 @@
     int _currentPage = 1;
 }
 
-<!--account simulation-->
-<div id="devbox" style="margin-bottom: 30px; border: solid 2px gold; padding: 10px;">
-    <span>email </span><input type="text" id="dev_email"></input>
-    <span>role </span><input type="text" id="dev_role"></input>
-    <span>pid </span><input type="number" id="dev_pid"></input>
-    <input type="button" id="dev_setvalue" title="Set cookie"></input>
-    <br>
-    <span id="dev_info"></span>
-</div>
-<!--end-->
-
 <div id="rvStats"></div>
 
-@if (ViewBag.utype != "NhanVien")
+@if (ViewBag.utype == "KhachHang")
 {
     <div id="rvMaker"></div>
 }

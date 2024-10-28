@@ -1,9 +1,11 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Security.Claims;
-using System.Security.Cryptography;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace BTL_LTWeb.Controllers
 {
@@ -36,11 +38,45 @@ namespace BTL_LTWeb.Controllers
         //    return false;
         //}
 
-        public ReviewController(QLBanDoThoiTrangContext _context) {
+        public ReviewController(QLBanDoThoiTrangContext _context)
+        {
             _db = _context;
+
         }
 
-        private void FetchRelatedData(int pid)
+        //private void FetchLogin() 
+        //{
+        //    var cookies = HttpContext.Request.Cookies[".AspNetCore.MyCookieAuthentication"];
+
+        //    if (cookies != null) //đã đăng nhập
+        //    {
+        //        var authy = JsonNode.Parse(cookies)?.AsObject();
+        //        var _email = authy?["Email"].ToString();
+        //        _utype = authy?["Role"].ToString();
+        //        int b = 0;
+        //        switch (_utype)
+        //        {
+        //            case "KhachHang":
+        //                _uid = _db.TKhachHangs.Where(it => it.Email == _email).First().MaKhachHang;
+        //                break;
+        //            case "NhanVien":
+        //                _uid = _db.TNhanViens.Where(it => it.Email == _email).First().MaNhanVien;
+        //                break;
+        //        }
+        //    }
+        //}
+
+        [Authorize]
+        public IActionResult FetchLogin()
+        {
+            if (User.Identity?.IsAuthenticated == true)
+            {
+
+            }
+            return Ok();
+        }
+
+        private void FetchProduct(int pid)
         {
             //_utype = StaticCookie._ckRole;
             //switch(_utype)
@@ -54,20 +90,6 @@ namespace BTL_LTWeb.Controllers
             //}
             //_pid = StaticCookie._webPID;
 
-            string? _email = ((ClaimsIdentity)User.Identity!).FindFirst(ClaimTypes.Email)?.Value;
-            if (!string.IsNullOrEmpty(_email)) //đã đăng nhập
-            {
-                _utype = ((ClaimsIdentity)User.Identity).FindFirst(ClaimTypes.Role)!.Value;
-                switch (_utype)
-                {
-                    case "KhachHang":
-                        _uid = _db.TKhachHangs.Where(it => it.Email == _email).First().MaKhachHang;
-                        break;
-                    case "NhanVien":
-                        _uid = _db.TNhanViens.Where(it => it.Email == _email).First().MaNhanVien;
-                        break;
-                }
-            }
 
             if (_db.TDanhMucSps.Any(it => it.MaSp == pid)) //trong trường hợp mã sp không hợp lệ
             {
@@ -76,7 +98,8 @@ namespace BTL_LTWeb.Controllers
                 List<int> rids = new List<int>();
                 foreach (var it in _reviews) rids.Add(it.MaDanhGia);
                 _reacts = _db.TPhanHois.Where(it => rids.Contains(it.MaDanhGia)).ToList();
-            } else
+            }
+            else
             {
                 _pid = 0;
                 _reviews = new List<TDanhGia>();
@@ -84,8 +107,23 @@ namespace BTL_LTWeb.Controllers
             }
         }
 
-        public IActionResult GlobalReviewAJAX(int pid)
+        public IActionResult GlobalReviewAJAX(int pid, string email)
         {
+            if (email != "") //đã đăng nhập
+            {
+                var user = _db.TUsers.FirstOrDefault(e => e.Email == email);
+                _utype = user.LoaiUser;
+                int b = 0;
+                switch (_utype)
+                {
+                    case "KhachHang":
+                        _uid = _db.TKhachHangs.Where(it => it.Email == email).First().MaKhachHang;
+                        break;
+                    case "NhanVien":
+                        _uid = _db.TNhanViens.Where(it => it.Email == email).First().MaNhanVien;
+                        break;
+                }
+            }
             ViewBag.utype = _utype;
             ViewBag.pid = pid;
             return PartialView("globalRV");
@@ -93,23 +131,23 @@ namespace BTL_LTWeb.Controllers
         private IEnumerable<ReviewContentViewModel> QueryDisplableReviews()
         {
             var query = (from RV in _db.TDanhGias
-                        join KH in _db.TKhachHangs on RV.MaKhachHang equals KH.MaKhachHang
-                        join NV in _db.TNhanViens on RV.MaNhanVien equals NV.MaNhanVien into gj
-                        from subNV in gj.DefaultIfEmpty()
-                        select new ReviewContentViewModel
-                        {
-                            _reviewID = RV.MaDanhGia,
-                            _productID = RV.MaSP,
-                            _userID = RV.MaKhachHang,
-                            _emplID = RV.MaNhanVien,
-                            CsName = KH.TenKhachHang != null ? KH.TenKhachHang : KH.Email,
-                            DatePosted = RV.NgayTao,
-                            StarRated = RV.Diem,
-                            RvMessage = RV.BinhLuan,
-                            EpName = subNV.Email == null ? null : subNV.TenNhanVien == null ? subNV.Email : subNV.TenNhanVien,
-                            RpMessage = RV.TraLoi
-                        }).Where(it => !string.IsNullOrEmpty(it.RvMessage) && it._productID == _pid).ToList();
-            foreach(var it in query)
+                         join KH in _db.TKhachHangs on RV.MaKhachHang equals KH.MaKhachHang
+                         join NV in _db.TNhanViens on RV.MaNhanVien equals NV.MaNhanVien into gj
+                         from subNV in gj.DefaultIfEmpty()
+                         select new ReviewContentViewModel
+                         {
+                             _reviewID = RV.MaDanhGia,
+                             _productID = RV.MaSP,
+                             _userID = RV.MaKhachHang,
+                             _emplID = RV.MaNhanVien,
+                             CsName = KH.TenKhachHang != null ? KH.TenKhachHang : KH.Email,
+                             DatePosted = RV.NgayTao,
+                             StarRated = RV.Diem,
+                             RvMessage = RV.BinhLuan,
+                             EpName = subNV.Email == null ? null : subNV.TenNhanVien == null ? subNV.Email : subNV.TenNhanVien,
+                             RpMessage = RV.TraLoi
+                         }).Where(it => !string.IsNullOrEmpty(it.RvMessage) && it._productID == _pid).ToList();
+            foreach (var it in query)
             {
                 List<TPhanHoi> qry = _reacts.Where(t => it._reviewID == t.MaDanhGia).ToList();
                 it.VotesCasted = qry;
@@ -119,21 +157,21 @@ namespace BTL_LTWeb.Controllers
 
         public IActionResult GetStatsPV(int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
             return PartialView("rvStats", new ReviewStatsViewModel(_reviews));
         }
         public IActionResult GetMakerPV(int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
-            TDanhGia userReview = 
+            TDanhGia userReview =
                 _utype == "KhachHang" ? _reviews.Find(it => it.MaKhachHang == _uid)! : new TDanhGia();
             return PartialView("rvMaker", userReview == null ? new TDanhGia() : userReview);
         }
         public IActionResult GetListPV(string sortType, int pageNum, int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
             ViewBag.utype = _utype;
             ViewBag.uid = _uid;
@@ -141,7 +179,7 @@ namespace BTL_LTWeb.Controllers
             IOrderedEnumerable<ReviewContentViewModel> dprvlist;
             switch (sortType)
             {
-                case "sort_Stars": 
+                case "sort_Stars":
                     dprvlist = QueryDisplableReviews().OrderByDescending(it => it.StarRated);
                     break;
                 case "sort_Date":
@@ -165,7 +203,7 @@ namespace BTL_LTWeb.Controllers
             //remind the view which page it has called for
             ViewBag.currentPage = pageNum == 0 ? 1 : pageNum;
 
-            return PartialView("rvList", dprvlist.Skip((pageNum-1) * _PERPAGERV).Take(_PERPAGERV));
+            return PartialView("rvList", dprvlist.Skip((pageNum - 1) * _PERPAGERV).Take(_PERPAGERV));
         }
 
         private bool AuthorityCheck(string action, TDanhGia onRV)
@@ -174,11 +212,11 @@ namespace BTL_LTWeb.Controllers
             {
                 case "rvCreate": return _utype == "KhachHang";
                 case "rvEdit":
-                case "rvDelete": 
+                case "rvDelete":
                     return onRV.MaKhachHang == _uid;
                 case "rpCreate": return _utype == "NhanVien";
                 case "rpEdit":
-                case "rpDelete": 
+                case "rpDelete":
                     return onRV.MaNhanVien == _uid;
 
                 default: return false;
@@ -189,12 +227,12 @@ namespace BTL_LTWeb.Controllers
         [ValidateAntiForgeryToken]
         public bool AlterReview([Bind("Diem,BinhLuan")] TDanhGia inpReview, int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
             TDanhGia userReview = _reviews.Find(it => it.MaKhachHang == _uid)!;
 
             //khách chưa để lại bình luận -> tạo bình luận
-            if (userReview == null) 
+            if (userReview == null)
             {
                 if (!AuthorityCheck("rvCreate", userReview)) return false;
                 if (inpReview.Diem <= 0 || inpReview.Diem > 5) return false;
@@ -204,13 +242,14 @@ namespace BTL_LTWeb.Controllers
                 inpReview.NgayTao = DateTime.Now;
 
                 if (ModelState.IsValid) try
-                {
-                    _db.TDanhGias.Add(inpReview);
-                    _db.SaveChanges();
-                } catch
-                {
-                    return false;
-                }
+                    {
+                        _db.TDanhGias.Add(inpReview);
+                        _db.SaveChanges();
+                    }
+                    catch
+                    {
+                        return false;
+                    }
             }
             //khách đã để lại bình luận -> sửa bình luận
             else
@@ -239,7 +278,7 @@ namespace BTL_LTWeb.Controllers
         [ValidateAntiForgeryToken]
         public bool DeleteReviewConfirm(int rid, int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
             //thêm kiểm tra tài khoản
             var review = _reviews.Find(it => it.MaDanhGia == rid);
@@ -252,7 +291,8 @@ namespace BTL_LTWeb.Controllers
                 {
                     _db.TDanhGias.Remove(review);
                     _db.SaveChanges();
-                } catch
+                }
+                catch
                 {
                     return false;
                 }
@@ -290,7 +330,7 @@ namespace BTL_LTWeb.Controllers
         [ValidateAntiForgeryToken]
         public bool AlterReply([Bind("MaDanhGia", "TraLoi")] TDanhGia inpReply, int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
             if (string.IsNullOrWhiteSpace(inpReply.TraLoi)) return false;
             TDanhGia frameReview = _reviews.Find(it => it.MaDanhGia == inpReply.MaDanhGia)!;
@@ -301,7 +341,8 @@ namespace BTL_LTWeb.Controllers
                     if (!AuthorityCheck("rpCreate", frameReview)) return false;
                     frameReview.MaNhanVien = _uid;
                     frameReview.TraLoi = inpReply.TraLoi;
-                } else
+                }
+                else
                 {
                     if (!AuthorityCheck("rpEdit", frameReview)) return false;
                     frameReview.TraLoi = inpReply.TraLoi;
@@ -313,12 +354,12 @@ namespace BTL_LTWeb.Controllers
 
         public bool DeleteReply(int rid, int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
             TDanhGia? frameReview = _reviews.Find(it => it.MaDanhGia == rid);
             if (frameReview != null && frameReview.MaNhanVien != null && AuthorityCheck("rpDelete", frameReview))
             {
-                foreach(var it in _reacts.Where(it => it.MaDanhGia == frameReview.MaDanhGia))
+                foreach (var it in _reacts.Where(it => it.MaDanhGia == frameReview.MaDanhGia))
                 {
                     it.HuuIch = 0;
                     _db.TPhanHois.Update(it);
@@ -333,9 +374,9 @@ namespace BTL_LTWeb.Controllers
 
         public bool CastVote(int rid, char type, int pid)
         {
-            FetchRelatedData(pid);
+            FetchProduct(pid);
 
-            if (_uid < 1 || _utype != "KhachHang") return false; 
+            if (_uid < 1 || _utype != "KhachHang") return false;
 
             var query = _reacts.Where(it => it.MaKhachHang == _uid && it.MaDanhGia == rid);
             TPhanHoi? castedVote = null;
@@ -357,7 +398,8 @@ namespace BTL_LTWeb.Controllers
                 {
                     _db.TPhanHois.Add(castedVote);
                     _db.SaveChanges();
-                } catch
+                }
+                catch
                 {
                     return false;
                 }
@@ -375,7 +417,7 @@ namespace BTL_LTWeb.Controllers
                     if (voteatReview.MaNhanVien != null) castedVote.HuuIch = castedVote.HuuIch == 1 ? 0 : 1;
                     break;
             }
-            
+
             try
             {
                 _db.TPhanHois.Update(castedVote);
