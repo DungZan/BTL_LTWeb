@@ -1,20 +1,23 @@
 ﻿$(document).ready(function () {
     $(document).on('click', '.js-btn-plus', function () {
-        let input = $(this).closest('tr').find('input:eq(2)');
-        updateTotal(input.closest('tr'));
+        let input = $(this).closest('tr').find('input:eq(1)');
+        let value = parseInt(input.val());
+        var row = input.closest('tr')
+        updateTotal(row);
+        updateItemQuantity(parseInt(row.find('input:eq(0)').val()), value);
     });
 
     $(document).on('click', '.js-btn-minus', function () {
         let input = $(this).closest('tr').find('input:eq(2)');
         let value = parseInt(input.val());
+        var row = input.closest('tr')
         if (value > 0) {
-            updateTotal(input.closest('tr'));
+            updateTotal(row);
+            updateItemQuantity(parseInt(row.find('input:eq(0)').val()), value);
         } else {
             input.val(value + 1);
         }
     });
-
-
 });
 $(document).on('change', '#all', function () {
     let isChecked = $(this).is(':checked');
@@ -35,15 +38,31 @@ $(document).on('change', '.product-checkbox', function () {
     updateTotalAmount();
 });
 
-
+var debounceTimer;
+function updateItemQuantity(Id, Quantity) {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function () {
+        $.ajax({
+            type: "PATCH",
+            url: "/api/cartapi/update",
+            data: JSON.stringify({ Id, Quantity }),
+            contentType: "application/json;",
+            success: function (response) {
+            },
+            error: function () {
+                alert("Cập nhật không thành công.");
+            }
+        });
+    }, 600);
+}
 
 function updateTotalAmount() {
     let totalAmount = 0;
     $('.product-checkbox:checked').each(function () {
         let row = $(this).closest('tr');
-        let price = parseFloat(row.find('td:eq(5)').text()); 
+        let price = parseFloat(row.find('td:eq(5)').text());
         let quantity = parseInt(row.find('input:eq(2)').val());
-        totalAmount += price * quantity; 
+        totalAmount += price * quantity;
     });
 
     $('.total-amount').text(totalAmount);
@@ -51,14 +70,14 @@ function updateTotalAmount() {
 
 function updateTotal(row) {
     let price = parseFloat(row.find('td:eq(5)').text());
-    let quantity = parseInt(row.find('input:eq(2)').val()); 
+    let quantity = parseInt(row.find('input:eq(2)').val());
     let total = price * quantity;
     row.find('td:eq(7)').text(total);
 
     let grandTotal = 0;
     $('.site-blocks-table tbody tr').each(function () {
         if ($(this).find('#check').prop('checked')) {
-            let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0; 
+            let rowTotal = parseFloat($(this).find('td:eq(7)').text()) || 0;
             grandTotal += rowTotal;
         }
     });
@@ -89,9 +108,13 @@ function updateCart() {
         type: 'GET',
         success: function (response) {
             $('#items').html(response);
+            var count = parseInt($('.count').text());
+            $('.count').show();
+            $('.count').text(count - 1);
         },
         error: function (xhr, status, error) {
             $('#cart-container').html('<h2>Không có sản phẩm nào trong giỏ hàng</h2>')
+            $('.count').hide();
         }
     });
 }
