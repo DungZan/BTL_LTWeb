@@ -89,12 +89,12 @@
 }
 }
 
-.confirmform {
+.dltconfirmform {
     padding: 15px;
     border-radius: 5px;
     border-left: solid 5px rgb(255, 114, 114);
 }
-.action {
+.dltaction {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -107,23 +107,23 @@
         }
     }
 }
-.bx-check, .bx-x {
+.dltyes, .dltno {
     font-size: 20px;
     padding: 5px;
     cursor: pointer;
 }
-.bx-check {
+.dltyes {
     border-radius: 5px;
     border: solid 1px #7971ea;
     padding: 5px 15px 5px 15px;
     font-weight: bold;
 }
-.bx-check:hover {
+.dltyes:hover {
     border: solid 1px #7971ea;
     background-color: #7971ea;
     color: white;
 }
-.bx-check:active {
+.dltyes:active {
     background-color: #6860db;
 }
 
@@ -494,4 +494,5 @@ i {
     .employeereply {
         max-width: 90%;
     }
+
 }
