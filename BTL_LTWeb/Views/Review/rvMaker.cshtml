@@ -61,20 +61,21 @@
         border: solid 2px #eceff1;
         margin-bottom: 20px;
     }
-    [type=radio] {
+
+    [type=radio]:not(#detail) {
         position: absolute;
         opacity: 0;
         width: 0;
         height: 0;
     }
 
-    [type=radio] + .bx {
+        [type=radio]:not(#detail) + .bx {
         cursor: pointer;
         color: lightgray;
         font-size: 24px;
     }
 
-    [type=radio]:checked + .bx {
+        [type=radio]:not(#detail):checked + .bx {
         color: #7971ea;
     }
 </style>
