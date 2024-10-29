@@ -109,7 +109,7 @@ namespace BTL_LTWeb.Controllers
 
         public IActionResult GlobalReviewAJAX(int pid, string email)
         {
-            if (email != "") //đã đăng nhập
+            if (email is not null) 
             {
                 var user = _db.TUsers.FirstOrDefault(e => e.Email == email);
                 _utype = user.LoaiUser;
