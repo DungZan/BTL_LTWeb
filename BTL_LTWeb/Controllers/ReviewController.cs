@@ -124,6 +124,11 @@ namespace BTL_LTWeb.Controllers
 
             TDanhGia userReview =
                 ReviewStaticData._utype == "KhachHang" ? _reviews.Find(it => it.MaKhachHang == ReviewStaticData._uid)! : new TDanhGia();
+
+            var dsChiTiet = _db.TChiTietSanPhams.Where(it => it.MaSp == ReviewStaticData._pid).Select(it => it.MaChiTietSp).ToList();
+            var dsHoaDon = _db.THoaDonBans.Where(it => it.MaKhachHang == ReviewStaticData._uid).Select(it => it.MaHoaDonBan).ToList();
+            ViewBag.hasPurchased = _db.TChiTietHoaDonBans.Any(it => dsHoaDon.Contains(it.MaHoaDonBan) && dsChiTiet.Contains(it.MaChiTietSP));
+
             return PartialView("rvMaker", userReview == null ? new TDanhGia() : userReview);
         }
         public IActionResult GetListPV(string sortType, int pageNum)
