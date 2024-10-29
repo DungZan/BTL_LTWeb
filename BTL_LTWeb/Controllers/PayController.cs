@@ -1,4 +1,5 @@
-﻿using BTL_LTWeb.Models;
+﻿using BTL_LTWeb.ViewModels;
+using BTL_LTWeb.Models;
 using BTL_LTWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

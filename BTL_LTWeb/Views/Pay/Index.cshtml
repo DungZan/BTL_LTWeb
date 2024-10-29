@@ -1,4 +1,4 @@
-﻿@model BTL_LTWeb.Models.CheckoutViewModel
+﻿@model BTL_LTWeb.ViewModels.CheckoutViewModel
 @{
     ViewData["Title"] = "Thanh toán";
     Layout = "~/Views/Shared/_PayLayout.cshtml";
@@ -245,10 +245,6 @@
             const districtSelect = document.getElementById('c_diff_district');
             const districtName = districtSelect.options[districtSelect.selectedIndex].text;
             document.getElementById('ten_quan_huyen').value = districtName; 
-        }
-
-        
-       
-       
+        }       
     </script>
 }

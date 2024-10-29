@@ -1,4 +1,4 @@
-﻿namespace BTL_LTWeb.Models
+﻿namespace BTL_LTWeb.ViewModels
 {
     public class PaymentViewModel
     {
@@ -22,7 +22,7 @@
         public string HoTenKhac { get; set; }
 
         public List<int> CartID { get; set; }
-        
+
     }
-    
+
 }
