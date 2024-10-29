@@ -1,4 +1,6 @@
-﻿namespace BTL_LTWeb.Models
+﻿using BTL_LTWeb.Models;
+
+namespace BTL_LTWeb.ViewModels
 {
     public class CheckoutViewModel
     {
