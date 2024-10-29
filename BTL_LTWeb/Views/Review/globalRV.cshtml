@@ -1,0 +1,105 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string _currentSortType = "sort_Stars";
+    int _currentPage = 1;
+}
+
+<div id="rvStats"></div>
+
+@if (ViewBag.utype == "KhachHang")
+{
+    <div id="rvMaker"></div>
+}
+
+<div class="globalaction">
+    <ul class="filter">
+        <li class="sortopt" id="sort_Stars"><i class='bx bxs-star-half'></i><span> Cao nhất</span></li>
+        <li class="sortopt" id="sort_Date"><i class='bx bxs-hot'></i><span> Mới nhất</span></li>
+        <li class="sortopt" id="sort_Helpful"><i class='bx bxs-badge-check'></i><span> Hữu ích</span></li>
+    </ul>
+    <label class="refresh" id="refresh"><span>Làm mới </span><i class='bx bx-refresh'></i></label>
+</div>
+
+<div id="rvList"></div>
+
+<div class="alertactionresult">
+    <i class='bx bx-check'></i>
+    <i class='bx bx-x'></i>
+    <p class="alertmessage">This is a test. Nothing to notice about</p>
+</div>
+
+<script>
+    var _pid = @ViewBag.pid;
+
+    var _currentSortType = "sort_Stars";
+    var _currentPage = 1;
+
+    function ajaxStats() {
+        $.ajax({
+            url: '@Url.Action("GetStatsPV", "Review")',
+            data: {pid: _pid},
+            success: function (response) {
+                $("div#rvStats").html(response)
+            }
+        });
+    }
+    function ajaxMaker() {
+        $.ajax({
+            url: '@Url.Action("GetMakerPV", "Review")',
+            data: {pid: _pid},
+            success: function (response) {
+                $("div#rvMaker").html(response);
+            }
+        });
+    }
+    function ajaxList() {
+        $.ajax({
+            url: '@Url.Action("GetListPV", "Review")',
+            data: { sortType: _currentSortType, pageNum: _currentPage, pid: _pid },
+            success: function (response) {
+                $("div#rvList").html(response);
+            }
+        });
+    }
+
+    (function () {
+        ajaxStats();
+        ajaxMaker();
+        ajaxList();
+        $(".alertactionresult").hide();
+    })();
+    $("li.sortopt").click(function (e) {
+        $("li.sortopt").each(function (index, elem) {
+            $(elem).css("backgroundColor", "");
+            $(elem).css("color", ""); 
+        });
+        $(this).css("backgroundColor", "#7971ea"); 
+        $(this).css("color", "white");
+
+        _currentSortType = $(this).attr("id");
+        _currentPage = 1;
+        ajaxList();
+    });
+    $("label#refresh").click(function (e) {
+        ajaxList();
+    });
+
+    function alertResult(type, msg) {
+        if (type == true) {
+            $('.bx-x').hide();
+            $('.bx-check').show();
+            $('.alertactionresult').css('border-right', 'solid 5px limegreen');
+        } else {
+            $('.bx-x').show();
+            $('.bx-check').hide();
+            $('.alertactionresult').css('border-right', 'solid 5px tomato');
+        }
+        $(".alertmessage").html(msg);
+        $('.alertactionresult').show();
+        setTimeout(function () {
+            $('.alertactionresult').fadeOut(500);
+        }, 2000);
+    }
+</script>
