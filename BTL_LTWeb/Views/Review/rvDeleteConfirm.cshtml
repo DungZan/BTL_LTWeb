@@ -4,7 +4,7 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
 <div class="dltconfirmform">
-    <p>Bạn xác nhận muốn xoá đánh giá này? Mã đánh giá: @ViewBag.rid</p>
+    <p>Bạn xác nhận muốn xoá đánh giá này?</p>
     <div class="dltaction">
         <form asp-action="DeleteReviewConfirm" method="post" id="rvdeleteform_@ViewBag.rid" style="display:inline">
             <input type="hidden" name="rid" value="@ViewBag.rid" />
