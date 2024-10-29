@@ -62,16 +62,14 @@
     <script>
         $(document).ready(function () {
             $('a#logout').on('click', function (event) {
-                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+                event.preventDefault(); 
                 $.ajax({
-                    url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
-                    type: 'POST', // Phương thức POST
+                    url: '/api/AccountApi/logout', 
+                    type: 'POST', 
                     success: function (response) {
-                        // Xử lý thành công
-                        window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                        location.reload();
                     },
                     error: function (response) {
-                        // Xử lý khi có lỗi
                         console.log(response);
                     }
                 });
