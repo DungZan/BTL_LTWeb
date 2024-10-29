@@ -13,9 +13,6 @@
     <p>Chúng tôi đã gửi mã xác nhận đến email của Bạn. Vui lòng nhập mã và xác nhận.</p>
     <!-- Form nhập mã xác nhận -->
     <form method="post" asp-controller="Account" asp-action="VerifyEmail">
-        <input asp-for="Email" type="hidden" value=@Model.Email/>
-        <input asp-for="Status" type="hidden" value=@Model.Status/>
-        <input asp-for="Name" type="hidden" value=@Model.Name/>
         <div class="mb-3">
             <label asp-for="ConfirmationCode" class="form-label">Mã xác nhận</label>
             <input asp-for="ConfirmationCode" class="form-control" />
@@ -77,9 +74,9 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    email: '@Model.Email',  // Email được bao bởi dấu ngoặc kép
-                    name: '@Model.Name',    // Name được bao bởi dấu ngoặc kép
-                    status: parseInt('@Model.Status')  // Status chuyển về số nguyên
+                    email: '@Model.Email', 
+                    name: '@Model.Name',   
+                    status: parseInt('@Model.Status') 
                 }),
                 success: function (response) {
                     alert('Mã xác thực mới đã được gửi lại.');
