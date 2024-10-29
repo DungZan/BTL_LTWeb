@@ -323,7 +323,8 @@ namespace BTL_LTWeb.Controllers
             user.Salt = salt;
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            TempData["Message"] = "Cập nhật mật khẩu thành công!";
+            return RedirectToAction("Login", "Account");
         }
     }
 }
