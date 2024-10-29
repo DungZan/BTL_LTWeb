@@ -3,7 +3,7 @@
     ViewData["Title"] = "ChitietSp";
     Layout = "~/Views/Shared/DetailLayout.cshtml";
     var email = "";
-    if(User.Identity.IsAuthenticated)
+    if (User.Identity.IsAuthenticated)
         email = User.FindFirst(ClaimTypes.Email)?.Value;
 
 }
@@ -38,7 +38,7 @@
                         @foreach (var size in Model.Sizes)
                         {
                             <label class="d-inline-flex mr-3 mb-3">
-                                <input type="radio" name="Size" value="@size" /> @size
+                                <input id="detail" type="radio" name="Size" value="@size"/> @size
                             </label>
                         }
                     </div>
@@ -47,7 +47,7 @@
                         @foreach (var color in Model.Colors)
                         {
                             <label class="d-inline-flex mr-3 mb-3">
-                                <input type="radio" name="Color" value="@color" /> @color
+                                <input id="detail" type="radio" name="Color" value="@color" /> @color
                             </label>
                         }
                     </div>

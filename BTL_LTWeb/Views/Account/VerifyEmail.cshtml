@@ -13,9 +13,6 @@
     <p>Chúng tôi đã gửi mã xác nhận đến email của Bạn. Vui lòng nhập mã và xác nhận.</p>
     <!-- Form nhập mã xác nhận -->
     <form method="post" asp-controller="Account" asp-action="VerifyEmail">
-        <input asp-for="Email" type="hidden" value=@Model.Email/>
-        <input asp-for="Status" type="hidden" value=@Model.Status/>
-        <input asp-for="Name" type="hidden" value=@Model.Name/>
         <div class="mb-3">
             <label asp-for="ConfirmationCode" class="form-label">Mã xác nhận</label>
             <input asp-for="ConfirmationCode" class="form-control" />
@@ -36,6 +33,7 @@
         </div>
     </form>
 </div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
@@ -77,12 +75,12 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    email: '@Model.Email',  // Email được bao bởi dấu ngoặc kép
-                    name: '@Model.Name',    // Name được bao bởi dấu ngoặc kép
-                    status: parseInt('@Model.Status')  // Status chuyển về số nguyên
+                    email: '@Model.Email', 
+                    name: '@Model.Name',   
+                    status: parseInt('@Model.Status') 
                 }),
                 success: function (response) {
-                    alert('Mã xác thực mới đã được gửi lại.');
+                    alertResult(false, "Gửi lại thành công");
                     countdown = 30;
                     countdownElement.textContent = countdown;
                     resendCodeBtn.style.display = 'none';
@@ -103,11 +101,26 @@
                     }, 1000);
                 },
                 error: function (xhr, status, error) {
-                    alert(xhr.responseText);
-                    // showNotification('Có lỗi xảy ra trong quá trình gửi lại mã xác thực.', true);
+                    alertResult(false, xhr.textContent);
                 }
             });
         }
 
+        function alertResult(type, msg) {
+            if (type == true) {
+                $('.bx-x').hide();
+                $('.bx-check').show();
+                $('.alertactionresult').css('border-right', 'solid 5px limegreen');
+            } else {
+                $('.bx-x').show();
+                $('.bx-check').hide();
+                $('.alertactionresult').css('border-right', 'solid 5px tomato');
+            }
+            $(".alertmessage").html(msg);
+            $('.alertactionresult').show();
+            setTimeout(function () {
+                $('.alertactionresult').fadeOut(500);
+            }, 2000);
+        }
     </script>
 }

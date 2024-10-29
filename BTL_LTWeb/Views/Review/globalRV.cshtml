@@ -39,7 +39,6 @@
     function ajaxStats() {
         $.ajax({
             url: '@Url.Action("GetStatsPV", "Review")',
-            data: {pid: _pid},
             success: function (response) {
                 $("div#rvStats").html(response)
             }
@@ -48,7 +47,6 @@
     function ajaxMaker() {
         $.ajax({
             url: '@Url.Action("GetMakerPV", "Review")',
-            data: {pid: _pid},
             success: function (response) {
                 $("div#rvMaker").html(response);
             }
@@ -57,7 +55,7 @@
     function ajaxList() {
         $.ajax({
             url: '@Url.Action("GetListPV", "Review")',
-            data: { sortType: _currentSortType, pageNum: _currentPage, pid: _pid },
+            data: { sortType: _currentSortType, pageNum: _currentPage },
             success: function (response) {
                 $("div#rvList").html(response);
             }

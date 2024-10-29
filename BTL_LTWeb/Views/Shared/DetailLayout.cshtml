@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="~/css/dropdown.css">
     <link rel="stylesheet" href="~/css/review.css">
 
+
 </head>
 <body>
 
@@ -101,18 +102,16 @@
     <script src="~/ResourceTemplale/js/main.js"></script>
     <script>
         $(document).ready(function () {
-            $('#logout').on('click', function (event) {
-                event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+            $('a#logout').on('click', function (event) {
+                event.preventDefault();
                 $.ajax({
-                    url: '/api/AccountApi/logout', // Đường dẫn đến API Logout
-                    type: 'POST', // Phương thức POST
+                    url: '/api/AccountApi/logout',
+                    type: 'POST',
                     success: function (response) {
-                        // Xử lý thành công
-                        window.location.href = '/Account/Login'; // Chuyển hướng đến trang đăng nhập
+                        location.reload();
                     },
-                    error: function (xhr, status, error) {
-                        // Xử lý lỗi
-                        alert('Có lỗi xảy ra trong quá trình đăng xuất.'); // Hiển thị thông báo lỗi
+                    error: function (response) {
+                        console.log(response);
                     }
                 });
             });
