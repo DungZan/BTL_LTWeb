@@ -13,6 +13,7 @@
     <p>Chúng tôi đã gửi mã xác nhận đến email của Bạn. Vui lòng nhập mã và xác nhận.</p>
     <!-- Form nhập mã xác nhận -->
     <form method="post" asp-controller="Account" asp-action="VerifyEmail">
+        <input type="hidden" asp-for="Email" value=@Model.Email />
         <div class="mb-3">
             <label asp-for="ConfirmationCode" class="form-label">Mã xác nhận</label>
             <input asp-for="ConfirmationCode" class="form-control" />

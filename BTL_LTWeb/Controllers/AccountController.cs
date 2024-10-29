@@ -197,7 +197,7 @@ namespace BTL_LTWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> VerifyEmail(VerifyCodeViewModel verify)
         {
-            if (!ModelState.IsValid)
+            if (verify.ConfirmationCode is null)
             {
                 ModelState.AddModelError(string.Empty, "");
                 return View(verify);
@@ -218,7 +218,15 @@ namespace BTL_LTWeb.Controllers
                 ModelState.AddModelError(string.Empty, "Mã xác nhận đã hết hạn.");
                 return View(verify);
             }
-            if (verify.Status == 1)
+            _context.TempUserOtps.Remove(otp);
+            _context.SaveChanges();
+            if (TempData["status"] == null || !int.TryParse(TempData["status"]?.ToString(), out int status))
+            {
+                ModelState.AddModelError(string.Empty, "Invalid status value.");
+                TempData.Keep();
+                return View();
+            }
+            if (status == 1)
             {
                 var register = JsonSerializer.Deserialize<RegisterViewModel>(TempData["Register"].ToString());
                 var salt = SecurityService.GenerateSalt();
@@ -244,7 +252,6 @@ namespace BTL_LTWeb.Controllers
                 };
                 _context.TKhachHangs.Add(newCustomer);
                 _context.SaveChanges();
-                _context.Remove(otp);
                 _context.SaveChanges();
                 TempData.Clear();
                 return RedirectToAction("Login", "Account");
