@@ -6,63 +6,71 @@
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="row">
-<h2>Danh sách hoá đơn của khách hàng: @ViewBag.KhachHang.TenKhachHang</h2>
+    
     <form asp-controller="KhachHang" asp-action="" method="get" class="site-block-top-search d-flex">
         <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
     <p></p>
 <div class="alert alert-warning">
-        <table class="table table-hover table-responsive">
-    <thead>
-            <tr class="table-warning">
-                <th>
-                    Mã hoá đơn
-                </th>
-                <th>
-                    Ngày tạo
-                </th>
-                <th>
-                    Phương thức thanh toán
-                </th>
-                <th>
-                    Ghi chú
-                </th>
-                <th>
-                    Tổng tiền
-                </th>
-                <th>
-                    Chức năng
-                </th>
-            </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="alert alert-primary">
-            <td>
-                @Html.DisplayFor(modelItem => item.MaHoaDonBan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayHoaDon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GhiChu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TongTienHd)
-            </td>
-            <td>
-                <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
-                <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</div>
+        @if (ViewBag.ThongBao != null)
+        {
+            <p>@ViewBag.ThongBao</p>
+        }
+        else
+        {
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <tr class="table-warning">
+                        <th>
+                            Mã hoá đơn
+                        </th>
+                        <th>
+                            Ngày tạo
+                        </th>
+                        <th>
+                            Phương thức thanh toán
+                        </th>
+                        <th>
+                            Ghi chú
+                        </th>
+                        <th>
+                            Tổng tiền
+                        </th>
+                        <th>
+                            Chức năng
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="alert alert-primary">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaHoaDonBan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NgayHoaDon)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GhiChu)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TongTienHd)
+                            </td>
+                            <td>
+                                <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
+                                <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
     @Html.PagedListPager(Model, page => Url.Action("Danhsachkhachhang", new { page = page }),
             new X.PagedList.Mvc.Core.PagedListRenderOptions()
     {

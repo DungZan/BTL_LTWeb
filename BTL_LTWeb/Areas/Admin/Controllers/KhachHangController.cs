@@ -29,17 +29,54 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 
         public IActionResult ChiTietKhachHang(int maKH, int? page)
         {
+            //int pageSize = 10;
+            //int pageNumber = page ?? 1;
+            //var _kh = db.TKhachHangs.AsNoTracking().FirstOrDefault(x => x.MaKhachHang == maKH);
+            //if (_kh == null)
+            //{
+            //    return NotFound("Khách hàng không tồn tại!");
+            //}
+            //var list = db.THoaDonBans.AsNoTracking().Where(x => x.MaKhachHang == maKH).OrderByDescending(x => x.NgayHoaDon);
+            //PagedList<THoaDonBan> lst;
+            //if (!list.Any())
+            //{
+            //    lst = new PagedList<THoaDonBan>(new List<THoaDonBan>(), pageNumber, pageSize);
+            //    ViewBag.ThongBao = "Không có dữ liệu hoá đơn cho khách hàng này!";
+            //}
+            //else
+            //{
+            //    lst = new PagedList<THoaDonBan>(list, pageNumber, pageSize);
+            //}
+            //ViewBag.KhachHang = _kh;
+            //return View(lst);
             int pageSize = 10;
             int pageNumber = page ?? 1;
+
+            // Lấy khách hàng từ cơ sở dữ liệu
             var _kh = db.TKhachHangs.AsNoTracking().FirstOrDefault(x => x.MaKhachHang == maKH);
             if (_kh == null)
             {
                 return NotFound("Khách hàng không tồn tại!");
             }
-            var list = db.THoaDonBans.AsNoTracking().Where(x => x.MaKhachHang == maKH).OrderByDescending(x => x.NgayHoaDon);
-            PagedList<THoaDonBan> lst = new PagedList<THoaDonBan>(list, pageNumber, pageSize);
+
+            // Lấy danh sách hóa đơn của khách hàng, không cần kiểm tra có dữ liệu hay không
+            var lst = db.THoaDonBans
+                         .AsNoTracking()
+                         .Where(x => x.MaKhachHang == maKH)
+                         .OrderByDescending(x => x.NgayHoaDon);
+
+            // Tạo PagedList từ IQueryable
+            PagedList<THoaDonBan> lstDh = new PagedList<THoaDonBan>(lst, pageNumber, pageSize);
+
+            // Truyền ViewBag thông báo nếu không có dữ liệu trong lstDh
+            if (!lstDh.Any())
+            {
+                ViewBag.ThongBao = "Không có dữ liệu hoá đơn cho khách hàng này!";
+            }
+
+            // Truyền khách hàng và danh sách hóa đơn vào View
             ViewBag.KhachHang = _kh;
-            return View(lst);
+            return View(lstDh);
         }
 
         //xóa khách hàng
