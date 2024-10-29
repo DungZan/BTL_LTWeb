@@ -41,7 +41,7 @@
         $.ajax({
             type: "POST",
             url: '@Url.Action("AlterReply", "Review")',
-            data: $(this).serialize() + "&pid=" + _pid,
+            data: $(this).serialize(),
             success: function (response) {
                 ajaxList();
                 if (response == true) alertResult(true, "Sửa câu trả lời thành công");
