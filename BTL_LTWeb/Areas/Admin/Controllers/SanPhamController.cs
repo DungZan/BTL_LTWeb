@@ -10,19 +10,43 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Route("Admin/SanPham")]
     public class SanPhamController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        private readonly QLBanDoThoiTrangContext db;
+        private readonly int pageSize = 3;
+
+        public SanPhamController()
+        {
+            db = new QLBanDoThoiTrangContext();
+        }
         public IActionResult Index()
         {
             return View();
         }
         [Route("danhmucsanpham")]
-        public IActionResult danhmucsanpham(int? Page)
+        public IActionResult danhmucsanpham()
         {
-            int pageSize = 10;
-            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            var list = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp);
-            PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
-            return View(lst);
+            var Sp = db.TDanhMucSps.AsQueryable();
+            int pageNum = (int)Math.Ceiling(Sp.Count() / (float)pageSize);
+            ViewBag.pageNum = pageNum;
+            ViewBag.keyword = "";
+            var result = Sp.Take(pageSize).ToList();
+            return View(result);
+        }
+        [HttpGet]
+        [Route("LocSanPham")]
+        public IActionResult LocSanPham(string? keyword, int? pageIndex)
+        {
+            var sp = db.TDanhMucSps.AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                sp = sp.Where(l => l.TenSp.ToLower().Contains(keyword.ToLower()));
+                ViewBag.keyword = keyword;
+            }
+            int page = (pageIndex ?? 1);
+            int pageNum = (int)Math.Ceiling(sp.Count() / (float)pageSize);
+            ViewBag.pageNum = pageNum;
+            var result = sp.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+            return PartialView("BangSanPham", result);
         }
 
         [Route("Themsanpham")]

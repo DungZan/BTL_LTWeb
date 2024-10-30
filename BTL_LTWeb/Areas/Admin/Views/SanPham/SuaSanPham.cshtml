@@ -46,11 +46,13 @@
             </div>
 
             <div class="form-group row mt-3">
+                <label asp-for="AnhDaiDien" class="control-label form-label">Ảnh đại diện</label>
+                <input asp-for="AnhDaiDien" class="form-control" readonly="readonly" />
                 <div class="col-md-12">
                     <label for="file">Chọn ảnh đại diện:</label>
                     <input type="file" name="file" class="form-control" />
-                    <span asp-validation-for="AnhDaiDien" class="text-danger"></span>
                 </div>
+                <span asp-validation-for="AnhDaiDien" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
                 <label asp-for="Gia" class="control-label form-label">Giá</label>

@@ -1,133 +1,78 @@
-﻿@using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<BTL_LTWeb.Models.TDanhMucSp>
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
+﻿@{
     ViewData["Title"] = "danhmucsanpham";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="row" >
-
-@{
-    var logMessage = TempData["Log"] as string;
-    if (!string.IsNullOrEmpty(logMessage))
-    {
-        <div class="alert alert-success">
-            @logMessage
-        </div>
-    }
-}
-
-<h1>Danh mục sản phẩm</h1>
-<p>
-    <a class="btn btn-info" asp-action="themsanpham">Create New</a>
-</p>
+@model IEnumerable<BTL_LTWeb.Models.TDanhMucSp>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="row">
+    <h1>Danh Sách Mục Sản Phẩm</h1>
     <form class="site-block-top-search d-flex">
-        <input type="text" class="form-control border-1" placeholder="Search" oninput="timSanPham(this.value)">
+        <div class="input-group">
+            <input id="keyword" class="form-control" name="keyword" type="text" placeholder="Tìm">
+            <button id="btnSearch" class="btn btn-primary" type="button">Tìm</button>
+        </div>
     </form>
     <p></p>
-<div class="alert alert-warning" id="content" >
-
-    <table class="table table-hover table-responsive">
-    <thead>
-        <tr class="table-warning">
-                <th class="text-nowrap">
-                Tên Sản Phẩm
-            </th>
-                <th class="text-nowrap">
-                Chất liệu
-            </th>
-                <th class="text-nowrap">
-                Loại
-            </th>
-                <th class="text-nowrap">
-                Hãng sản xuất
-            </th>
-                <th class="text-nowrap">
-                Thời gian bảo hành
-            </th>
-                <th class="text-nowrap">
-                Giới thiệu
-            </th>
-            <th class="text-nowrap">
-                Giá
-            </th>
-            <th class="text-nowrap">
-                    Chức năng
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="alert alert-primary">
-            <td>
-                @Html.DisplayFor(modelItem => item.TenSp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChatLieu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoaiDt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HangSx)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGianBaoHanh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GioiThieuSp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gia)
-            </td>
-                    <td class=" text-nowrap">
-                <a asp-action="suasanpham" asp-route-MaSP="@item.MaSp">Edit</a> |
-                    <a asp-action="Chitiet" asp-route-MaSP="@item.MaSp">Details</a> |
-                    <a asp-action="XoaSanPham" asp-route-MaSP="@item.MaSp">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-@Html.PagedListPager(Model, page => Url.Action("danhmucsanpham", new {page=page}), 
-new X.PagedList.Mvc.Core.PagedListRenderOptions(){
-    LiElementClasses = new List<String>{"page-item"},
-    PageClasses = new List<String> {"page-link"}
- })
- </div>
+    <div class="alert alert-warning">
+        <div id="content">
+            @await Html.PartialAsync("BangSanPham", Model)
+        </div>
+    </div>
+    <a asp-action="ThemSanPham" class="btn btn-primary">Thêm Sản Phẩm</a>
 </div>
 @section Scripts {
     <script>
-        function timSanPham(value) {
-            if (value.length > 0) {
+        $('body').on('click', 'li.page-item', function (e) {
+            e.preventDefault();
+            var page = $(this).data("page");
+            var keyword = $("#keyword").val();
+            $.ajax({
+                url: "/Admin/SanPham/LocSanPham",
+                data: { keyword: keyword, pageIndex: page },
+                success: function (response) {
+                    $("div#content").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+
+        $("button#btnSearch").click(function (e) {
+            var keyword = $("#keyword").val();
+            var data = { keyword: keyword };
+
+            $.ajax({
+                url: "/Admin/SanPham/LocSanPham",
+                data: data,
+                success: function (response) {
+                    $("div#content").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+
+        $('body').on('click', '.btn-delete', function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+
+            if (confirm("Bạn có chắc chắn muốn xóa cửa hàng này không?")) {
                 $.ajax({
-                    url: "TimSanPhamNew",
-                    data: { Tensanpham: value },
-                    success: function (response) {
-                        $("div#content").html(response);
-
+                    url: "/Admin/SanPham/Delete",
+                    type: "POST",
+                    data: { id: id },
+                    success: function () {
+                        alert("Đã xóa thành công!");
+                        location.reload();
                     },
-                    error: function (xhr, status, error) {
-                        console.log("Đã xảy ra lỗi: " + error);
+                    error: function () {
+                        alert("Có lỗi xảy ra khi xóa.");
                     }
-
                 });
             }
-            else {
-                $.ajax({
-                    url: "TimSanPhamNew1",
-                    data: { Tensanpham: value },
-                    success: function (response) {
-                        $("div#content").html(response);
-
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Đã xảy ra lỗi: " + error);
-                    }
-
-                });
-            }
-        }
+        });
     </script>
 }
+

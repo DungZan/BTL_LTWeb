@@ -31,6 +31,7 @@ public partial class TDanhMucSp
     public string? GioiThieuSp { get; set; }
 
     [DisplayName("Ảnh đại diện")]
+    [Required(ErrorMessage = "Ảnh đại diện không được để trống")]
     public string? AnhDaiDien { get; set; }
 
     [Range(0, double.MaxValue, ErrorMessage = "Giá sản phẩm phải là số không âm")]
