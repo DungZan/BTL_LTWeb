@@ -1,0 +1,61 @@
+﻿@model IEnumerable<BTL_LTWeb.Models.TDanhSachCuaHang>
+
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr class="table-warning">
+            <th>
+                SĐT Cửa Hàng
+            </th>
+            <th>
+                Địa Chỉ
+            </th>
+            <th>
+                Khu Vực
+            </th>
+            <th>
+                Kinh Độ
+            </th>
+            <th>
+                Vĩ Độ
+            </th>
+            <th>
+                Hành Động
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="alert alert-primary">
+                <td>
+                    @item.SDTCuaHang
+                </td>
+                <td>
+                    @item.DiaChi
+                </td>
+                <td>
+                    @item.KhuVuc
+                </td>
+                <td>
+                    @item.KinhDo
+                </td>
+                <td>
+                    @item.ViDo
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-MaNV="@item.SDTCuaHang">Edit</a> |
+                    <a asp-action="Details" asp-route-MaNV="@item.SDTCuaHang">Details</a> |
+                    <a asp-action="Delete" asp-route-MaNV="@item.SDTCuaHang" onclick="return confirm('Bạn có chắc chắn muốn xóa cửa hàng này không?');">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<ul class="pagination">
+    @for (int i = 1; i <= ViewBag.pageNum; i++)
+    {
+        <li class="page-item" data-page="@i" data-keyword="@ViewBag.keyword">
+            <a class="page-link" href="#">@i</a>
+        </li>
+    }
+</ul>

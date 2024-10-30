@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Danh Sách Cửa Hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model IEnumerable<BTL_LTWeb.Models.TDanhSachCuaHang>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="row">
+    <h1>Danh Sách Cửa Hàng</h1>
+    <form class="site-block-top-search d-flex">
+        <div class="input-group">
+            <input id="keyword" class="form-control" name="keyword" type="text" placeholder="Search">
+            <button id="btnSearch" class="btn btn-primary" type="button">Search</button>
+        </div>
+    </form>
+    <p></p>
+    <div class="alert alert-warning">
+        <div id="content">
+            @await Html.PartialAsync("ShopTable", Model)
+        </div>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">Create New Shop</a>
+</div>
+@section Scripts {
+    <script>
+        $('body').on('click', 'li.page-item', function (e) {
+            e.preventDefault();
+            var page = $(this).data("page");
+            var keyword = $("#keyword").val();
+            $.ajax({
+                url: "/Admin/HeThongCuaHang/ShopsFilter",
+                data: { keyword: keyword, pageIndex: page },
+                success: function (response) {
+                    $("div#content").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+
+        $("button#btnSearch").click(function (e) {
+            var keyword = $("#keyword").val();
+            var data = { keyword: keyword };
+
+            $.ajax({
+                url: "/Admin/HeThongCuaHang/ShopsFilter",
+                data: data,
+                success: function (response) {
+                    $("div#content").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+    </script>
+}
+
