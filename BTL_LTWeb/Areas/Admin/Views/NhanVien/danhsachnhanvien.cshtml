@@ -19,12 +19,6 @@
     <div class="alert alert-warning" id="staffList">
         @await Html.PartialAsync("_DanhSachNhanVienPartial", Model)
     </div>
-     @Html.PagedListPager(Model, page => Url.Action("danhsachnhanvien", new { page = page }),
-            new X.PagedList.Mvc.Core.PagedListRenderOptions()
-    {
-        LiElementClasses = new List<String> { "page-item" },
-        PageClasses = new List<String> { "page-link" }
-    }) 
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -94,7 +88,9 @@
         }
         $(document).on('click', '#staffList .pagination a', function (e) {
             e.preventDefault();
-            var page = $(this).attr('data-page');
+            // var page = $(this).attr('data-page');
+            var href = $(this).attr('href');
+            var page = href.split('page=')[1];
             loadNhanVienList(page);
         });
         $(document).on('click', '.edit-link', function (e) {
