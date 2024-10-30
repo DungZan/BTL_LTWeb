@@ -14,6 +14,7 @@ namespace BTL_LTWeb.Controllers
         internal static int _uid = 0;
         internal static string _utype = string.Empty;
         internal static int _pid = 0;
+        internal static bool _hasPurchased = false;
 
         internal static void UpdateValue(int uid, string utype, int pid)
         {
@@ -127,7 +128,9 @@ namespace BTL_LTWeb.Controllers
 
             var dsChiTiet = _db.TChiTietSanPhams.Where(it => it.MaSp == ReviewStaticData._pid).Select(it => it.MaChiTietSp).ToList();
             var dsHoaDon = _db.THoaDonBans.Where(it => it.MaKhachHang == ReviewStaticData._uid).Select(it => it.MaHoaDonBan).ToList();
-            ViewBag.hasPurchased = _db.TChiTietHoaDonBans.Any(it => dsHoaDon.Contains(it.MaHoaDonBan) && dsChiTiet.Contains(it.MaChiTietSP));
+            ReviewStaticData._hasPurchased = _db.TChiTietHoaDonBans.Any(it => dsHoaDon.Contains(it.MaHoaDonBan) && dsChiTiet.Contains(it.MaChiTietSP));
+
+            ViewBag.hasPurchased = ReviewStaticData._hasPurchased;
 
             return PartialView("rvMaker", userReview == null ? new TDanhGia() : userReview);
         }
@@ -172,7 +175,7 @@ namespace BTL_LTWeb.Controllers
         {
             switch (action)
             {
-                case "rvCreate": return ReviewStaticData._utype == "KhachHang";
+                case "rvCreate": return (ReviewStaticData._utype == "KhachHang" && ReviewStaticData._hasPurchased);
                 case "rvEdit":
                 case "rvDelete":
                     return onRV.MaKhachHang == ReviewStaticData._uid;

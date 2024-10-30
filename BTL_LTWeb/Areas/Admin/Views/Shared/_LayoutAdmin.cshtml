@@ -64,7 +64,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="NhanVien" asp-action ="Danhsachnhanvien" aria-expanded="false">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="NhanVien" asp-action ="danhsachnhanvien" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-cards"></i>
                                 </span>
@@ -80,13 +80,24 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-controller"GiamGia" aria-expanded="false">
+
+                            <a class="sidebar-link" asp-controller="HomeAdmin" asp-action="Magiamgia" aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-typography"></i>
+                                    <i class="ti ti-file-description"></i>
                                 </span>
-                                <span class="hide-menu">Mã Giảm Giá</span>
+                                <span class="hide-menu">Mã giảm giá</span>
                             </a>
                         </li>
+                        
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-controller="HeThongCuaHang" asp-action="Index" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-file-description"></i>
+                                </span>
+                                <span class="hide-menu">Hệ Thống Cửa Hàng</span>
+                            </a>
+                        </li>
+                        
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">AUTH</span>
