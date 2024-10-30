@@ -20,6 +20,8 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<THoaDonBan> lst = new PagedList<THoaDonBan>(list, pageNumber, pageSize);
             return View(lst);
         }
+
+        
         // chi tiet hoa don
         [Route("Chitiethoadon")]
         [HttpGet]

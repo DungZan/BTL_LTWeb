@@ -24,36 +24,90 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             PagedList<TKhachHang> lst = new PagedList<TKhachHang>(list, pageNumber, pageSize);
             return View(lst);
         }
-        //sửa khách hàng
-        [Route("SuaKhachHang")]
-        [HttpGet]
-        public IActionResult SuaKhachHang(int MaKH)
+
+        [Route("Danhsachhoadonkhachhang")]
+
+        public IActionResult ChiTietKhachHang(int maKH, int? page)
         {
-            var kh = db.TKhachHangs.Find(MaKH);
-            return View(kh);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("SuaKhachHang")]
-        public IActionResult SuaKhachHang(TKhachHang kh)
-        {
-            if (ModelState.IsValid)
+            //int pageSize = 10;
+            //int pageNumber = page ?? 1;
+            //var _kh = db.TKhachHangs.AsNoTracking().FirstOrDefault(x => x.MaKhachHang == maKH);
+            //if (_kh == null)
+            //{
+            //    return NotFound("Khách hàng không tồn tại!");
+            //}
+            //var list = db.THoaDonBans.AsNoTracking().Where(x => x.MaKhachHang == maKH).OrderByDescending(x => x.NgayHoaDon);
+            //PagedList<THoaDonBan> lst;
+            //if (!list.Any())
+            //{
+            //    lst = new PagedList<THoaDonBan>(new List<THoaDonBan>(), pageNumber, pageSize);
+            //    ViewBag.ThongBao = "Không có dữ liệu hoá đơn cho khách hàng này!";
+            //}
+            //else
+            //{
+            //    lst = new PagedList<THoaDonBan>(list, pageNumber, pageSize);
+            //}
+            //ViewBag.KhachHang = _kh;
+            //return View(lst);
+            int pageSize = 10;
+            int pageNumber = page ?? 1;
+
+            // Lấy khách hàng từ cơ sở dữ liệu
+            var _kh = db.TKhachHangs.AsNoTracking().FirstOrDefault(x => x.MaKhachHang == maKH);
+            if (_kh == null)
             {
-                db.Entry(kh).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("danhsachkhachhang", "KhachHang");
+                return NotFound("Khách hàng không tồn tại!");
             }
-            return View(kh);
+
+            // Lấy danh sách hóa đơn của khách hàng, không cần kiểm tra có dữ liệu hay không
+            var lst = db.THoaDonBans
+                         .AsNoTracking()
+                         .Where(x => x.MaKhachHang == maKH)
+                         .OrderByDescending(x => x.NgayHoaDon);
+
+            // Tạo PagedList từ IQueryable
+            PagedList<THoaDonBan> lstDh = new PagedList<THoaDonBan>(lst, pageNumber, pageSize);
+
+            // Truyền ViewBag thông báo nếu không có dữ liệu trong lstDh
+            if (!lstDh.Any())
+            {
+                ViewBag.ThongBao = "Không có dữ liệu hoá đơn cho khách hàng này!";
+            }
+
+            // Truyền khách hàng và danh sách hóa đơn vào View
+            ViewBag.KhachHang = _kh;
+            return View(lstDh);
         }
+
         //xóa khách hàng
         [Route("XoaKhachHang")]
         [HttpGet]
         public IActionResult XoaKhachHang(int MaKH)
         {
-            var kh = db.TKhachHangs.Find(MaKH);
-            db.Remove(kh);
-            db.SaveChanges();
-            return RedirectToAction("danhsachkhachhang");
+            var _kh = db.TKhachHangs.Find(MaKH);
+            if (_kh != null)
+            {
+                try
+                {
+                    var user = db.TUsers.FirstOrDefault(u => u.Email == _kh.Email);
+                    if (user != null)
+                    {
+                        db.TUsers.Remove(user);
+                    }
+                    db.TKhachHangs.Remove(_kh);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Lỗi khi xóa nhân viên và user: " + ex.Message);
+                    return RedirectToAction("Danhsachkhachhang");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("MaKhachHang", "Khách hàng không tồn tại.");
+            }
+            return RedirectToAction("Danhsachkhachhang");
         }
         //Chitietkhachhang
         [HttpGet]
