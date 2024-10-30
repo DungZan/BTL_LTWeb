@@ -1,0 +1,75 @@
+﻿@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<BTL_LTWeb.Models.TMaGiamGia>
+
+@{
+    ViewData["Title"] = "DanhsachMaGiamGia";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row">
+    <h1>Danh Sách Mã Giảm Giá</h1>
+    <p>
+        <a class="btn btn-info" asp-controller="GiamGia" asp-action="Themmagiamgia">Thêm nhân viên</a>
+    </p>
+    <!-- Search Form -->
+    <form asp-controller="MaGiamGia" asp-action="TimMaGiamGia" method="get" class="site-block-top-search d-flex">
+        <input type="text" name="Code" class="form-control border-1" placeholder="Search by code">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <p></p>
+
+    <div class="alert alert-warning">
+        <table class="table table-hover table-responsive">
+            <thead>
+                <tr class="table-warning">
+                    <th>Mã Giảm Giá</th>
+                    <th>Code</th>
+                    <th>Tỉ Lệ Giảm (%)</th>
+                    <th>Loại Giảm Giá</th>
+                    <th>Ngày Bắt Đầu</th>
+                    <th>Ngày Kết Thúc</th>
+                    <th>Trạng Thái</th>
+                    <th>Chức Năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                        <tr class="alert alert-primary">
+                            <td>@item.MaGiamGia</td>
+                            <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TiLeGiam)</td>
+                            <td>
+                            @(item.LoaiGiamGia == 1 ? "Tất cả sản phẩm" : "Sản phẩm chỉ định")
+                            </td>
+                            <td>
+                            @item.NgayBatDau?.ToString("dd/MM/yyyy")
+                            </td>
+                            <td>
+                            @item.NgayKetThuc?.ToString("dd/MM/yyyy")
+                            </td>
+                            <td>
+                            @(item.TrangThai == 1 ? "Hoạt động" : "Hết hạn")
+                            </td>
+                            <td>
+                                <a asp-action="ChiTietMaGiamGia" asp-route-id="@item.MaGiamGia">Chi tiết</a> |
+                                <a asp-action="XoaMaGiamGia" asp-route-id="@item.MaGiamGia">Xóa</a>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    @Html.PagedListPager(Model, page => Url.Action("DanhsachMaGiamGia", new { page = page }),
+                new X.PagedList.Mvc.Core.PagedListRenderOptions()
+        {
+            LiElementClasses = new List<String> { "page-item" },
+            PageClasses = new List<String> { "page-link" }
+        }
+            )
+</div>

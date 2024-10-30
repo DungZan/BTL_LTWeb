@@ -31,8 +31,6 @@ public partial class TDanhMucSp
     public virtual ICollection<TAnhSp> TAnhSps { get; set; } = new List<TAnhSp>();
 
     public virtual ICollection<TChiTietSanPham> TChiTietSanPhams { get; set; } = new List<TChiTietSanPham>();
+    public virtual ICollection<TMaGiamGiaSanPham> TMaGiamGiaSanPhams { get; set; } = new List<TMaGiamGiaSanPham>();
 
-    public virtual ICollection<TMaGiamGia_SanPham> TMaGiamGia_SanPhams { get; set; } = new List<TMaGiamGia_SanPham>();
-
-    public virtual ICollection<TMaGiamGia_LoaiSP> TMaGiamGia_LoaiSPs { get; set; } = new List<TMaGiamGia_LoaiSP>();
 }

@@ -30,8 +30,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TDanhGia> TDanhGias { get; set; }
     public virtual DbSet<TPhanHoi> TPhanHois { get; set; }
     public virtual DbSet<TMaGiamGia> TMaGiamGias { get; set; }
-    public virtual DbSet<TMaGiamGia_SanPham> TMaGiamGiaSanPham { get; set; }
-    public virtual DbSet<TMaGiamGia_LoaiSP> TMaGiamGia_LoaiSPs { get; set; }
+    public virtual DbSet<TMaGiamGiaSanPham> TMaGiamGiaSanPhams { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
 
@@ -341,20 +340,13 @@ public partial class QLBanDoThoiTrangContext : DbContext
             entity.ToTable("tPhanHoi");
         });
 
-        modelBuilder.Entity<TMaGiamGia_SanPham>(entity =>
+        modelBuilder.Entity<TMaGiamGiaSanPham>(entity =>
         {
             entity.HasKey(e => new { e.MaGiamGia, e.MaSp });
             entity.ToTable("tMaGiamGia_SanPham");
-            entity.HasOne(mg => mg.MaGiamGiaNavigation).WithMany(m => m.TMaGiamGia_SanPhams).HasForeignKey(mg => mg.MaGiamGia).OnDelete(DeleteBehavior.Cascade);
-            entity.HasOne(sp => sp.DanhMucSpNavigation).WithMany(s => s.TMaGiamGia_SanPhams).HasForeignKey(sp => sp.MaSp).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(mg => mg.MaGiamGiaNavigation).WithMany(m => m.TMaGiamGiaSanPhams).HasForeignKey(mg => mg.MaGiamGia).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(sp => sp.MaSpNavigation).WithMany(s => s.TMaGiamGiaSanPhams).HasForeignKey(sp => sp.MaSp).OnDelete(DeleteBehavior.Cascade);
         });
 
-        modelBuilder.Entity<TMaGiamGia_LoaiSP>(entity =>
-        {
-            entity.HasKey(e => new { e.MaGiamGia, e.LoaiDt });
-            entity.ToTable("tMaGiamGia_LoaiSP");
-            entity.HasOne(e => e.MaGiamGiaNavigation).WithMany(m => m.TMaGiamGia_LoaiSPs).HasForeignKey(e => e.MaGiamGia).OnDelete(DeleteBehavior.Cascade);
-            entity.HasOne(e => e.LoaiDtNavigation).WithMany(s => s.TMaGiamGia_LoaiSPs).HasForeignKey(e => e.LoaiDt).OnDelete(DeleteBehavior.Cascade);
-        });
     }
 }
