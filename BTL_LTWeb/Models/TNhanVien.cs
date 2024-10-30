@@ -10,19 +10,24 @@ public partial class TNhanVien
     public int MaNhanVien { get; set; }
 
     [Required(ErrorMessage = "Email không được để trống")]
-    [EmailAddress(ErrorMessage = "Không đúng định dạng")]
+    [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Email không hợp lệ")]
+    [Display(Name = "Email")]
     public string Email { get; set; } = null!;
 
-    [Display(Name = "Tên nhân viên")]
     [Required(ErrorMessage = "Tên nhân viên không được để trống")]
+    [MinLength(4,ErrorMessage = "Tên nhân viên phải có ít nhất 4 ký tự")]
+    [MaxLength(100, ErrorMessage = "Tên nhân viên không được vượt quá 100 ký tự")]
+    [Display(Name = "Tên nhân viên")]
     public string? TenNhanVien { get; set; }
 
+    [Range(typeof(DateTime), "1/1/1960", "12/31/2004")]
     [DataType(DataType.Date)]
+    [Required(ErrorMessage = "Ngày sinh không được để trống")]
     [Display(Name = "Ngày sinh")]
-    public DateOnly? NgaySinh { get; set; }
+    public DateTime? NgaySinh { get; set; }
 
-    [Display(Name = "Chức vụ")]
     [Required(ErrorMessage = "Chức vụ không được để trống")]
+    [Display(Name = "Chức vụ")]
     public string? ChucVu { get; set; }
 
     [Display(Name = "Ghi chú")]
@@ -30,4 +35,6 @@ public partial class TNhanVien
 
     [ValidateNever]
     public virtual TUser UsernameNavigation { get; set; } = null!;
+
+
 }
