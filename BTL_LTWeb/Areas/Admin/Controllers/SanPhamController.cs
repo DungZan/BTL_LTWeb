@@ -1,6 +1,7 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 
@@ -53,6 +54,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Themsanpham()
         {
+            ViewBag.TagId = new SelectList(db.Tags, "TagId", "TagName");
             return View();
         }
         [HttpPost]
@@ -92,6 +94,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult SuaSanPham(int MaSP)
         {
+            ViewBag.TagId1 = new SelectList(db.Tags.ToList(), "TagId", "TagName");
             var sp = db.TDanhMucSps.Find(MaSP);
             return View(sp);
         }
@@ -121,7 +124,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                     sp.AnhDaiDien = file.FileName;
                 }
 
-                db.TDanhMucSps.Update(sp);
+                db.Entry(sp).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("danhmucsanpham");
             }
@@ -144,16 +147,6 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             if (anhSp.Any())
             {
                 db.RemoveRange(anhSp);
-
-                //// Delete the image files from the project
-                //foreach (var anh in anhSp)
-                //{
-                //    string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", anh.TenFileAnh);
-                //    if (System.IO.File.Exists(imagePath))
-                //    {
-                //        System.IO.File.Delete(imagePath);
-                //    }
-                //}
             }
             var sp = db.TDanhMucSps.Find(MaSP);
             string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", sp.AnhDaiDien);
