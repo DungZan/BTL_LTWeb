@@ -2,6 +2,15 @@
 
 namespace BTL_LTWeb.ViewModels
 {
+    public class ReviewHistory
+    {
+        public DateTime DatePosted { get; set; }
+        public int StarRated { get; set; }
+        public string Message { get; set; }
+        public int LikeCount { get; set; }
+        public int HateCount { get; set; }
+    }
+
     public class ReviewContentViewModel
     {
         public int _reviewID { get; set; }
