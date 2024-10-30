@@ -2,6 +2,7 @@
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Data;
 using System.Security.Claims;
 using System.Text.Json;
@@ -224,20 +225,27 @@ namespace BTL_LTWeb.Controllers
                 if (userReview.MaNhanVien != null) return false;
                 if (inpReview.Diem < 1 || inpReview.Diem > 5) return false;
 
-                bool isGoodForHistory = DateTime.Now.Subtract(userReview.NgayTao).TotalHours > 12;
+                //Bình luận sửa cách nhau 12 tiếng -> lưu vào LichSu
+                if (DateTime.Now.Subtract(userReview.NgayTao).TotalHours > 12 && !string.IsNullOrWhiteSpace(userReview.BinhLuan))
+                {
+                    List<ReviewHistory> rvHistories = new List<ReviewHistory>();
+                    if (!string.IsNullOrWhiteSpace(userReview.LichSu)) rvHistories = JsonSerializer.Deserialize<List<ReviewHistory>>(userReview.LichSu)!;
+                    ReviewHistory recentHistory = new();
+                        recentHistory.DatePosted = userReview.NgayTao;
+                        recentHistory.StarRated = userReview.Diem;
+                        recentHistory.Message = userReview.BinhLuan;
+                        var reactList = _db.TPhanHois.Where(it => it.MaDanhGia == userReview.MaDanhGia);
+                        recentHistory.LikeCount = reactList.Where(it => it.Thich > 0).Count();
+                        recentHistory.HateCount = reactList.Where(it => it.Thich < 0).Count();
+                    rvHistories.Add(recentHistory);
+                    userReview.LichSu = JsonSerializer.Serialize(rvHistories);
+                }
 
                 userReview.NgayTao = DateTime.Now;
                 userReview.Diem = inpReview.Diem;
                 userReview.BinhLuan = inpReview.BinhLuan;
 
-                if (EditReview(userReview))
-                {
-                    if (isGoodForHistory)
-                    {
-                        
-                    }
-                }
-                else return false;
+                return EditReview(userReview);
             }
             return true;
         }
