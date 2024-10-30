@@ -354,7 +354,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
         modelBuilder.Entity<TMaGiamGiaSanPham>(entity =>
         {
             entity.HasKey(e => new { e.MaGiamGia, e.MaSp });
-            entity.ToTable("tMaGiamGia_SanPham");
+            entity.ToTable("tMaGiamGiaSanPham");
             entity.HasOne(mg => mg.MaGiamGiaNavigation).WithMany(m => m.TMaGiamGiaSanPhams).HasForeignKey(mg => mg.MaGiamGia).OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(sp => sp.MaSpNavigation).WithMany(s => s.TMaGiamGiaSanPhams).HasForeignKey(sp => sp.MaSp).OnDelete(DeleteBehavior.Cascade);
         });
