@@ -37,6 +37,29 @@
                             @s<br>
                         }
                     </div>
+                    @if (it.OldReviews.Count() > 0)
+                    {
+                        <div class="reviewhistory">
+                            <label class="historyexpand" id=""><i class='bx bxs-chevron-down'></i> Lịch sử chỉnh sửa</label>
+                            <div class="historyentries" style="">
+                                @foreach(var hs in it.OldReviews)
+                                {
+                                    <div class="historyentry">
+                                        <div class="historyentryheader">
+                                            <p>@hs.DatePosted</p>
+                                            <p>@hs.StarRated★ <i class='bx bx-check'></i>@hs.LikeCount <i class='bx bx-x'></i>@hs.HateCount</p>
+                                        </div>
+                                        <p class="historytext">
+                                            @foreach(var s in hs.Message.Split("\n"))
+                                            {
+                                                @s<br>
+                                            }
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="reviewfooter">
                     <div class="timeandrate">

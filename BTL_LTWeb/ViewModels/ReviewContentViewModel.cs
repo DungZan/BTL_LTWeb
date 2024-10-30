@@ -24,5 +24,6 @@ namespace BTL_LTWeb.ViewModels
         public string? EpName { get; set; }
         public string? RpMessage { get; set; }
         public List<TPhanHoi> VotesCasted { get; set; } = new List<TPhanHoi>();
+        public List<ReviewHistory> OldReviews { get; set; } = new List<ReviewHistory>();
     }
 }

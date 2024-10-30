@@ -110,6 +110,8 @@ namespace BTL_LTWeb.Controllers
             {
                 List<TPhanHoi> qry = _reacts.Where(t => it._reviewID == t.MaDanhGia).ToList();
                 it.VotesCasted = qry;
+                string? hsString = _reviews.FirstOrDefault(t => t.MaDanhGia == it._reviewID)?.LichSu;
+                if (!string.IsNullOrWhiteSpace(hsString)) it.OldReviews = JsonSerializer.Deserialize<List<ReviewHistory>>(hsString)!;
             }
             return query.Where(it => !string.IsNullOrEmpty(it.RvMessage) && it._productID == _pid).ToList();
         }
