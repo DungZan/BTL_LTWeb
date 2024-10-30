@@ -1,4 +1,5 @@
-﻿using BTL_LTWeb.Models;
+﻿using BTL_LTWeb.ViewModels;
+using BTL_LTWeb.Models;
 using BTL_LTWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -64,17 +65,12 @@ namespace BTL_LTWeb.Controllers
 
         public IActionResult Checkout()
         {
-            // Lấy dữ liệu từ giỏ hàng (ví dụ, từ session hoặc cơ sở dữ liệu)
-            var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).ToList();
-
-            // Kiểm tra nếu giỏ hàng rỗng
+            var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).ToList();   
             if (gioHang == null || !gioHang.Any())
-            {
-                // Có thể thêm logic xử lý khi giỏ hàng rỗng, ví dụ trả về trang thông báo
+            {               
                 return View("EmptyCart");
             }
-
-            return View(gioHang); // Truyền dữ liệu giỏ hàng vào Model
+            return View(gioHang); 
         }
 
         [HttpPost]

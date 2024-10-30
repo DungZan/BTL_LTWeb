@@ -1,61 +1,80 @@
-﻿@model BTL_LTWeb.Models.TKhachHang
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<BTL_LTWeb.Models.THoaDonBan>
 @{
-    ViewData["Title"] = "Chi Tiết Khách Hàng";
+    ViewData["Title"] = "Danhsachhoadonkhachhang";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<h1>Chi Tiết</h1>
-
-<div>
-    <h4>Khách Hàng</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaKhachHang)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaKhachHang)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TenKhachHang)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TenKhachHang)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SoDienThoai)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SoDienThoai)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="SuaKhachHang" asp-route-MaKH="@Model?.MaKhachHang">Edit</a> |
-    <a asp-action="DanhSachKhachHang">Back to List</a>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="row">
+    
+    <form asp-controller="KhachHang" asp-action="" method="get" class="site-block-top-search d-flex">
+        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <p></p>
+<div class="alert alert-warning">
+        @if (ViewBag.ThongBao != null)
+        {
+            <p>@ViewBag.ThongBao</p>
+        }
+        else
+        {
+            <table class="table table-hover table-responsive">
+                <thead>
+                    <tr class="table-warning">
+                        <th>
+                            Mã hoá đơn
+                        </th>
+                        <th>
+                            Ngày tạo
+                        </th>
+                        <th>
+                            Phương thức thanh toán
+                        </th>
+                        <th>
+                            Ghi chú
+                        </th>
+                        <th>
+                            Tổng tiền
+                        </th>
+                        <th>
+                            Chức năng
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="alert alert-primary">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaHoaDonBan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NgayHoaDon)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GhiChu)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TongTienHd)
+                            </td>
+                            <td>
+                                <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
+                                <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    @Html.PagedListPager(Model, page => Url.Action("Danhsachkhachhang", new { page = page }),
+            new X.PagedList.Mvc.Core.PagedListRenderOptions()
+    {
+        LiElementClasses = new List<String> { "page-item" },
+        PageClasses = new List<String> { "page-link" }
+    })
 </div>
