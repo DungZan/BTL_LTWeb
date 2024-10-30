@@ -1,9 +1,10 @@
 ﻿$(document).ready(function () {
     $(document).on('click', '.js-btn-plus', function () {
-        let input = $(this).closest('tr').find('input:eq(2)');
+        let input = $(this).closest('tr').find('input:eq(1)');
+        let value = parseInt(input.val());
         var row = input.closest('tr')
         updateTotal(row);
-        updateItemQuantity(parseInt(row.find('input:eq(1)').val()), parseInt(input.val()));
+        updateItemQuantity(parseInt(row.find('input:eq(0)').val()), value);
     });
 
     $(document).on('click', '.js-btn-minus', function () {
@@ -12,7 +13,7 @@
         var row = input.closest('tr')
         if (value > 0) {
             updateTotal(row);
-            updateItemQuantity(parseInt(row.find('input:eq(1)').val()), parseInt(input.val()));
+            updateItemQuantity(parseInt(row.find('input:eq(0)').val()), value);
         } else {
             input.val(value + 1);
         }
