@@ -54,25 +54,25 @@
             });
         });
 
-                 $('body').on('click', '.btn-delete', function (e) {
-                    e.preventDefault();
-                    var id = $(this).data("id");
+        $('body').on('click', '.btn-delete', function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
 
-                    if (confirm("Bạn có chắc chắn muốn xóa cửa hàng này không?")) {
-                        $.ajax({
-                            url: "/Admin/HeThongCuaHang/Delete",
-                            type: "POST",
-                            data: { id: id },
-                            success: function () {
-                                alert("Đã xóa thành công!");
-                                location.reload(); 
-                            },
-                            error: function () {
-                                alert("Có lỗi xảy ra khi xóa.");
-                            }
-                        });
+            if (confirm("Bạn có chắc chắn muốn xóa cửa hàng này không?")) {
+                $.ajax({
+                    url: "/Admin/HeThongCuaHang/Delete",
+                    type: "POST",
+                    data: { id: id },
+                    success: function () {
+                        alert("Đã xóa thành công!");
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi xóa.");
                     }
                 });
+            }
+        });
     </script>
 }
 
