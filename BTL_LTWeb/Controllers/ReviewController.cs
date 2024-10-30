@@ -224,11 +224,20 @@ namespace BTL_LTWeb.Controllers
                 if (userReview.MaNhanVien != null) return false;
                 if (inpReview.Diem < 1 || inpReview.Diem > 5) return false;
 
+                bool isGoodForHistory = DateTime.Now.Subtract(userReview.NgayTao).TotalHours > 12;
+
                 userReview.NgayTao = DateTime.Now;
                 userReview.Diem = inpReview.Diem;
                 userReview.BinhLuan = inpReview.BinhLuan;
 
-                EditReview(userReview);
+                if (EditReview(userReview))
+                {
+                    if (isGoodForHistory)
+                    {
+                        
+                    }
+                }
+                else return false;
             }
             return true;
         }
