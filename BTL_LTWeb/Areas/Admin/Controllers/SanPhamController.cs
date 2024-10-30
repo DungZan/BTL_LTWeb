@@ -12,7 +12,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     public class SanPhamController : Controller
     {
         private readonly QLBanDoThoiTrangContext db;
-        private readonly int pageSize = 3;
+        private readonly int pageSize = 7;
 
         public SanPhamController()
         {
