@@ -28,6 +28,9 @@ public partial class TDanhMucSp
     [Range(0, double.MaxValue, ErrorMessage = "Giá sản phẩm phải là số không âm")]
     public decimal? Gia { get; set; }
 
+    public int TagId { get; set; }
+
+    public virtual TTag Tag { get; set; } = new TTag();
     public virtual ICollection<TAnhSp> TAnhSps { get; set; } = new List<TAnhSp>();
 
     public virtual ICollection<TChiTietSanPham> TChiTietSanPhams { get; set; } = new List<TChiTietSanPham>();
