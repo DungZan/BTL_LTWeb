@@ -57,5 +57,49 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             db.SaveChanges(); 
             return Ok();
         }
+
+        [Route("Create")]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [Route("Create")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(TDanhSachCuaHang shop)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TDanhSachCuaHangs.Add(shop);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(shop);
+        }
+        [Route("Edit/{SDTCuaHang}")]
+        [HttpGet]
+        public IActionResult Edit(string SDTCuaHang)
+        {
+            var shop = db.TDanhSachCuaHangs.FirstOrDefault(s => s.SDTCuaHang == SDTCuaHang);
+            if (shop == null)
+            {
+                return NotFound();
+            }
+            return View(shop);
+        }
+        [HttpPost]
+        [Route("Edit/{SDTCuaHang}")]
+        public IActionResult Edit(TDanhSachCuaHang shop)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TDanhSachCuaHangs.Update(shop);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(shop);
+        }
     }
 }
