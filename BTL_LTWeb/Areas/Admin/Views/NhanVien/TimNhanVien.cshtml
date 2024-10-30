@@ -59,7 +59,7 @@
             </tbody>
         </table>
     </div>
-    @Html.PagedListPager(Model, page => Url.Action("TimNhanVien", new { page = page }),
+    @Html.PagedListPager(Model, page => Url.Action("danhsachnhanvien", new { page = page }),
             new X.PagedList.Mvc.Core.PagedListRenderOptions()
     {
         LiElementClasses = new List<String> { "page-item" },
