@@ -24,7 +24,7 @@
         $.ajax({
             type: "POST",
             url: '@Url.Action("DeleteReviewConfirm", "Review")',
-            data: $(this).serialize(),
+            data: $(this).serialize() + "&pid=" + '@ViewBag.pid',
             success: function (response) {
                 ajaxList();
                 ajaxStats();

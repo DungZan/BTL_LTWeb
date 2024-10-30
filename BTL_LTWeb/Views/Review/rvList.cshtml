@@ -160,7 +160,7 @@
     //review manipulation (customers)
     $("a.delete.rv").click( function (e) {
         var rid = $(this).attr("id");
-        var data = { rid: rid };
+        var data = { pid: '@ViewBag.pid', rid: rid };
 
         $.ajax({
             url: '@Url.Action("DeleteReviewAsk", "Review")',
@@ -177,7 +177,7 @@
     //reply craft n manipulation (employees)
     $("a.reply").click(function (e) {
         var rid = $(this).attr("id");
-        var data = { rid: rid };
+        var data = { pid: '@ViewBag.pid', rid: rid };
         $.ajax({
             url: '@Url.Action("OpenReplySection", "Review")',
             data: data,
@@ -192,7 +192,7 @@
         if (confirm("Xác nhận xoá câu trả lời cho bình luận " + rid + "?")) {
             $.ajax({
                 url: '@Url.Action("DeleteReply", "Review")',
-                data: { rid: rid },
+                data: { pid: '@ViewBag.pid', rid: rid },
                 success: function() {
                     ajaxList();
                     if (response == true) alertResult(true, "Xoá thành công");
@@ -205,7 +205,7 @@
         var rid = $(this).attr("id");
         $.ajax({
             url: '@Url.Action("OpenReplySection", "Review")',
-            data: { rid: rid },
+            data: { pid: '@ViewBag.pid', rid: rid },
             success: function (response) {
                 $("div.makingreply[id='" + rid + "']").html(response);
                 $("#reply_" + rid).hide();
@@ -237,7 +237,7 @@
         var rid = $(this).attr("id");
         $.ajax({
             url: '@Url.Action("CastVote", "Review")',
-            data: { rid: rid, type: 'L' },
+            data: { pid: '@ViewBag.pid', rid: rid, type: 'L' },
             success: function (response) {
                 ajaxList();
                 if (response == true) alertResult(true, "Bình chọn thành công");
@@ -249,7 +249,7 @@
         var rid = $(this).attr("id");
         $.ajax({
             url: '@Url.Action("CastVote", "Review")',
-            data: { rid: rid, type: 'D' },
+            data: { pid: '@ViewBag.pid', rid: rid, type: 'D' },
             success: function (response) {
                 ajaxList();
                 if (response == true) alertResult(true, "Bình chọn thành công");
@@ -261,7 +261,7 @@
         var rid = $(this).attr("id");
         $.ajax({
             url: '@Url.Action("CastVote", "Review")',
-            data: { rid: rid, type: 'H' },
+            data: { pid: '@ViewBag.pid', rid: rid, type: 'H' },
             success: function (response) {
                 ajaxList();
                 if (response == true) alertResult(true, "Bình chọn thành công");
