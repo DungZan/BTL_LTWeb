@@ -44,6 +44,18 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             var result = shops.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
             return PartialView("ShopTable", result);
         }
-
+        [Route("Delete")]
+        [HttpPost]
+        public IActionResult Delete(string id)
+        {
+            var shop = db.TDanhSachCuaHangs.FirstOrDefault(s => s.SDTCuaHang == id);
+            if (shop == null)
+            {
+                return NotFound(); 
+            }
+            db.TDanhSachCuaHangs.Remove(shop);
+            db.SaveChanges(); 
+            return Ok();
+        }
     }
 }

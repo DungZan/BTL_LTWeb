@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<BTL_LTWeb.Models.TDanhSachCuaHang>
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <table class="table table-hover table-responsive">
     <thead>
         <tr class="table-warning">
@@ -44,8 +44,7 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-MaNV="@item.SDTCuaHang">Edit</a> |
-                    <a asp-action="Details" asp-route-MaNV="@item.SDTCuaHang">Details</a> |
-                    <a asp-action="Delete" asp-route-MaNV="@item.SDTCuaHang" onclick="return confirm('Bạn có chắc chắn muốn xóa cửa hàng này không?');">Delete</a>
+                    <a href="javascript:void(0);" class="btn-delete" data-id="@item.SDTCuaHang">Delete</a>
                 </td>
             </tr>
         }
