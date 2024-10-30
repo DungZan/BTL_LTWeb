@@ -14,6 +14,7 @@ namespace BTL_LTWeb.Models
         public string KhuVuc { get; set; }   
         public float KinhDo { get; set; }
         public float ViDo { get; set; }
+
     }
 }
 
