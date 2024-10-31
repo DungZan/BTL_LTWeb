@@ -53,26 +53,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 
         public IActionResult ChiTietKhachHang(int maKH, int? page)
         {
-            //int pageSize = 10;
-            //int pageNumber = page ?? 1;
-            //var _kh = db.TKhachHangs.AsNoTracking().FirstOrDefault(x => x.MaKhachHang == maKH);
-            //if (_kh == null)
-            //{
-            //    return NotFound("Khách hàng không tồn tại!");
-            //}
-            //var list = db.THoaDonBans.AsNoTracking().Where(x => x.MaKhachHang == maKH).OrderByDescending(x => x.NgayHoaDon);
-            //PagedList<THoaDonBan> lst;
-            //if (!list.Any())
-            //{
-            //    lst = new PagedList<THoaDonBan>(new List<THoaDonBan>(), pageNumber, pageSize);
-            //    ViewBag.ThongBao = "Không có dữ liệu hoá đơn cho khách hàng này!";
-            //}
-            //else
-            //{
-            //    lst = new PagedList<THoaDonBan>(list, pageNumber, pageSize);
-            //}
-            //ViewBag.KhachHang = _kh;
-            //return View(lst);
+            
             int pageSize = 10;
             int pageNumber = page ?? 1;
 

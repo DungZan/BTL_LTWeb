@@ -5,19 +5,21 @@
 @model IEnumerable<BTL_LTWeb.Models.TKhachHang>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="row">
-<div class="row">
-<h1>Danh Sách Khách Hàng</h1>
-        <form class="site-block-top-search d-flex">
-            <div class="input-group">
-                <input id="keyword" class="form-control" name="keyword" type="text" placeholder="Search">
-                <button id="btnSearch" class="btn btn-primary" type="button">Search</button>
-            </div>
-        </form>
+    <h1>Danh Sách Mã Giảm Giá</h1>
+    <form class="site-block-top-search d-flex">
+        <div class="input-group">
+            <input id="keyword" class="form-control" name="keyword" type="text" placeholder="Search">
+            <button id="btnSearch" class="btn btn-primary" type="button">Search</button>
+        </div>
+    </form>
+
     <p></p>
-<div class="alert alert-warning">
+    <div id="notification" style="display:none; padding: 10px; margin-bottom: 20px;" class="alert alert-warning"></div>
+    <div class="alert alert-warning">
         <div id="content">
             @await Html.PartialAsync("KhachHangTable", Model)
         </div>
+    </div>
 </div>
     @section Scripts {
         <script>
@@ -125,6 +127,6 @@
                         }
                     });
                 });
-
+            });
         </script>
     }

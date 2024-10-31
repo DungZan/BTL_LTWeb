@@ -1,5 +1,4 @@
-﻿@using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<BTL_LTWeb.Models.THoaDonBan>
+﻿@model IEnumerable<BTL_LTWeb.Models.THoaDonBan>
 @{
     ViewData["Title"] = "Danhsachhoadonkhachhang";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -37,9 +36,6 @@
                         <th>
                             Tổng tiền
                         </th>
-                        <th>
-                            Chức năng
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,20 +57,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.TongTienHd)
                             </td>
-                            <td>
-                                <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
-                                <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
-                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
         }
     </div>
-    @Html.PagedListPager(Model, page => Url.Action("Danhsachkhachhang", new { page = page }),
-            new X.PagedList.Mvc.Core.PagedListRenderOptions()
-    {
-        LiElementClasses = new List<String> { "page-item" },
-        PageClasses = new List<String> { "page-link" }
-    })
 </div>
