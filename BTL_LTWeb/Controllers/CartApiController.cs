@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/gio-hang")]
     [ApiController]
     public class CartApiController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace BTL_LTWeb.Controllers
         }
 
 
-        [HttpDelete("remove")]
+        [HttpDelete("xoa")]
         public async Task<IActionResult> RemoveItemFromCart([FromBody] int cartId)
         {
             var cart = await _context.TGioHangs.FirstOrDefaultAsync(x => x.MaGioHang == cartId);
@@ -29,7 +29,7 @@ namespace BTL_LTWeb.Controllers
             return Ok();
         }
 
-        [HttpPatch("update")]
+        [HttpPatch("cap-nhat")]
         public async Task<IActionResult> UpdateQuantityItem([FromBody] CartItemUpdateViewModel item)
         {
             var cart = await _context.TGioHangs.FirstOrDefaultAsync(x => x.MaGioHang == item.Id);

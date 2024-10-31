@@ -164,7 +164,7 @@
             $('a#logout').on('click', function (event) {
                 event.preventDefault();
                 $.ajax({
-                    url: '/api/AccountApi/logout',
+                    url: '/api/acc/logout',
                     type: 'POST',
                     success: function (response) {
                         location.reload();
