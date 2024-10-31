@@ -74,6 +74,23 @@
     <script src="~/ResourceTemplale/js/jquery.magnific-popup.min.js"></script>
     <script src="~/ResourceTemplale/js/aos.js"></script>
     <script src="~/js/ProfileCustomer/ProfileCustomer.js"></script>"
+    <script>
+        $(document).ready(function () {
+            $('a#logout').on('click', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/api/acc/logout',
+                    type: 'POST',
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+        });
+    </script>
     @await Html.PartialAsync("_FooterPartial")
 </body>
 
