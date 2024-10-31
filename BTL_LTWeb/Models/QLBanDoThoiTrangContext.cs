@@ -12,7 +12,7 @@ public partial class QLBanDoThoiTrangContext : DbContext
         : base(options)
     {
     }
-
+    public virtual DbSet<TTag> Tags { get; set; }
     public virtual DbSet<TAnhChiTietSp> TAnhChiTietSps { get; set; }
     public virtual DbSet<TAnhSp> TAnhSps { get; set; }
     public virtual DbSet<TChiTietSanPham> TChiTietSanPhams { get; set; }
@@ -95,6 +95,17 @@ public partial class QLBanDoThoiTrangContext : DbContext
                 .HasForeignKey(d => d.MaSp)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ChiTietSP_DanhMucSP");
+        });
+
+        modelBuilder.Entity<TTag>(entity =>
+        {
+            entity.HasKey(e => e.TagId).HasName("PK__tTag__657CFD1C3A3D3A3D");
+
+            entity.ToTable("TTag");
+
+            entity.Property(e => e.TagId).HasColumnName("TagID");
+            entity.Property(e => e.TagName).HasMaxLength(50);
+            entity.Property(e => e.TagImage).HasColumnName("TagImage");
         });
 
         modelBuilder.Entity<TDanhMucSp>(entity =>

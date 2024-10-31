@@ -2,6 +2,15 @@
 
 namespace BTL_LTWeb.ViewModels
 {
+    public class ReviewHistory
+    {
+        public DateTime DatePosted { get; set; }
+        public int StarRated { get; set; }
+        public string Message { get; set; }
+        public int LikeCount { get; set; }
+        public int HateCount { get; set; }
+    }
+
     public class ReviewContentViewModel
     {
         public int _reviewID { get; set; }
@@ -15,5 +24,6 @@ namespace BTL_LTWeb.ViewModels
         public string? EpName { get; set; }
         public string? RpMessage { get; set; }
         public List<TPhanHoi> VotesCasted { get; set; } = new List<TPhanHoi>();
+        public List<ReviewHistory> OldReviews { get; set; } = new List<ReviewHistory>();
     }
 }

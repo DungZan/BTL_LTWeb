@@ -19,7 +19,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("danhsachnhanvien")]
         public IActionResult danhsachnhanvien(int? Page)
         {
-            int pageSize = 10;
+            int pageSize = 6;
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
             var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.MaNhanVien);
             PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
@@ -155,7 +155,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         public IActionResult TimNhanVien(string TenNhanVien, int? Page)
         {
             
-            int pageSize = 10;
+            int pageSize = 6;
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
 
             var list = db.TNhanViens.AsNoTracking().Where(x => string.IsNullOrEmpty(TenNhanVien) || x.TenNhanVien.Contains(TenNhanVien)).OrderBy(x => x.MaNhanVien);

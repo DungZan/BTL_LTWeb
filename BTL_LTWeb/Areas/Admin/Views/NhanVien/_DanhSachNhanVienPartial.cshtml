@@ -3,7 +3,7 @@
 @{
     var tenNhanVien = ViewContext.HttpContext.Request.Query["TenNhanVien"];
 }
-<table class="table table-hover table-responsive d-block">
+<table class="table table-hover table-responsive ">
     <thead>
         <tr class="table-warning">
             <th>
@@ -52,8 +52,6 @@
                     @Html.DisplayFor(modelItem => item.GhiChu)
                 </td>
                 <td>
-                    @* <a asp-action="Suanhanvien" asp-route-MaNV="@item.MaNhanVien" >Chỉnh sửa</a> |
-                    <a asp-action="XoaNhanVien" asp-route-MaNV="@item.MaNhanVien" >Xoá</a> *@
                     <a href="@Url.Action("Suanhanvien", new { id = item.MaNhanVien })" class="edit-link" data-id="@item.MaNhanVien">Chỉnh sửa</a> |
                     <a href="@Url.Action("XoaNhanVien", new { id = item.MaNhanVien })" class="delete-link" data-id="@item.MaNhanVien">Xoá</a>
                 </td>
@@ -62,5 +60,9 @@
     </tbody>
 </table>
 
-@Html.PagedListPager(Model, page => Url.Action("TimNhanVien", new { page, TenNhanVien = ViewBag.TenNhanVien }),
-                new PagedListRenderOptions {Display = PagedListDisplayMode.IfNeeded})
+@Html.PagedListPager(Model, page => Url.Action("danhsachnhanvien", new { page = page }),
+        new X.PagedList.Mvc.Core.PagedListRenderOptions()
+    {
+        LiElementClasses = new List<String> { "page-item" },
+        PageClasses = new List<String> { "page-link" }
+    })
