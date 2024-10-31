@@ -15,7 +15,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     public class TTagsController : Controller
     {
         private readonly QLBanDoThoiTrangContext _context;
-        private readonly int pageSize = 3;
+        private readonly int pageSize = 7;
         public TTagsController()
         {
             _context = new QLBanDoThoiTrangContext();
