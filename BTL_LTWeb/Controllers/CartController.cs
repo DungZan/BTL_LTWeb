@@ -34,10 +34,12 @@ namespace BTL_LTWeb.Controllers
 
         [Route("items")]
         [HttpGet]
-        public async Task<IActionResult> GetCartItems(int makhachhang)
+        public async Task<IActionResult> GetCartItems()
         {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(e => e.Email == email);
             var cartItems = await _context.TGioHangs
-                                           .Where(x => x.MaKhachHang == makhachhang)
+                                           .Where(x => x.MaKhachHang == khachHang.MaKhachHang)
                                            .Include(x => x.ChiTietSanPham)
                                            .ThenInclude(x => x.DanhMucSp)
                                            .ToListAsync();
