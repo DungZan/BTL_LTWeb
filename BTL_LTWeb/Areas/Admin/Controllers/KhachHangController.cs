@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace BTL_LTWeb.Areas.Admin.Controllers
 {
@@ -10,19 +11,21 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     public class KhachHangController : Controller
     {
         QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        private int pageSize = 6;
         public IActionResult Index()
         {
             return View();
         }
         // khách hàng
         [Route("danhsachkhachhang")]
-        public IActionResult danhsachkhachhang(int? Page)
+        public IActionResult danhsachkhachhang()
         {
-            int pageSize = 10;
-            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            var list = db.TKhachHangs.AsNoTracking().OrderBy(x => x.TenKhachHang);
-            PagedList<TKhachHang> lst = new PagedList<TKhachHang>(list, pageNumber, pageSize);
-            return View(lst);
+            var kh = db.TKhachHangs.AsNoTracking().ToList();
+            int pageNum = (int)Math.Ceiling(kh.Count() / (float)pageSize);
+            ViewBag.pageNum = pageNum;
+            ViewBag.keyword = "";
+            var result = kh.Take(pageSize).ToList();
+            return View(result);
         }
 
         [Route("Danhsachhoadonkhachhang")]
@@ -79,59 +82,6 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return View(lstDh);
         }
 
-        //xóa khách hàng
-        [Route("XoaKhachHang")]
-        [HttpGet]
-        public IActionResult XoaKhachHang(int MaKH)
-        {
-            var _kh = db.TKhachHangs.Find(MaKH);
-            if (_kh != null)
-            {
-                try
-                {
-                    var user = db.TUsers.FirstOrDefault(u => u.Email == _kh.Email);
-                    if (user != null)
-                    {
-                        db.TUsers.Remove(user);
-                    }
-                    db.TKhachHangs.Remove(_kh);
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Lỗi khi xóa nhân viên và user: " + ex.Message);
-                    return RedirectToAction("Danhsachkhachhang");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("MaKhachHang", "Khách hàng không tồn tại.");
-            }
-            return RedirectToAction("Danhsachkhachhang");
-        }
-        //Chitietkhachhang
-        [HttpGet]
-        [Route("Chitietkhachhang")]
-        public IActionResult ChiTietKhachHang(int MaKH)
-        {
-            var kh = db.TKhachHangs.Find(MaKH);
-            return View(kh);
-        }
-        [HttpPost]
-        [Route("Chitietkhachhang")]
-        public IActionResult ChiTietKhachHang(TKhachHang kh)
-        {
-            return View(kh);
-        }
-        //tìm khách hàng
-        [Route("Timsanpham")]
-        public IActionResult TimKhachHang(string Tenkhachhang, int? Page)
-        {
-            int pageSize = 9;
-            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            var list = db.TKhachHangs.AsNoTracking().Where(x => x.TenKhachHang.Contains(Tenkhachhang)).OrderBy(x => x.TenKhachHang);
-            PagedList<TKhachHang> lst = new PagedList<TKhachHang>(list, pageNumber, pageSize);
-            return View(lst);
-        }
+        
     }
 }
