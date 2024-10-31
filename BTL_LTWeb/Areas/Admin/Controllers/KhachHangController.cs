@@ -1,6 +1,7 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using X.PagedList;
 using static System.Formats.Asn1.AsnWriter;
 
@@ -53,35 +54,36 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 
         public IActionResult ChiTietKhachHang(int maKH, int? page)
         {
-            
-            int pageSize = 10;
+             pageSize = 2;
             int pageNumber = page ?? 1;
-
-            // Lấy khách hàng từ cơ sở dữ liệu
             var _kh = db.TKhachHangs.AsNoTracking().FirstOrDefault(x => x.MaKhachHang == maKH);
             if (_kh == null)
             {
                 return NotFound("Khách hàng không tồn tại!");
             }
-
-            // Lấy danh sách hóa đơn của khách hàng, không cần kiểm tra có dữ liệu hay không
             var lst = db.THoaDonBans
                          .AsNoTracking()
                          .Where(x => x.MaKhachHang == maKH)
-                         .OrderByDescending(x => x.NgayHoaDon);
+                         .OrderByDescending(x => x.MaHoaDonBan);
 
-            // Tạo PagedList từ IQueryable
-            PagedList<THoaDonBan> lstDh = new PagedList<THoaDonBan>(lst, pageNumber, pageSize);
-
-            // Truyền ViewBag thông báo nếu không có dữ liệu trong lstDh
-            if (!lstDh.Any())
+            if (!lst.Any())
             {
-                ViewBag.ThongBao = "Không có dữ liệu hoá đơn cho khách hàng này!";
+                ViewBag.ThongBao = "Không có dữ liệu hóa đơn cho khách hàng này!";
+            }
+            ViewBag.KhachHang = _kh;
+
+            bool isAjaxRequest = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+
+            if (isAjaxRequest)
+            {
+                ViewBag.PageNum = (int)Math.Ceiling(lst.Count() / (double)pageSize);
+                var pagedList = lst.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                return PartialView("HoaDonKhachHangPartial", pagedList); 
             }
 
-            // Truyền khách hàng và danh sách hóa đơn vào View
-            ViewBag.KhachHang = _kh;
-            return View(lstDh);
+            ViewBag.PageNum = (int)Math.Ceiling(lst.Count() / (double)pageSize);
+            var fullList = lst.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return View(fullList);
         }
 
         

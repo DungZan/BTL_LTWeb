@@ -2,6 +2,7 @@
 using BTL_LTWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 using X.PagedList;
 
 namespace BTL_LTWeb.Areas.Admin.Controllers
@@ -11,6 +12,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     public class NhanVienController : Controller
     {
         QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        private int pageSize = 6;
         public IActionResult Index()
         {
             return View();
@@ -19,12 +21,35 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("danhsachnhanvien")]
         public IActionResult danhsachnhanvien(int? Page)
         {
-            int pageSize = 6;
-            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            var list = db.TNhanViens.AsNoTracking().OrderBy(x => x.MaNhanVien);
-            PagedList<TNhanVien> lst = new PagedList<TNhanVien>(list, pageNumber, pageSize);
-            return View(lst);
+            var nv = db.TNhanViens.AsNoTracking().ToList();
+            int pageNum = (int)Math.Ceiling(nv.Count() / (float)pageSize);
+            ViewBag.pageNum = pageNum;
+            ViewBag.keyword = "";
+            var result = nv.Take(pageSize).ToList();
+            return View(result);
         }
+
+        [Route("NhanVienFilter")]
+        public IActionResult NhanVienFilter(string? keyword, int? pageIndex)
+        {
+            var nv = db.TNhanViens.AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                nv = nv.Where(l => l.TenNhanVien.ToLower().Contains(keyword.ToLower()));
+                ViewBag.keyword = keyword;
+            }
+            int page = (pageIndex ?? 1);
+            int pageNum = (int)Math.Ceiling(nv.Count() / (float)pageSize);
+            ViewBag.pageNum = pageNum;
+            var result = nv.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+            if (result == null || !result.Any())
+            {
+                return Json(new { success = false, message = "Không tìm thấy nhân viên!" });
+            }
+            return PartialView("NhanVienTable", result);
+        }
+
         [Route("ThemNhanVien")]
         [HttpGet]
         public IActionResult Themnhanvien()
