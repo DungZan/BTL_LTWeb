@@ -84,6 +84,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                 
                 db.TNhanViens.Add(nv);
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "Thêm nhân viên thành công!";
                 return RedirectToAction("danhsachnhanvien", "NhanVien");
             }
             return View(nv);
@@ -124,6 +125,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                 try
                 {
                     db.SaveChanges();
+                    TempData["SuccessMessage"] = "Cập nhật nhân viên thành công!";
                     return RedirectToAction("danhsachnhanvien","NhanVien");
                 }
                 catch (Exception ex)
