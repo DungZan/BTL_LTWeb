@@ -4,7 +4,7 @@
 @foreach (var m in Model)
 {
     <div class="col-sm-6 col-md-6 col-lg-4 mb-5 mb-lg-0 aos-init aos-animate" data-aos="fade" data-aos-delay="200">
-        <a class="block-2-item" href="" style="
+        <a class="block-2-item" asp-controller="BoSuuTap" asp-action="BSTByTag" asp-route-Tag="@m.TagId" style="
     margin-bottom: 100px;
     ">
             <figure class="image">

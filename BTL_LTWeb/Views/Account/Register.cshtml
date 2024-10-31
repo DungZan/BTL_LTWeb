@@ -80,6 +80,7 @@
 @section Scripts {
     <script>
         let code = [];
+        sessionStorage.setItem("countdown", 30);
 
         function loadProvinces(selectId, districtSelectId) {
             $.get('https://provinces.open-api.vn/api/p/', function (data) {

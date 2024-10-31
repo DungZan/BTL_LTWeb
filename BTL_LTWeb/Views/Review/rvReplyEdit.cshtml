@@ -43,9 +43,10 @@
             url: '@Url.Action("AlterReply", "Review")',
             data: $(this).serialize() + "&pid=" + '@ViewBag.pid',
             success: function (response) {
-                ajaxList();
-                if (response == true) alertResult(true, "Sửa câu trả lời thành công");
-                else alertResult(false, "Sửa câu trả lời thất bại");
+                alertResult(response);
+                if (response == "SACT") {
+                    ajaxList();
+                }
             }
         });
     });

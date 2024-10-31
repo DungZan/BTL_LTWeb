@@ -1,11 +1,13 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace BTL_LTWeb.Controllers
 {
+    [Route("gio-hang")]
     public class CartController : Controller
     {
         private readonly QLBanDoThoiTrangContext _context;
@@ -13,6 +15,7 @@ namespace BTL_LTWeb.Controllers
         {
             _context = context;
         }
+
         public async Task<IActionResult> Index()
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
@@ -52,6 +55,7 @@ namespace BTL_LTWeb.Controllers
             return PartialView("_ListCart", cartItems);
         }
 
+        [Route("them-vao-gio-hang")]
         [HttpPost]
         public async Task<IActionResult> AddToCart(int Masp, string Size, string Color, int Soluong)
         {
@@ -93,6 +97,7 @@ namespace BTL_LTWeb.Controllers
             return Ok();
         }
 
+        [Route("Qr-code")]
         public ActionResult ShowImage()
         {
             ViewBag.ImageData = VietQrGenerator.GetQR(200001, "Truong van minh chuyen tien");

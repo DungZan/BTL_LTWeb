@@ -52,7 +52,7 @@ function updateItemQuantity(Id, Quantity) {
     debounceTimer = setTimeout(function () {
         $.ajax({
             type: "PATCH",
-            url: "/api/cartapi/update",
+            url: "/api/gio-hang/cap-nhat",
             data: JSON.stringify({ Id, Quantity }),
             contentType: "application/json;",
             success: function (response) {
@@ -95,7 +95,7 @@ $(document).on('click', '#remove', function () {
     let row = $(this).closest('tr');
     let cartId = parseInt(row.find('input:eq(0)').val());
     $.ajax({
-        url: '/api/cartapi/remove',
+        url: '/api/gio-hang/xoa',
         type: 'DELETE',
         contentType: 'application/json',
         data: JSON.stringify(cartId),
@@ -109,7 +109,6 @@ $(document).on('click', '#remove', function () {
 });
 
 function updateCart() {
-
     $.ajax({
         url: `/items`,
         type: 'GET',

@@ -72,7 +72,7 @@
         function resendCode() {
             alertResult(true, "Đang gửi lại mã xác nhận");
             $.ajax({
-                url: '/api/accountapi/verify-email/resend',
+                url: '/api/acc/xac-thuc-email/gui-lai-ma',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -105,23 +105,6 @@
                     alertResult(false, "Gửi mã thất bại, thử lại sau");
                 }
             });
-        }
-
-        function alertResult(type, msg) {
-            if (type == true) {
-                $('.bx-x').hide();
-                $('.bx-check').show();
-                $('.alertactionresult').css('border-right', 'solid 5px limegreen');
-            } else {
-                $('.bx-x').show();
-                $('.bx-check').hide();
-                $('.alertactionresult').css('border-right', 'solid 5px tomato');
-            }
-            $(".alertmessage").html(msg);
-            $('.alertactionresult').show();
-            setTimeout(function () {
-                $('.alertactionresult').fadeOut(500);
-            }, 2000);
         }
     </script>
 }
