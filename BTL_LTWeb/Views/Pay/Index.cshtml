@@ -1,4 +1,5 @@
 ﻿@model BTL_LTWeb.ViewModels.CheckoutViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Thanh toán";
     Layout = "~/Views/Shared/_PayLayout.cshtml";
@@ -17,43 +18,48 @@
 
 <div class="site-section">
     <div class="container">
-        <form asp-controller="Pay" asp-action="ProcessPayment" method="post">
+        <form id="paymentForm" asp-controller="Pay" asp-action="ProcessPayment" method="post">
         <div class="row">
                 <input type="hidden" class="form-control" value="@Model.CustomerInfo.MaKhachHang" id="id" name="MaKhachHang">
             <div class="col-md-6 mb-5 mb-md-0">
                 <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
                 <div class="p-3 p-lg-5 border">
                     <div class="form-group">
-                        <label for="c_city" class="text-black">Thành phố(Tỉnh)<span class="text-danger">*</span></label>
-                        <input type="text" id="c_city" name="ThanhPho" class="form-control" value="@Model.CustomerInfo.DiaChi.Split(",").Last().Trim()" readonly />
+                            <label for="c_city" class="text-black">Thành phố(Tỉnh)<span class="text-danger">*</span></label>
+                        <input type="text" id="c_city" asp-for="ThanhPho" name="ThanhPho" class="form-control" value="@Model.CustomerInfo.DiaChi.Split(",").Last().Trim()" readonly />
+                        <span asp-validation-for="ThanhPho" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
-                        <input type="text" id="c_district" name="QuanHuyen" class="form-control" value="@Model.CustomerInfo.DiaChi.Split(",")[^2].Trim()" readonly />
+                            <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
+                            <input type="text" id="c_district" asp-for="QuanHuyen" name="QuanHuyen" class="form-control" value="@Model.CustomerInfo.DiaChi.Split(",")[^2].Trim()" readonly />
+                            <span asp-validation-for="QuanHuyen" class="text-danger"></span>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <label for="c_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="@Model.CustomerInfo.TenKhachHang" id="c_fname" name="HoTen" readonly>
+                                <label for="c_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" asp-for="HoTen" value="@Model.CustomerInfo.TenKhachHang" id="c_fname" name="HoTen" readonly>
+                                <span asp-validation-for="HoTen" class="text-danger"></span>
                         </div>
                     </div>
                         
                     <div class="form-group row">
                         <div class="col-md-12">
                                 <label for="c_address" class="text-black">Số nhà, Ngõ, Xã/Phường<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="@diaChi" id="c_address" name="DiaChi" placeholder="Nhập Số nhà, Ngõ, Xã/Phường" readonly>
+                                <input type="text" class="form-control" asp-for="DiaChi" value="@diaChi" id="c_address" name="DiaChi" placeholder="Nhập Số nhà, Ngõ, Xã/Phường" readonly>
+                                <span asp-validation-for="DiaChi" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group row mb-5">
                         <div class="col-md-6">
-                            <label for="c_email_address" class="text-black">Email<span class="text-danger">*</span></label>
+                                <label for="c_email_address" class="text-black">Email<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" value="@Model.CustomerInfo.Email" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label for="c_phone" class="text-black">Số Điện Thoại<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="@Model.CustomerInfo.SoDienThoai" id="c_phone" name="SDT" placeholder="Nhập Số Điện Thoại" readonly>
+                                <label for="c_phone" class="text-black">Số Điện Thoại<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" asp-for="SDT" value="@Model.CustomerInfo.SoDienThoai" id="c_phone" name="SDT" placeholder="Nhập Số Điện Thoại" readonly>
+                                <span asp-validation-for="SDT" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -68,14 +74,15 @@
                                         <option value="">Chọn Thành Phố(Tỉnh)</option>
                                     </select>
                                 </div>
-                                    <input type="hidden" class="form-control" id="ten_thanh_pho" name="ThanhPhoKhac">
+                                    <input type="hidden" class="form-control" asp-for="ThanhPhoKhac" id="ten_thanh_pho" name="ThanhPhoKhac">
+                                    <sqan asp-validation-for="ThanhPhoKhac" class="text-danger"></sqan>
                                 <div class="form-group">
                                     <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
                                         <select id="c_diff_district" class="form-control" onchange="updateDistrictName()">
                                         <option value="">Chọn Quận (Huyện)</option>
                                     </select>
                                 </div>
-                                    <input type="hidden" class="form-control" id="ten_quan_huyen" name="QuanHuyenKhac">
+                                    <input type="hidden" class="form-control" asp-validation-for="QuanHuyenKhac" id="ten_quan_huyen" name="QuanHuyenKhac">
                                 <div class="form-group row">
                                     <div class="col-md-12">
                                         <label for="c_diff_fname" class="text-black">Họ Và Tên<span class="text-danger">*</span></label>
@@ -185,7 +192,7 @@
                                     </div>
 
                                 <div class="form-group">
-                                        <button type="submit" id ="ajaxPaymentButton" class="btn btn-primary btn-lg py-3 btn-block">Thanh toán</button>
+                                    <button type="submit" id="ajaxPaymentButton" class="btn btn-primary btn-lg py-3 btn-block">Thanh toán</button>
                                 </div>
 
                             </div>
@@ -245,6 +252,7 @@
             const districtSelect = document.getElementById('c_diff_district');
             const districtName = districtSelect.options[districtSelect.selectedIndex].text;
             document.getElementById('ten_quan_huyen').value = districtName; 
-        }       
+        }
+        
     </script>
 }
