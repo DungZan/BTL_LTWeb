@@ -1,6 +1,6 @@
 ﻿@charset "UTF-8";
 * {
-    font-family: "Mukta", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
     .padding-default {
     padding-top: 8px;
@@ -16,7 +16,7 @@
     display: inline-block;
     color: #676767;
     font-size: 14px;
-    font-family: 'Open Sans',sans-serif;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     padding-bottom: 40px
 }
 
@@ -3020,7 +3020,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Abril Fatface';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Abril Fatface';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3029,7 +3029,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Abril Fatface';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Abril Fatface';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3038,7 +3038,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3047,7 +3047,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3056,7 +3056,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3065,7 +3065,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3074,7 +3074,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3083,7 +3083,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3092,7 +3092,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3101,7 +3101,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3110,7 +3110,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3119,7 +3119,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3128,7 +3128,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3137,7 +3137,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3146,7 +3146,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3155,7 +3155,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3164,7 +3164,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3173,7 +3173,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3182,7 +3182,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3191,7 +3191,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3200,7 +3200,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3209,7 +3209,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3218,7 +3218,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3227,7 +3227,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3236,7 +3236,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3245,7 +3245,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3254,7 +3254,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3263,7 +3263,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3272,7 +3272,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3281,7 +3281,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3290,7 +3290,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -3299,7 +3299,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -3308,7 +3308,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -3317,7 +3317,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -3326,7 +3326,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -3335,7 +3335,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -3344,7 +3344,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -3353,7 +3353,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3362,7 +3362,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3371,7 +3371,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3380,7 +3380,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3389,7 +3389,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3398,7 +3398,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3407,7 +3407,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Alegreya';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Alegreya';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3416,7 +3416,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3425,7 +3425,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3434,7 +3434,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3443,7 +3443,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3452,7 +3452,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3461,7 +3461,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3470,7 +3470,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3479,7 +3479,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3488,7 +3488,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3497,7 +3497,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Amatic SC';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3506,7 +3506,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Anton';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Anton';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3515,7 +3515,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Anton';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Anton';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3524,7 +3524,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Anton';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Anton';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3533,7 +3533,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Bevan';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Bevan';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3542,7 +3542,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Bevan';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Bevan';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3551,7 +3551,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Bevan';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Bevan';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3560,7 +3560,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Bowlby One';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Bowlby One';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3569,7 +3569,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Caveat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Caveat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3578,7 +3578,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Caveat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Caveat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3587,7 +3587,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Caveat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Caveat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3596,7 +3596,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Caveat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Caveat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3605,7 +3605,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Caveat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Caveat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3614,7 +3614,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Caveat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Caveat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3623,7 +3623,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Great Vibes';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Great Vibes';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3632,7 +3632,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Great Vibes';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Great Vibes';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3641,7 +3641,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Katibeh';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Katibeh';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3650,7 +3650,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Katibeh';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Katibeh';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3659,7 +3659,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Katibeh';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Katibeh';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3668,7 +3668,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Kaushan Script';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Kaushan Script';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3677,7 +3677,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Kaushan Script';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Kaushan Script';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3686,7 +3686,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Libre Baskerville';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3695,7 +3695,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Libre Baskerville';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3704,7 +3704,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Libre Baskerville';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3713,7 +3713,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Libre Baskerville';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3722,7 +3722,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Libre Baskerville';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3731,7 +3731,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Libre Baskerville';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3740,7 +3740,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3749,7 +3749,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3758,7 +3758,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3767,7 +3767,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3776,7 +3776,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3785,7 +3785,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3794,7 +3794,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3803,7 +3803,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3812,7 +3812,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3821,7 +3821,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -3830,7 +3830,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3839,7 +3839,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3848,7 +3848,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3857,7 +3857,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3866,7 +3866,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -3875,7 +3875,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3884,7 +3884,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3893,7 +3893,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3902,7 +3902,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3911,7 +3911,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Lora';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -3920,7 +3920,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3929,7 +3929,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3938,7 +3938,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3947,7 +3947,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3956,7 +3956,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -3965,7 +3965,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3974,7 +3974,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3983,7 +3983,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -3992,7 +3992,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4001,7 +4001,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4010,7 +4010,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4019,7 +4019,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4028,7 +4028,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4037,7 +4037,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4046,7 +4046,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4055,7 +4055,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4064,7 +4064,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4073,7 +4073,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4082,7 +4082,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4091,7 +4091,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4100,7 +4100,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4109,7 +4109,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4118,7 +4118,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4127,7 +4127,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4136,7 +4136,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4145,7 +4145,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4154,7 +4154,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4163,7 +4163,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4172,7 +4172,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4181,7 +4181,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4190,7 +4190,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4199,7 +4199,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4208,7 +4208,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4217,7 +4217,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4226,7 +4226,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4235,7 +4235,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4244,7 +4244,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4253,7 +4253,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4262,7 +4262,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4271,7 +4271,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4280,7 +4280,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4289,7 +4289,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4298,7 +4298,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4307,7 +4307,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4316,7 +4316,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4325,7 +4325,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4334,7 +4334,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4343,7 +4343,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4352,7 +4352,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4361,7 +4361,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4370,7 +4370,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4379,7 +4379,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4388,7 +4388,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4397,7 +4397,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4406,7 +4406,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4415,7 +4415,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4424,7 +4424,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4433,7 +4433,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4442,7 +4442,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4451,7 +4451,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4460,7 +4460,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4469,7 +4469,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4478,7 +4478,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4487,7 +4487,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4496,7 +4496,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4505,7 +4505,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4514,7 +4514,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4523,7 +4523,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4532,7 +4532,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4541,7 +4541,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4550,7 +4550,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4559,7 +4559,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4568,7 +4568,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4577,7 +4577,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4586,7 +4586,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4595,7 +4595,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4604,7 +4604,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4613,7 +4613,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4622,7 +4622,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4631,7 +4631,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Montserrat Alternates';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4640,7 +4640,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4649,7 +4649,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4658,7 +4658,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4667,7 +4667,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4676,7 +4676,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4685,7 +4685,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4694,7 +4694,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4703,7 +4703,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4712,7 +4712,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4721,7 +4721,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4730,7 +4730,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4739,7 +4739,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4748,7 +4748,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4757,7 +4757,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4766,7 +4766,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4775,7 +4775,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Playfair Display';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4784,7 +4784,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4793,7 +4793,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4802,7 +4802,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -4811,7 +4811,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4820,7 +4820,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4829,7 +4829,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -4838,7 +4838,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4847,7 +4847,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4856,7 +4856,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 600;
     font-display: swap;
@@ -4865,7 +4865,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4874,7 +4874,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4883,7 +4883,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -4892,7 +4892,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4901,7 +4901,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4910,7 +4910,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -4919,7 +4919,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4928,7 +4928,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4937,7 +4937,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -4946,7 +4946,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4955,7 +4955,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4964,7 +4964,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -4973,7 +4973,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4982,7 +4982,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -4991,7 +4991,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Poppins';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5000,7 +5000,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5009,7 +5009,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5018,7 +5018,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5027,7 +5027,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5036,7 +5036,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5045,7 +5045,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5054,7 +5054,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5063,7 +5063,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5072,7 +5072,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5081,7 +5081,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Radley';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Radley';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5090,7 +5090,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Radley';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Radley';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5099,7 +5099,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Radley';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Radley';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5108,7 +5108,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Radley';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Radley';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5117,7 +5117,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5126,7 +5126,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5135,7 +5135,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5144,7 +5144,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5153,7 +5153,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5162,7 +5162,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5171,7 +5171,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 400;
     font-display: swap;
@@ -5180,7 +5180,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -5189,7 +5189,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -5198,7 +5198,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -5207,7 +5207,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -5216,7 +5216,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -5225,7 +5225,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -5234,7 +5234,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 500;
     font-display: swap;
@@ -5243,7 +5243,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -5252,7 +5252,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -5261,7 +5261,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -5270,7 +5270,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -5279,7 +5279,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -5288,7 +5288,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -5297,7 +5297,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: italic;
     font-weight: 700;
     font-display: swap;
@@ -5306,7 +5306,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5315,7 +5315,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5324,7 +5324,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5333,7 +5333,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5342,7 +5342,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5351,7 +5351,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5360,7 +5360,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5369,7 +5369,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5378,7 +5378,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5387,7 +5387,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5396,7 +5396,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5405,7 +5405,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5414,7 +5414,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5423,7 +5423,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5432,7 +5432,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5441,7 +5441,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5450,7 +5450,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5459,7 +5459,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5468,7 +5468,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5477,7 +5477,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5486,7 +5486,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Roboto';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5495,7 +5495,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Vidaloka';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Vidaloka';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5504,7 +5504,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5513,7 +5513,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5522,7 +5522,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5531,7 +5531,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5540,7 +5540,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5549,7 +5549,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5558,7 +5558,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5567,7 +5567,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -5576,7 +5576,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -5585,7 +5585,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -5594,7 +5594,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -5603,7 +5603,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -5612,7 +5612,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5621,7 +5621,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5630,7 +5630,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5639,7 +5639,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Oswald';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
@@ -5648,7 +5648,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Pathway Gothic One';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Pathway Gothic One';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5657,7 +5657,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Pathway Gothic One';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Pathway Gothic One';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5666,7 +5666,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Prata';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Prata';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5675,7 +5675,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Prata';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Prata';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5684,7 +5684,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Prata';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Prata';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5693,7 +5693,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Prata';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Prata';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5702,7 +5702,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Raleway';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Raleway';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5711,7 +5711,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Raleway';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Raleway';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -5720,7 +5720,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Helvetica Neue';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Helvetica Neue';
     src: url('../fonts/HelveticaNeue/helvetica-neue-light.ttf') format('truetype');
     font-weight: 100;
     font-style: normal;
@@ -5728,7 +5728,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Helvetica Neue';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Helvetica Neue';
     src: url('../fonts/HelveticaNeue/helvetica-neue-regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
@@ -5736,7 +5736,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Helvetica Neue';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Helvetica Neue';
     src: url('../fonts/HelveticaNeue/helvetica-neue-medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
@@ -5744,7 +5744,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 }
 
 @font-face {
-    font-family: 'Helvetica Neue';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Helvetica Neue';
     src: url('../fonts/HelveticaNeue/helvetica-neue-bold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
@@ -5754,7 +5754,7 @@ body._has-modal-custom .modal-custom.authentication-dropdown {
 .h1, h1, .h2, h2, .h3, h3, .h4, h4, .h5, h5, .h6, h6 {
     margin: 0;
     font-weight: 600;
-    font-family: 'Helvetica Neue' !important;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
     color: #000;
     line-height: 1.428;
     letter-spacing: .5px
@@ -5976,7 +5976,7 @@ main {
 }
 
     .scroll-to-top .fa {
-        font-family: 'Font Awesome 5 Pro'
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro'
     }
 
         .scroll-to-top .fa:before {
@@ -6160,7 +6160,7 @@ main {
     display: none;
     position: fixed;
     max-height: 90vh;
-    font-family: 'Titillium Web',sans-serif;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 16px;
     left: 50%;
     top: 50%;
@@ -6370,7 +6370,7 @@ main {
 
     #bio_ep_close:before {
         content: "\f00d";
-        font-family: FontAwesome;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", FontAwesome;
         font-size: 24px
     }
 
@@ -6393,7 +6393,7 @@ main {
     width: 750px;
     height: auto;
     text-align: center;
-    font-family: "Open Sans",sans-serif;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     color: #fff
 }
 
@@ -6570,7 +6570,7 @@ main {
 
             #bio_ep.popup-default-4 .popup-box-1 .popup-title span {
                 display: block;
-                font-family: "Oswald";
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
                 text-transform: uppercase
             }
 
@@ -6613,7 +6613,7 @@ main {
 
         #bio_ep.popup-default-4 .popup-box-2 .popup-title {
             padding-top: 15px;
-            font-family: "Oswald";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             color: #fff;
             text-transform: uppercase;
             font-weight: 500
@@ -6700,7 +6700,7 @@ main {
 #bio_ep.popup-default-15 {
     width: 800px;
     text-align: center;
-    font-family: 'Open Sans'
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
     #bio_ep.popup-default-15 .magenest-popup-inner {
@@ -6741,7 +6741,7 @@ main {
         font-weight: 700;
         text-transform: uppercase;
         padding: 30px 0 15px;
-        font-family: 'Playfair Display'
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     #bio_ep.popup-default-15 .popup-description {
@@ -6852,7 +6852,7 @@ main {
         }
 
     #bio_ep.popup-default-31 .popup-action .popup-action-phone {
-        font-family: Alegreya;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 40px;
         line-height: 42px
     }
@@ -6901,7 +6901,7 @@ main {
     }
 
     #bio_ep.popup-default-26 .popup-description {
-        font-family: 'Pathway Gothic One';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 22px;
         margin: 10px;
         opacity: 0;
@@ -6913,7 +6913,7 @@ main {
 
     #bio_ep.popup-default-26 .popup-title {
         padding: 15px 0;
-        font-family: 'Pathway Gothic One';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 26px;
         letter-spacing: 1px;
         color: #000;
@@ -6947,14 +6947,14 @@ main {
             height: 40px;
             color: #000;
             background: 0 0;
-            font-family: 'Pathway Gothic One';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             padding-left: 0;
             font-size: 18px
         }
 
             #bio_ep.popup-default-26 .popup-action input::placeholder {
                 color: #000;
-                font-family: 'Pathway Gothic One';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
                 letter-spacing: 2px
             }
 
@@ -6964,7 +6964,7 @@ main {
             height: 40px;
             text-transform: uppercase;
             width: 112px;
-            font-family: 'Pathway Gothic One';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             border-radius: 0;
             display: block;
             margin: 20px auto;
@@ -6995,7 +6995,7 @@ main {
         width: 40%;
         padding: 40px;
         border-right: 3px solid #000;
-        font-family: 'Raleway',arial;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-weight: 600;
         color: #000;
         font-size: 32px;
@@ -7011,7 +7011,7 @@ main {
     #bio_ep.popup-default-37 .popup-action .popup-action-title {
         width: 40%;
         text-align: right;
-        font-family: 'Raleway',arial;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-weight: 400;
         color: #888;
         font-size: 14px;
@@ -7068,7 +7068,7 @@ main {
         z-index: 1000013;
         text-align: right;
         padding: 0 30px 0 0;
-        font-family: 'Raleway',arial;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-weight: 700;
         color: #000;
         font-size: 20px;
@@ -7175,14 +7175,14 @@ main {
         padding: 80px 15px 0;
         font-size: 46px;
         font-weight: 400;
-        font-family: "Roboto";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         text-transform: uppercase
     }
 
     #bio_ep.popup-default-5 .popup-description {
         margin-top: 20px;
         font-size: 20px;
-        font-family: "Roboto"
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     #bio_ep.popup-default-5 .subscribe-form {
@@ -7226,7 +7226,7 @@ main {
         bottom: 50px;
         left: 0;
         right: 0;
-        font-family: "Roboto"
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
         #bio_ep.popup-default-5 .popup-category button span {
@@ -7318,7 +7318,7 @@ main {
         font-weight: 700;
         padding: 30px 0 15px;
         font-size: 36px;
-        font-family: ''
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     #bio_ep.popup-default-17 .popup-description {
@@ -7339,7 +7339,7 @@ main {
         #bio_ep.popup-default-17 .social-elm button {
             outline: 0;
             color: #fff;
-            font-family: "Open Sans";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             font-size: 20px;
             background-position: center center;
             background-repeat: repeat;
@@ -7429,7 +7429,7 @@ main {
 
             #bio_ep.popup-default-29 .popup-step-1 .popup-content .action-social .line {
                 color: #fff;
-                font-family: 'Kaushan Script';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
                 font-size: 80px;
                 display: block
             }
@@ -7515,7 +7515,7 @@ main {
         #bio_ep.popup-default-30 .popup-step-1 .popup-title {
             font-size: 56px;
             color: #fff;
-            font-family: Kaushan Script;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             background-color: rgba(255,255,255,.6);
             padding-top: 30px
         }
@@ -7541,12 +7541,12 @@ main {
             color: red;
             font-size: 24px;
             padding-bottom: 40px;
-            font-family: 'Kaushan Script'
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         }
 
 #bio_ep.popup-default-7 {
     color: #000;
-    font-family: 'Roboto'
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
     #bio_ep.popup-default-7 .magenest-popup-inner {
@@ -7619,14 +7619,14 @@ main {
     #bio_ep.popup-default-8 .popup-top {
         padding: 15px;
         text-transform: uppercase;
-        font-family: 'Montserrat';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-weight: 500;
         font-size: 14px;
         color: #635b55
     }
 
     #bio_ep.popup-default-8 .popup-title {
-        font-family: 'Playfair Display';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-style: italic;
         font-weight: 700;
         font-size: 54px;
@@ -7655,7 +7655,7 @@ main {
     }
 
     #bio_ep.popup-default-12 .popup-title {
-        font-family: 'Lora';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lora';
         color: #de5790;
         font-size: 60px;
         font-style: italic;
@@ -7664,7 +7664,7 @@ main {
 
     #bio_ep.popup-default-12 .popup-description {
         color: #302929;
-        font-family: '';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", '';
         padding: 0 15px
     }
 
@@ -7680,7 +7680,7 @@ main {
     width: 800px;
     height: 500px;
     color: #fff;
-    font-family: 'Katibeh'
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Katibeh'
 }
 
     #bio_ep.popup-default-13 .magenest-popup-inner {
@@ -7716,7 +7716,7 @@ main {
         font-size: 16px;
         position: relative;
         text-align: center;
-        font-family: 'Vidaloka';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Vidaloka';
         line-height: 56px;
         padding: 0 15px 25px;
         font-style: italic
@@ -7750,7 +7750,7 @@ main {
 #bio_ep.popup-default-24 {
     display: block;
     width: 750px;
-    font-family: 'Libre Baskerville';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville';
     color: #000
 }
 
@@ -7874,13 +7874,13 @@ main {
 
     #bio_ep.popup-default-21 .popup-title {
         text-transform: uppercase;
-        font-family: 'Roboto';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Roboto';
         font-size: 26px
     }
 
         #bio_ep.popup-default-21 .popup-title strong {
             display: block;
-            font-family: 'Caveat';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Caveat';
             text-transform: initial;
             font-size: 96px
         }
@@ -8079,7 +8079,7 @@ main {
             margin-top: 30px;
             color: #fff;
             font-size: 41px;
-            font-family: 'Great Vibes';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Great Vibes';
             animation-name: fadeInUp;
             animation-delay: .7s;
             animation-duration: .8s
@@ -8138,12 +8138,12 @@ main {
     #bio_ep.popup-default-33 .title-elm {
         margin: 5px 20px;
         color: #900;
-        font-family: Oswald;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", Oswald;
         font-size: 30px
     }
 
     #bio_ep.popup-default-33 .description-top, #bio_ep.popup-default-33 .description-bottom {
-        font-family: Oswald;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", Oswald;
         color: #ccc;
         margin: 6px 0
     }
@@ -8160,12 +8160,12 @@ main {
             color: #900;
             font-weight: 700;
             font-size: 84px;
-            font-family: Oswald;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", Oswald;
             display: inline-block
         }
 
         #bio_ep.popup-default-33 .description-center span {
-            font-family: Oswald;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", Oswald;
             color: #333;
             font-size: 30px;
             width: 203px;
@@ -8177,7 +8177,7 @@ main {
     width: 750px;
     text-align: center;
     color: #403526;
-    font-family: 'Libre Baskerville'
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Libre Baskerville'
 }
 
     #bio_ep.popup-default-2 .magenest-popup-inner {
@@ -8210,7 +8210,7 @@ main {
         padding: 30px 15px 15px;
         text-transform: uppercase;
         font-weight: 700;
-        font-family: 'Poppins';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins';
         font-size: 40px
     }
 
@@ -8296,7 +8296,7 @@ main {
         padding-top: 30px;
         font-size: 58px;
         font-weight: 400;
-        font-family: "Playfair Display";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Playfair Display";
         color: #000;
         text-transform: uppercase
     }
@@ -8337,7 +8337,7 @@ main {
 
     #bio_ep.popup-default-6 .subscribe-text {
         padding: 30px 0 15px;
-        font-family: "Open Sans";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Open Sans";
         display: block;
         font-size: 14px;
         color: #888
@@ -8372,7 +8372,7 @@ main {
                 height: 40px;
                 font-weight: 700;
                 font-size: 14px;
-                font-family: "Open Sans";
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Open Sans";
                 border-radius: 0;
                 box-shadow: none;
                 border: 1px solid #888;
@@ -8383,7 +8383,7 @@ main {
 
                 #bio_ep.popup-default-6 .popup-action .popup-email input:before {
                     content: "";
-                    font-family: "FontAwesome"
+                    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome"
                 }
 
                 #bio_ep.popup-default-6 .popup-action .popup-email input::placeholder {
@@ -8394,7 +8394,7 @@ main {
         #bio_ep.popup-default-6 .popup-action .action-subscribe button {
             outline: 0;
             color: #fff;
-            font-family: "Open Sans";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Open Sans";
             font-size: 14px;
             font-weight: 700;
             border-radius: 0;
@@ -8423,7 +8423,7 @@ main {
 
 #bio_ep.popup-default-9 {
     text-align: center;
-    font-family: 'Lato'
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Lato'
 }
 
     #bio_ep.popup-default-9 .popup-step-1 {
@@ -8442,7 +8442,7 @@ main {
     }
 
     #bio_ep.popup-default-9 .popup-title {
-        font-family: 'Vidaloka';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Vidaloka';
         text-transform: uppercase;
         font-size: 56px;
         padding: 30px 15px 15px;
@@ -8499,7 +8499,7 @@ main {
 
 #bio_ep.popup-default-10 {
     width: 800px;
-    font-family: 'Montserrat Alternates'
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates'
 }
 
     #bio_ep.popup-default-10 .magenest-popup-inner {
@@ -8526,14 +8526,14 @@ main {
         font-size: 12px;
         color: #25020f;
         padding: 30px 0 15px;
-        font-family: 'Open Sans';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Open Sans';
         position: relative
     }
 
         #bio_ep.popup-default-10 .popup-title strong {
             display: block;
             font-size: 38px;
-            font-family: 'Montserrat Alternates'
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Montserrat Alternates'
         }
 
         #bio_ep.popup-default-10 .popup-title:before {
@@ -8637,7 +8637,7 @@ main {
     }
 
     #bio_ep.popup-default-14 .popup-title {
-        font-family: '';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", '';
         font-size: 40px;
         color: #000;
         padding-top: 54px;
@@ -8647,7 +8647,7 @@ main {
     #bio_ep.popup-default-14 .popup-description {
         color: #333;
         font-size: 26px;
-        font-family: ''
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", ''
     }
 
     #bio_ep.popup-default-14 .popup-action {
@@ -8738,12 +8738,12 @@ main {
     }
 
         #bio_ep.popup-default-16 .popup-title p {
-            font-family: 'Playfair Display';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Playfair Display';
             font-weight: 700
         }
 
         #bio_ep.popup-default-16 .popup-title span {
-            font-family: 'Quicksand';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
             font-size: 26px;
             letter-spacing: 2px
         }
@@ -8881,7 +8881,7 @@ main {
 
 #bio_ep.popup-default-19 {
     text-align: center;
-    font-family: 'Quicksand';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Quicksand';
     width: 100%;
     height: 100%;
     max-width: 100%;
@@ -8962,7 +8962,7 @@ main {
 
 #bio_ep.popup-default-20 {
     width: 750px;
-    font-family: 'Poppins'
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Poppins'
 }
 
     #bio_ep.popup-default-20 .magenest-popup-inner {
@@ -9795,7 +9795,7 @@ main {
     }
 
     #bio_ep.popup-default-35 .popup-title {
-        font-family: 'Raleway',arial;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Raleway',arial;
         font-weight: 700;
         color: #000;
         font-size: 32px;
@@ -9809,7 +9809,7 @@ main {
     }
 
     #bio_ep.popup-default-35 .popup-description {
-        font-family: 'Raleway',arial;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Raleway',arial;
         color: red;
         font-weight: 700;
         font-size: 25px;
@@ -9824,7 +9824,7 @@ main {
     }
 
     #bio_ep.popup-default-35 .popup-coupon {
-        font-family: 'Raleway',arial;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Raleway',arial;
         font-weight: 700;
         color: #000;
         font-size: 16px;
@@ -9850,7 +9850,7 @@ main {
             #bio_ep.popup-default-35 .popup-action > div button {
                 background: 0 0;
                 height: 100%;
-                font-family: 'Raleway',arial;
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Raleway',arial;
                 font-weight: 700;
                 font-size: 18px
             }
@@ -9989,7 +9989,7 @@ main {
 }
 
 #bio_ep.popup-default-40, #bio_ep.popup-default-41, #bio_ep.popup-default-42, #bio_ep.popup-default-43, #bio_ep.popup-default-44, #bio_ep.popup-default-45 {
-    font-family: "Open Sans",sans-serif
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Open Sans",sans-serif
 }
 
     #bio_ep.popup-default-40 .magenest-popup-step .swatch-option, #bio_ep.popup-default-41 .magenest-popup-step .swatch-option, #bio_ep.popup-default-42 .magenest-popup-step .swatch-option, #bio_ep.popup-default-43 .magenest-popup-step .swatch-option, #bio_ep.popup-default-44 .magenest-popup-step .swatch-option, #bio_ep.popup-default-45 .magenest-popup-step .swatch-option {
@@ -10034,7 +10034,7 @@ main {
 
             #bio_ep.popup-default-40 .popup-product-hotdeals .slick-arrow:before, #bio_ep.popup-default-41 .popup-product-hotdeals .slick-arrow:before, #bio_ep.popup-default-42 .popup-product-hotdeals .slick-arrow:before, #bio_ep.popup-default-43 .popup-product-hotdeals .slick-arrow:before, #bio_ep.popup-default-44 .popup-product-hotdeals .slick-arrow:before, #bio_ep.popup-default-45 .popup-product-hotdeals .slick-arrow:before {
                 content: '';
-                font-family: FontAwesome;
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", FontAwesome;
                 font-size: 34px;
                 font-weight: 300;
                 color: #fff;
@@ -11134,7 +11134,7 @@ main {
         }
 
     .slick-prev:before, .slick-next:before {
-        font-family: "slick";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "slick";
         font-size: 20px;
         line-height: 1;
         color: #fff;
@@ -11238,7 +11238,7 @@ main {
                 content: "•";
                 width: 20px;
                 height: 20px;
-                font-family: "slick";
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "slick";
                 font-size: 6px;
                 line-height: 20px;
                 text-align: center;
@@ -11275,7 +11275,7 @@ main {
 
         .minicart-wrapper .action.showcart:before {
             content: "\f290";
-            font-family: 'Font Awesome 5 Pro';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
             font-size: 20px;
             font-weight: 300;
             overflow: hidden;
@@ -11741,7 +11741,7 @@ main {
 
             .minicart-items .product-item .product.actions .action.delete:after {
                 content: "\f00d";
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 font-size: 15px;
                 font-weight: 300;
                 line-height: 1
@@ -12248,7 +12248,7 @@ main {
                 left: 0;
                 content: '\f04d';
                 font-size: 16px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 line-height: 1;
                 color: #000
             }
@@ -13565,7 +13565,7 @@ div.mage-error {
             color: #bbb;
             content: "\f059";
             display: inline-block;
-            font-family: "FontAwesome";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
             font-size: 21px;
             font-weight: 400;
             overflow: hidden;
@@ -13697,7 +13697,7 @@ div.mage-error {
 
     .modal-popup.confirm .action-close:before {
         content: "\f00d";
-        font-family: 'Font Awesome 5 Pro';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
         font-size: 20px
     }
 
@@ -14103,7 +14103,7 @@ div.mage-error {
         -webkit-font-smoothing: antialiased;
         font-size: 24px;
         line-height: 1;
-        font-family: 'Font Awesome 5 Pro';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
         font-weight: 400;
         overflow: hidden;
         speak: none;
@@ -15568,7 +15568,7 @@ div.mage-error {
         -ms-align-items: center;
         align-items: center;
         justify-content: center;
-        font-family: 'Font Awesome 5 Pro';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
         font-size: 16px;
         color: #000
     }
@@ -16014,7 +16014,7 @@ body.ajaxcart-catalog_product-view {
                 content: '\f054';
                 display: inline-block;
                 margin-left: 30px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 font-size: 10px;
                 color: #b3b3b3
             }
@@ -16535,7 +16535,7 @@ body.ajaxcart-catalog_product-view {
                     justify-content: center;
                     width: 20px;
                     height: 20px;
-                    font-family: 'Font Awesome 5 Pro';
+                    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                     font-size: 14px;
                     font-weight: 600;
                     line-height: 1;
@@ -16641,7 +16641,7 @@ body.ajaxcart-catalog_product-view {
                 justify-content: center;
                 width: 20px;
                 height: 20px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 font-size: 14px;
                 font-weight: 600;
                 line-height: 1;
@@ -16938,7 +16938,7 @@ body.ajaxcart-catalog_product-view {
                 justify-content: center;
                 width: 20px;
                 height: 20px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 font-size: 14px;
                 font-weight: 600;
                 line-height: 1;
@@ -17002,7 +17002,7 @@ body.ajaxcart-catalog_product-view {
                 display: inline-flex;
                 margin-right: 10px;
                 font-size: 16px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 line-height: 1;
                 color: #000
             }
@@ -17744,7 +17744,7 @@ body.catalog-product-view .hideshare-wrap {
             .box-tocart .actions button.tocart > span.loading:before {
                 content: '\f3f4';
                 display: inline-block;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 font-size: 18px;
                 line-height: 1;
                 margin-right: 10px;
@@ -18328,7 +18328,7 @@ body.catalog-product-view .hideshare-wrap {
 
         .block.filter .block-content.filter-content .filter-options-item .filter-options-title:after {
             content: "\f107";
-            font-family: 'Font Awesome 5 Pro';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
             font-size: 12px;
             position: absolute;
             right: 0;
@@ -18367,7 +18367,7 @@ body.catalog-product-view .hideshare-wrap {
             .block.filter .block-content.filter-content .filter-options-item .filter-options-content ol.items .item .mgs-filter-item-checkbox .mgs-content:before {
                 content: '\f04d';
                 font-size: 15px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 color: #000
             }
 
@@ -18449,7 +18449,7 @@ body.catalog-product-view .hideshare-wrap {
                 content: '\f04d';
                 margin-right: 15px;
                 font-size: 15px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 color: #000
             }
 
@@ -19210,7 +19210,7 @@ body.catalog-product-view .hideshare-wrap {
             background: rgba(255,255,255,.1);
             font-size: 50px;
             color: #222;
-            font-family: "Pe-icon-7-stroke";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Pe-icon-7-stroke";
             position: absolute;
             top: 50%;
             right: 0;
@@ -19310,7 +19310,7 @@ body.catalog-product-view .hideshare-wrap {
                 background: rgba(255,255,255,.1);
                 font-size: 50px;
                 color: #222;
-                font-family: "Pe-icon-7-stroke";
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Pe-icon-7-stroke";
                 position: absolute;
                 top: 50%;
                 right: 0;
@@ -19547,7 +19547,7 @@ body.catalog-product-view .hideshare-wrap {
         position: static;
         content: "\f107";
         display: inline-block;
-        font-family: FontAwesome;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", FontAwesome;
         font-size: 12px;
         font-weight: 400;
         line-height: 12px;
@@ -20645,7 +20645,7 @@ dl.product.options.list {
             content: '\f107';
             margin-top: -7px;
             font-size: 14px;
-            font-family: 'Font Awesome 5 Pro';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
             line-height: 1;
             pointer-events: none;
             position: absolute;
@@ -20721,7 +20721,7 @@ dl.product.options.list {
         }
 
             .pages .pagination .item.pages-item-previous a:before, .pages .pagination .item.pages-item-next a:before {
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 font-size: 12px;
                 font-weight: 500;
                 color: #000
@@ -21505,7 +21505,7 @@ dl.product.options.list {
 
         .panel-popup .builder-title h2 {
             color: #000;
-            font-family: "Open Sans",sans-serif;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Open Sans",sans-serif;
             font-size: 18px;
             font-weight: 700;
             letter-spacing: normal;
@@ -22343,7 +22343,7 @@ div.builder-container {
         }
 
         .image-actions > div:after {
-            font-family: "FontAwesome";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
             font-size: 16px;
             z-index: 2;
             position: absolute;
@@ -22382,10 +22382,10 @@ div.builder-container {
 }
 
     .img-note:after {
-        font-family: "FontAwesome";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
         content: "\f03e";
         content: "\f2ed";
-        font-family: "Font Awesome 5 Pro";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Font Awesome 5 Pro";
         font-size: 16px;
         z-index: 2;
         position: absolute;
@@ -22450,7 +22450,7 @@ div.builder-container {
 
                 #list-images .image-item > div label:after {
                     content: "\f2ed";
-                    font-family: "Font Awesome 5 Pro";
+                    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Font Awesome 5 Pro";
                     font-size: 16px;
                     z-index: 2;
                     position: absolute;
@@ -22522,7 +22522,7 @@ div.builder-container {
 
                 #list-videos .video-item .remove-action label:after {
                     content: "\f2ed";
-                    font-family: "Font Awesome 5 Pro";
+                    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Font Awesome 5 Pro";
                     font-size: 16px;
                     z-index: 2;
                     position: absolute;
@@ -22574,7 +22574,7 @@ div.builder-container {
             .slide-videos li input:checked + label:before {
                 content: '\f14a';
                 font-size: 20px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 background: rgba(0,0,0,.4)
             }
 
@@ -22709,7 +22709,7 @@ div.builder-container {
             left: 50%;
             transform: translate(-50%,-50%);
             position: absolute;
-            font-family: "FontAwesome";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
             font-size: 20px;
             z-index: 1
         }
@@ -23088,7 +23088,7 @@ div.builder-container {
     color: #fff;
     font-style: normal;
     font-size: 28px;
-    font-family: Arial,Baskerville,monospace
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", Arial,Baskerville,monospace
 }
 
     .mfp-close:hover {
@@ -23400,7 +23400,7 @@ img.mfp-img {
 }
 
 .mfp-img-gallery .mfp-figure .mfp-close {
-    font-family: inherit;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", inherit;
     position: fixed;
     top: 0;
     right: 0;
@@ -23430,7 +23430,7 @@ img.mfp-img {
 }
 
 .mfp-img-gallery .mfp-iframe-scaler .mfp-close {
-    font-family: inherit;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", inherit;
     position: fixed;
     top: 0;
     right: 0;
@@ -23704,7 +23704,7 @@ body[class*=account] .fieldset .field input[type=radio], body[class*=account] .f
             display: inline-flex;
             margin-right: 10px;
             font-size: 16px;
-            font-family: 'Font Awesome 5 Pro';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
             line-height: 1;
             color: #000
         }
@@ -23941,7 +23941,7 @@ body[class*=account] .myaccount-navigation-menu-custom {
         border-bottom: none;
         font-weight: 700;
         font-size: 14px;
-        font-family: inherit !important;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", inherit !important;
         border: 1px solid rgba(0,0,0,.1);
         border-top: 1px solid rgba(0,0,0,.1) !important;
         text-align: center !important
@@ -24267,7 +24267,7 @@ body[class*=account] .myaccount-navigation-menu-custom {
                 display: inline-flex;
                 margin-right: 10px;
                 font-size: 16px;
-                font-family: 'Font Awesome 5 Pro';
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                 line-height: 1;
                 color: #000
             }
@@ -25696,7 +25696,7 @@ body[class*=account] .myaccount-navigation-menu-custom {
 
         .checkout-cart-index #shopping-cart-table .gift-options-cart-item .action-gift:after {
             display: inline-block;
-            font-family: "FontAwesome";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
             font-size: 16px;
             content: "\f107";
             float: right
@@ -26189,7 +26189,7 @@ body[class*=account] .myaccount-navigation-menu-custom {
 
         .sidebar .block.block-compare ol.product-items li.product-item .action.delete:after {
             content: "\f1f8";
-            font-family: "FontAwesome";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
             display: inline-block
         }
 
@@ -26528,7 +26528,7 @@ body[class*=account] .myaccount-navigation-menu-custom {
             -ms-align-items: center;
             align-items: center;
             justify-content: center;
-            font-family: 'Font Awesome 5 Pro';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
             font-size: 19px;
             color: #000;
             width: 30px;
@@ -26673,7 +26673,7 @@ body[class*=account] .myaccount-navigation-menu-custom {
                         display: inline-flex;
                         margin-right: 10px;
                         font-size: 16px;
-                        font-family: 'Font Awesome 5 Pro';
+                        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                         line-height: 1;
                         color: #000
                     }
@@ -26859,7 +26859,7 @@ body[class*=account] .myaccount-navigation-menu-custom {
             justify-content: center;
             width: 20px;
             height: 20px;
-            font-family: 'Font Awesome 5 Pro';
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
             font-size: 13px;
             font-weight: 600;
             line-height: 1;
@@ -27884,7 +27884,7 @@ body.lookbook-index-detail .item-content-wrapper {
                 .archive-content-wrapper .post-list-wrapper .post-list.grid .item .item-content .entry-tags a:not(:last-child):after {
                     content: '\f111';
                     margin-left: 6px;
-                    font-family: 'Font Awesome 5 Pro';
+                    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Font Awesome 5 Pro';
                     font-size: 4px;
                     font-weight: 600
                 }
@@ -30358,7 +30358,7 @@ form.payments > .fieldset legend + br {
 
         .gift-message .options-items .items .item .options .action.activate:after {
             content: "\f107";
-            font-family: "FontAwesome";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
             font-size: 14px;
             display: inline-block;
             vertical-align: middle;
@@ -30714,7 +30714,7 @@ form.payments > .fieldset legend + br {
 
         .post-actions .action a:after {
             content: "\f0d9";
-            font-family: "FontAwesome";
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
             font-size: 18px;
             position: absolute;
             left: 0;
@@ -31249,14 +31249,14 @@ form.payments > .fieldset legend + br {
         border: none;
         font-size: 16px;
         color: #282828;
-        font-family: inherit;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", inherit;
         margin-bottom: 12px;
         background: 0 0
     }
 
         .testimonial-list-block .testimonial-content .content blockquote:before {
             content: "\f10e";
-            font-family: FontAwesome;
+            font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", FontAwesome;
             position: absolute;
             top: -22px;
             left: -26px;
@@ -32048,7 +32048,7 @@ body._has-modal-custom._has-auth-shown:before {
         font-size: 18px;
         color: #fff;
         display: inline-block;
-        font-family: 'Pe-icon-7-stroke';
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Pe-icon-7-stroke';
         speak: none;
         font-style: normal;
         font-weight: 400;
@@ -32862,7 +32862,7 @@ body.dark {
                     .cart-footer .fixed-mini-cart .item-actions .product.actions .action:after {
                         color: #999;
                         content: "\e680";
-                        font-family: "Pe-icon-7-stroke";
+                        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Pe-icon-7-stroke";
                         font-size: 30px
                     }
 
@@ -32963,7 +32963,7 @@ body.dark {
 }
 
     .promobanner-home-v .banner-text > h3 {
-        font-family: "Libre Baskerville";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Libre Baskerville";
         font-weight: 700;
         margin: 0 0 10px
     }
