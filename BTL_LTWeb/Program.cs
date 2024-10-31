@@ -1,6 +1,7 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using BTL_LTWeb.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,12 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;               // Bắt buộc với GDPR
 });
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Thiết lập ReferenceHandler để xử lý vòng lặp tham chiếu
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
