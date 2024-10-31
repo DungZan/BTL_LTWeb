@@ -15,7 +15,7 @@ body {
     color: #3b3b3b;
     min-width: 320px;
     -webkit-text-size-adjust: 100%;
-    font: 13px/20px 'PTSansRegular',Arial,Helvetica,sans-serif;
+    font: 13px/20px "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     background: #fff
 }
 
@@ -25,7 +25,7 @@ body {
 }
 
 #nav ul li ul li a, .more, .avada-container h3, .meta .date, .review blockquote q, .review blockquote div strong, .image .image-extras .image-extras-content h4, .project-content .project-info h4, .post-content blockquote, .button.large, .button.small, .ei-title h3 {
-    font-family: "Times New Roman",Times,serif
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .maplist-index-index .page-main, .maplist-view-index .page-main {
@@ -244,7 +244,7 @@ div#show_attribute > div {
 
 #right-panel {
     width: 100%;
-    font-family: 'Roboto','sans-serif';
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     line-height: 30px;
     padding-left: 5px;
     padding-right: 5px
@@ -843,14 +843,14 @@ div#show_attribute > div {
 }
 
     .contentDes p {
-        font-family: "Times New Roman",Times,serif;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 1.6rem;
         line-height: 24px;
         word-break: break-word
     }
 
 .descrip .contentDes {
-    font-family: "Times New Roman",Times,serif;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1.6rem;
     line-height: 24px;
     max-width: 1280px;
