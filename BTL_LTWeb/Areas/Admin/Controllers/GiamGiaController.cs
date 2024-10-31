@@ -251,7 +251,9 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             }
             await Task.WhenAll(tasks);
             TempData["SuccessMessage"] = "Đã gửi email thông báo tới tất cả khách hàng";
-            return Json(new {success = true, message = "Đã gửi email thông báo tới tất cả khách hàng" });
+            return Json(new { success = true, message = "Đã gửi email thông báo tới tất cả khách hàng" });
         }
+
+        
     }
 }

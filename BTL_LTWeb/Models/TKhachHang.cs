@@ -32,4 +32,6 @@ public partial class TKhachHang
 
     [ValidateNever]
     public virtual TUser User { get; set; } = null!;
+
+    public virtual ICollection<TMaGiamGiaDaSuDung> TMaGiamGiaDaSuDungs { get; set; } = new List<TMaGiamGiaDaSuDung>();
 }

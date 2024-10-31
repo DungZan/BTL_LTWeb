@@ -92,15 +92,48 @@ namespace BTL_LTWeb.Controllers
             foreach (var item in model.CartID)
             {
                 var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
-                var danhMuc = _context.TDanhMucSps
-                    .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
-                TongTien = (decimal)(TongTien + (danhMuc.Gia * gioHang.SoLuong));
+                var danhMuc = _context.TDanhMucSps.FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
+                TongTien += (decimal)danhMuc.Gia * gioHang.SoLuong;
             }
+
+            decimal tienGiam = 0;
+            if (!string.IsNullOrEmpty(model.DiscountCodes))
+            {
+                var maGiamGia = _context.TMaGiamGias.FirstOrDefault(mg => mg.Code == model.DiscountCodes);
+                if (maGiamGia != null)
+                {
+                    // Kiểm tra nếu mã giảm giá đã được sử dụng trước đó
+                    var maDaSuDung = _context.TMaGiamGiaDaSuDungs
+                        .Any(m => m.MaKhachHang == model.MaKhachHang && m.MaGiamGia == maGiamGia.MaGiamGia);
+
+                    if (!maDaSuDung)
+                    {
+                        // Áp dụng giảm giá
+                        tienGiam = maGiamGia.LoaiGiamGia == 1
+                            ? maGiamGia.TiLeGiam * TongTien
+                            : maGiamGia.TiLeGiam * model.CartID.Sum(id =>
+                                _context.TGioHangs.FirstOrDefault(g => g.MaGioHang == id)?.SoLuong ?? 0);
+
+                        // Cập nhật mã đã sử dụng
+                        _context.TMaGiamGiaDaSuDungs.Add(new TMaGiamGiaDaSuDung
+                        {
+                            MaKhachHang = model.MaKhachHang,
+                            MaGiamGia = maGiamGia.MaGiamGia,
+                            
+                        });
+                    }
+                    else
+                    {
+                        return Json(new { success = false, message = "Mã giảm giá đã được sử dụng." });
+                    }
+                }
+            }
+            decimal tongTienSauGiam = TongTien - tienGiam;
             var hoaDon = new THoaDonBan
             {
                 MaKhachHang = model.MaKhachHang,
                 NgayHoaDon = DateTime.Now,
-                TongTienHd = TongTien,
+                TongTienHd = tongTienSauGiam,
                 PhuongThucThanhToan = model.PhuongThucThanhToan,
                 GhiChu = model.GhiChu
             };
@@ -150,6 +183,8 @@ namespace BTL_LTWeb.Controllers
             else return (ShowImage((int)TongTien, hoaDon.MaHoaDonBan+model.HoTen+"CHUYEN TIEN"));
 
         }
+
+        
 
 
         public ActionResult ShowImage(Int32 tien, string noiDung)

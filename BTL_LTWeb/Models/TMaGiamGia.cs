@@ -28,5 +28,6 @@ namespace BTL_LTWeb.Models
         public int? LoaiGiamGia { get; set; }
 
         public virtual ICollection<TMaGiamGiaSanPham> TMaGiamGiaSanPhams { get; set; } = new List<TMaGiamGiaSanPham>();
+        public virtual ICollection<TMaGiamGiaDaSuDung> TMaGiamGiaDaSuDungs { get; set; } = new List<TMaGiamGiaDaSuDung>();
     }
 }

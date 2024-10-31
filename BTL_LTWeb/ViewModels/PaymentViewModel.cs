@@ -23,6 +23,8 @@
 
         public List<int> CartID { get; set; }
 
+        public string DiscountCodes { get; set; } 
+
     }
 
 }
