@@ -60,7 +60,7 @@ namespace BTL_LTWeb.Controllers
                     };
                     await HttpContext.SignInAsync("MyCookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                    return RedirectToAction("Index", "Home"); 
+                    return RedirectToAction("Index", "Home");
                 }
             }
             ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không chính xác.");
@@ -140,7 +140,6 @@ namespace BTL_LTWeb.Controllers
                 }
                 if (register == null)
                     return BadRequest();
-                await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
                 email = register.Email;
                 name = register.Name;
             }
@@ -161,7 +160,7 @@ namespace BTL_LTWeb.Controllers
                 {
                     return BadRequest("Customer not found.");
                 }
-                await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang ?? string.Empty, verifyCode, status);
+                
                 email = khachHang.Email;
                 name = khachHang.TenKhachHang ?? string.Empty;
             }
@@ -172,24 +171,28 @@ namespace BTL_LTWeb.Controllers
                 Name = name,
                 Status = status
             };
-            var otp = await _context.TempUserOtps.FirstOrDefaultAsync(e => e.Email == email);
-            if (otp == null)
+            _ = Task.Run(async () =>
             {
-                var newOtp = new TempUserOtp
+                await _emailService.SendEmailAsync(verify.Email, verify.Name ?? string.Empty, verifyCode, status);
+                var otp = await _context.TempUserOtps.FirstOrDefaultAsync(e => e.Email == email);
+                if (otp == null)
                 {
-                    Email = email,
-                    OtpCode = verifyCode,
-                    OtpExpiration = DateTime.UtcNow.AddMinutes(2)
-                };
-                _context.TempUserOtps.Add(newOtp);
-                _context.SaveChanges();
-            }
-            else
-            {
-                otp.OtpCode = verifyCode;
-                otp.OtpExpiration = DateTime.UtcNow.AddMinutes(2);
-                _context.SaveChanges();
-            }
+                    var newOtp = new TempUserOtp
+                    {
+                        Email = email,
+                        OtpCode = verifyCode,
+                        OtpExpiration = DateTime.UtcNow.AddMinutes(2)
+                    };
+                    _context.TempUserOtps.Add(newOtp);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    otp.OtpCode = verifyCode;
+                    otp.OtpExpiration = DateTime.UtcNow.AddMinutes(2);
+                    _context.SaveChanges();
+                }
+            });
             TempData.Keep();
             return View(verify);
         }
@@ -332,6 +335,12 @@ namespace BTL_LTWeb.Controllers
 
             TempData["Message"] = "Cập nhật mật khẩu thành công!";
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult RequestChangePassword()
+        {
+            return RedirectToAction("VerifyEmail");
         }
     }
 }
