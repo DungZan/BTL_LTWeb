@@ -13,60 +13,43 @@
     </form>
     <p></p>
 <div class="alert alert-warning">
-        <table class="table table-hover table-responsive">
-    <thead>
-                <tr class="table-warning">
-            <th>
-                Tên khách hàng
-            </th>
-            <th>
-                Ngày sinh
-            </th>
-            <th>
-                Số điện thoại
-            </th>
-            <th>
-                Địa chỉ
-            </th>
-            <th>
-                Ghi chú
-            </th>
-            <th>
-                Chức năng
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="alert alert-primary">
-            <td>
-                @Html.DisplayFor(modelItem => item.TenKhachHang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GhiChu)
-            </td>
-            <td>
-                <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
-                <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <div id="content">
+            @await Html.PartialAsync("KhachHangTable", Model)
+        </div>
 </div>
-    @Html.PagedListPager(Model, page => Url.Action("Danhsachkhachhang", new { page = page }),
-            new X.PagedList.Mvc.Core.PagedListRenderOptions()
-    {
-        LiElementClasses = new List<String> { "page-item" },
-        PageClasses = new List<String> { "page-link" }
-    })
-</div>
+    @section Scripts {
+        <script>
+            $('body').on('click', 'li.page-item', function (e) {
+                e.preventDefault();
+                var page = $(this).data("page");
+                var keyword = $("#keyword").val();
+                $.ajax({
+                    url: "/Admin/KhachHang/KhachHangFilter",
+                    data: { keyword: keyword, pageIndex: page },
+                    success: function (response) {
+                        $("div#content").html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Có lỗi xảy ra:", error);
+                    }
+                });
+            });
+
+            $("button#btnSearch").click(function (e) {
+                var keyword = $("#keyword").val();
+                var data = { keyword: keyword };
+
+                $.ajax({
+                    url: "/Admin/KhachHang/ShopsFilter",
+                    data: data,
+                    success: function (response) {
+                        $("div#content").html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Có lỗi xảy ra:", error);
+                    }
+                });
+            });
+
+        </script>
+    }

@@ -28,6 +28,27 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return View(result);
         }
 
+        [Route("KhachHangFilter")]
+        public IActionResult KhachHangFilter(string? keyword, int? pageIndex)
+        {
+            var kh = db.TKhachHangs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                kh = kh.Where(l => l.TenKhachHang.ToLower().Contains(keyword.ToLower()));
+                ViewBag.keyword = keyword;
+            }
+            int page = (pageIndex ?? 1);
+            int pageNum = (int)Math.Ceiling(kh.Count() / (float)pageSize);
+            ViewBag.pageNum = pageNum;
+            var result = kh.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+            if(result == null || !result.Any())
+            {
+                return Json(new { success = false, message = "Không tìm thấy khách hàng!" });
+            }
+            return PartialView("KhachHangTable", result);
+        }
+
         [Route("Danhsachhoadonkhachhang")]
 
         public IActionResult ChiTietKhachHang(int maKH, int? page)
