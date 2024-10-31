@@ -50,7 +50,7 @@ namespace BTL_LTWeb.Controllers
 
             var customerId = cartItems.FirstOrDefault()?.MaKhachHang;
             var customerInfo = _context.TKhachHangs.FirstOrDefault(c => c.MaKhachHang == customerId);
-
+            
 
             var viewModel = new CheckoutViewModel
             {
@@ -65,6 +65,8 @@ namespace BTL_LTWeb.Controllers
                     MaKhachHang = customerId.Value,
                     CartID = selectedItems.ToList()
                 }
+                
+
             };
 
             return View("Index", checkoutAndPayment);
@@ -132,7 +134,10 @@ namespace BTL_LTWeb.Controllers
                         DonGiaBan = danhMuc.Gia
                     };
                     _context.TChiTietHoaDonBans.Add(chiTiet);
-
+                    if (gioHang.ChiTietSanPham.Slton.HasValue)
+                    {
+                        gioHang.ChiTietSanPham.Slton -= gioHang.SoLuong;
+                    }
                 }
 
                 //Xử lý thông tin giao hàng
