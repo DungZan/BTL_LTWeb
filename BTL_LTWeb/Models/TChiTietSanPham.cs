@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -23,8 +24,8 @@ public partial class TChiTietSanPham
 
     [DisplayName("Số Lượng Tồn")]
     public int? Slton { get; set; }
-
+    [ValidateNever]
     public virtual TDanhMucSp DanhMucSp { get; set; } = null!;
-
+    [ValidateNever]
     public virtual ICollection<TAnhChiTietSp> TAnhChiTietSps { get; set; } = new List<TAnhChiTietSp>();
 }
