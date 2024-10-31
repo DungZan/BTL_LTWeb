@@ -1001,7 +1001,7 @@ blockquote {
 
     blockquote:before {
         content: "\f10d";
-        font-family: "FontAwesome";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "FontAwesome";
         font-size: 20px;
         color: #999;
         position: absolute;
@@ -1314,7 +1314,7 @@ select, select.form-control, select.input-text {
     }
 
     .slick-prev:before, .slick-next:before {
-        font-family: "slick";
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "slick";
         font-size: 20px;
         line-height: 1;
         color: #fff;
@@ -1411,7 +1411,7 @@ select, select.form-control, select.input-text {
                 content: "•";
                 width: 20px;
                 height: 20px;
-                font-family: "slick";
+                font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "slick";
                 font-size: 6px;
                 line-height: 20px;
                 text-align: center;
@@ -1438,7 +1438,7 @@ body {
     color: #666;
     background-color: #fff;
     font-style: normal;
-    font-family: 'Helvetica Neue' !important;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", 'Helvetica Neue' !important;
     font-weight: 400 !important;
     line-height: 1.75;
     font-size: 16px;

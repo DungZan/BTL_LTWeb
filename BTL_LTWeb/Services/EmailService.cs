@@ -91,7 +91,7 @@ namespace BTL_LTWeb.Services
                     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                     <style>
                         body {
-                            font-family: Arial, sans-serif;
+                            font-family: Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
                             background-color: #f7f7f7;
                             margin: 0;
                             padding: 0;
