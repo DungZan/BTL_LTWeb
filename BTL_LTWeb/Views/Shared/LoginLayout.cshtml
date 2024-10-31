@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div class="alertactionresult">
+    <div class="alertactionresult" style="display:none;">
         <i class='bx bx-check'></i>
         <i class='bx bx-x'></i>
         <p class="alertmessage">This is a test. Nothing to notice about</p>
@@ -71,7 +71,31 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/css/bootstrap.css"></script>
     <script>
-        $(".alertactionresult").hide();
+        const isSuccess = '@TempData["Success"]';
+        if (isSuccess == 1) {
+            alertResult(true, "Đăng ký thành công");
+        }else if(isSuccess == 2){
+            alertResult(true, "Đặt lại mật khẩu thành công");
+        }
+        else {
+            $(".alertactionresult").hide();
+        }
+        function alertResult(type, msg) {
+            if (type == true) {
+                $('.bx-x').hide();
+                $('.bx-check').show();
+                $('.alertactionresult').css('border-right', 'solid 5px limegreen');
+            } else {
+                $('.bx-x').show();
+                $('.bx-check').hide();
+                $('.alertactionresult').css('border-right', 'solid 5px tomato');
+            }
+            $(".alertmessage").html(msg);
+            $('.alertactionresult').show();
+            setTimeout(function () {
+                $('.alertactionresult').fadeOut(500);
+            }, 2000);
+        }
     </script>
     @RenderSection("Scripts", required: false)
 </body>

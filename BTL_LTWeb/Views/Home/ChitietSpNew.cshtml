@@ -83,11 +83,14 @@
             e.preventDefault();
 
             $.ajax({
-                url: '/Cart/AddToCart',
+                url: '/gio-hang/them-vao-gio-hang',
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function (response) {
                     alertResult(true, "Thêm sản phẩm thành công");
+                    var count = parseInt($('.count').text());
+                    $('.count').show();
+                    $('.count').text(count + 1);
                 },
                 error: function (xhr) {
                     alertResult(false, xhr.responseText);

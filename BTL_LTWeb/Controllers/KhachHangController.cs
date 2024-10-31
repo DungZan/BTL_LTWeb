@@ -119,19 +119,19 @@ namespace BTL_LTWeb.Controllers
             var user = await db.TUsers.FirstOrDefaultAsync(u => u.Email == email);
             if (user == null)
             {
-                return Json(new { success = false, message = "Không tìm thấy tài khoản." });
+                return NotFound("Lỗi hệ thống, thử lại sau");
             }
             if(SecurityService.HashPasswordWithSalt(update.CurrentPassword, user.Salt) != user.Password)
             {
-                return Json(new { success = false, message = "Mật khẩu hiện tại không đúng." });
+                return BadRequest("Mật khẩu hiện tại không đúng.");
             }
             if (update.NewPassword != update.ConfirmPassword)
             {
-                return Json(new { success = false, message = "Mật khẩu xác nhận không khớp." });
+                return BadRequest("Mật khẩu xác nhận không khớp.");
             }
             user.Password = SecurityService.HashPasswordWithSalt(update.NewPassword, user.Salt);
             await db.SaveChangesAsync();
-            return Json(new { success = true });
+            return Ok();
         }
     }
 }

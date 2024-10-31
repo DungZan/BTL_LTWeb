@@ -9,6 +9,7 @@ using System.Text.Json;
 
 namespace BTL_LTWeb.Controllers
 {
+    [Route("acc")]
     public class AccountController : Controller
     {
         private readonly QLBanDoThoiTrangContext _context;
@@ -20,6 +21,7 @@ namespace BTL_LTWeb.Controllers
             _emailService = emailService;
         }
 
+        [Route("dang-nhap")]
         [HttpGet]
         public IActionResult Login()
         {
@@ -30,6 +32,7 @@ namespace BTL_LTWeb.Controllers
             return View();
         }
 
+        [Route("dang-nhap")]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel login)
         {
@@ -67,6 +70,7 @@ namespace BTL_LTWeb.Controllers
             return View(login);
         }
 
+        [Route("dang-xuat")]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -74,6 +78,7 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [Route("dang-ky")]
         [HttpGet]
         public IActionResult Register()
         {
@@ -84,6 +89,7 @@ namespace BTL_LTWeb.Controllers
             return View();
         }
 
+        [Route("dang-ky")]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel register)
         {
@@ -110,6 +116,7 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("VerifyEmail");
         }
 
+        [Route("xac-thuc-email")]
         [HttpGet]
         public async Task<IActionResult> VerifyEmail()
         {
@@ -174,29 +181,30 @@ namespace BTL_LTWeb.Controllers
             _ = Task.Run(async () =>
             {
                 await _emailService.SendEmailAsync(verify.Email, verify.Name ?? string.Empty, verifyCode, status);
-                var otp = await _context.TempUserOtps.FirstOrDefaultAsync(e => e.Email == email);
-                if (otp == null)
-                {
-                    var newOtp = new TempUserOtp
-                    {
-                        Email = email,
-                        OtpCode = verifyCode,
-                        OtpExpiration = DateTime.UtcNow.AddMinutes(2)
-                    };
-                    _context.TempUserOtps.Add(newOtp);
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    otp.OtpCode = verifyCode;
-                    otp.OtpExpiration = DateTime.UtcNow.AddMinutes(2);
-                    _context.SaveChanges();
-                }
             });
+            var otp = await _context.TempUserOtps.FirstOrDefaultAsync(e => e.Email == email);
+            if (otp == null)
+            {
+                var newOtp = new TempUserOtp
+                {
+                    Email = email,
+                    OtpCode = verifyCode,
+                    OtpExpiration = DateTime.UtcNow.AddMinutes(2)
+                };
+                _context.TempUserOtps.Add(newOtp);
+                _context.SaveChanges();
+            }
+            else
+            {
+                otp.OtpCode = verifyCode;
+                otp.OtpExpiration = DateTime.UtcNow.AddMinutes(2);
+                _context.SaveChanges();
+            }
             TempData.Keep();
             return View(verify);
         }
 
+        [Route("xac-thuc-email")]
         [HttpPost]
         public async Task<IActionResult> VerifyEmail(VerifyCodeViewModel verify)
         {
@@ -257,6 +265,7 @@ namespace BTL_LTWeb.Controllers
                 _context.SaveChanges();
                 _context.SaveChanges();
                 TempData.Clear();
+                TempData["Success"] = 1;
                 return RedirectToAction("Login", "Account");
             }
             else
@@ -265,6 +274,7 @@ namespace BTL_LTWeb.Controllers
             }
         }
 
+        [Route("quen-mat-khau")]
         [HttpGet]
         public IActionResult ForgotPassword()
         {
@@ -275,6 +285,7 @@ namespace BTL_LTWeb.Controllers
             return View();
         }
 
+        [Route("quen-mat-khau")]
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgot)
         {
@@ -295,6 +306,7 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("VerifyEmail");
         }
 
+        [Route("doi-mat-khau")]
         [HttpGet]
         public IActionResult ChangePassword()
         {
@@ -304,6 +316,8 @@ namespace BTL_LTWeb.Controllers
             }
             return View();
         }
+
+        [Route("doi-mat-khau")]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel change)
         {
@@ -333,14 +347,8 @@ namespace BTL_LTWeb.Controllers
             user.Salt = salt;
             _context.SaveChanges();
 
-            TempData["Message"] = "Cập nhật mật khẩu thành công!";
+            TempData["Success"] = 2;
             return RedirectToAction("Login", "Account");
-        }
-
-        [HttpGet]
-        public IActionResult RequestChangePassword()
-        {
-            return RedirectToAction("VerifyEmail");
         }
     }
 }
