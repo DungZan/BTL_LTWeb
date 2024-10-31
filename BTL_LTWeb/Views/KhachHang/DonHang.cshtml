@@ -1,5 +1,4 @@
-﻿@using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<BTL_LTWeb.Models.THoaDonBan>
+﻿@model IEnumerable<BTL_LTWeb.Models.THoaDonBan>
 @{
     ViewData["Title"] = "DonHang";
     Layout = "~/Views/Shared/ProfileLayout.cshtml";
@@ -12,61 +11,83 @@
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
     <p></p>
-<div class="alert alert-warning">
+    <div class="alert alert-warning">
         <table class="table table-hover table-responsive">
-    <thead>
-            <tr class="table-warning">
-                <th>
-                    Mã hoá đơn
-                </th>
-                <th>
-                    Ngày tạo
-                </th>
-                <th>
-                    Phương thức thanh toán
-                </th>
-                <th>
-                    Ghi chú
-                </th>
-                <th>
-                    Tổng tiền
-                </th>
-                <th>
-                    Chức năng
-                </th>
-            </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr class="alert alert-primary">
-            <td>
-                @Html.DisplayFor(modelItem => item.MaHoaDonBan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayHoaDon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GhiChu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TongTienHd)
-            </td>
-            <td>
-                <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
-                <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <thead>
+                    <tr class="table-warning">
+                        <th>
+                        Mã hoá đơn
+                        </th>
+                        <th>
+                        Ngày tạo
+                        </th>
+                        <th>
+                        Phương thức thanh toán
+                        </th>
+                        <th>
+                        Ghi chú
+                        </th>
+                        <th>
+                        Tổng tiền
+                        </th>
+                        <th>
+                        Chức năng
+                        </th>
+                    </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                    <tr class="alert alert-primary">
+                        <td>
+                        @Html.DisplayFor(modelItem => item.MaHoaDonBan)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.NgayHoaDon)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.GhiChu)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.TongTienHd)
+                        </td>
+                        <td>
+                            <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
+                            <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
+                    </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-    @Html.PagedListPager(Model, page => Url.Action("DonHang", new { page = page }),
-            new X.PagedList.Mvc.Core.PagedListRenderOptions()
+<ul class="pagination">
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
     {
-        LiElementClasses = new List<String> { "page-item" },
-        PageClasses = new List<String> { "page-link" }
-    })
-</div>
+        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+            <a class="page-link" href="@Url.Action("DonHang", "KhachHang", new { Page = i })">@i</a>
+        </li>
+    }
+</ul>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('body').on('click', 'li.page-item', function (e) {
+            e.preventDefault();
+            var page = $(this).find("a").attr("href").split("Page=")[1];
+            $.ajax({
+                url: "/KhachHang/DonHang",
+                data: { Page: page },
+                success: function (response) {
+                    $("div.row").html($(response).find("div.row").html());
+                    $("ul.pagination").html($(response).find("ul.pagination").html());
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+    });
+</script>

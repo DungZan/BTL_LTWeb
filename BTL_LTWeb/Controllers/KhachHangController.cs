@@ -23,7 +23,7 @@ namespace BTL_LTWeb.Controllers
                 return NotFound();
             }
 
-            return View(_kh);
+            return PartialView("Suathongtin",_kh);
         }
 
         [Route("KhachHang/Suathongtin")]
@@ -73,19 +73,31 @@ namespace BTL_LTWeb.Controllers
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
             var _kh = db.TKhachHangs.FirstOrDefault(kh => kh.Email == userEmail);
 
-            if(_kh == null)
+            if (_kh == null)
             {
                 return NotFound();
             }
 
             int _khID = _kh.MaKhachHang;
-            var lst = db.THoaDonBans.Where(dh => dh.MaKhachHang == _khID).AsNoTracking();
+            var lst = db.THoaDonBans
+                        .Where(dh => dh.MaKhachHang == _khID)
+                        .OrderByDescending(dh => dh.NgayHoaDon)
+                        .AsNoTracking();
 
             int pageSize = 10;
             int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-            PagedList<THoaDonBan> lstDh = new PagedList<THoaDonBan>(lst, pageNumber, pageSize);
+            int totalItems = lst.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-            return View(lstDh);
+            var pagedData = lst
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = totalPages;
+
+            return View(pagedData);
         }
 
         public IActionResult ChiTietDonHang(int MaDH)
