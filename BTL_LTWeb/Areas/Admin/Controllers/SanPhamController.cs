@@ -12,7 +12,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     public class SanPhamController : Controller
     {
         private readonly QLBanDoThoiTrangContext db;
-        private readonly int pageSize = 3;
+        private readonly int pageSize = 7;
 
         public SanPhamController()
         {
@@ -159,26 +159,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             TempData["Log"] = "Xóa thành công";
             return RedirectToAction("danhmucsanpham");
         }
-        [Route("ChiTietSanPham")]
-        [HttpGet]
-        public IActionResult ChiTiet(int MaSP)
-        {
 
-            var sp = db.TDanhMucSps.Find(MaSP);
-            var chitiet = db.TChiTietSanPhams.Find(MaSP);
-            ChiTietSanPhamViewModel chiTietsp = new ChiTietSanPhamViewModel
-            {
-                Sp = sp,
-                chiTietSanPham=chitiet
-            };
-            return View(chiTietsp);
-        }
-        [HttpPost]
-        [Route("ChiTietSanPham")]
-        public IActionResult ChiTiet(ChiTietSanPhamViewModel chiTietsp)
-        {
-            return View(chiTietsp);
-        }
         [Route("Timsanpham")]
         public IActionResult TimSanPham(string Tensanpham, int? Page)
         {
@@ -205,6 +186,60 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             var list = db.TDanhMucSps.AsNoTracking().OrderBy(x => x.TenSp);
             PagedList<TDanhMucSp> lst = new PagedList<TDanhMucSp>(list, pageNumber, pageSize);
             return PartialView("BangSanPham", lst);
+        }
+        //chi tiết sản phẩm
+        [Route("ChiTietSanPham")]
+        [HttpGet]
+        public IActionResult ChiTiet(int MaSP)
+        {
+
+            var sp = db.TDanhMucSps.Find(MaSP);
+            var chitiet = db.TChiTietSanPhams.Where(x => x.MaSp == MaSP).ToList();
+            ChiTietSanPhamViewModel chiTietsp = new ChiTietSanPhamViewModel
+            {
+                Sp = sp,
+                chiTietSanPhams = chitiet
+            };
+            return View(chiTietsp);
+        }
+        [HttpPost]
+        [Route("ChiTietSanPham")]
+        public IActionResult ChiTiet(ChiTietSanPhamViewModel chiTietsp)
+        {
+            return View(chiTietsp);
+        }
+        // thêm chi tiết sản phẩm
+        [Route("ThemChiTiet")]
+        [HttpGet]
+        public IActionResult ThemChiTiet(int MaSP)
+        {
+            var sp = db.TDanhMucSps.Find(MaSP);
+            ViewBag.TenSP = sp.TenSp;
+            ViewBag.MaSP = MaSP;
+            return View();
+        }
+        [HttpPost]
+        [Route("ThemChiTiet")]
+        public IActionResult ThemChiTiet(TChiTietSanPham chitiet)
+        {
+            if (ModelState.IsValid)
+            {
+                db.TChiTietSanPhams.Add(chitiet);
+                db.SaveChanges();
+                return RedirectToAction("danhmucsanpham");
+            }
+            return View(chitiet);
+        }
+        //xoá chi tiết sản phẩm
+        [HttpGet]
+        [Route("XoaChiTiet")]
+        public IActionResult XoaChiTiet(int MaChiTietSp)
+        {
+            var chitiet = db.TChiTietSanPhams.Find(MaChiTietSp);
+            db.TChiTietSanPhams.Remove(chitiet);
+            db.SaveChanges();
+            TempData["LogChiTiet"] = "Xoá thành công";
+            return RedirectToAction("ChiTiet", new { MaSP = chitiet.MaSp });
         }
     }
 }
