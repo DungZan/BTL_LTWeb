@@ -20,9 +20,6 @@ namespace BTL_LTWeb.Controllers
         //currently in product's page
         private int _pid;
 
-        //user's status related to the product
-        private bool _hasPurchased = false;
-
         //for pagination purpose
         private const int _PERPAGERV = 5;
 
@@ -77,8 +74,7 @@ namespace BTL_LTWeb.Controllers
             if (_uid < 1 || _pid < 1) return false;
             var dsChiTiet = _db.TChiTietSanPhams.Where(it => it.MaSp == _pid).Select(it => it.MaChiTietSp).ToList();
             var dsHoaDon = _db.THoaDonBans.Where(it => it.MaKhachHang == _uid).Select(it => it.MaHoaDonBan).ToList();
-            _hasPurchased = _db.TChiTietHoaDonBans.Any(it => dsHoaDon.Contains(it.MaHoaDonBan) && dsChiTiet.Contains(it.MaChiTietSP));
-            return _hasPurchased;
+            return _db.TChiTietHoaDonBans.Any(it => dsHoaDon.Contains(it.MaHoaDonBan) && dsChiTiet.Contains(it.MaChiTietSP));
         }
 
         public IActionResult GlobalReviewAJAX(int pid, string email)
@@ -177,26 +173,62 @@ namespace BTL_LTWeb.Controllers
             return PartialView("rvList", dprvlist.Skip((pageNum - 1) * _PERPAGERV).Take(_PERPAGERV));
         }
 
-        private bool AuthorityCheck(string action, TDanhGia onRV)
+        //successor of AuthorityCheck
+        private string ValidatingAction(string action, TDanhGia affected, TDanhGia? prev = null)
         {
+            /*
+                x SACT    action run successfull
+                WUNS    user hasnt bought product yet
+                WRFP    point rating wrong format (blank)
+                WRFC    review message wrong format (>1000c)
+                WRNE    new review doesnt change at all
+                WRNC    reply message blank
+                EUNP    logged in user lack in permission
+                x ERNI    rid not found in database
+                x EDTB    error in database (unexpected)
+             */
             switch (action)
             {
-                case "rvCreate": return (_utype == "KhachHang" && _hasPurchased);
+                case "rvCreate":
+                    if (_utype != "KhachHang") return "EUNP";
+                    if (!IsUserPurchasedProduct()) return "WUNS";
+                    if (affected.Diem < 1 || affected.Diem > 5) return "WRFP";
+                    if (!string.IsNullOrWhiteSpace(affected.BinhLuan) && affected.BinhLuan.Length > 1000) return "WRFC";
+                    break;
                 case "rvEdit":
+                    if (_utype != "KhachHang" || _uid != prev.MaKhachHang) return "EUNP";
+                    if (affected.Diem < 1 || affected.Diem > 5) return "WRFP";
+                    if (!string.IsNullOrWhiteSpace(affected.BinhLuan) && affected.BinhLuan.Length > 1000) return "WRFC";
+                    if (affected.Diem == prev.Diem && affected.BinhLuan == prev.BinhLuan) return "WRNE";
+                    break;
                 case "rvDelete":
-                    return onRV.MaKhachHang == _uid;
-                case "rpCreate": return _utype == "NhanVien";
+                    if (_utype != "KhachHang" || _uid != affected.MaKhachHang) return "EUNP";
+                    break;
+                case "rpCreate":
+                    if (_utype != "NhanVien") return "EUNP";
+                    if (string.IsNullOrWhiteSpace(affected.TraLoi)) return "WRNC";
+                    if (affected.TraLoi.Length > 1000) return "WRFC";
+                    break;
                 case "rpEdit":
+                    if (_utype != "NhanVien" || _uid != prev.MaNhanVien) return "EUNP";
+                    if (string.IsNullOrWhiteSpace(affected.TraLoi)) return "WRNC";
+                    if (affected.TraLoi.Length > 1000) return "WRFC";
+                    break;
                 case "rpDelete":
-                    return onRV.MaNhanVien == _uid;
-
-                default: return false;
+                    if (_utype != "NhanVien" || _uid != affected.MaNhanVien) return "EUNP";
+                    break;
+                case "urCastVote":
+                    if (_utype != "KhachHang") return "EUNP";
+                    break;
+                case "dbError":
+                    return "EDTB";
             }
+            return "SACT";
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public bool AlterReview([Bind("Diem,BinhLuan")] TDanhGia inpReview, int pid)
+        public string AlterReview([Bind("Diem,BinhLuan")] TDanhGia inpReview, int pid)
         {
             FetchCurrentUser();
             FetchProduct(pid);
@@ -206,12 +238,12 @@ namespace BTL_LTWeb.Controllers
             //khách chưa để lại bình luận -> tạo bình luận
             if (userReview == null)
             {
-                if (!AuthorityCheck("rvCreate", userReview)) return false;
-                if (inpReview.Diem <= 0 || inpReview.Diem > 5) return false;
-
                 inpReview.MaKhachHang = _uid;
                 inpReview.MaSP = _pid;
                 inpReview.NgayTao = DateTime.Now;
+
+                string actStatus = ValidatingAction("rvCreate", inpReview);
+                if (actStatus != "SACT") return actStatus;
 
                 if (ModelState.IsValid) try
                     {
@@ -220,19 +252,17 @@ namespace BTL_LTWeb.Controllers
                     }
                     catch
                     {
-                        return false;
+                        return ValidatingAction("dbError", inpReview);
                     }
             }
             //khách đã để lại bình luận -> sửa bình luận
             else
             {
-                if (!AuthorityCheck("rvEdit", userReview)) return false;
-                if (userReview.Diem == inpReview.Diem && userReview.BinhLuan == inpReview.BinhLuan) return false;
-                if (userReview.MaNhanVien != null) return false;
-                if (inpReview.Diem < 1 || inpReview.Diem > 5) return false;
+                string actStatus = ValidatingAction("rvEdit", inpReview, userReview);
+                if (actStatus != "SACT") return actStatus;
 
                 //Bình luận sửa cách nhau 12 tiếng -> lưu vào LichSu
-                if (DateTime.Now.Subtract(userReview.NgayTao).TotalHours > 12 && !string.IsNullOrWhiteSpace(userReview.BinhLuan))
+                if (DateTime.Now.Subtract(userReview.NgayTao).TotalHours > 3 && !string.IsNullOrWhiteSpace(userReview.BinhLuan))
                 {
                     List<ReviewHistory> rvHistories = new List<ReviewHistory>();
                     if (!string.IsNullOrWhiteSpace(userReview.LichSu)) rvHistories = JsonSerializer.Deserialize<List<ReviewHistory>>(userReview.LichSu)!;
@@ -253,7 +283,7 @@ namespace BTL_LTWeb.Controllers
 
                 return EditReview(userReview);
             }
-            return true;
+            return "SACT";
         }
 
         public IActionResult DeleteReviewAsk(int pid, int rid)
@@ -265,7 +295,7 @@ namespace BTL_LTWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public bool DeleteReviewConfirm(int pid, int rid)
+        public string DeleteReviewConfirm(int pid, int rid)
         {
             FetchCurrentUser();
             FetchProduct(pid);
@@ -273,7 +303,9 @@ namespace BTL_LTWeb.Controllers
             var review = _reviews.FirstOrDefault(it => it.MaDanhGia == rid);
             if (review != null)
             {
-                if (!AuthorityCheck("rvDelete", review)) return false;
+                string actStatus = ValidatingAction("rvDelete", review);
+                if (actStatus != "SACT") return actStatus;
+
                 //xoá review -> xoá react của review
                 if (_reacts.Any(it => it.MaDanhGia == rid))
                     try
@@ -283,7 +315,7 @@ namespace BTL_LTWeb.Controllers
                     }
                     catch
                     {
-                        return false;
+                        return "EDTB";
                     }
                 try
                 {
@@ -292,14 +324,14 @@ namespace BTL_LTWeb.Controllers
                 }
                 catch
                 {
-                    return false;
+                    return "EDTB";
                 }
             }
-            else return false;
-            return true;
+            else return "ERNI";
+            return "SACT";
         }
 
-        private bool EditReview(TDanhGia rv)
+        private string EditReview(TDanhGia rv)
         {
             if (ModelState.IsValid)
             {
@@ -307,14 +339,14 @@ namespace BTL_LTWeb.Controllers
                 {
                     _db.TDanhGias.Update(rv);
                     _db.SaveChanges();
-                    return true;
+                    return "SACT";
                 }
                 catch
                 {
-                    return false;
+                    return "EDTB";
                 }
             }
-            return false;
+            return "EDTB";
         }
 
         public IActionResult OpenReplySection(int pid, int rid)
@@ -327,39 +359,45 @@ namespace BTL_LTWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public bool AlterReply([Bind("MaDanhGia", "TraLoi")] TDanhGia inpReply, int pid)
+        public string AlterReply([Bind("MaDanhGia", "TraLoi")] TDanhGia inpReply, int pid)
         {
             FetchCurrentUser();
             FetchProduct(pid);
 
-            if (string.IsNullOrWhiteSpace(inpReply.TraLoi)) return false;
             TDanhGia frameReview = _reviews.Find(it => it.MaDanhGia == inpReply.MaDanhGia)!;
             if (frameReview != null)
             {
                 if (frameReview.MaNhanVien == null)
                 {
-                    if (!AuthorityCheck("rpCreate", frameReview)) return false;
+                    string actStatus = ValidatingAction("rpCreate", inpReply);
+                    if (actStatus != "SACT") return actStatus;
+
                     frameReview.MaNhanVien = _uid;
                     frameReview.TraLoi = inpReply.TraLoi;
                 }
                 else
                 {
-                    if (!AuthorityCheck("rpEdit", frameReview)) return false;
+                    string actStatus = ValidatingAction("rpEdit", inpReply, frameReview);
+                    if (actStatus != "SACT") return actStatus;
+
                     frameReview.TraLoi = inpReply.TraLoi;
                 }
                 return EditReview(frameReview);
             }
-            return false;
+            return "ERNI";
         }
 
-        public bool DeleteReply(int pid, int rid)
+        public string DeleteReply(int pid, int rid)
         {
             FetchCurrentUser();
             FetchProduct(pid);
 
             TDanhGia? frameReview = _reviews.Find(it => it.MaDanhGia == rid);
-            if (frameReview != null && frameReview.MaNhanVien != null && AuthorityCheck("rpDelete", frameReview))
+            if (frameReview != null)
             {
+                string actStatus = ValidatingAction("rpDelete", frameReview);
+                if (actStatus != "SACT") return actStatus;
+
                 foreach (var it in _reacts.Where(it => it.MaDanhGia == frameReview.MaDanhGia))
                 {
                     it.HuuIch = 0;
@@ -370,15 +408,13 @@ namespace BTL_LTWeb.Controllers
 
                 return EditReview(frameReview);
             }
-            return false;
+            return "ERNI";
         }
 
-        public bool CastVote(int pid, int rid, char type)
+        public string CastVote(int pid, int rid, char type)
         {
             FetchCurrentUser();
             FetchProduct(pid);
-
-            if (_uid < 1 || _utype != "KhachHang") return false;
 
             var query = _reacts.Where(it => it.MaKhachHang == _uid && it.MaDanhGia == rid);
             TPhanHoi? castedVote = null;
@@ -386,7 +422,10 @@ namespace BTL_LTWeb.Controllers
             TDanhGia? voteatReview = _reviews.Find(it => it.MaDanhGia == rid);
 
             //không có review == không thể vote (=> data tempering)
-            if (voteatReview == null) return false;
+            if (voteatReview == null) return "ERNI";
+
+            string actStatus = ValidatingAction("urCastVote", new TDanhGia());
+            if (actStatus != "SACT") return actStatus;
 
             //tạo vote entry cho khách khi db chưa có
             if (castedVote == null)
@@ -403,7 +442,7 @@ namespace BTL_LTWeb.Controllers
                 }
                 catch
                 {
-                    return false;
+                    return "EDTB";
                 }
             }
             //cast vote theo option (đè vote = cancel out)
@@ -425,8 +464,8 @@ namespace BTL_LTWeb.Controllers
                 _db.TPhanHois.Update(castedVote);
                 _db.SaveChanges();
             }
-            catch { return false; }
-            return true;
+            catch { return "EDTB"; }
+            return "SACT";
         }
     }
 }

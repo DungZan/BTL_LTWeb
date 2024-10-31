@@ -193,10 +193,11 @@
             $.ajax({
                 url: '@Url.Action("DeleteReply", "Review")',
                 data: { pid: '@ViewBag.pid', rid: rid },
-                success: function() {
-                    ajaxList();
-                    if (response == true) alertResult(true, "Xoá thành công");
-                    else alertResult(false, "Xoá thất bại");
+                success: function (response) {
+                    alertResult(response);
+                    if (response == "SACT") {
+                        ajaxList();
+                    }
                 }
             });
         }
@@ -239,9 +240,10 @@
             url: '@Url.Action("CastVote", "Review")',
             data: { pid: '@ViewBag.pid', rid: rid, type: 'L' },
             success: function (response) {
-                ajaxList();
-                if (response == true) alertResult(true, "Bình chọn thành công");
-                else alertResult(false, "Bình chọn thất bại");
+                alertResult(response);
+                if (response == "SACT") {
+                    ajaxList();
+                }
             }
         });
     }); 
@@ -251,9 +253,10 @@
             url: '@Url.Action("CastVote", "Review")',
             data: { pid: '@ViewBag.pid', rid: rid, type: 'D' },
             success: function (response) {
-                ajaxList();
-                if (response == true) alertResult(true, "Bình chọn thành công");
-                else alertResult(false, "Bình chọn thất bại");
+                alertResult(response);
+                if (response == "SACT") {
+                    ajaxList();
+                }
             }
         });
     }); 
@@ -263,9 +266,10 @@
             url: '@Url.Action("CastVote", "Review")',
             data: { pid: '@ViewBag.pid', rid: rid, type: 'H' },
             success: function (response) {
-                ajaxList();
-                if (response == true) alertResult(true, "Bình chọn thành công");
-                else alertResult(false, "Bình chọn thất bại");
+                alertResult(response);
+                if (response == "SACT") {
+                    ajaxList();
+                }
             }
         });
     });
