@@ -25,8 +25,7 @@
 <div id="rvList"></div>
 
 <div class="alertactionresult">
-    <i class='bx bx-check'></i>
-    <i class='bx bx-x'></i>
+    <i class='bx bx-x' id="alerticon"></i>
     <p class="alertmessage">This is a test. Nothing to notice about</p>
 </div>
 
@@ -86,17 +85,42 @@
         ajaxList();
     });
 
-    function alertResult(type, msg) {
-        if (type == true) {
-            $('.bx-x').hide();
-            $('.bx-check').show();
-            $('.alertactionresult').css('border-right', 'solid 5px limegreen');
-        } else {
-            $('.bx-x').show();
-            $('.bx-check').hide();
-            $('.alertactionresult').css('border-right', 'solid 5px tomato');
+    function alertResult(type) {
+        $("#alerticon").removeClass('bx-x bx-check bx-circle');
+        switch (type[0]) {
+            case 'S': 
+                $("#alerticon").addClass('bx-check');
+                $('.alertactionresult').css('border-right', 'solid 5px limegreen'); 
+                break;
+            case 'W': 
+                $("#alerticon").addClass('bx-circle'); 
+                $('.alertactionresult').css('border-right', 'solid 5px gold');
+                break;
+            case 'E': 
+                $("#alerticon").addClass('bx-x'); 
+                $('.alertactionresult').css('border-right', 'solid 5px tomato');
+                break;
+            default: 
+                $("#alerticon").addClass('bx-x');
+                $('.alertactionresult').css('border-right', 'solid 5px tomato');
+                break;
+        }
+
+        var msg;
+        switch (type) {
+            case "SACT": msg = "Thao tác thành công"; break;
+            case "WUNS": msg = "Hãy mua sản phẩm này để đánh giá"; break;
+            case "WRFP": msg = "Chưa chọn số sao đánh giá"; break;
+            case "WRFC": msg = "Độ dài bình luận tối đa 1000 kí tự"; break;
+            case "WRNE": msg = "Đánh giá không có sự thay đổi"; break;
+            case "WRNC": msg = "Bình luận này không thể để trống"; break;
+            case "EUNP": msg = "Tài khoản không có quyền hạn này"; break;
+            case "ERNI": msg = "Không thể tìm thấy đánh giá"; break;
+            case "EDTB": msg = "Lỗi hệ thống lưu trữ dữ liệu. Liên hệ CSKH"; break;
+            default: msg = "Không xác định"; break;
         }
         $(".alertmessage").html(msg);
+
         $('.alertactionresult').show();
         setTimeout(function () {
             $('.alertactionresult').fadeOut(500);

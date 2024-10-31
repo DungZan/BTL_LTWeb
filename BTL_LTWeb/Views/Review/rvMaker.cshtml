@@ -88,11 +88,12 @@
                 url: '@Url.Action("AlterReview", "Review")',
                 data: $(this).serialize() + "&pid=" + '@ViewBag.pid',
                 success: function (response) {
-                    ajaxList();
-                    ajaxStats();
-                    ajaxMaker();
-                    if (response == true) alertResult(true, "Đánh giá thành công");
-                    else alertResult(false, "Đánh giá thất bại");
+                    alertResult(response);
+                    if (response == "SACT") {
+                        ajaxList();
+                        ajaxStats();
+                        ajaxMaker();
+                    }
                 }
             });
         });
