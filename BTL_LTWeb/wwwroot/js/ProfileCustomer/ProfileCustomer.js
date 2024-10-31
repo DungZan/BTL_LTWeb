@@ -1,4 +1,19 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿$(document).ready(function () {
+    $("#change").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/Khachhang/UpdatePassword',
+            type: 'GET',
+            success: function (data) {
+                $("#change-password").html(data);
+            },
+            error: function () {
+                alert("Có lỗi xảy ra khi tải nội dung!");
+            }
+        });
+    });
+});
+document.addEventListener("DOMContentLoaded", function () {
     // Get all navigation links
     const navLinks = document.querySelectorAll(".list-group-item");
 

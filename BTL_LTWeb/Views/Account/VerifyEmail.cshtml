@@ -22,11 +22,10 @@
 
         <div>
             <span class="text-danger">
-                @Html.ValidationSummary(true) <!-- Hiển thị thông báo lỗi chung -->
+                @Html.ValidationSummary(true)
             </span>
         </div>
         <p id="message">Gửi lại mã sau <span id="countdown"></span> giây.</p>
-        <!-- Nút gửi lại mã (ban đầu bị vô hiệu hóa) -->
         <a class="text-primary fw-bold ms-2" id="resendCodeBtn" onclick="resendCode()" style="cursor:pointer">Gửi lại mã</a><br />
         <div class="d-flex justify-content-between align-items-sm-center">
             <a class="text-primary fw-bold ms-2" onclick="window.location.href='@Url.Action("Login", "Account")'" style="cursor:pointer">Hủy</a>
@@ -71,8 +70,9 @@
         }, 1000);
 
         function resendCode() {
+            alertResult(true, "Đang gửi lại mã xác nhận");
             $.ajax({
-                url: '/api/accountapi/verify-email/resend',
+                url: '/api/acc/xac-thuc-email/gui-lai-ma',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -81,7 +81,7 @@
                     status: parseInt('@Model.Status') 
                 }),
                 success: function (response) {
-                    alertResult(false, "Gửi lại thành công");
+                    alertResult(true, "Gửi lại thành công");
                     countdown = 30;
                     countdownElement.textContent = countdown;
                     resendCodeBtn.style.display = 'none';
@@ -102,26 +102,9 @@
                     }, 1000);
                 },
                 error: function (xhr, status, error) {
-                    alertResult(false, xhr.textContent);
+                    alertResult(false, "Gửi mã thất bại, thử lại sau");
                 }
             });
-        }
-
-        function alertResult(type, msg) {
-            if (type == true) {
-                $('.bx-x').hide();
-                $('.bx-check').show();
-                $('.alertactionresult').css('border-right', 'solid 5px limegreen');
-            } else {
-                $('.bx-x').show();
-                $('.bx-check').hide();
-                $('.alertactionresult').css('border-right', 'solid 5px tomato');
-            }
-            $(".alertmessage").html(msg);
-            $('.alertactionresult').show();
-            setTimeout(function () {
-                $('.alertactionresult').fadeOut(500);
-            }, 2000);
         }
     </script>
 }

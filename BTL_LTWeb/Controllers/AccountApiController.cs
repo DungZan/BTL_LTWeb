@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/acc")]
     [ApiController]
     public class AccountApiController : Controller
     {
@@ -27,7 +27,7 @@ namespace BTL_LTWeb.Controllers
             return Ok();
         }
 
-        [HttpPost("verify-email/resend")]
+        [HttpPost("xac-thuc-email/gui-lai-ma")]
         public async Task<IActionResult> ResendVerifyEmail([FromBody] ResendEmailRequest request)
         {
             var verifyCode = SecurityService.GenerateRandomCode();

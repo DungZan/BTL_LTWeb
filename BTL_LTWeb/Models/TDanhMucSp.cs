@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BTL_LTWeb.Models;
@@ -31,7 +32,6 @@ public partial class TDanhMucSp
     public string? GioiThieuSp { get; set; }
 
     [DisplayName("Ảnh đại diện")]
-    [Required(ErrorMessage = "Ảnh đại diện không được để trống")]
     public string? AnhDaiDien { get; set; }
 
     [Range(0, double.MaxValue, ErrorMessage = "Giá sản phẩm phải là số không âm")]
@@ -39,11 +39,12 @@ public partial class TDanhMucSp
     public decimal? Gia { get; set; }
 
     public int TagId { get; set; }
-
+    [ValidateNever]
     public virtual TTag Tag { get; set; } = new TTag();
+    [ValidateNever]
     public virtual ICollection<TAnhSp> TAnhSps { get; set; } = new List<TAnhSp>();
-
+    [ValidateNever]
     public virtual ICollection<TChiTietSanPham> TChiTietSanPhams { get; set; } = new List<TChiTietSanPham>();
-    public virtual ICollection<TMaGiamGiaSanPham> TMaGiamGiaSanPhams { get; set; } = new List<TMaGiamGiaSanPham>();
+
 
 }

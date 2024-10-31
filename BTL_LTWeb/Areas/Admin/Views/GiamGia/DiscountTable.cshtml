@@ -6,7 +6,6 @@
             <th>Mã Giảm Giá</th>
             <th>Code</th>
             <th>Tỉ Lệ Giảm (%)</th>
-            <th>Loại Giảm Giá</th>
             @* <th>Ngày Bắt Đầu</th>
             <th>Ngày Kết Thúc</th> *@
             <th>Thời hạn</th>
@@ -22,9 +21,6 @@
                 <td>@item.MaGiamGia</td>
                 <td>@Html.DisplayFor(modelItem => item.Code)</td>
                 <td>@(item.TiLeGiam * 100)</td>
-                <td>
-                    @(item.LoaiGiamGia == 1 ? "Tất cả sản phẩm" : "Sản phẩm chỉ định")
-                </td>
                 @* <td>
                     @item.NgayBatDau?.ToString("dd/MM/yyyy")
                 </td>

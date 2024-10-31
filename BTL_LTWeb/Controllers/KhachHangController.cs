@@ -1,7 +1,10 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
+using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Security.Claims;
 using X.PagedList;
 
@@ -9,7 +12,13 @@ namespace BTL_LTWeb.Controllers
 {
     public class KhachHangController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        QLBanDoThoiTrangContext db;
+        private readonly EmailService _emailService;
+        public KhachHangController(EmailService emailService, QLBanDoThoiTrangContext context)
+        {
+            _emailService = emailService;
+            db = context;
+        }
         [Route("KhachHang/Suathongtin")]
         [HttpGet]
         public IActionResult Suathongtin()
@@ -98,8 +107,31 @@ namespace BTL_LTWeb.Controllers
             return View(donhang);
         }
 
+        public async Task<IActionResult> UpdatePassword()
+        {
+            return PartialView("UpdatePassword");
+        }
 
-
-
+        [HttpPost]
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordViewModel update)
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var user = await db.TUsers.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return NotFound("Lỗi hệ thống, thử lại sau");
+            }
+            if(SecurityService.HashPasswordWithSalt(update.CurrentPassword, user.Salt) != user.Password)
+            {
+                return BadRequest("Mật khẩu hiện tại không đúng.");
+            }
+            if (update.NewPassword != update.ConfirmPassword)
+            {
+                return BadRequest("Mật khẩu xác nhận không khớp.");
+            }
+            user.Password = SecurityService.HashPasswordWithSalt(update.NewPassword, user.Salt);
+            await db.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

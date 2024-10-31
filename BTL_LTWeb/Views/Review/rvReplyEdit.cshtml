@@ -6,9 +6,9 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 <form asp-controller="Review" asp-action="AlterReply" method="post" id="replyForm_@ViewBag.rid">
-    <div class="makereview">
+    <div class="makereply">
         <input type="hidden" name="MaDanhGia" value="@ViewBag.rid"></input>
-        <div class="reviewcomment">
+        <div class="replycomment">
             <textarea asp-for="TraLoi" class="comment-text" placeholder="Trả lời @ViewBag.rid" id="@ViewBag.rid">
                 @if (!string.IsNullOrEmpty(Model.TraLoi))
                 {
@@ -19,7 +19,7 @@
                 }
             </textarea>
         </div>
-        <div class="action">
+        <div class="rpaction">
             <label class="clear" id="replyedit_@ViewBag.rid"><i class='bx bx-eraser'></i></label>
             <label class="cancel" id="replyedit_@ViewBag.rid"><i class='bx bx-x'></i></label>
             <label><input type="submit"><i class='bx bxs-send'></i></input></label>
@@ -41,11 +41,12 @@
         $.ajax({
             type: "POST",
             url: '@Url.Action("AlterReply", "Review")',
-            data: $(this).serialize(),
+            data: $(this).serialize() + "&pid=" + '@ViewBag.pid',
             success: function (response) {
-                ajaxList();
-                if (response == true) alertResult(true, "Sửa câu trả lời thành công");
-                else alertResult(false, "Sửa câu trả lời thất bại");
+                alertResult(response);
+                if (response == "SACT") {
+                    ajaxList();
+                }
             }
         });
     });

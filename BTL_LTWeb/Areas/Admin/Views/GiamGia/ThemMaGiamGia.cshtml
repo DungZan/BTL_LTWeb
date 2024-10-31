@@ -18,29 +18,6 @@
             </div>
         </div>
 
-        <div class="form-group row mt-3">
-            <label asp-for="LoaiGiamGia" class="text-black form-label">Loại Giảm Giá <span class="text-danger">*</span></label>
-            <div class="col-md-12">
-                <select asp-for="LoaiGiamGia" class="form-control">
-                    <option value="1">Dùng chung cho tất cả sản phẩm</option>
-                    <option value="2">Dùng cho một sản phẩm duy nhất</option>
-                </select>
-                <span asp-validation-for="LoaiGiamGia" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group row mt-3" id="sanPhamSelect" style="display:none;">
-            <label for="MaSp" class="text-black form-label">Chọn Sản Phẩm</label>
-            <div class="col-md-12">
-                <select class="form-control" name="MaSp">
-                    <option value="">Chọn sản phẩm</option>
-                    @foreach (var sp in ViewBag.SanPhams)
-                    {
-                        <option value="@sp.MaSp">@sp.TenSp</option>
-                    }
-                </select>
-            </div>
-        </div>
 
         <div class="form-group row mt-3">
             <label asp-for="TiLeGiam" class="text-black form-label">Giá Trị Giảm (%)</label>
@@ -93,16 +70,4 @@
     <a class="btn btn-primary" asp-action="DanhsachMaGiamGia">Trở lại</a>
 </div>
 
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('select[name="LoaiGiamGia"]').change(function () {
-                if ($(this).val() == "2") {
-                    $('#sanPhamSelect').show();
-                } else {
-                    $('#sanPhamSelect').hide();
-                }
-            }).trigger('change');
-        });
-    </script>
-}
+

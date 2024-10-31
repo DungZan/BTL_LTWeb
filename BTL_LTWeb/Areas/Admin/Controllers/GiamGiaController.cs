@@ -22,7 +22,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("Danhsachmagiamgia")]
         public IActionResult Danhsachmagiamgia()
         {
-            var discount = db.TMaGiamGias.Include(x => x.TMaGiamGiaSanPhams).AsNoTracking().ToList();
+            var discount = db.TMaGiamGias.AsNoTracking().ToList();
             var today = DateTime.Today;
             foreach (var item in discount)
             {
@@ -37,7 +37,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [Route("DiscountFilter")]
         public IActionResult DiscountFilter(string? keyword, int? pageIndex)
         {
-            var discounts = db.TMaGiamGias.Include(x => x.TMaGiamGiaSanPhams).AsQueryable();
+            var discounts = db.TMaGiamGias.AsQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
                 discounts = discounts.Where(d => d.Code.ToLower().Contains(keyword.ToLower()));
@@ -54,21 +54,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return PartialView("DiscountTable", result);
         }
 
-        //[Route("Danhsachmagiamgia")]
-        //public IActionResult Danhsachmagiamgia(int? Page)
-        //{
-        //    int pageSize = 10;
-        //    int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
-        //    var today = DateTime.Today;
-        //    var list = db.TMaGiamGias.Include(x => x.TMaGiamGiaSanPhams).AsNoTracking().OrderBy(x => x.MaGiamGia);
-        //    foreach(var item in list)
-        //    {
-        //        item.TrangThai = (today >= item.NgayBatDau && today <= item.NgayKetThuc) ? 1 : 0;
-        //    }
-        //    db.SaveChanges();
-        //    PagedList<TMaGiamGia> lst = new PagedList<TMaGiamGia>(list, pageNumber, pageSize);
-        //    return View(lst);
-        //}
+        
 
         [Route("ThemMaGiamGia")]
         [HttpGet]
@@ -88,16 +74,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                 model.TrangThai = (today >= model.NgayBatDau && today <= model.NgayKetThuc) ? 1 : 0;
                 db.TMaGiamGias.Add(model);
                 db.SaveChanges();
-                if (model.LoaiGiamGia == 2 && MaSp.HasValue)
-                {
-                    var chiTietGiamGia = new TMaGiamGiaSanPham
-                    {
-                        MaGiamGia = model.MaGiamGia,
-                        MaSp = MaSp.Value
-                    };
-                    db.TMaGiamGiaSanPhams.Add(chiTietGiamGia);
-                    db.SaveChanges();
-                }
+                
                 TempData["SuccessMessage"] = "Thêm mã giảm giá thành công";
                 return RedirectToAction("Danhsachmagiamgia");
             }
@@ -109,16 +86,12 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult ChiTietMaGiamGia(int MaGiamGia)
         {
-            var discount = db.TMaGiamGias.Include(x => x.TMaGiamGiaSanPhams).FirstOrDefault(x => x.MaGiamGia == MaGiamGia);
+            var discount = db.TMaGiamGias.FirstOrDefault(x => x.MaGiamGia == MaGiamGia);
             if (discount == null)
             {
                 return RedirectToAction("Danhsachmagiamgia");
             }
-            if (discount.LoaiGiamGia == 2)
-            {
-                var sanPham = db.TMaGiamGiaSanPhams.FirstOrDefault(x => x.MaGiamGia == MaGiamGia);
-                ViewBag.MaSp = sanPham?.MaSp;
-            }
+            
             ViewBag.SanPhams = db.TDanhMucSps.AsNoTracking().ToList();
             return View(discount);
         }
@@ -130,7 +103,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             ViewBag.SanPhams = db.TDanhMucSps.AsNoTracking().ToList();
             if (ModelState.IsValid)
             {
-                var discount = db.TMaGiamGias.Include(x => x.TMaGiamGiaSanPhams).FirstOrDefault(x => x.MaGiamGia == model.MaGiamGia);
+                var discount = db.TMaGiamGias.FirstOrDefault(x => x.MaGiamGia == model.MaGiamGia);
                 if (discount != null)
                 {
                     bool isChanged = false;
@@ -159,53 +132,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                         discount.NgayKetThuc = model.NgayKetThuc;
                         isChanged = true;
                     }
-                    if (discount.LoaiGiamGia != model.LoaiGiamGia)
-                    {
-                        discount.LoaiGiamGia = model.LoaiGiamGia;
-                        isChanged = true;
-                        if (model.LoaiGiamGia == 2)
-                        {
-
-                            db.TMaGiamGiaSanPhams.RemoveRange(discount.TMaGiamGiaSanPhams);
-                            isChanged = true;
-
-
-                            if (MaSp.HasValue)
-                            {
-                                var chiTietGiamGia = new TMaGiamGiaSanPham
-                                {
-                                    MaGiamGia = model.MaGiamGia,
-                                    MaSp = MaSp.Value
-                                };
-                                db.TMaGiamGiaSanPhams.Add(chiTietGiamGia);
-                                isChanged = true;
-                            }
-                        }
-                        else
-                        {
-
-                            db.TMaGiamGiaSanPhams.RemoveRange(discount.TMaGiamGiaSanPhams);
-                            isChanged = true;
-                        }
-                    }
-                    else
-                    {
-                        if (model.LoaiGiamGia == 2 && MaSp.HasValue)
-                        {
-
-                            db.TMaGiamGiaSanPhams.RemoveRange(discount.TMaGiamGiaSanPhams);
-                            isChanged = true;
-
-
-                            var chiTietGiamGia = new TMaGiamGiaSanPham
-                            {
-                                MaGiamGia = model.MaGiamGia,
-                                MaSp = MaSp.Value
-                            };
-                            db.TMaGiamGiaSanPhams.Add(chiTietGiamGia);
-                            isChanged = true;
-                        }
-                    }
+                    
 
                     if (isChanged)
                     {
@@ -222,10 +149,9 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult XoaMaGiamGia(int MaGiamGia)
         {
-            var discount = db.TMaGiamGias.Include(x => x.TMaGiamGiaSanPhams).FirstOrDefault(x => x.MaGiamGia == MaGiamGia);
+            var discount = db.TMaGiamGias.FirstOrDefault(x => x.MaGiamGia == MaGiamGia);
             if (discount != null)
             {
-                db.TMaGiamGiaSanPhams.RemoveRange(discount.TMaGiamGiaSanPhams);
                 db.TMaGiamGias.Remove(discount);
                 db.SaveChanges();
                 return Json(new { success = true, message = "Xóa mã giảm giá thành công" });

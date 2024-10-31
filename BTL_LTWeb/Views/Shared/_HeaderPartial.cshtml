@@ -5,16 +5,16 @@
         <div class="container">
             <div class="row align-items-center">
 
-                <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left" style="opacity: 0%">
                     <form action="" class="site-block-top-search">
                         <span class="icon icon-search2"></span>
-                        <input type="text" class="form-control border-0" placeholder="Tìm">
+                        <input type="text" class="form-control border-0" placeholder="Tìm" style="display: none">
                     </form>
                 </div>
 
                 <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
                     <div class="site-logo">
-                        <a href="Home" class="js-logo-clone">BeA Store</a>
+                        <a href="/" class="js-logo-clone"> BeA Fashion</a>
                     </div>
                 </div>
 
@@ -63,36 +63,21 @@
     <nav class="site-navigation text-right text-md-center" role="navigation">
         <div class="container">
             <ul class="site-menu js-clone-nav d-none d-md-block">
+                <li><a href="/">Trang chủ</a></li>
                 <li class="has-children">
-                    <a href="index.html">Home</a>
+                    <a>Thành viên</a>
                     <ul class="dropdown">
-                        <li><a href="#">Menu One</a></li>
-                        <li><a href="#">Menu Two</a></li>
-                        <li><a href="#">Menu Three</a></li>
-                        <li class="has-children">
-                            <a href="#">Sub Menu</a>
-                            <ul class="dropdown">
-                                <li><a href="#">Menu One</a></li>
-                                <li><a href="#">Menu Two</a></li>
-                                <li><a href="#">Menu Three</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="has-children">
-                    <a href="about.html">About</a>
-                    <ul class="dropdown">
-                        <li><a href="#">Tiến Dũng</a></li>
-                        <li><a href="#">Lê Sơn</a></li>
-                        <li><a href="#">Văn Minh</a></li>
-                        <li><a href="#">Trịnh Quang</a></li>
-                        <li><a href="#">Đức Vinh</a></li>
+                        <li><a href="#">Phạm Tiến Dũng</a></li>
+                        <li><a href="#">Lê Đăng Sơn</a></li>
+                        <li><a href="#">Trương Văn Minh</a></li>
+                        <li><a href="#">Trịnh Mạnh Quang</a></li>
+                        <li><a href="#">Mai Đức Vinh</a></li>
                     </ul>
                 </li>
                 <li><a asp-controller="Home" asp-action="index">Cửa Hàng</a></li>
-                <li><a href="#">Danh Mục</a></li>
-                <li><a href="#">Mặt Hàng Mới</li>
-                <li><a href="contact.html">Liên Hệ</a></li>
+                <li><a href="">Danh Mục</a></li>
+                <li><a asp-controller="BoSuuTap" asp-action="index" >Bộ Sưu Tập</a></li>
+                <li><a >Liên Hệ</a></li>
                 <li><a asp-controller="Home" asp-action="map">Danh sách cửa hàng</a></li>
             </ul>
         </div>

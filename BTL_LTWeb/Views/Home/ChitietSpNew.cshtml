@@ -30,7 +30,7 @@
                 <p class="mb-4">@Model.product.GioiThieuSp</p>
                 <p><strong class="text-primary h4">$@Model.product.Gia</strong></p>
 
-                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                <form id="addToCartForm" asp-action="AddToCart" asp-controller="Cart" method="post">
                     <input type="hidden" name="MaSP" value="@Model.product.MaSp" />
 
                     <div class="mb-3">
@@ -38,7 +38,7 @@
                         @foreach (var size in Model.Sizes)
                         {
                             <label class="d-inline-flex mr-3 mb-3">
-                                <input id="detail" type="radio" name="Size" value="@size"/> @size
+                                <input id="detail" type="radio" name="Size" value="@size" /> @size
                             </label>
                         }
                     </div>
@@ -66,6 +66,7 @@
                     <!-- Nút "Add To Cart" -->
                     <p><button type="submit" class="buy-now btn btn-sm btn-primary">Add To Cart</button></p>
                 </form>
+
             </div>
         </div>
         <div id="renderreview"></div>
@@ -77,6 +78,25 @@
     document.addEventListener('DOMContentLoaded', function () {
         var _pid = '@Model.product.MaSp';
         var _Uid = '@email';
+
+        $('#addToCartForm').on('submit', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '/gio-hang/them-vao-gio-hang',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (response) {
+                    alertResult(true, "Thêm sản phẩm thành công");
+                    var count = parseInt($('.count').text());
+                    $('.count').show();
+                    $('.count').text(count + 1);
+                },
+                error: function (xhr) {
+                    alertResult(false, xhr.responseText);
+                }
+            });
+        });
         $.ajax({
             url: '/review/GlobalReviewAJAX',
             data: { pid: _pid, email: _Uid },

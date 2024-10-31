@@ -24,13 +24,14 @@
         $.ajax({
             type: "POST",
             url: '@Url.Action("DeleteReviewConfirm", "Review")',
-            data: $(this).serialize(),
+            data: $(this).serialize() + "&pid=" + '@ViewBag.pid',
             success: function (response) {
-                ajaxList();
-                ajaxStats();
-                ajaxMaker();
-                if (response == true) alertResult(true, "Xoá đánh giá thành công");
-                else alertResult(false, "Xoá đánh giá thất bại");
+                alertResult(response);
+                if (response == "SACT") {
+                    ajaxList();
+                    ajaxStats();
+                    ajaxMaker();
+                }
             }
         });
     });
