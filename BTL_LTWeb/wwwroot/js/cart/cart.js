@@ -8,7 +8,7 @@
     });
 
     $(document).on('click', '.js-btn-minus', function () {
-        let input = $(this).closest('tr').find('input:eq(2)');
+        let input = $(this).closest('tr').find('input:eq(1)');
         let value = parseInt(input.val());
         var row = input.closest('tr')
         if (value > 0) {
@@ -69,7 +69,7 @@ function updateTotalAmount() {
     $('.product-checkbox:checked').each(function () {
         let row = $(this).closest('tr');
         let price = parseFloat(row.find('td:eq(5)').text());
-        let quantity = parseInt(row.find('input:eq(2)').val());
+        let quantity = parseInt(row.find('input:eq(1)').val());
         totalAmount += price * quantity;
     });
 
@@ -78,7 +78,7 @@ function updateTotalAmount() {
 
 function updateTotal(row) {
     let price = parseFloat(row.find('td:eq(5)').text());
-    let quantity = parseInt(row.find('input:eq(2)').val());
+    let quantity = parseInt(row.find('input:eq(1)').val());
     let total = price * quantity;
     row.find('td:eq(7)').text(total);
 
@@ -93,7 +93,7 @@ function updateTotal(row) {
 }
 $(document).on('click', '#remove', function () {
     let row = $(this).closest('tr');
-    let cartId = parseInt(row.find('input:eq(1)').val());
+    let cartId = parseInt(row.find('input:eq(0)').val());
     $.ajax({
         url: '/api/cartapi/remove',
         type: 'DELETE',
@@ -109,10 +109,9 @@ $(document).on('click', '#remove', function () {
 });
 
 function updateCart() {
-    let id = parseInt($('#customer').val());
 
     $.ajax({
-        url: `/items?makhachhang=${id}`,
+        url: `/items`,
         type: 'GET',
         success: function (response) {
             $('#items').html(response);
