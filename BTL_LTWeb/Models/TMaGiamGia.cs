@@ -6,12 +6,13 @@ namespace BTL_LTWeb.Models
     public partial class TMaGiamGia
     {
         public int MaGiamGia { get; set; }
-        [Required(ErrorMessage = "Mã giảm giá không được để trống")]
+        [Required(ErrorMessage = "Code không được để trống")]
+        [StringLength(8, ErrorMessage = "Mã giảm giá không được vượt quá 8 ký tự")]
         [Display(Name = "Code")]
         public string Code { get; set; }
         [Required(ErrorMessage = "Tỉ lệ giảm không được để trống")]
         [Display(Name = "Tỉ lệ giảm")]
-        [Range(0, 100, ErrorMessage = "Giá trị giảm phải từ 0 đến 1.000")]
+        [Range(1, 100, ErrorMessage = "Giá trị giảm phải từ 1 đến 100")]
         public decimal TiLeGiam { get; set; }
 
         [Display(Name = "Mô tả")]
