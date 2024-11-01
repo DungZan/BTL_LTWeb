@@ -43,6 +43,7 @@ namespace BTL_LTWeb.Controllers
                             _uid = _db.TKhachHangs.Where(it => it.Email == email).First().MaKhachHang;
                             break;
                         case "NhanVien":
+                        case "Admin":
                             _uid = _db.TNhanViens.Where(it => it.Email == email).First().MaNhanVien;
                             break;
                     }
