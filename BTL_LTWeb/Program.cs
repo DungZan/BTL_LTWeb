@@ -6,10 +6,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-});
+builder.Services.AddControllersWithViews();
 
 // Database config
 var connectionString = builder.Configuration.GetConnectionString("QLBanDoThoiTrangContext");
@@ -40,12 +37,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;               // Bắt buộc với GDPR
 });
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        // Thiết lập ReferenceHandler để xử lý vòng lặp tham chiếu
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
