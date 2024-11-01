@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Danh Sách Cửa Hàng";
+    ViewData["Title"] = "Cửa hàng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 @model IEnumerable<BTL_LTWeb.Models.TDanhSachCuaHang>
@@ -9,7 +9,7 @@
     <form class="site-block-top-search d-flex">
         <div class="input-group">
             <input id="keyword" class="form-control" name="keyword" type="text" placeholder="Search">
-            <button id="btnSearch" class="btn btn-primary" type="button">Search</button>
+            <button id="btnSearch" class="btn btn-primary" type="button">Tìm</button>
         </div>
     </form>
     <p></p>
@@ -18,7 +18,7 @@
             @await Html.PartialAsync("ShopTable", Model)
         </div>
     </div>
-    <a asp-action="Create" asp-controller="HeThongCuaHang" class="btn btn-primary">Create New Shop</a>
+    <a asp-action="Create" asp-controller="HeThongCuaHang" class="btn btn-primary">Thêm cửa hàng</a>
 </div>
 @section Scripts {
     <script>

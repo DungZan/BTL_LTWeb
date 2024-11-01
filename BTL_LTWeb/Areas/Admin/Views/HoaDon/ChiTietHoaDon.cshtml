@@ -1,7 +1,7 @@
 ﻿@model BTL_LTWeb.Models.THoaDonBan
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "ChiTietHoaDon";
+    ViewData["Title"] = "Chi tiết hoá đơn";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -50,6 +50,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="SuaHoaDon" asp-route-MaHD="@Model?.MaHoaDonBan">Edit</a> |
-    <a asp-action="DanhSachHoaDon">Back to List</a>
+    <a asp-action="SuaHoaDon" asp-route-MaHD="@Model?.MaHoaDonBan">Sửa</a> |
+    <a asp-action="DanhSachHoaDon">Quay lại</a>
 </div>

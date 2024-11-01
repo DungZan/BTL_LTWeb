@@ -1,6 +1,7 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using X.PagedList;
 
 namespace BTL_LTWeb.Controllers
 {
+    [Authorize]
     public class KhachHangController : Controller
     {
         QLBanDoThoiTrangContext db;
