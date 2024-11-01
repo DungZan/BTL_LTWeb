@@ -114,7 +114,15 @@
                             </div>
                         </div>
                         <div class="reviewfooter">
-                            <p></p>
+                            @if (it.VotesCasted.FirstOrDefault(t => t.MaKhachHang == it._userID).HuuIch == 1)
+                            {
+                                <p class="authorapproved" id="@it._reviewID" style="color: limegreen">
+                                    <i class='bx bxs-badge-check'></i> Hữu ích với tác giả
+                                </p>
+                            } else
+                            {
+                                <p></p>
+                            }
                             <div class="reviewreact">
                                 <div class="approve @(it.VotesCasted.Any(it => it.MaKhachHang == ViewBag.uid && it.HuuIch > 0) ? "votecasted" : "")" id="@it._reviewID">
                                     <i class='bx bxs-badge-check'></i>
