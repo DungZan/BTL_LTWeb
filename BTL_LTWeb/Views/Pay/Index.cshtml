@@ -118,14 +118,19 @@
                 <div class="row mb-5">
                     <div class="col-md-12">
                         <h2 class="h3 mb-3 text-black">Mã Giảm Giá</h2>
-                        <div class="p-3 p-lg-5 border">
-
+                            <div class="p-3 p-lg-5 border" id="discount-form">
                             <label for="c_code" class="text-black mb-3">Nhập mã phiếu giảm giá của bạn nếu bạn có</label>
                             <div class="input-group w-75">
-                                <input type="text" class="form-control" id="c_code" placeholder="Mã Giảm Giá" aria-label="Coupon Code" aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary btn-sm" type="button" id="button-addon2">Áp dụng</button>
-                                </div>
+                                    <select id="discountCode" name="PaymentViewModel.SelectedDiscountCode" class="form-control" onchange="updateDiscount()">
+                                        <option value="">Chọn mã giảm giá</option>
+                                        @foreach (var code in Model.PaymentViewModel.AvailableDiscountCodes)
+                                        {
+                                            <option value="@code">@code</option>
+                                        }
+                                    </select>
+                                @* <div class="input-group-append">
+                                        <button class="btn btn-primary btn-sm" type="button" id="button-addon2" onclick="applyDiscount()">Áp dụng</button>
+                                </div> *@
                             </div>
                         </div>
                     </div>
@@ -172,7 +177,15 @@
                                         }
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Tổng tiền</strong></td>
-                                            <td class="text-black font-weight-bold"><strong>@Model.CheckoutViewModel.CartItems.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)</strong></td>
+                                            <td class="text-black font-weight-bold" id="total-amount"><strong>@Model.CheckoutViewModel.CartItems.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Giảm giá</strong></td>
+                                            <td class="text-black font-weight-bold" id="discount-amount"><strong>0</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-black font-weight-bold"><strong>Thành tiền</strong></td>
+                                            <td class="text-blacl font-weight-bold" id="final-amount"><strong>@Model.CheckoutViewModel.CartItems.Sum(item => (item.ChiTietSanPham?.DanhMucSp?.Gia ?? 0) * item.SoLuong)</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -207,6 +220,7 @@
                 
             </div>
         </div>
+            
         </form>
     </div>
 </div>
@@ -284,7 +298,33 @@
             const districtName = districtSelect.options[districtSelect.selectedIndex].text;
             document.getElementById('ten_quan_huyen').value = districtName; 
         }
+
         loadProvinces('c_country', 'c_district');
         loadProvinces('c_diff_country', 'c_diff_district');
+
+
+        function updateDiscount() {
+            const discountCode = document.getElementById("discountCode").value;
+            const totalAmount = parseFloat(document.getElementById("total-amount").innerText) || 0;
+
+            if (discountCode && discountCode !== "0") {
+               
+                fetch(`/Pay/CheckDiscountCode?DiscountCode=${discountCode}&totalAmount=${totalAmount}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let discountAmount = data.isValid ? parseFloat(data.discountAmount) : 0;
+                        let finalAmount = data.finalAmount;
+
+                        document.getElementById("discount-amount").innerText = discountAmount.toFixed(2);
+                        document.getElementById("final-amount").innerText = finalAmount.toFixed(2);
+                    })
+                    .catch(error => console.error("Error:", error));
+            } else {
+                
+                document.getElementById("discount-amount").innerText = "0";
+                document.getElementById("final-amount").innerText = totalAmount.toFixed(2);
+            }
+        }
+        
     </script>
 }

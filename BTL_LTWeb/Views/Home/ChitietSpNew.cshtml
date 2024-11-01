@@ -1,6 +1,6 @@
 ﻿@using System.Security.Claims
 @{
-    ViewData["Title"] = "ChitietSp";
+    ViewData["Title"] = "Chi tiết sản phẩm";
     Layout = "~/Views/Shared/DetailLayout.cshtml";
     var email = "";
     if (User.Identity.IsAuthenticated)
@@ -13,7 +13,7 @@
 <div class="bg-light py-3">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-0"><a href="Home">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">@Model.product.TenSp</strong></div>
+            <div class="col-md-12 mb-0"><a href="/">Trang chủ</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">@Model.product.TenSp</strong></div>
         </div>
     </div>
 </div>
@@ -64,7 +64,7 @@
                     </div>
 
                     <!-- Nút "Add To Cart" -->
-                    <p><button type="submit" class="buy-now btn btn-sm btn-primary">Add To Cart</button></p>
+                    <p><button type="submit" class="buy-now btn btn-sm btn-primary">Thêm vào giỏ hàng</button></p>
                 </form>
 
             </div>
@@ -87,16 +87,29 @@
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function (response) {
-                    alertResult(true, "Thêm sản phẩm thành công");
-                    var count = parseInt($('.count').text());
-                    $('.count').show();
-                    $('.count').text(count + 1);
+                    MyAlert(true, "Thêm sản phẩm thành công");
+                    getItemAmount();
                 },
                 error: function (xhr) {
-                    alertResult(false, xhr.responseText);
+                    MyAlert(false, xhr.responseText);
                 }
             });
         });
+
+        function getItemAmount() {
+            $.ajax({
+                url: `/gio-hang/so-luong`,
+                type: 'GET',
+                success: function (data) {
+                    $('.count').show();
+                    $('.count').text(data);
+                },
+                error: function (xhr, status, error) {
+                    $('.count').hide();
+                }
+            });
+        }
+
         $.ajax({
             url: '/review/GlobalReviewAJAX',
             data: { pid: _pid, email: _Uid },
@@ -104,5 +117,22 @@
                 $("div#renderreview").html(response)
             }
         });
+
+        function MyAlert(type, msg) {
+            if (type == true) {
+                $('.bx-x').hide();
+                $('.bx-check').show();
+                $('.alertactionresult').css('border-right', 'solid 5px limegreen');
+            } else {
+                $('.bx-x').show();
+                $('.bx-check').hide();
+                $('.alertactionresult').css('border-right', 'solid 5px tomato');
+            }
+            $(".alertmessage").html(msg);
+            $('.alertactionresult').show();
+            setTimeout(function () {
+                $('.alertactionresult').fadeOut(500);
+            }, 2000);
+        }
     });
 </script>

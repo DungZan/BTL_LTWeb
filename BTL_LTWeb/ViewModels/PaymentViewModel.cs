@@ -43,6 +43,9 @@ namespace BTL_LTWeb.ViewModels
 
         public List<int> CartID { get; set; }
 
+        public List<string> AvailableDiscountCodes { get; set; }
+        public string SelectedDiscountCode { get; set; }
+
     }
 
 }
