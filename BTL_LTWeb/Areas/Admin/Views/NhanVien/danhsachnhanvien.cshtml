@@ -1,97 +1,138 @@
-﻿@using X.PagedList.Mvc.Core;
-@model X.PagedList.IPagedList<BTL_LTWeb.Models.TNhanVien>
+﻿
 @{
     ViewData["Title"] = "Danhsachnhanvien";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+@model IEnumerable<BTL_LTWeb.Models.TNhanVien>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="row">
     <h1>Danh Sách Nhân viên</h1>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div id="success-message" class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
     <p>
         <a class="btn btn-info" asp-controller="NhanVien" asp-action="Themnhanvien">Thêm nhân viên</a>
     </p>
-    <form id="searchForm" asp-controller="NhanVien" asp-action="TimNhanVien" method="get" class="site-block-top-search d-flex">
-        <input type="text" id="TenNhanVien" name="TenNhanVien" class="form-control border-1" placeholder="Search">
-        <button type="submit" class="btn btn-primary">Search</button>
+    <form class="site-block-top-search d-flex">
+        <div class="input-group">
+            <input id="keyword" class="form-control" name="keyword" type="text" placeholder="Search">
+            <button id="btnSearch" class="btn btn-primary" type="button">Search</button>
+        </div>
     </form>
     <p></p>
     <div id="notification" style="display:none; padding: 10px; margin-bottom: 20px;"></div>
     <div class="alert alert-warning" id="staffList">
-        @await Html.PartialAsync("_DanhSachNhanVienPartial", Model)
+       <div id="content">
+            @await Html.PartialAsync("NhanVienTable", Model)
+       </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        let timeout = null;
-        $('#searchForm').submit(function (e) {
-            e.preventDefault();
-            var searchQuery = $('#TenNhanVien').val();
-            if(searchQuery) {
-                loadNhanVienList(1);
-            }
-            // else {
-            //     loadNhanVienList(1);
-            // }
-            
-        });
-        $('#TenNhanVien').on('input', function () {
-            clearTimeout(timeout); 
-            timeout = setTimeout(function () { 
-                var searchQuery = $('#TenNhanVien').val();
-                if (!searchQuery) { loadNhanVienList(1); }
-                
+        if ($('#success-message').length) {
+            setTimeout(function () {
+                $('#success-message').fadeOut('slow');
+            }, 3000);
+        }
+        let debounceTimeout;
+        $("#keyword").on('input', function () {
+            clearTimeout(debounceTimeout);
+            var keyword = $(this).val();
+            debounceTimeout = setTimeout(function () {
+                $.ajax({
+                    url: "/Admin/NhanVien/NhanVienFilter",
+                    data: { keyword: keyword },
+                    success: function (response) {
+                        console.log("Response từ server:", response);
+                        if (response.success === false) {
+                            $("div#content").html("");
+                            $("#notification").html(response.message).show().css({
+                                "color": "red",
+                                "background-color": "#ffe6e6",
+                                "border": "1px solid red",
+                                "display": "block"
+                            });
+                        } else {
+                            $("div#content").html(response);
+                            $("#notification").hide();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Có lỗi xảy ra:", error);
+                    }
+                });
             }, 1000);
         });
-
-        
-        function loadNhanVienList(page) {
-            var searchQuery = $('#TenNhanVien').val();
-
-            $.ajax({
-                url: '@Url.Action("Timnhanvien", "NhanVien")',
-                type: 'GET',
-                data: { TenNhanVien: searchQuery, page: page },
-                success: function (result) {
-                    console.log("Kết quả trả về từ server:", result);
-                    let notification = $('#notification');
-                    if (typeof result === 'string' && result.trim() === "") {
-                        $('#staffList').html(result);
-                        notification.text("Không tìm thấy nhân viên!").css({
-                            "color": "red",
-                            "display": "block",
-                            "background-color": "#ffe6e6",
-                            "border": "1px solid red"
-                        });
-                        setTimeout(function () {
-                            notification.hide();
-                        }, 3000);
+        $("#keyword").keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                var keyword = $(this).val();
+                $.ajax({
+                    url: "/Admin/NhanVien/NhanVienFilter",
+                    data: { keyword: keyword },
+                    success: function (response) {
+                        console.log("Response từ server:", response);
+                        if (response.success === false) {
+                            $("div#content").html("");
+                            $("#notification").html(response.message).show().css({
+                                "color": "red",
+                                "background-color": "#ffe6e6",
+                                "border": "1px solid red",
+                                "display": "block"
+                            });
+                        } else {
+                            $("div#content").html(response);
+                            $("#notification").hide();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Có lỗi xảy ra:", error);
                     }
-                    else {
-                        $('#staffList').html(result);
-                        notification.hide();
-                        
-                    }  
+                });
+            }
+        });
+        $('body').on('click', 'li.page-item', function (e) {
+            e.preventDefault();
+            var page = $(this).data("page");
+            var keyword = $("#keyword").val();
+            $.ajax({
+                url: "/Admin/NhanVien/NhanVienFilter",
+                data: { keyword: keyword, pageIndex: page },
+                success: function (response) {
+                    $("div#content").html(response);
                 },
-                error: function() {
-                    $('#notification').text("Có lỗi xảy ra, vui lòng thử lại!").css({
-                        "color": "red",
-                        "display": "block",
-                        "background-color": "#ffe6e6",
-                        "border": "1px solid red"
-                    });
-                    setTimeout(function () {
-                        notification.hide();
-                    }, 3000);
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
                 }
             });
-        }
-        $(document).on('click', '#staffList .pagination a', function (e) {
-            e.preventDefault();
-            // var page = $(this).attr('data-page');
-            var href = $(this).attr('href');
-            var page = href.split('page=')[1];
-            loadNhanVienList(page);
+        });
+
+        $("button#btnSearch").click(function () {
+            var keyword = $("#keyword").val();
+            $.ajax({
+                url: "/Admin/NhanVien/NhanVienFilter",
+                data: { keyword: keyword },
+                success: function (response) {
+                    console.log("Response từ server:", response);
+                    if (response.success === false) {
+                        $("div#content").html("");
+                        $("#notification").html(response.message).show().css({
+                            "color": "red",
+                            "background-color": "#ffe6e6",
+                            "border": "1px solid red",
+                            "display": "block"
+                        });
+                    } else {
+                        $("div#content").html(response);
+                        $("#notification").hide();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
         });
         $(document).on('click', '.edit-link', function (e) {
             e.preventDefault();
@@ -118,7 +159,7 @@
                                 "background-color": "#e6ffe6",
                                 "border": "1px solid green"
                             });
-                            loadNhanVienList(1);
+                            $('#content').load('@Url.Action("NhanVienFilter", "NhanVien")');
                         } else {
                             notification.text("Lỗi: " + result.message).css({
                                 "color": "red",
