@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using BTL_LTWeb.Models;
-using System.Drawing.Printing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BTL_LTWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/TTags")]
+    [Authorize(Roles = "Admin,NhanVien")]
     public class TTagsController : Controller
     {
         private readonly QLBanDoThoiTrangContext _context;
-        private readonly int pageSize = 3;
+        private readonly int pageSize = 7;
         public TTagsController()
         {
             _context = new QLBanDoThoiTrangContext();

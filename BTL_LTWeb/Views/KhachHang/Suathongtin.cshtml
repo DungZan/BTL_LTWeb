@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/ProfileLayout.cshtml";
 }
 <div id="notification" style="display:none; padding: 10px; margin-bottom: 20px;"></div>
-<div class="col-lg-8 pb-5">
+
     <form class="row" id="updateForm" asp-controller="KhachHang" asp-action="Index" asp-route-id ="@Model.MaKhachHang" method="post">
         <input type="hidden" asp-for="MaKhachHang" />
         <div class="col-md-6">
@@ -47,12 +47,11 @@
         <div class="col-12">
             <hr class="mt-2 mb-3">
             <div class="d-flex flex-wrap justify-content-between align-items-center">
-                <!-- Nút lưu đơn giản -->
                 <a href="#" class="btn btn-style-1 btn-primary" id="save-button">Lưu</a>
             </div>
         </div>
     </form>
-</div>
+
 
 <script>
     $(document).ready(function () {

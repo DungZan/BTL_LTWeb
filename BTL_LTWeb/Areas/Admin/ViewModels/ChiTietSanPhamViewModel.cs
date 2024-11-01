@@ -2,10 +2,10 @@
 
 namespace BTL_LTWeb.ViewModels
 {
-    public class ChiTietSanPhamViewModel
+    public class ChiTietSPViewModel
     {
         public TDanhMucSp Sp { get; set; }
 
-        public TChiTietSanPham chiTietSanPham { get; set; }
+        public List<TChiTietSanPham> chiTietSanPhams { get; set; }
     }
 }

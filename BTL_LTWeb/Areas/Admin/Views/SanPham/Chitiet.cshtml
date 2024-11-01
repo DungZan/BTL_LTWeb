@@ -1,10 +1,18 @@
-﻿@model BTL_LTWeb.ViewModels.ChiTietSanPhamViewModel
+﻿@model BTL_LTWeb.ViewModels.ChiTietSPViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "View";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+@{
+    var logMessage = TempData["LogChiTiet"] as string;
+    if (!string.IsNullOrEmpty(logMessage))
+    {
+        <div class="alert alert-success">
+            @logMessage
+        </div>
+    }
+}
 <h1>Chi Tiết Sản Phẩm</h1>
 
 <div>
@@ -59,15 +67,55 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Sp.Gia)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.chiTietSanPham.KichThuoc)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.chiTietSanPham.KichThuoc)
-        </dd>
+        <table class="table text-black">
+            <thead>
+                <tr>
+                    <th>
+                        Kích thước
+                    </th>
+                    <th>
+                        Màu Sắc
+                    </th>
+                    <th>
+                        Ảnh đại diện
+                    </th>
+                    <th>
+                        Số lượng tồn
+                    </th>
+                    <th>
+                        Chức năng
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.chiTietSanPhams)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KichThuoc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MauSac)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AnhDaiDien)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Slton)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-MaChiTietSp="@item.MaChiTietSp">Sửa</a> |
+                            <a asp-action="Details" asp-route-MaChiTietSp="@item.MaChiTietSp">Chi Tiết</a> |
+                            <a asp-action="XoaChiTiet" asp-route-MaChiTietSp="@item.MaChiTietSp">Xoá</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </dl>
 </div>
 <div>
     <button class="btn btn-info"><a class="text-light" asp-action="Suasanpham" asp-route-MaSP="@Model.Sp.MaSp">Sửa sản phẩm</a></button>     |
-    <button class="btn btn-info"><a class="text-light" asp-action="danhmucsanpham">Quay về danh mục sản phẩm</a></button>
+    <button class="btn btn-info"><a class="text-light" asp-action="danhmucsanpham">Quay về danh mục sản phẩm</a></button>   |
+    <button class="btn btn-info"><a class="text-light" asp-action="ThemChiTiet" asp-route-MaSP="@Model.Sp.MaSp">Thêm chi tiết sản phẩm</a></button>
 </div>

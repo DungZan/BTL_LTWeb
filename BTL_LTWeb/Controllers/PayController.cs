@@ -50,18 +50,55 @@ namespace BTL_LTWeb.Controllers
 
             var customerId = cartItems.FirstOrDefault()?.MaKhachHang;
             var customerInfo = _context.TKhachHangs.FirstOrDefault(c => c.MaKhachHang == customerId);
+            var usedDiscountCode = _context.THoaDonBans.Where(d => d.MaKhachHang == customerId).Select(d => d.MaGiamGia).ToList();
 
+            var availableDiscountCodes = _context.TMaGiamGias.Where(g => g.TrangThai == 1 && g.NgayKetThuc > DateTime.Now && !usedDiscountCode.Contains(g.MaGiamGia)).Select(g => g.Code).ToList();
 
             var viewModel = new CheckoutViewModel
             {
                 CartItems = cartItems,
                 CustomerInfo = customerInfo
             };
+            var checkoutAndPayment = new CheckoutAndPayment
+            {
+                CheckoutViewModel = viewModel,
+                PaymentViewModel = new PaymentViewModel
+                {
+                    MaKhachHang = customerId.Value,
+                    CartID = selectedItems.ToList(),
+                    AvailableDiscountCodes = availableDiscountCodes
+                }
+            };
 
-            return View("Index", viewModel);
+            return View("Index", checkoutAndPayment);
         }
 
+        [HttpGet]
+        public IActionResult CheckDiscountCode(string DiscountCode, decimal totalAmount)
+        {
+            var discount = _context.TMaGiamGias
+                .FirstOrDefault(d => d.Code == DiscountCode && d.TrangThai == 1 && d.NgayKetThuc > DateTime.Now);
 
+            if (discount != null)
+            {
+                decimal discountAmount = discount.TiLeGiam * totalAmount;
+                return Json(new
+                {
+                    isValid = true,
+                    discountAmount = discountAmount,
+                    finalAmount = totalAmount - discountAmount
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isValid = false,
+                    discountAmount = 0,
+                    finalAmount = totalAmount
+                });
+            }
+        }
 
         public IActionResult Checkout()
         {
@@ -73,47 +110,73 @@ namespace BTL_LTWeb.Controllers
             return View(gioHang); 
         }
 
+        
+
         [HttpPost]
-        public IActionResult ProcessPayment([FromForm] PaymentViewModel model)
+        public IActionResult ProcessPayment([FromForm] CheckoutAndPayment model)
         {
-            if (model == null)
-            {
-                return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
-            }
-            var khachHang = _context.TKhachHangs.FirstOrDefault(e => e.MaKhachHang == model.MaKhachHang);
-            if (khachHang == null)
+            //var x = model;
+            //if (ModelState.IsValid)
+            //{
+                if (model == null)
+                {
+                    return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
+                }
+                var khachHang = _context.TKhachHangs.FirstOrDefault(e => e.MaKhachHang == model.PaymentViewModel.MaKhachHang);
+                if (khachHang == null)
 
+                {
+                    return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
+                }
+                //Tạo hóa đơn mới
+                decimal TongTien = 0;
+                foreach (var item in model.PaymentViewModel.CartID)
+                {
+                    var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                    var danhMuc = _context.TDanhMucSps
+                        .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
+                    TongTien = (decimal)(TongTien + (danhMuc.Gia * gioHang.SoLuong));
+                }
+                decimal discountAmount = 0;
+            if (!string.IsNullOrEmpty(model.PaymentViewModel.SelectedDiscountCode))
             {
-                return Json(new { success = false, message = "Dữ liệu không hợp lệ hoặc giỏ hàng trống." });
+                var discount = _context.TMaGiamGias.FirstOrDefault(d => d.Code == model.PaymentViewModel.SelectedDiscountCode && d.TrangThai == 1 && d.NgayKetThuc > DateTime.Now);
+                if (discount != null)
+                {
+                    discountAmount = TongTien * (discount.TiLeGiam);
+                    TongTien -= discountAmount;
+                }
             }
 
-            //Tạo hóa đơn mới
-            decimal TongTien = 0;
-            foreach (var item in model.CartID)
+                var hoaDon = new THoaDonBan
+                {
+                    MaKhachHang = model.PaymentViewModel.MaKhachHang,
+                    NgayHoaDon = DateTime.Now,
+                    TongTienHd = TongTien,
+                    PhuongThucThanhToan = model.PaymentViewModel.PhuongThucThanhToan,
+                    GhiChu = model.PaymentViewModel.GhiChu
+                };
+
+            if (!string.IsNullOrEmpty(model.PaymentViewModel.SelectedDiscountCode) )
             {
-                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
-                var danhMuc = _context.TDanhMucSps
-                    .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
-                TongTien = (decimal)(TongTien + (danhMuc.Gia * gioHang.SoLuong));
+                var discount = _context.TMaGiamGias.FirstOrDefault(d => d.Code == model.PaymentViewModel.SelectedDiscountCode);
+                if (discount != null && discountAmount > 0)
+                {
+                    hoaDon.MaGiamGia = discount.MaGiamGia; 
+                }
+
+
             }
-            var hoaDon = new THoaDonBan
-            {
-                MaKhachHang = model.MaKhachHang,
-                NgayHoaDon = DateTime.Now,
-                TongTienHd = TongTien,
-                PhuongThucThanhToan = model.PhuongThucThanhToan,
-                GhiChu = model.GhiChu
-            };
             _context.THoaDonBans.Add(hoaDon);
-            _context.SaveChanges();
+                _context.SaveChanges();
 
-            //Thêm chi tiết hóa đơn
-            foreach (var item in model.CartID)
-            {
-                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
-                var danhMuc = _context.TDanhMucSps
-                    .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
-                var chiTiet = new TChiTietHoaDonBan
+                //Thêm chi tiết hóa đơn
+                foreach (var item in model.PaymentViewModel.CartID)
+                {
+                    var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                    var danhMuc = _context.TDanhMucSps
+                        .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
+                    var chiTiet = new TChiTietHoaDonBan
                     {
                         MaHoaDonBan = hoaDon.MaHoaDonBan,
                         MaChiTietSP = gioHang.MaChiTietSP,
@@ -122,34 +185,44 @@ namespace BTL_LTWeb.Controllers
                     };
                     _context.TChiTietHoaDonBans.Add(chiTiet);
 
-            }
-
-            //Xử lý thông tin giao hàng
-            var giaoHang = new TGiaoHang
-            {
-                MaHoaDonBan = hoaDon.MaHoaDonBan,
-                DiaChi = model.GiaoHangDiaChiKhac == 1 ? model.DiaChiKhac : model.DiaChi,
-                ThanhPho = model.GiaoHangDiaChiKhac == 1 ? model.ThanhPhoKhac : model.ThanhPho,
-                QuanHuyen = model.GiaoHangDiaChiKhac == 1 ? model.QuanHuyenKhac : model.QuanHuyen,
-                SoDienThoai = model.GiaoHangDiaChiKhac == 1 ? model.SDTKhac : model.SDT,
-                HoTenNguoiNhan = model.GiaoHangDiaChiKhac == 1 ? model.HoTenKhac : model.HoTen
-            };
-            _context.TGiaoHangs.Add(giaoHang);
-            //Xóa sản phẩm trong giỏ hàng
-            foreach (var item in model.CartID)
-            {
-                var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
-                if (gioHang != null)
-                {
-                    _context.TGioHangs.Remove(gioHang);
                 }
-            }
-            //Lưu tất cả
-            _context.SaveChanges();
-            if (model.PhuongThucThanhToan == "cash") return (Success());
-            else return (ShowImage((int)TongTien, hoaDon.MaHoaDonBan+model.HoTen+"CHUYEN TIEN"));
+
+                //Xử lý thông tin giao hàng
+                var giaoHang = new TGiaoHang
+                {
+                    MaHoaDonBan = hoaDon.MaHoaDonBan,
+                    DiaChi = model.PaymentViewModel.GiaoHangDiaChiKhac == 1 ? model.PaymentViewModel.DiaChiKhac : model.PaymentViewModel.DiaChi,
+                    ThanhPho = model.PaymentViewModel.GiaoHangDiaChiKhac == 1 ? model.PaymentViewModel.ThanhPhoKhac : model.PaymentViewModel.ThanhPho,
+                    QuanHuyen = model.PaymentViewModel.GiaoHangDiaChiKhac == 1 ? model.PaymentViewModel.QuanHuyenKhac : model.PaymentViewModel.QuanHuyen,
+                    SoDienThoai = model.PaymentViewModel.GiaoHangDiaChiKhac == 1 ? model.PaymentViewModel.SDTKhac : model.PaymentViewModel.SDT,
+                    HoTenNguoiNhan = model.PaymentViewModel.GiaoHangDiaChiKhac == 1 ? model.PaymentViewModel.HoTenKhac : model.PaymentViewModel.HoTen
+                };
+                _context.TGiaoHangs.Add(giaoHang);
+                //Xóa sản phẩm trong giỏ hàng
+                foreach (var item in model.PaymentViewModel.CartID)
+                {
+                    var gioHang = _context.TGioHangs.Include(x => x.ChiTietSanPham).FirstOrDefault(x => x.MaGioHang == item);
+                    if (gioHang != null)
+                    {
+                        _context.TGioHangs.Remove(gioHang);
+                    }
+                }
+                //Lưu tất cả
+                _context.SaveChanges();
+
+                return (model.PaymentViewModel.PhuongThucThanhToan == "cash") ? Success() : ShowImage((int)TongTien, hoaDon.MaHoaDonBan + model.PaymentViewModel.HoTen + "CHUYEN TIEN");
+            //}
+            //else {
+                
+            //    return View("Index",model);
+            //}
+           
+                
+            
 
         }
+
+        
 
 
         public ActionResult ShowImage(Int32 tien, string noiDung)

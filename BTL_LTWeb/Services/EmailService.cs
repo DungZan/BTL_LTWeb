@@ -36,6 +36,22 @@ namespace BTL_LTWeb.Services
             "<div class='footer'>" +
             "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>" +
             "</div>";
+        private readonly string _discountEmailContent =
+            "<div class='header'>" +
+            "   <h1>Thông báo mã giảm giá</h1>" +
+            "</div>" +
+            "<div class='content'>" +
+            "   <h2>Chào {name},</h2>" +
+            "   <p>Chúng tôi rất vui mừng thông báo rằng bạn đã nhận được mã giảm giá mới!</p>" +
+            "   <h3 style='color: #4CAF50;'>Mã giảm giá: {code}</h3>" +
+            "   <p>Bạn sẽ nhận được ưu đãi cho đơn hàng tiếp theo của bạn!</p>" +
+            "   <p>Hãy nhanh tay truy cập và khám phá ưu đãi trước khi hết hạn!</p>" +
+            "   <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi.</p>" +
+            "   <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>" +
+            "</div>" +
+            "<div class='footer'>" +
+            "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>" +
+            "</div>";
         private readonly string fromMail;
         private readonly string fromPassword;
 
@@ -50,7 +66,7 @@ namespace BTL_LTWeb.Services
             MailMessage message = new MailMessage
             {
                 From = new MailAddress(fromMail),
-                Subject = status == 1 ? "Xác thực tài khoản" : "Đặt lại mật khẩu",
+                Subject = GetEmailSubject(status),
                 Body = GetEmailTemplate(to, name, code, status),
                 IsBodyHtml = true
             };
@@ -81,6 +97,17 @@ namespace BTL_LTWeb.Services
                 return 0; // Gửi thất bại
             }
         }
+
+        private string GetEmailSubject(int status)
+        {
+            return status switch
+            {
+                1 => "Xác thực tài khoản",
+                2 => "Đặt lại mật khẩu",
+                3 => "Thông báo mã giảm giá",
+                _ => "Thông báo từ BeA Fashion"
+            };
+        }
         private string GetEmailTemplate(string receiver, string name, string code, int status)
         {
             var body =
@@ -91,7 +118,7 @@ namespace BTL_LTWeb.Services
                     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
                     <style>
                         body {
-                            font-family: Arial, sans-serif;
+                            font-family: Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
                             background-color: #f7f7f7;
                             margin: 0;
                             padding: 0;
@@ -137,8 +164,15 @@ namespace BTL_LTWeb.Services
                     </div>
                 </body>
                 </html>";
-
-            body = body.Replace("{content}", status == 1 ? _confirmEmailContent : _forgotPasswordContent)
+            string content;
+            if(status == 3)
+            {
+                content = _discountEmailContent;
+            }
+            else {
+                 content = status == 1 ? _confirmEmailContent : _forgotPasswordContent;
+            }
+            body = body.Replace("{content}", content)
                        .Replace("{name}", name)
                        .Replace("{code}", code)
                        .Replace("{DateTime.Now.Year}", DateTime.Now.Year.ToString());

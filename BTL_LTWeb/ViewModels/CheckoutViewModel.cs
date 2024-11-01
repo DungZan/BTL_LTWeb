@@ -7,6 +7,8 @@ namespace BTL_LTWeb.ViewModels
 
         public IEnumerable<TGioHang> CartItems { get; set; }
         public TKhachHang CustomerInfo { get; set; }
+        public string DiscountCode { get; set; }
+
 
     }
 }

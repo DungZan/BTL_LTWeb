@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace BTL_LTWeb.Models;
 
@@ -23,8 +25,10 @@ public partial class TChiTietSanPham
 
     [DisplayName("Số Lượng Tồn")]
     public int? Slton { get; set; }
-
+    [ValidateNever]
+    [JsonIgnore]
     public virtual TDanhMucSp DanhMucSp { get; set; } = null!;
-
+    [ValidateNever]
+    [JsonIgnore]
     public virtual ICollection<TAnhChiTietSp> TAnhChiTietSps { get; set; } = new List<TAnhChiTietSp>();
 }

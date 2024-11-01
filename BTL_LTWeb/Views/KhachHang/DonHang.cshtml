@@ -1,31 +1,31 @@
 ﻿@model IEnumerable<BTL_LTWeb.Models.THoaDonBan>
 @{
-    ViewData["Title"] = "DonHang";
+    ViewData["Title"] = "Đơn hàng";
     Layout = "~/Views/Shared/ProfileLayout.cshtml";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<div class="row">
 
-    <form asp-controller="KhachHang" asp-action="" method="get" class="site-block-top-search d-flex">
-        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
-        <button type="submit" class="btn btn-primary">Search</button>
+    <form asp-controller="KhachHang" asp-action="DonHang" method="get" class="site-block-top-search d-flex">
+        <input type="text" name="searchTerm" class="forcontrol border-1" placeholder="Search" id="searchInput">
+    <input type="hidden" name="Page" value="@ViewBag.CurrentPage" />
+        <button type="submit" class="btn btn-primary">Tìm</button>
     </form>
     <p></p>
+<div id="orderNotification" style="display:@(ViewBag.Notification != null ? "block" : "none");" class="alert alert-warning">
+    @ViewBag.Notification
+</div>
     <div class="alert alert-warning">
-        <table class="table table-hover table-responsive">
+        <table class="table table-hover table-responsive table-fixed">
             <thead>
                     <tr class="table-warning">
                         <th>
-                        Mã hoá đơn
+                        Mã HD
                         </th>
                         <th>
-                        Ngày tạo
+                        Ngày 
                         </th>
                         <th>
-                        Phương thức thanh toán
-                        </th>
-                        <th>
-                        Ghi chú
+                        PTTT
                         </th>
                         <th>
                         Tổng tiền
@@ -38,31 +38,27 @@
             <tbody>
                 @foreach (var item in Model) {
                     <tr class="alert alert-primary">
-                        <td>
+                    <td class="centered-cell">
                         @Html.DisplayFor(modelItem => item.MaHoaDonBan)
                         </td>
-                        <td>
-                        @Html.DisplayFor(modelItem => item.NgayHoaDon)
+                    <td class ="centered-cell">
+                        @item.NgayHoaDon?.ToString("dd/MM/yyyy")
                         </td>
-                        <td>
+                    <td class="centered-cell">
                         @Html.DisplayFor(modelItem => item.PhuongThucThanhToan)
                         </td>
-                        <td>
-                        @Html.DisplayFor(modelItem => item.GhiChu)
-                        </td>
-                        <td>
+                    <td class="centered-cell">
                         @Html.DisplayFor(modelItem => item.TongTienHd)
                         </td>
-                        <td>
-                            <a asp-action="ChiTietKhachHang" asp-route-id="@item.MaKhachHang">Chi tiết</a> |
-                            <a asp-action="XoaKhachHang" asp-route-id="@item.MaKhachHang">Xoá</a>
+                    <td class="centered-cell">
+                        <a href="@Url.Action("ChiTietDonHang", "KhachHang", new { MaDH = item.MaHoaDonBan })">Chi tiết</a>
                     </td>
                     </tr>
                 }
             </tbody>
         </table>
+
     </div>
-</div>
 <ul class="pagination">
     @for (int i = 1; i <= ViewBag.TotalPages; i++)
     {
@@ -76,18 +72,67 @@
     $(document).ready(function () {
         $('body').on('click', 'li.page-item', function (e) {
             e.preventDefault();
-            var page = $(this).find("a").attr("href").split("Page=")[1];
+            var page = $(this).find("a").attr("href").split("Page=")[1].split("&")[0];
+            var searchTerm = $("input[name='searchTerm']").val(); 
+
             $.ajax({
                 url: "/KhachHang/DonHang",
-                data: { Page: page },
+                data: { Page: page, searchTerm: searchTerm }, 
                 success: function (response) {
-                    $("div.row").html($(response).find("div.row").html());
-                    $("ul.pagination").html($(response).find("ul.pagination").html());
+
+                    handleResponse(response);
                 },
                 error: function (xhr, status, error) {
                     console.error("Có lỗi xảy ra:", error);
                 }
             });
         });
+
+        $('form').on('submit', function (e) {
+            e.preventDefault(); 
+            var searchTerm = $("input[name='searchTerm']").val(); 
+            $.ajax({
+                url: "/KhachHang/DonHang",
+                data: { searchTerm: searchTerm, Page: 1 }, 
+                success: function (response) {
+                    handleResponse(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+
+        $("#searchInput").on('input', function () {
+            var searchTerm = $(this).val();
+            if (searchTerm === "") {
+                $.ajax({
+                    url: "/KhachHang/DonHang",
+                    data: { Page: 1, searchTerm: "" },
+                    success: function (response) {
+                        handleResponse(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Có lỗi xảy ra:", error);
+                    }
+                });
+            }
+        });
+
+        function handleResponse(response) {
+            var tableContent = $(response).find("table.table-responsive").html();
+            $("table.table-responsive").html(tableContent);
+            $("ul.pagination").html($(response).find("ul.pagination").html());
+
+            var notificationMessage = $(response).find("#orderNotification").text().trim();
+            if (notificationMessage !== '') {
+                $("#orderNotification").text(notificationMessage).show();
+                setTimeout(function () {
+                    $("#orderNotification").fadeOut();
+                }, 3000);
+            } else {
+                $("#orderNotification").hide();
+            }
+        }
     });
 </script>

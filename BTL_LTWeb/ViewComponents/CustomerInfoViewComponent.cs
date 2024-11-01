@@ -26,7 +26,7 @@ namespace BTL_LTWeb.ViewComponents
             }
 
             var totalAmount = _context.THoaDonBans.Where(h => h.MaKhachHang == _customer.MaKhachHang).Sum(h => (decimal?)h.TongTienHd);
-            var points = totalAmount ?? 0;
+            var points = (totalAmount ?? 0) / 10000;
             var model = new CustomerInfoViewModel
             {
                 _fullName = _customer.TenKhachHang,

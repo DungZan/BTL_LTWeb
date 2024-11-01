@@ -9,6 +9,7 @@ using System.Text.Json;
 
 namespace BTL_LTWeb.Controllers
 {
+    [Route("acc")]
     public class AccountController : Controller
     {
         private readonly QLBanDoThoiTrangContext _context;
@@ -20,6 +21,7 @@ namespace BTL_LTWeb.Controllers
             _emailService = emailService;
         }
 
+        [Route("dang-nhap")]
         [HttpGet]
         public IActionResult Login()
         {
@@ -30,6 +32,7 @@ namespace BTL_LTWeb.Controllers
             return View();
         }
 
+        [Route("dang-nhap")]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel login)
         {
@@ -60,13 +63,14 @@ namespace BTL_LTWeb.Controllers
                     };
                     await HttpContext.SignInAsync("MyCookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                    return RedirectToAction("Index", "Home"); 
+                    return RedirectToAction("Index", "Home");
                 }
             }
             ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không chính xác.");
             return View(login);
         }
 
+        [Route("dang-xuat")]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -74,6 +78,7 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [Route("dang-ky")]
         [HttpGet]
         public IActionResult Register()
         {
@@ -84,6 +89,7 @@ namespace BTL_LTWeb.Controllers
             return View();
         }
 
+        [Route("dang-ky")]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel register)
         {
@@ -110,6 +116,7 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("VerifyEmail");
         }
 
+        [Route("xac-thuc-email")]
         [HttpGet]
         public async Task<IActionResult> VerifyEmail()
         {
@@ -140,7 +147,6 @@ namespace BTL_LTWeb.Controllers
                 }
                 if (register == null)
                     return BadRequest();
-                await _emailService.SendEmailAsync(register.Email, register.Name, verifyCode, status);
                 email = register.Email;
                 name = register.Name;
             }
@@ -161,7 +167,7 @@ namespace BTL_LTWeb.Controllers
                 {
                     return BadRequest("Customer not found.");
                 }
-                await _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang ?? string.Empty, verifyCode, status);
+                
                 email = khachHang.Email;
                 name = khachHang.TenKhachHang ?? string.Empty;
             }
@@ -172,6 +178,10 @@ namespace BTL_LTWeb.Controllers
                 Name = name,
                 Status = status
             };
+            _ = Task.Run(async () =>
+            {
+                await _emailService.SendEmailAsync(verify.Email, verify.Name ?? string.Empty, verifyCode, status);
+            });
             var otp = await _context.TempUserOtps.FirstOrDefaultAsync(e => e.Email == email);
             if (otp == null)
             {
@@ -194,6 +204,7 @@ namespace BTL_LTWeb.Controllers
             return View(verify);
         }
 
+        [Route("xac-thuc-email")]
         [HttpPost]
         public async Task<IActionResult> VerifyEmail(VerifyCodeViewModel verify)
         {
@@ -254,6 +265,7 @@ namespace BTL_LTWeb.Controllers
                 _context.SaveChanges();
                 _context.SaveChanges();
                 TempData.Clear();
+                TempData["Success"] = 1;
                 return RedirectToAction("Login", "Account");
             }
             else
@@ -262,6 +274,7 @@ namespace BTL_LTWeb.Controllers
             }
         }
 
+        [Route("quen-mat-khau")]
         [HttpGet]
         public IActionResult ForgotPassword()
         {
@@ -272,6 +285,7 @@ namespace BTL_LTWeb.Controllers
             return View();
         }
 
+        [Route("quen-mat-khau")]
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgot)
         {
@@ -292,6 +306,7 @@ namespace BTL_LTWeb.Controllers
             return RedirectToAction("VerifyEmail");
         }
 
+        [Route("doi-mat-khau")]
         [HttpGet]
         public IActionResult ChangePassword()
         {
@@ -301,6 +316,8 @@ namespace BTL_LTWeb.Controllers
             }
             return View();
         }
+
+        [Route("doi-mat-khau")]
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel change)
         {
@@ -330,7 +347,7 @@ namespace BTL_LTWeb.Controllers
             user.Salt = salt;
             _context.SaveChanges();
 
-            TempData["Message"] = "Cập nhật mật khẩu thành công!";
+            TempData["Success"] = 2;
             return RedirectToAction("Login", "Account");
         }
     }

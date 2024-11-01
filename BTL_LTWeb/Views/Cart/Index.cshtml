@@ -1,8 +1,9 @@
-﻿@{
+﻿@model List<BTL_LTWeb.Models.TGioHang>
+@{
     ViewData["Title"] = "Giỏ hàng";
     Layout = "~/Views/Shared/_CartLayout.cshtml";
+    var customerId = Model[0].MaKhachHang;
 }
-@model List<BTL_LTWeb.Models.TGioHang>
 <form class="col-md-12" asp-action="ProceedToCheckout" asp-controller="Pay" method="post">
 <div id="cart-container">
     
@@ -59,5 +60,5 @@
 </div>
 </form>
 @section Scripts {
-    <script src="~/js/cart/cart.js"></script>
+    <script src="~/js/cart.js"></script>
 }

@@ -1,11 +1,15 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using BTL_LTWeb.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+});
 
 // Database config
 var connectionString = builder.Configuration.GetConnectionString("QLBanDoThoiTrangContext");
@@ -29,6 +33,19 @@ builder.Services.AddAuthentication("MyCookieAuthentication")
 // Add Authorization
 builder.Services.AddAuthorization();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);  // Thời gian session tồn tại
+    options.Cookie.HttpOnly = true;                  // Bảo mật cookie
+    options.Cookie.IsEssential = true;               // Bắt buộc với GDPR
+});
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Thiết lập ReferenceHandler để xử lý vòng lặp tham chiếu
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,6 +60,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
+
 
 // Add Authentication and Authorization middleware
 app.UseAuthentication(); 

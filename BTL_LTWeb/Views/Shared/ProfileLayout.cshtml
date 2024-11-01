@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Thông tin tài khoản</title>
 </head>
 <link rel="stylesheet" href="~/ResourceTemplale/Profile/style.css">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -47,10 +47,11 @@
                 @await Component.InvokeAsync("CustomerInfo")
                 <div class="wizard">
                     <nav class="list-group list-group-flush">
-                        <a class="list-group-item active" asp-controller="KhachHang" asp-action="Suathongtin">
-                            Thông tin tài khoản
+                        <a class="list-group-item active"  asp-controller="KhachHang" asp-action="Suathongtin">
+                            Thông tin tài khoản                            
                         </a>
-                        <a class="list-group-item" asp-controller="KhachHang" asp-action="ChangePassword">
+
+                        <a class="list-group-item" id="change" href="#">
                             Đổi mật khẩu
                         </a>
                         <a class="list-group-item" asp-controller="KhachHang" asp-action="DonHang">
@@ -72,6 +73,23 @@
     <script src="~/ResourceTemplale/js/jquery.magnific-popup.min.js"></script>
     <script src="~/ResourceTemplale/js/aos.js"></script>
     <script src="~/js/ProfileCustomer/ProfileCustomer.js"></script>"
+    <script>
+        $(document).ready(function () {
+            $('a#logout').on('click', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/api/acc/logout',
+                    type: 'POST',
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+        });
+    </script>
     @await Html.PartialAsync("_FooterPartial")
 </body>
 

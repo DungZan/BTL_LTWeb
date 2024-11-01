@@ -1,11 +1,13 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace BTL_LTWeb.Controllers
 {
+    [Route("gio-hang")]
     public class CartController : Controller
     {
         private readonly QLBanDoThoiTrangContext _context;
@@ -13,6 +15,7 @@ namespace BTL_LTWeb.Controllers
         {
             _context = context;
         }
+
         public async Task<IActionResult> Index()
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
@@ -24,8 +27,8 @@ namespace BTL_LTWeb.Controllers
             }
 
             var gioHang = await _context.TGioHangs
-            .Include(x => x.ChiTietSanPham) 
-            .ThenInclude(x => x.DanhMucSp) 
+            .Include(x => x.ChiTietSanPham)
+            .ThenInclude(x => x.DanhMucSp)
             .Where(x => x.MaKhachHang == KhacHang.MaKhachHang)
             .ToListAsync();
 
@@ -34,10 +37,12 @@ namespace BTL_LTWeb.Controllers
 
         [Route("items")]
         [HttpGet]
-        public async Task<IActionResult> GetCartItems(int makhachhang)
+        public async Task<IActionResult> GetCartItems()
         {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(e => e.Email == email);
             var cartItems = await _context.TGioHangs
-                                           .Where(x => x.MaKhachHang == makhachhang)
+                                           .Where(x => x.MaKhachHang == khachHang.MaKhachHang)
                                            .Include(x => x.ChiTietSanPham)
                                            .ThenInclude(x => x.DanhMucSp)
                                            .ToListAsync();
@@ -50,17 +55,25 @@ namespace BTL_LTWeb.Controllers
             return PartialView("_ListCart", cartItems);
         }
 
+        [Route("them-vao-gio-hang")]
         [HttpPost]
         public async Task<IActionResult> AddToCart(int Masp, string Size, string Color, int Soluong)
         {
+            if (!User.Identity.IsAuthenticated)
+                return BadRequest("Vui lòng đăng nhập trước khi thực hiện");
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var KhacHang = await _context.TKhachHangs.FirstOrDefaultAsync(e => e.Email == email);
-
+            if (KhacHang == null)
+                return BadRequest("Lỗi hệ thống! Thử lại sau");
+            if (Size == null || Color == null)
+                return BadRequest("Vui lòng chọn đủ thông tin");
             var detail = await _context.TChiTietSanPhams.FirstOrDefaultAsync(
                 x => x.MaSp == Masp &&
                 x.KichThuoc == Size &&
                 x.MauSac == Color
             );
+            if (detail == null)
+                return NotFound("Sản phẩm không có sẵn hoặc đã hết hàng");
             var product = await _context.TGioHangs.FirstOrDefaultAsync(
                 x => x.MaChiTietSP == detail.MaChiTietSp &&
                 x.MaKhachHang == KhacHang.MaKhachHang
@@ -81,9 +94,10 @@ namespace BTL_LTWeb.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("ChitietSpNew", "Home", new { Masp });
+            return Ok();
         }
-        
+
+        [Route("Qr-code")]
         public ActionResult ShowImage()
         {
             ViewBag.ImageData = VietQrGenerator.GetQR(200001, "Truong van minh chuyen tien");
