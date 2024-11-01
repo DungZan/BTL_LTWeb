@@ -40,10 +40,10 @@
 <body>
     @await Html.PartialAsync("_HeaderPartial");
     
-    <div class="container mb-4 main-container" style="background-color: white;">
+    <div class="container main-container" style="background-color: white; max-width: 900px; margin: auto;">
         <div class="row">
-            <div class="col-lg-4 pb-5">
-                <!-- Account Sidebar-->
+            <div class="col-lg-4 col-md-5 col-sm-12 pb-5">
+                <!-- Account Sidebar -->
                 @await Component.InvokeAsync("CustomerInfo")
                 <div class="wizard">
                     <nav class="list-group list-group-flush">
@@ -54,15 +54,14 @@
                         <a class="list-group-item" id="change" href="#">
                             Đổi mật khẩu
                         </a>
-
-                        <a class="list-group-item"  asp-controller="KhachHang" asp-action="DonHang">
+                        <a class="list-group-item" asp-controller="KhachHang" asp-action="DonHang">
                             Đơn hàng
                         </a>
                     </nav>
                 </div>
-            </div>  
-            <div class="col-lg-8 pb-5" id="change-password" style="background-color: white;">
-                @RenderBody();
+            </div>
+            <div class="col-lg-8 col-md-7 col-sm-12 pb-5" style="background-color: white;">
+                @RenderBody()
             </div>
         </div>
     </div>
