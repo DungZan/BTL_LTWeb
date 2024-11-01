@@ -1,25 +1,25 @@
-﻿@model IEnumerable<BTL_LTWeb.Models.TDanhSachCuaHang>
+﻿@model IEnumerable<BTL_LTWeb.Models.TKhachHang>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <table class="table table-hover table-responsive">
     <thead>
         <tr class="table-warning">
             <th>
-                SĐT Cửa Hàng
+                Tên khách hàng
             </th>
             <th>
-                Địa Chỉ
+                Ngày sinh
             </th>
             <th>
-                Khu Vực
+                Số điện thoại
             </th>
             <th>
-                Kinh Độ
+                Địa chỉ
             </th>
             <th>
-                Vĩ Độ
+                Ghi chú
             </th>
             <th>
-                Hành Động
+                Chức năng
             </th>
         </tr>
     </thead>
@@ -28,23 +28,23 @@
         {
             <tr class="alert alert-primary">
                 <td>
-                    @item.SDTCuaHang
+                    @Html.DisplayFor(modelItem => item.TenKhachHang)
                 </td>
                 <td>
-                    @item.DiaChi
+                    @Html.DisplayFor(modelItem => item.NgaySinh)
                 </td>
                 <td>
-                    @item.KhuVuc
+                    @Html.DisplayFor(modelItem => item.SoDienThoai)
                 </td>
                 <td>
-                    @item.KinhDo
+                    @Html.DisplayFor(modelItem => item.DiaChi)
                 </td>
                 <td>
-                    @item.ViDo
+                    @Html.DisplayFor(modelItem => item.GhiChu)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-SDTCuaHang="@item.SDTCuaHang">Sửa</a> |
-                    <a href="javascript:void(0);" class="btn-delete" data-id="@item.SDTCuaHang">Xoá</a>
+                    <a asp-action="ChiTietKhachHang" asp-route-maKH="@item.MaKhachHang">Chi tiết</a> 
+                    
                 </td>
             </tr>
         }

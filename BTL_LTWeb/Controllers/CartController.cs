@@ -97,6 +97,25 @@ namespace BTL_LTWeb.Controllers
             return Ok();
         }
 
+        [Route("so-luong")]
+        [HttpGet]
+        public async Task<IActionResult> GetCartItemAmount()
+        {
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var khachHang = await _context.TKhachHangs.FirstOrDefaultAsync(e => e.Email == email);
+            var cartItems = await _context.TGioHangs
+                                           .Where(x => x.MaKhachHang == khachHang.MaKhachHang)
+                                           .Include(x => x.ChiTietSanPham)
+                                           .ThenInclude(x => x.DanhMucSp)
+                                           .ToListAsync();
+
+            if (cartItems == null || !cartItems.Any())
+            {
+                return NotFound();
+            }
+            return Json(cartItems.Count);
+        }
+
         [Route("Qr-code")]
         public ActionResult ShowImage()
         {

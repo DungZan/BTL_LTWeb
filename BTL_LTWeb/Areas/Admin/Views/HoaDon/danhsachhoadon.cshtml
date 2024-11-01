@@ -8,8 +8,8 @@
 <div class="row">
 <h1>Danh Sách Hoá Đơn</h1>
     <form asp-controller="HomeAdmin" asp-action="" method="get" class="site-block-top-search d-flex">
-        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
-        <button type="submit" class="btn btn-primary">Search</button>
+        <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Nhập">
+        <button type="submit" class="btn btn-primary">Tìm</button>
     </form>
     <p></p>
 <div class="alert alert-warning">
@@ -61,9 +61,9 @@
                             @Html.DisplayFor(modelItem => item.GiamGia.MaGiamGia)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-MaHD="@item.MaHoaDonBan">Edit</a> |
-                            <a asp-action="ChiTietHoaDon" asp-route-MaHD="@item.MaHoaDonBan">Details</a> |
-                            <a asp-action="Delete" asp-route-MaHD="@item.MaHoaDonBan">Delete</a>
+                            <a asp-action="Edit" asp-route-MaHD="@item.MaHoaDonBan">Sửa</a> |
+                            <a asp-action="ChiTietHoaDon" asp-route-MaHD="@item.MaHoaDonBan">Chi tiết</a> |
+                            <a asp-action="Delete" asp-route-MaHD="@item.MaHoaDonBan">Xoá</a>
                         </td>
         </tr>
 }

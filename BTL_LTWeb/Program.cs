@@ -6,10 +6,7 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-});
+builder.Services.AddControllersWithViews();
 
 // Database config
 var connectionString = builder.Configuration.GetConnectionString("QLBanDoThoiTrangContext");
@@ -23,7 +20,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 builder.Services.AddAuthentication("MyCookieAuthentication")
     .AddCookie("MyCookieAuthentication", options =>
     {
-        options.LoginPath = "/Account/Login"; 
+        options.LoginPath = "/acc/dang-nhap"; 
         options.LogoutPath = "/Home/Index";
         options.AccessDeniedPath = "/Home/Home";
         options.SlidingExpiration = true;
@@ -33,6 +30,7 @@ builder.Services.AddAuthentication("MyCookieAuthentication")
 // Add Authorization
 builder.Services.AddAuthorization();
 
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);  // Thời gian session tồn tại
@@ -40,12 +38,6 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;               // Bắt buộc với GDPR
 });
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        // Thiết lập ReferenceHandler để xử lý vòng lặp tham chiếu
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
