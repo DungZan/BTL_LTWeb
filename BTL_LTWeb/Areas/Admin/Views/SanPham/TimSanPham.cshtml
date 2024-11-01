@@ -2,7 +2,7 @@
 @model X.PagedList.IPagedList<BTL_LTWeb.Models.TDanhMucSp>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "danhmucsanpham";
+    ViewData["Title"] = "Sản phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <div class="row">
@@ -19,11 +19,11 @@
 
     <h1>Danh mục sản phẩm</h1>
     <form asp-area="Admin" asp-controller="HomeAdmin" asp-action="TimSanPham" method="get" class="site-block-top-search d-flex">
-        <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Search">
-        <button type="submit" class="btn btn-primary">Search</button>
+        <input type="text" name="Tensanpham" class="form-control border-1" placeholder="Nhập">
+        <button type="submit" class="btn btn-primary">Tìm</button>
     </form>
     <p>
-        <a class="btn btn-info" asp-action="themsanpham">Create New</a>
+        <a class="btn btn-info" asp-action="themsanpham">Thêm Sản phẩm</a>
     </p>
     <div class="alert alert-warning">
 
@@ -82,9 +82,9 @@
                             @Html.DisplayFor(modelItem => item.Gia)
                         </td>
                         <td class=" text-nowrap">
-                            <a asp-action="suasanpham" asp-route-MaSP="@item.MaSp">Edit</a> |
-                            <a asp-action="Chitiet" asp-route-MaSP="@item.MaSp">Details</a> |
-                            <a asp-action="XoaSanPham" asp-route-MaSP="@item.MaSp">Delete</a>
+                            <a asp-action="suasanpham" asp-route-MaSP="@item.MaSp">Sửa</a> |
+                            <a asp-action="Chitiet" asp-route-MaSP="@item.MaSp">Chi tiết</a> |
+                            <a asp-action="XoaSanPham" asp-route-MaSP="@item.MaSp">Xoá</a>
                         </td>
                     </tr>
                 }
