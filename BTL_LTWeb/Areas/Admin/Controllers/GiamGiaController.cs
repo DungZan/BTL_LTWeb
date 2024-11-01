@@ -13,6 +13,12 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     {
         QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
         private readonly EmailService _emailService;
+
+        public GiamGiaController(EmailService emailService, QLBanDoThoiTrangContext context)
+        {
+            _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
+            db = context ?? throw new ArgumentNullException(nameof(context));
+        }
         public IActionResult Index()
         {
             return View();
