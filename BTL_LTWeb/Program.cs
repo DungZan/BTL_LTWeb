@@ -23,7 +23,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 builder.Services.AddAuthentication("MyCookieAuthentication")
     .AddCookie("MyCookieAuthentication", options =>
     {
-        options.LoginPath = "/Account/Login"; 
+        options.LoginPath = "/acc/dang-nhap"; 
         options.LogoutPath = "/Home/Index";
         options.AccessDeniedPath = "/Home/Home";
         options.SlidingExpiration = true;
