@@ -43,9 +43,7 @@ namespace BTL_LTWeb.Services
             "<div class='content'>" +
             "   <h2>Chào {name},</h2>" +
             "   <p>Chúng tôi rất vui mừng thông báo rằng bạn đã nhận được mã giảm giá mới!</p>" +
-            "   <h3 style='color: #4CAF50;'>Mã giảm giá: {code}</h3>" +
-            "   <p>Bạn sẽ nhận được ưu đãi cho đơn hàng tiếp theo của bạn!</p>" +
-            "   <p>Hãy nhanh tay truy cập và khám phá ưu đãi trước khi hết hạn!</p>" +
+            "   {code}" +
             "   <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi.</p>" +
             "   <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>" +
             "</div>" +
