@@ -12,6 +12,7 @@ namespace BTL_LTWeb.Models
     {
         [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
         [Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Số điện thoại không hợp lệ")]
         public string SDTCuaHang { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
