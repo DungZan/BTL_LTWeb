@@ -30,6 +30,7 @@ builder.Services.AddAuthentication("MyCookieAuthentication")
 // Add Authorization
 builder.Services.AddAuthorization();
 
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);  // Thời gian session tồn tại

@@ -259,9 +259,34 @@
                     });
                 });
         }
+        function validateForm() {
+            let phonePattern = /^[0-9]{10}$/;
 
-        loadProvinces('c_country', 'c_district');
-        loadProvinces('c_diff_country', 'c_diff_district');
+            let alternateAddressChecked = document.getElementById("c_ship_different_address").checked;
+            let requiredFields = ["c_diff_fname", "c_diff_address", "c_diff_phone"];
+
+            if (alternateAddressChecked) {
+                for (let field of requiredFields) {
+                    if (document.getElementById(field).value.trim() === "") {
+                        alert("Vui lòng điền đầy đủ thông tin ở địa chỉ giao hàng khác.");
+                        return false;
+                    }
+                }
+                if (!phonePattern.test(document.getElementById("c_diff_phone").value)) {
+                    alert("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số.");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.getElementById("ajaxPaymentButton").addEventListener("click", function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+
+        
         function updateProvinceName() {
             const provinceSelect = document.getElementById('c_diff_country');
             const provinceName = provinceSelect.options[provinceSelect.selectedIndex].text;
@@ -273,6 +298,10 @@
             const districtName = districtSelect.options[districtSelect.selectedIndex].text;
             document.getElementById('ten_quan_huyen').value = districtName; 
         }
+
+        loadProvinces('c_country', 'c_district');
+        loadProvinces('c_diff_country', 'c_diff_district');
+
 
         function updateDiscount() {
             const discountCode = document.getElementById("discountCode").value;

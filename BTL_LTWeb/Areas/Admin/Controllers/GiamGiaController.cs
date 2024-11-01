@@ -174,12 +174,15 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             {
                 return NotFound("Mã giảm giá không tồn tại.");
             }
-
+            string content =
+                $"   <h3 style='color: #4CAF50;'>Mã giảm giá: {maGiamGia.Code}</h3>" +
+            $"   <p>Giảm giá: {maGiamGia.TiLeGiam * 100}% cho đơn hàng tiếp theo của bạn!</p>" +
+            "   <p>Hãy nhanh tay sử dụng mã giảm giá này trước khi hết hạn!</p>" ;
             var _kh = await db.TKhachHangs.ToListAsync();
             var tasks = new List<Task<int>>();
             foreach (var kh in _kh)
             {
-                tasks.Add(_emailService.SendEmailAsync(kh.Email, kh.TenKhachHang, maGiamGia.Code, 3));
+                tasks.Add(_emailService.SendEmailAsync(kh.Email, kh.TenKhachHang, content, 3));
             }
             try
             {

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 
 namespace BTL_LTWeb.Controllers
@@ -17,10 +18,12 @@ namespace BTL_LTWeb.Controllers
 
 
         private readonly QLBanDoThoiTrangContext _context;
+        private readonly EmailService _emailService;
 
-        public PayController(QLBanDoThoiTrangContext context)
+        public PayController(QLBanDoThoiTrangContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
         public IActionResult Index()
         {
@@ -50,6 +53,7 @@ namespace BTL_LTWeb.Controllers
 
             var customerId = cartItems.FirstOrDefault()?.MaKhachHang;
             var customerInfo = _context.TKhachHangs.FirstOrDefault(c => c.MaKhachHang == customerId);
+
             var usedDiscountCode = _context.THoaDonBans.Where(d => d.MaKhachHang == customerId).Select(d => d.MaGiamGia).ToList();
 
             var availableDiscountCodes = _context.TMaGiamGias.Where(g => g.TrangThai == 1 && g.NgayKetThuc > DateTime.Now && !usedDiscountCode.Contains(g.MaGiamGia)).Select(g => g.Code).ToList();
@@ -68,6 +72,8 @@ namespace BTL_LTWeb.Controllers
                     CartID = selectedItems.ToList(),
                     AvailableDiscountCodes = availableDiscountCodes
                 }
+                
+
             };
 
             return View("Index", checkoutAndPayment);
@@ -184,7 +190,10 @@ namespace BTL_LTWeb.Controllers
                         DonGiaBan = danhMuc.Gia
                     };
                     _context.TChiTietHoaDonBans.Add(chiTiet);
-
+                    if (gioHang.ChiTietSanPham.Slton.HasValue)
+                    {
+                        gioHang.ChiTietSanPham.Slton -= gioHang.SoLuong;
+                    }
                 }
 
                 //Xử lý thông tin giao hàng
@@ -209,8 +218,11 @@ namespace BTL_LTWeb.Controllers
                 }
                 //Lưu tất cả
                 _context.SaveChanges();
-
-                return (model.PaymentViewModel.PhuongThucThanhToan == "cash") ? Success() : ShowImage((int)TongTien, hoaDon.MaHoaDonBan + model.PaymentViewModel.HoTen + "CHUYEN TIEN");
+                var emailContent = 
+                       $"<p>Đơn hàng của bạn đã được thanh toán thành công với mã đơn hàng <strong>{hoaDon.MaHoaDonBan}</strong>.</p>" +
+                       $"<p>Tổng tiền: {TongTien:C}</p>";
+                _emailService.SendEmailAsync(khachHang.Email, khachHang.TenKhachHang, emailContent, 4);
+            return (model.PaymentViewModel.PhuongThucThanhToan == "cash") ? Success() : ShowImage((int)TongTien, hoaDon.MaHoaDonBan + model.PaymentViewModel.HoTen + "CHUYEN TIEN");
             //}
             //else {
                 
@@ -233,7 +245,7 @@ namespace BTL_LTWeb.Controllers
         }
         public IActionResult Success()
         {
-
+            
             return View("PayDone");
         }
 
