@@ -380,6 +380,12 @@ namespace BTL_LTWeb.Controllers
                     string actStatus = ValidatingAction("rpEdit", inpReply, frameReview);
                     if (actStatus != "SACT") return actStatus;
 
+                    //sửa câu trả lời -> xoá chỉ số hữu ích cũ
+                    foreach (var it in _reacts.Where(it => it.MaDanhGia == frameReview.MaDanhGia))
+                    {
+                        it.HuuIch = 0;
+                        _db.TPhanHois.Update(it);
+                    }
                     frameReview.TraLoi = inpReply.TraLoi;
                 }
                 return EditReview(frameReview);
