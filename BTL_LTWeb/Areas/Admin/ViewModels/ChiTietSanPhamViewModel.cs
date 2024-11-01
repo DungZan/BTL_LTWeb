@@ -2,7 +2,7 @@
 
 namespace BTL_LTWeb.ViewModels
 {
-    public class ChiTietSPViewModel
+    public class ChiTietSanPhamViewModel
     {
         public TDanhMucSp Sp { get; set; }
 
