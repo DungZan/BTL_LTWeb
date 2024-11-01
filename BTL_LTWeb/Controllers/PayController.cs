@@ -50,7 +50,9 @@ namespace BTL_LTWeb.Controllers
 
             var customerId = cartItems.FirstOrDefault()?.MaKhachHang;
             var customerInfo = _context.TKhachHangs.FirstOrDefault(c => c.MaKhachHang == customerId);
+            var usedDiscountCode = _context.THoaDonBans.Where(d => d.MaKhachHang == customerId).Select(d => d.MaGiamGia).ToList();
 
+            var availableDiscountCodes = _context.TMaGiamGias.Where(g => g.TrangThai == 1 && g.NgayKetThuc > DateTime.Now && !usedDiscountCode.Contains(g.MaGiamGia)).Select(g => g.Code).ToList();
 
             var viewModel = new CheckoutViewModel
             {
@@ -63,14 +65,40 @@ namespace BTL_LTWeb.Controllers
                 PaymentViewModel = new PaymentViewModel
                 {
                     MaKhachHang = customerId.Value,
-                    CartID = selectedItems.ToList()
+                    CartID = selectedItems.ToList(),
+                    AvailableDiscountCodes = availableDiscountCodes
                 }
             };
 
             return View("Index", checkoutAndPayment);
         }
 
+        [HttpGet]
+        public IActionResult CheckDiscountCode(string DiscountCode, decimal totalAmount)
+        {
+            var discount = _context.TMaGiamGias
+                .FirstOrDefault(d => d.Code == DiscountCode && d.TrangThai == 1 && d.NgayKetThuc > DateTime.Now);
 
+            if (discount != null)
+            {
+                decimal discountAmount = discount.TiLeGiam * totalAmount;
+                return Json(new
+                {
+                    isValid = true,
+                    discountAmount = discountAmount,
+                    finalAmount = totalAmount - discountAmount
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    isValid = false,
+                    discountAmount = 0,
+                    finalAmount = totalAmount
+                });
+            }
+        }
 
         public IActionResult Checkout()
         {
@@ -109,6 +137,17 @@ namespace BTL_LTWeb.Controllers
                         .FirstOrDefault(e => e.MaSp == gioHang.ChiTietSanPham.MaSp);
                     TongTien = (decimal)(TongTien + (danhMuc.Gia * gioHang.SoLuong));
                 }
+                decimal discountAmount = 0;
+            if (!string.IsNullOrEmpty(model.PaymentViewModel.SelectedDiscountCode))
+            {
+                var discount = _context.TMaGiamGias.FirstOrDefault(d => d.Code == model.PaymentViewModel.SelectedDiscountCode && d.TrangThai == 1 && d.NgayKetThuc > DateTime.Now);
+                if (discount != null)
+                {
+                    discountAmount = TongTien * (discount.TiLeGiam);
+                    TongTien -= discountAmount;
+                }
+            }
+
                 var hoaDon = new THoaDonBan
                 {
                     MaKhachHang = model.PaymentViewModel.MaKhachHang,
@@ -117,7 +156,18 @@ namespace BTL_LTWeb.Controllers
                     PhuongThucThanhToan = model.PaymentViewModel.PhuongThucThanhToan,
                     GhiChu = model.PaymentViewModel.GhiChu
                 };
-                _context.THoaDonBans.Add(hoaDon);
+
+            if (!string.IsNullOrEmpty(model.PaymentViewModel.SelectedDiscountCode) )
+            {
+                var discount = _context.TMaGiamGias.FirstOrDefault(d => d.Code == model.PaymentViewModel.SelectedDiscountCode);
+                if (discount != null && discountAmount > 0)
+                {
+                    hoaDon.MaGiamGia = discount.MaGiamGia; 
+                }
+
+
+            }
+            _context.THoaDonBans.Add(hoaDon);
                 _context.SaveChanges();
 
                 //Thêm chi tiết hóa đơn

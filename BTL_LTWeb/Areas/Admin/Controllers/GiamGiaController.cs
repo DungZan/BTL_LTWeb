@@ -170,14 +170,25 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             }
 
             var _kh = await db.TKhachHangs.ToListAsync();
-            var tasks = new List<Task>();
+            var tasks = new List<Task<int>>();
             foreach (var kh in _kh)
             {
-                tasks.Add(_emailService.SendEmailAsync(kh.Email, kh.TenKhachHang, maGiamGia.Code, 1));
+                tasks.Add(_emailService.SendEmailAsync(kh.Email, kh.TenKhachHang, maGiamGia.Code, 3));
             }
-            await Task.WhenAll(tasks);
-            TempData["SuccessMessage"] = "Đã gửi email thông báo tới tất cả khách hàng";
-            return Json(new { success = true, message = "Đã gửi email thông báo tới tất cả khách hàng" });
+            try
+            {
+                var results = await Task.WhenAll(tasks);
+                var successfulSends = results.Count(result => result == 1);
+                var failedSends = results.Count(result => result == 0);
+
+                TempData["SuccessMessage"] = $"Đã gửi email thông báo tới {successfulSends} khách hàng." +
+                                              $"{(failedSends > 0 ? $" Có {failedSends} email không thành công." : "")}";
+                return Json(new { success = true, message = TempData["SuccessMessage"] });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Lỗi hệ thống: {ex.Message}");
+            }
         }
 
         
