@@ -1,5 +1,6 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/SanPham")]
+    [Authorize(Roles = "Admin,NhanVien")]
     public class SanPhamController : Controller
     {
         private readonly QLBanDoThoiTrangContext db;

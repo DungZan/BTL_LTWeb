@@ -1,5 +1,6 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -8,6 +9,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/NhanVien")]
+    [Authorize(Roles = "Admin,NhanVien")]
     public class NhanVienController : Controller
     {
         QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
