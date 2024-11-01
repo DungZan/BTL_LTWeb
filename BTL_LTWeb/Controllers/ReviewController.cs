@@ -1,7 +1,9 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Drawing.Text;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -23,9 +25,13 @@ namespace BTL_LTWeb.Controllers
         //for pagination purpose
         private const int _PERPAGERV = 5;
 
-        public ReviewController(QLBanDoThoiTrangContext _context)
+        //for email service
+        private readonly EmailService _emailService;
+
+        public ReviewController(QLBanDoThoiTrangContext _context, EmailService emailService)
         {
             _db = _context;
+            _emailService = emailService;
         }
 
         private void FetchCurrentUser()
@@ -391,7 +397,15 @@ namespace BTL_LTWeb.Controllers
                     }
                     frameReview.TraLoi = inpReply.TraLoi;
                 }
-                return EditReview(frameReview);
+                if (EditReview(frameReview) == "SACT")
+                {
+                    string csEmail = _db.TKhachHangs.FirstOrDefault(it => it.MaKhachHang == frameReview.MaKhachHang).Email;
+                    string emName = _db.TNhanViens.FirstOrDefault(it => it.MaNhanVien == frameReview.MaNhanVien).TenNhanVien;
+                    string pdName = _db.TDanhMucSps.FirstOrDefault(it => it.MaSp == frameReview.MaSP).TenSp;
+                    string rpMsg = frameReview.TraLoi;
+                    SendNoticeOfReply(csEmail != null ? csEmail : "", emName != null ? emName : "", pdName != null ? pdName : "", rpMsg != null ? rpMsg : "");
+                    return "SACT";
+                }
             }
             return "ERNI";
         }
@@ -475,6 +489,16 @@ namespace BTL_LTWeb.Controllers
             }
             catch { return "EDTB"; }
             return "SACT";
+        }
+
+        private void SendNoticeOfReply(string csEmail, string emName, string pdName, string rpMsg)
+        {
+            string reply =
+                $"<p>Sản phẩm: <strong>{pdName}</strong></p>" +
+                $"<p>Nhân viên: <strong>{emName}</strong></p>" +
+                $"<p>Nội dung:</p>" +
+                $"<p style='margin-left: 10px; border-left: solid 1px lightgray'>{string.Join("<br>", rpMsg.Split('\n'))}</p>";
+            _emailService.SendEmailAsync(csEmail, emName, reply, 5);
         }
     }
 }
