@@ -110,7 +110,7 @@ $(document).on('click', '#remove', function () {
 
 function updateCart() {
     $.ajax({
-        url: `/items`,
+        url: `/gio-hang/items`,
         type: 'GET',
         success: function (response) {
             $('#items').html(response);

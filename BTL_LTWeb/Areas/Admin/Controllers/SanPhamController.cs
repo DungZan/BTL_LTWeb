@@ -197,7 +197,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 
             var sp = db.TDanhMucSps.Find(MaSP);
             var chitiet = db.TChiTietSanPhams.Where(x => x.MaSp == MaSP).ToList();
-            ChiTietSPViewModel chiTietsp = new ChiTietSPViewModel
+            ChiTietSanPhamViewModel chiTietsp = new ChiTietSanPhamViewModel
             {
                 Sp = sp,
                 chiTietSanPhams = chitiet
@@ -206,7 +206,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         }
         [HttpPost]
         [Route("ChiTietSanPham")]
-        public IActionResult ChiTiet(ChiTietSPViewModel chiTietsp)
+        public IActionResult ChiTiet(ChiTietSanPhamViewModel chiTietsp)
         {
             return View(chiTietsp);
         }
