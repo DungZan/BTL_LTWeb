@@ -29,12 +29,6 @@ builder.Services.AddAuthentication("MyCookieAuthentication")
 
 // Add Authorization
 builder.Services.AddAuthorization();
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        // Thiết lập ReferenceHandler để xử lý vòng lặp tham chiếu
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
