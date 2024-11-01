@@ -205,17 +205,17 @@ namespace BTL_LTWeb.Controllers
                     if (_utype != "KhachHang" || _uid != affected.MaKhachHang) return "EUNP";
                     break;
                 case "rpCreate":
-                    if (_utype != "NhanVien") return "EUNP";
+                    if (_utype == "KhachHang") return "EUNP";
                     if (string.IsNullOrWhiteSpace(affected.TraLoi)) return "WRNC";
                     if (affected.TraLoi.Length > 1000) return "WRFC";
                     break;
                 case "rpEdit":
-                    if (_utype != "NhanVien" || _uid != prev.MaNhanVien) return "EUNP";
+                    if (_utype == "KhachHang" || _uid != prev.MaNhanVien) return "EUNP";
                     if (string.IsNullOrWhiteSpace(affected.TraLoi)) return "WRNC";
                     if (affected.TraLoi.Length > 1000) return "WRFC";
                     break;
                 case "rpDelete":
-                    if (_utype != "NhanVien" || _uid != affected.MaNhanVien) return "EUNP";
+                    if (_utype == "KhachHang" || _uid != affected.MaNhanVien) return "EUNP";
                     break;
                 case "urCastVote":
                     if (_utype != "KhachHang") return "EUNP";

@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                @if (string.IsNullOrWhiteSpace(it.EpName) && ViewBag.utype == "NhanVien")
+                @if (string.IsNullOrWhiteSpace(it.EpName) && ViewBag.utype != "KhachHang")
                 {
                     <a class="reply" id="@it._reviewID">Trả lời</a>
                 }
@@ -95,7 +95,7 @@
                                 <img src="https://cdn-icons-png.flaticon.com/512/3685/3685999.png">
                                 <p>@it.EpName</p>
                             </div>
-                            @if (it._emplID == ViewBag.uid && ViewBag.utype == "NhanVien")
+                            @if (it._emplID == ViewBag.uid && ViewBag.utype != "KhachHang")
                             {
                                 <div class="rvhead-crudoptions">
                                     <div class="truecscrud" style="display: true;">
