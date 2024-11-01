@@ -108,26 +108,7 @@
             </div>
         </div>
 
-        <div class="site-section block-8">
-            <div class="container">
-                <div class="row justify-content-center  mb-5">
-                    <div class="col-md-7 site-section-heading text-center pt-4">
-                        <h2>Chương trình giảm giá!</h2>
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-md-12 col-lg-7 mb-5">
-                        <a href="#"><img src="~/images/blog_1.jpg" alt="Image placeholder" class="img-fluid rounded"></a>
-                    </div>
-                    <div class="col-md-12 col-lg-5 text-center pl-md-5">
-                        <h2><a href="#">50% cho tất cả các sản phẩm trong banner</a></h2>
-                        <p class="post-meta mb-4">By <a href="#">BeA Fashion</a> <span class="block-8-sep">&bullet;</span> 25 Tháng 10 2024</p>
-                    <p>Dịch vụ giảm giá hấp dẫn giúp bạn mua sắm tiết kiệm hơn bao giờ hết! Áp dụng nhiều ưu đãi đặc biệt cho các sản phẩm yêu thích. Thoải mái lựa chọn và tận hưởng những khuyến mãi tuyệt vời.</p>
-                        <p><a href="#" class="btn btn-primary btn-sm">Mua ngay</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @await Component.InvokeAsync("DiscountBanner")
 
         @await Html.PartialAsync("_FooterPartial")
  </div>
