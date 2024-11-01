@@ -52,6 +52,22 @@ namespace BTL_LTWeb.Services
             "<div class='footer'>" +
             "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Bảo mật thông tin của bạn là ưu tiên hàng đầu của chúng tôi.</p>" +
             "</div>";
+        private readonly string _paymentSuccessContent =
+            "<div class='header'>" +
+            "   <h1>Thanh toán thành công</h1>" +
+            "</div>" +
+            "<div class='content'>" +
+            "   <h2>Chào {name},</h2>" +
+            "   <p>Cảm ơn bạn đã mua hàng tại BeA Fashion!</p>" +
+            "   <p>Đơn hàng của bạn đã được thanh toán thành công. Chúng tôi sẽ sớm chuẩn bị và gửi đến bạn.</p>" +
+            "   {code}" +
+            "   <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi.</p>" +
+            "   <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>" +
+            "</div>" +
+            "<div class='footer'>" +
+            "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Cảm ơn bạn đã tin tưởng chúng tôi.</p>" +
+            "</div>";
+
         private readonly string fromMail;
         private readonly string fromPassword;
 
@@ -105,6 +121,7 @@ namespace BTL_LTWeb.Services
                 1 => "Xác thực tài khoản",
                 2 => "Đặt lại mật khẩu",
                 3 => "Thông báo mã giảm giá",
+                4 => "Xác nhận thanh toán thành công",
                 _ => "Thông báo từ BeA Fashion"
             };
         }
@@ -168,6 +185,10 @@ namespace BTL_LTWeb.Services
             if(status == 3)
             {
                 content = _discountEmailContent;
+            }
+            else if (status == 4)
+            {
+                content = _paymentSuccessContent;
             }
             else {
                  content = status == 1 ? _confirmEmailContent : _forgotPasswordContent;
