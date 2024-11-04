@@ -115,13 +115,11 @@ namespace BTL_LTWeb.Services
             }
             catch (SmtpException smtpEx)
             {
-                // Xử lý lỗi SMTP
                 Console.WriteLine($"SMTP Error: {smtpEx.Message}");
                 return 0; // Gửi thất bại
             }
             catch (Exception ex)
             {
-                // Xử lý các lỗi khác
                 Console.WriteLine($"Error: {ex.Message}");
                 return 0; // Gửi thất bại
             }
