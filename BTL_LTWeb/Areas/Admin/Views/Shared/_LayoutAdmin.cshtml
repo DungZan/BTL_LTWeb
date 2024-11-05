@@ -1,5 +1,4 @@
-﻿
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!doctype html>
 <html lang="en">
@@ -73,7 +72,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="NhanVien" asp-action ="danhsachnhanvien" aria-expanded="false">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="NhanVien" asp-action="danhsachnhanvien" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-cards"></i>
                                 </span>
@@ -97,54 +96,13 @@
                                 <span class="hide-menu">Mã giảm giá</span>
                             </a>
                         </li>
-                        
+
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-controller="HeThongCuaHang" asp-action="Index" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-file-description"></i>
                                 </span>
                                 <span class="hide-menu">Hệ Thống Cửa Hàng</span>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Tài khoản</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-login"></i>
-                                </span>
-                                <span class="hide-menu">Đăng nhập</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-user-plus"></i>
-                                </span>
-                                <span class="hide-menu">Đăng kí</span>
-                            </a>
-                        </li>
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Thêm</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-mood-happy"></i>
-                                </span>
-                                <span class="hide-menu">Thương hiệu</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-aperture"></i>
-                                </span>
-                                <span class="hide-menu">Mẫu trang</span>
                             </a>
                         </li>
                     </ul>
@@ -193,7 +151,7 @@
                                             <i class="ti ti-list-check fs-6"></i>
                                             <p class="mb-0 fs-3">Nhiệm vụ</p>
                                         </a>
-                                        <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Đăng xuất</a>
+                                        <a id="logout" href="" class="btn btn-outline-primary mx-3 mt-2 d-block">Đăng xuất</a>
                                     </div>
                                 </div>
                             </li>
@@ -202,12 +160,12 @@
                 </nav>
             </header>
             <!--  Header End -->
-            
+
             <div class="container-fluid">
                 <!--  Row 1 -->
                 @RenderBody()
-                
-                
+
+
                 <div class="py-6 px-6 text-center">
                     <p class="mb-0 fs-4">Thiết kế và phát triển bởi <a href="#" target="_blank" class="pe-1 text-primary text-decoration-underline">BeA Incorporation</a></p>
                 </div>
@@ -221,6 +179,23 @@
     <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="~/ResourceTemplaleAdmin/js/ChartDashBoard.js"></script>
     <script src="~/ResourceTemplaleAdmin/libs/simplebar/dist/simplebar.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('a#logout').on('click', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/api/acc/logout',
+                    type: 'POST',
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
