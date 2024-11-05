@@ -25,7 +25,18 @@ namespace BTL_LTWeb.Models
         public DateTime? NgayKetThuc {  get; set; }
         public int? TrangThai { get; set; }
 
-
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (NgayBatDau.HasValue && NgayKetThuc.HasValue)
+            {
+                if (NgayKetThuc < NgayBatDau)
+                {
+                    yield return new ValidationResult(
+                        "Ngày kết thúc không thể trước ngày bắt đầu.",
+                        new[] { nameof(NgayKetThuc) });
+                }
+            }
+        }
 
     }
 }
