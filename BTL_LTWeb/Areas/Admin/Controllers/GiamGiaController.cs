@@ -73,6 +73,10 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult ThemMaGiamGia(TMaGiamGia model, int? MaSp)
         {
+            if (model.NgayBatDau.HasValue && model.NgayKetThuc.HasValue && model.NgayKetThuc < model.NgayBatDau)
+            {
+                ModelState.AddModelError("NgayKetThuc", "Ngày kết thúc không thể trước ngày bắt đầu.");
+            }
             if (ModelState.IsValid)
             {
                 model.TiLeGiam = model.TiLeGiam / 100;
@@ -97,16 +101,19 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             {
                 return RedirectToAction("Danhsachmagiamgia");
             }
-            
-            ViewBag.SanPhams = db.TDanhMucSps.AsNoTracking().ToList();
+            discount.TiLeGiam = discount.TiLeGiam * 100;
+           
             return View(discount);
         }
 
         [Route("ChiTietMaGiamGia")]
         [HttpPost]
-        public IActionResult ChiTietMaGiamGia(TMaGiamGia model, int? MaSp)
+        public IActionResult ChiTietMaGiamGia(TMaGiamGia model)
         {
-            ViewBag.SanPhams = db.TDanhMucSps.AsNoTracking().ToList();
+            if (model.NgayBatDau.HasValue && model.NgayKetThuc.HasValue && model.NgayKetThuc < model.NgayBatDau)
+            {
+                ModelState.AddModelError("NgayKetThuc", "Ngày kết thúc không thể trước ngày bắt đầu.");
+            }
             if (ModelState.IsValid)
             {
                 var discount = db.TMaGiamGias.FirstOrDefault(x => x.MaGiamGia == model.MaGiamGia);
@@ -115,7 +122,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                     bool isChanged = false;
                     if (discount.TiLeGiam != model.TiLeGiam)
                     {
-                        discount.TiLeGiam = model.TiLeGiam;
+                        discount.TiLeGiam = model.TiLeGiam / 100;
                         isChanged = true;
                     }
                     if (discount.Code != model.Code)
@@ -138,7 +145,22 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                         discount.NgayKetThuc = model.NgayKetThuc;
                         isChanged = true;
                     }
-                    
+                    DateTime currentDate = DateTime.Now;
+                    if (model.NgayBatDau.HasValue && model.NgayKetThuc.HasValue)
+                    {
+                        if(currentDate < model.NgayBatDau.Value)
+                        {
+                            discount.TrangThai = 0;
+                        }
+                        else if (currentDate > model.NgayKetThuc.Value)
+                        {
+                            discount.TrangThai = 0;
+                        }
+                        else
+                        {
+                            discount.TrangThai = 1;
+                        }
+                    }
 
                     if (isChanged)
                     {
