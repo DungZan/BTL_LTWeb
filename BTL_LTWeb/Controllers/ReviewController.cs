@@ -1,7 +1,9 @@
 ﻿using BTL_LTWeb.Models;
+using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Drawing.Text;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -23,9 +25,13 @@ namespace BTL_LTWeb.Controllers
         //for pagination purpose
         private const int _PERPAGERV = 5;
 
-        public ReviewController(QLBanDoThoiTrangContext _context)
+        //for email service
+        private readonly EmailService _emailService;
+
+        public ReviewController(QLBanDoThoiTrangContext _context, EmailService emailService)
         {
             _db = _context;
+            _emailService = emailService;
         }
 
         private void FetchCurrentUser()
@@ -44,6 +50,9 @@ namespace BTL_LTWeb.Controllers
                             break;
                         case "NhanVien":
                             _uid = _db.TNhanViens.Where(it => it.Email == email).First().MaNhanVien;
+                            break;
+                        default:
+                            _uid = 0;
                             break;
                     }
                 }
@@ -205,17 +214,17 @@ namespace BTL_LTWeb.Controllers
                     if (_utype != "KhachHang" || _uid != affected.MaKhachHang) return "EUNP";
                     break;
                 case "rpCreate":
-                    if (_utype != "NhanVien") return "EUNP";
+                    if (_utype == "KhachHang") return "EUNP";
                     if (string.IsNullOrWhiteSpace(affected.TraLoi)) return "WRNC";
                     if (affected.TraLoi.Length > 1000) return "WRFC";
                     break;
                 case "rpEdit":
-                    if (_utype != "NhanVien" || _uid != prev.MaNhanVien) return "EUNP";
+                    if (_utype == "KhachHang" || _uid != prev.MaNhanVien) return "EUNP";
                     if (string.IsNullOrWhiteSpace(affected.TraLoi)) return "WRNC";
                     if (affected.TraLoi.Length > 1000) return "WRFC";
                     break;
                 case "rpDelete":
-                    if (_utype != "NhanVien" || _uid != affected.MaNhanVien) return "EUNP";
+                    if (_utype == "KhachHang" || _uid != affected.MaNhanVien) return "EUNP";
                     break;
                 case "urCastVote":
                     if (_utype != "KhachHang") return "EUNP";
@@ -380,9 +389,23 @@ namespace BTL_LTWeb.Controllers
                     string actStatus = ValidatingAction("rpEdit", inpReply, frameReview);
                     if (actStatus != "SACT") return actStatus;
 
+                    //sửa câu trả lời -> xoá chỉ số hữu ích cũ
+                    foreach (var it in _reacts.Where(it => it.MaDanhGia == frameReview.MaDanhGia))
+                    {
+                        it.HuuIch = 0;
+                        _db.TPhanHois.Update(it);
+                    }
                     frameReview.TraLoi = inpReply.TraLoi;
                 }
-                return EditReview(frameReview);
+                if (EditReview(frameReview) == "SACT")
+                {
+                    string csEmail = _db.TKhachHangs.FirstOrDefault(it => it.MaKhachHang == frameReview.MaKhachHang).Email;
+                    string emName = _db.TNhanViens.FirstOrDefault(it => it.MaNhanVien == frameReview.MaNhanVien).TenNhanVien;
+                    string pdName = _db.TDanhMucSps.FirstOrDefault(it => it.MaSp == frameReview.MaSP).TenSp;
+                    string rpMsg = frameReview.TraLoi;
+                    SendNoticeOfReply(csEmail != null ? csEmail : "", emName != null ? emName : "", pdName != null ? pdName : "", rpMsg != null ? rpMsg : "");
+                    return "SACT";
+                }
             }
             return "ERNI";
         }
@@ -466,6 +489,16 @@ namespace BTL_LTWeb.Controllers
             }
             catch { return "EDTB"; }
             return "SACT";
+        }
+
+        private void SendNoticeOfReply(string csEmail, string emName, string pdName, string rpMsg)
+        {
+            string reply =
+                $"<p>Sản phẩm: <strong>{pdName}</strong></p>" +
+                $"<p>Nhân viên: <strong>{emName}</strong></p>" +
+                $"<p>Nội dung:</p>" +
+                $"<p style='margin-left: 10px; border-left: solid 1px lightgray'>{string.Join("<br>", rpMsg.Split('\n'))}</p>";
+            _emailService.SendEmailAsync(csEmail, emName, reply, 5);
         }
     }
 }

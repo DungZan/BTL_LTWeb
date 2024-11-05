@@ -22,12 +22,12 @@
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="c_country" class="text-black">Thành Phố(Tỉnh)<span class="text-danger">*</span></label>
+                <label for="c_country" class="text-black form-label">Thành Phố(Tỉnh)<span class="text-danger">*</span></label>
                 <select id="c_diff_country" class="form-control" onchange="updateProvinceName()">
                     <option value="">Chọn Thành Phố(Tỉnh)</option>
                 </select>
             </div>
-            <input type="hidden" class="form-control" id="ten_thanh_pho" name="ThanhPhoKhac">
+            <input type="hidden" class="text-black form-label" id="ten_thanh_pho" name="ThanhPhoKhac">
             <div class="form-group">
                 <label for="c_district" class="text-black">Quận (Huyện)<span class="text-danger">*</span></label>
                 <select id="c_diff_district" class="form-control" onchange="updateDistrictName()">
@@ -37,9 +37,8 @@
             <input type="hidden" class="form-control" id="ten_quan_huyen" name="QuanHuyenKhac">
             <div class="form-group row mt-3">
                 <div class="col-md-12">
-                    <label asp-for="KhuVuc" class="text-black form-label"><span class="text-danger">*</span></label>
+                    <label asp-for="KhuVuc" class="text-black form-label">Khu vực<span asp-validation-for="KhuVuc" class="text-danger">*</span></label>
                     <input type="text" asp-for="KhuVuc" id="KhuVuc" class="form-control" />
-                    <span asp-validation-for="KhuVuc" class="text-danger"></span>
                 </div>
             </div>
 

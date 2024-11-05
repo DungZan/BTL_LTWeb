@@ -65,6 +65,21 @@ namespace BTL_LTWeb.Services
             "<div class='footer'>" +
             "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Cảm ơn bạn đã tin tưởng chúng tôi.</p>" +
             "</div>";
+        private readonly string _newReplyContent =
+            "<div class='header'>" +
+            "   <h1>Phản hồi mới</h1>" +
+            "</div>" +
+            "<div class='content'>" +
+            "   <h2>Xin chào {name},</h2>" +
+            "   <p>Đánh giá của bạn vừa được phản hồi, hãy kiểm tra!<p/>" +
+            "   <div style='padding: 10px; border-left: solid 5px #7971ea'>" +
+            "   {code}" +
+            "   </div>" +
+            "   <p>Trân trọng,<br>Đội ngũ hỗ trợ</p>" +
+            "</div>" +
+            "<div class='footer'>" +
+            "   <p>&copy; {DateTime.Now.Year} BeA Fashion. Cảm ơn bạn đã tin tưởng chúng tôi.</p>" +
+            "</div>";
 
         private readonly string fromMail;
         private readonly string fromPassword;
@@ -100,13 +115,11 @@ namespace BTL_LTWeb.Services
             }
             catch (SmtpException smtpEx)
             {
-                // Xử lý lỗi SMTP
                 Console.WriteLine($"SMTP Error: {smtpEx.Message}");
                 return 0; // Gửi thất bại
             }
             catch (Exception ex)
             {
-                // Xử lý các lỗi khác
                 Console.WriteLine($"Error: {ex.Message}");
                 return 0; // Gửi thất bại
             }
@@ -120,6 +133,7 @@ namespace BTL_LTWeb.Services
                 2 => "Đặt lại mật khẩu",
                 3 => "Thông báo mã giảm giá",
                 4 => "Xác nhận thanh toán thành công",
+                5 => "Phản hồi mới từ đánh giá của bạn",
                 _ => "Thông báo từ BeA Fashion"
             };
         }
@@ -187,6 +201,10 @@ namespace BTL_LTWeb.Services
             else if (status == 4)
             {
                 content = _paymentSuccessContent;
+            }
+            else if (status == 5)
+            {
+                content = _newReplyContent;
             }
             else {
                  content = status == 1 ? _confirmEmailContent : _forgotPasswordContent;

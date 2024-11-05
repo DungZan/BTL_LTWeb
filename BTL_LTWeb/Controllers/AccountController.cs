@@ -62,8 +62,11 @@ namespace BTL_LTWeb.Controllers
                         ExpiresUtc = login.RememberMe ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddMinutes(30)
                     };
                     await HttpContext.SignInAsync("MyCookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
-
-                    return RedirectToAction("Index", "Home");
+                    if(user.LoaiUser == "Admin")
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    return RedirectToAction("Home", "Home");
                 }
             }
             ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không chính xác.");

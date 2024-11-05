@@ -16,6 +16,7 @@ namespace BTL_LTWeb.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "KhachHang")]
         public async Task<IActionResult> Index()
         {
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
@@ -61,6 +62,10 @@ namespace BTL_LTWeb.Controllers
         {
             if (!User.Identity.IsAuthenticated)
                 return BadRequest("Vui lòng đăng nhập trước khi thực hiện");
+            if (!User.IsInRole("KhachHang"))
+            {
+                return BadRequest("Chỉ khách hàng mới có thể thêm vào giỏ hàng");
+            }
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             var KhacHang = await _context.TKhachHangs.FirstOrDefaultAsync(e => e.Email == email);
             if (KhacHang == null)
