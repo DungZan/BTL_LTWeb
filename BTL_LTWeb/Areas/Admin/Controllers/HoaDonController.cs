@@ -11,7 +11,11 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Authorize(Roles = "Admin,NhanVien")]
     public class HoaDonController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        QLBanDoThoiTrangContext db;
+        public HoaDonController(QLBanDoThoiTrangContext context)
+        {
+            db = context;
+        }
         //hoá đơn bán
         [Route("danhsachhoadon")]
         public IActionResult danhsachhoadon(int? Page)

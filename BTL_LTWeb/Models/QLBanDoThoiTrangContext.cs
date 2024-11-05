@@ -4,14 +4,9 @@ namespace BTL_LTWeb.Models;
 
 public partial class QLBanDoThoiTrangContext : DbContext
 {
-    public QLBanDoThoiTrangContext()
-    {
-    }
+    public QLBanDoThoiTrangContext() {}
+    public QLBanDoThoiTrangContext(DbContextOptions<QLBanDoThoiTrangContext> options): base(options){}
 
-    public QLBanDoThoiTrangContext(DbContextOptions<QLBanDoThoiTrangContext> options)
-        : base(options)
-    {
-    }
     public virtual DbSet<TTag> Tags { get; set; }
     public virtual DbSet<TAnhChiTietSp> TAnhChiTietSps { get; set; }
     public virtual DbSet<TAnhSp> TAnhSps { get; set; }
@@ -30,10 +25,6 @@ public partial class QLBanDoThoiTrangContext : DbContext
     public virtual DbSet<TDanhGia> TDanhGias { get; set; }
     public virtual DbSet<TPhanHoi> TPhanHois { get; set; }
     public virtual DbSet<TMaGiamGia> TMaGiamGias { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TempUserOtp>(entity =>

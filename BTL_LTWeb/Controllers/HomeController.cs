@@ -10,12 +10,13 @@ namespace BTL_LTWeb.Controllers
 {
     public class HomeController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        private readonly QLBanDoThoiTrangContext db;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, QLBanDoThoiTrangContext doThoiTrangContext)
         {
             _logger = logger;
+            db = doThoiTrangContext;
         }
         //action trang chủ
         public IActionResult Home()

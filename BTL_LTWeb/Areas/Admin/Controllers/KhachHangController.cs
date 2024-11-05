@@ -13,7 +13,11 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Authorize(Roles = "Admin,NhanVien")]
     public class KhachHangController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        QLBanDoThoiTrangContext db;
+        public KhachHangController(QLBanDoThoiTrangContext context)
+        {
+            db = context;
+        }
         private int pageSize = 6;
         public IActionResult Index()
         {

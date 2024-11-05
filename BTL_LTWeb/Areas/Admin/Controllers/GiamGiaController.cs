@@ -11,7 +11,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Route("Admin/GiamGia")]
     public class GiamGiaController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        QLBanDoThoiTrangContext db;
         private readonly EmailService _emailService;
 
         public GiamGiaController(EmailService emailService, QLBanDoThoiTrangContext context)
