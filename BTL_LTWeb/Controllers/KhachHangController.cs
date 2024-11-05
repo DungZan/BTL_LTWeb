@@ -2,17 +2,14 @@
 using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using NuGet.Protocol;
 using System.Security.Claims;
 using X.PagedList;
 
 namespace BTL_LTWeb.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "KhachHang")]
     public class KhachHangController : Controller
     {
         QLBanDoThoiTrangContext db;
