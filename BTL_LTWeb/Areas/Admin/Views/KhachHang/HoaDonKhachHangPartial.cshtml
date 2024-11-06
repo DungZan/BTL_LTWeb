@@ -2,6 +2,9 @@
 @if (ViewBag.ThongBao != null)
 {
     <p>@ViewBag.ThongBao</p>
+    <p>
+        <a class="btn btn-info" href="@Url.Action("danhsachkhachhang", "KhachHang")">Trở lại</a>
+    </p>
 }
 else
 {
