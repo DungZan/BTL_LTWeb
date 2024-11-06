@@ -47,14 +47,14 @@
                 @await Component.InvokeAsync("CustomerInfo")
                 <div class="wizard">
                     <nav class="list-group list-group-flush">
-                        <a class="list-group-item active"  asp-controller="KhachHang" asp-action="Suathongtin">
+                        <a class="list-group-item active"   id="suathongtin" href="#">
                             Thông tin tài khoản                            
                         </a>
 
                         <a class="list-group-item" id="change" href="#">
                             Đổi mật khẩu
                         </a>
-                        <a class="list-group-item" asp-controller="KhachHang" asp-action="DonHang">
+                        <a class="list-group-item"  id="donhang" href="#">
                             Đơn hàng
                         </a>
                     </nav>
@@ -72,7 +72,6 @@
     <script src="~/ResourceTemplale/js/owl.carousel.min.js"></script>
     <script src="~/ResourceTemplale/js/jquery.magnific-popup.min.js"></script>
     <script src="~/ResourceTemplale/js/aos.js"></script>
-    <script src="~/js/ProfileCustomer/ProfileCustomer.js"></script>"
     <script>
         $(document).ready(function () {
             $('a#logout').on('click', function (event) {

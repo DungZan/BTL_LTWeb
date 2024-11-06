@@ -19,6 +19,11 @@ namespace BTL_LTWeb.Controllers
             _emailService = emailService;
             db = context;
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
         [Route("KhachHang/Suathongtin")]
         [HttpGet]
         public IActionResult Suathongtin()
@@ -32,7 +37,23 @@ namespace BTL_LTWeb.Controllers
                 return NotFound();
             }
 
-            return PartialView("Suathongtin",_kh);
+            return PartialView("Suathongtin", _kh);
+        }
+
+        [Route("KhachHang/Suathongtinajax")]
+        [HttpGet]
+        public IActionResult SuathongtinAjax()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            var _kh = db.TKhachHangs.FirstOrDefault(kh => kh.Email == userEmail);
+            if (_kh == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_suaPartial", _kh);
         }
 
         [Route("KhachHang/Suathongtin")]
