@@ -159,6 +159,60 @@
     <script src="~/ResourceTemplale/js/aos.js"></script>
 
     <script src="~/ResourceTemplale/js/main.js"></script>
+
+    <script>
+        $('body').on('click', 'li.page-item', function (e) {
+            e.preventDefault();
+            var page = $(this).data("page");
+            var keyword = $("#keyword").val();
+            $.ajax({
+                url: "/Home/LocSanPham",
+                data: { keyword: keyword, pageIndex: page },
+                success: function (response) {
+                    $("div#content").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+
+        $("button#btnSearch").click(function (e) {
+            var keyword = $("#keyword").val();
+            var data = { keyword: keyword };
+
+            $.ajax({
+                url: "/Home/LocSanPham",
+                data: data,
+                success: function (response) {
+                    $("div#content").html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Có lỗi xảy ra:", error);
+                }
+            });
+        });
+
+        $('body').on('click', '.btn-delete', function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+
+            if (confirm("Bạn có chắc chắn muốn xóa cửa hàng này không?")) {
+                $.ajax({
+                    url: "/Home/Delete",
+                    type: "POST",
+                    data: { id: id },
+                    success: function () {
+                        alert("Đã xóa thành công!");
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi xóa.");
+                    }
+                });
+            }
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $('a#logout').on('click', function (event) {
