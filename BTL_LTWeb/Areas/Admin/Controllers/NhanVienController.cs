@@ -183,25 +183,25 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             
         }
 
-        [Route("TimNhanVien")]
-        [HttpGet]
-        public IActionResult TimNhanVien(string TenNhanVien, int? Page)
-        {
+        //[Route("TimNhanVien")]
+        //[HttpGet]
+        //public IActionResult TimNhanVien(string TenNhanVien, int? Page)
+        //{
             
-            int pageSize = 6;
-            int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
+        //    int pageSize = 6;
+        //    int pageNumber = Page == null || Page <= 0 ? 1 : Page.Value;
 
-            var list = db.TNhanViens.AsNoTracking().Where(x => string.IsNullOrEmpty(TenNhanVien) || x.TenNhanVien.Contains(TenNhanVien)).OrderBy(x => x.MaNhanVien);
+        //    var list = db.TNhanViens.AsNoTracking().Where(x => string.IsNullOrEmpty(TenNhanVien) || x.TenNhanVien.Contains(TenNhanVien)).OrderBy(x => x.MaNhanVien);
 
-            var pagedList = new PagedList<TNhanVien>(list, pageNumber, pageSize);
+        //    var pagedList = new PagedList<TNhanVien>(list, pageNumber, pageSize);
 
-            if (!pagedList.Any())
-            {
-                return Content(string.Empty);
-            }
-            ViewBag.TenNhanVien = TenNhanVien;
+        //    if (!pagedList.Any())
+        //    {
+        //        return Content(string.Empty);
+        //    }
+        //    ViewBag.TenNhanVien = TenNhanVien;
 
-            return PartialView("_DanhSachNhanVienPartial", pagedList);
-        }
+        //    return PartialView("_DanhSachNhanVienPartial", pagedList);
+        //}
     }
 }

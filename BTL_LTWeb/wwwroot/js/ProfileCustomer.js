@@ -37,7 +37,7 @@
             },
             error: function () {
                 alert("Có lỗi xảy ra khi tải nội dung!");
-            } 
+            }
         });
     });
 });

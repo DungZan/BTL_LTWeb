@@ -6,10 +6,10 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <div class="row">
     <p>Các hoá đơn của khách hàng: @ViewBag.KhachHang.TenKhachHang</p>
-    <form asp-controller="KhachHang" asp-action="" method="get" class="site-block-top-search d-flex">
+   @*  <form asp-controller="KhachHang" asp-action="" method="get" class="site-block-top-search d-flex">
         <input type="text" name="TenKhachHang" class="form-control border-1" placeholder="Search">
         <button type="submit" class="btn btn-primary">Search</button>
-    </form>
+    </form> *@
     <p></p>
 <div class="alert alert-warning" id="invoiceTable">
         @await Html.PartialAsync("HoaDonKhachHangPartial", Model)
