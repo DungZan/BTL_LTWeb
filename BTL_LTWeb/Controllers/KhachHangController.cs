@@ -144,7 +144,7 @@ namespace BTL_LTWeb.Controllers
                 ViewBag.Notification = null; 
             }
 
-            return View(pagedData);
+            return PartialView("DonHang",pagedData);
         }
 
         public IActionResult ChiTietDonHang(int MaDH)
