@@ -1,6 +1,7 @@
 ﻿using BTL_LTWeb.Models;
 using BTL_LTWeb.Services;
 using BTL_LTWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
@@ -9,6 +10,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/GiamGia")]
+    [Authorize(Roles = "Admin,NhanVien")]
     public class GiamGiaController : Controller
     {
         QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
@@ -212,9 +214,9 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                 var successfulSends = results.Count(result => result == 1);
                 var failedSends = results.Count(result => result == 0);
 
-                TempData["SuccessMessage"] = $"Đã gửi email thông báo tới {successfulSends} khách hàng." +
-                                              $"{(failedSends > 0 ? $" Có {failedSends} email không thành công." : "")}";
-                return Json(new { success = true, message = TempData["SuccessMessage"] });
+                //TempData["SuccessMessage"] = $"Đã gửi email thông báo tới {successfulSends} khách hàng." +
+                //                              $"{(failedSends > 0 ? $" Có {failedSends} email không thành công." : "")}";
+                return Json(new { success = true });
             }
             catch (Exception ex)
             {

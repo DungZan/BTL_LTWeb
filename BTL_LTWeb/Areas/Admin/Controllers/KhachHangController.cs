@@ -20,6 +20,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             return View();
         }
         // khách hàng
+        [HttpGet]
         [Route("danhsachkhachhang")]
         public IActionResult danhsachkhachhang()
         {
@@ -53,7 +54,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         }
 
         [Route("Danhsachhoadonkhachhang")]
-
+        [HttpGet]
         public IActionResult ChiTietKhachHang(int maKH, int? page)
         {
              pageSize = 2;
