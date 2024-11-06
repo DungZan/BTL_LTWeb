@@ -39,11 +39,14 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
             var doanhThuNam = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Year == DateTime.Now.Year).Sum(x => x.TongTienHd);
             var doanhthuthang = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Month == DateTime.Now.Month).Sum(x => x.TongTienHd);
             var doanhthuthangtruoc = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Month == DateTime.Now.Month-1).Sum(x => x.TongTienHd);
+            var doanhthuthangtruoc1 = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Month == DateTime.Now.Month-2).Sum(x => x.TongTienHd);
             HoaDonBanViewModel model = new HoaDonBanViewModel
             {
                 danhMucSp = Sanpham,
                 doanhThuNam = doanhThuNam,
-                doanhThuThangNay = doanhthuthang
+                doanhThuThangNay = doanhthuthang,
+                doanhThuThangTruoc = doanhthuthangtruoc,
+                doanhThuThangTruoc1 = doanhthuthangtruoc1
             };
             return View(model);
         }

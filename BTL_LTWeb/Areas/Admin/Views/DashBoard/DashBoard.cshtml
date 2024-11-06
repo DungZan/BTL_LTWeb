@@ -13,7 +13,7 @@
                         <h5 class="card-title fw-semibold">Biểu đồ bán hàng</h5>
                     </div>
                     <div>
-                        <select class="form-select">
+                        <select class="form-select" hidden>
                             <option value="1">Tháng 9/2024</option>
                             <option value="2">Tháng 10/2024</option>
                         </select>
@@ -125,7 +125,7 @@
                 labels: ['Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng này'],
             datasets: [{
                 label: 'Danh thu theo tháng',
-                    data: [13, 231, 634, @Model.doanhThuThangTruoc, @Model.doanhThuThangNay],
+                    data: [13, 231, @Model.doanhThuThangTruoc1, @Model.doanhThuThangTruoc, @Model.doanhThuThangNay],
             borderWidth: 1
                     }]
                   },
