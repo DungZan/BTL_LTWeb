@@ -6,6 +6,8 @@ public partial class QLBanDoThoiTrangContext : DbContext
 {
     public QLBanDoThoiTrangContext() {}
     public QLBanDoThoiTrangContext(DbContextOptions<QLBanDoThoiTrangContext> options): base(options){}
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //=> optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=QLBanDoThoiTrang;Integrated Security=True;Trust Server Certificate=True");
 
     public virtual DbSet<TTag> Tags { get; set; }
     public virtual DbSet<TAnhChiTietSp> TAnhChiTietSps { get; set; }
