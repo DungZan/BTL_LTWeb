@@ -6,7 +6,11 @@ namespace BTL_LTWeb.Controllers
 {
     public class BoSuuTapController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        private readonly QLBanDoThoiTrangContext db;
+        public BoSuuTapController(QLBanDoThoiTrangContext dbcontext)
+        {
+            db = dbcontext;
+        }
         public IActionResult Index()
         {
             var lst = db.TDanhMucSps.AsQueryable();

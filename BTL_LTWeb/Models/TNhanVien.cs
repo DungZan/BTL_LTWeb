@@ -20,7 +20,7 @@ public partial class TNhanVien
     [Display(Name = "Tên nhân viên")]
     public string? TenNhanVien { get; set; }
 
-    [Range(typeof(DateTime), "1/1/1960", "12/31/2004")]
+    [Range(typeof(DateTime), "1/1/1960", "31/12/2004")]
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Ngày sinh không được để trống")]
     [Display(Name = "Ngày sinh")]

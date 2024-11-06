@@ -11,7 +11,11 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Authorize(Roles = "Admin,NhanVien")]
     public class DashBoardController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        QLBanDoThoiTrangContext db;
+        public DashBoardController(QLBanDoThoiTrangContext context)
+        {
+            db = context;
+        }
 
         [Route("")]
         [Route("Index")]

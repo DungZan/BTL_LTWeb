@@ -27,7 +27,9 @@ namespace BTL_LTWeb.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return User.IsInRole("KhachHang") ?
+                    RedirectToAction("Home", "Home") :
+                    RedirectToAction("Index", "Admin");
             }
             return View();
         }
@@ -62,7 +64,7 @@ namespace BTL_LTWeb.Controllers
                         ExpiresUtc = login.RememberMe ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddMinutes(30)
                     };
                     await HttpContext.SignInAsync("MyCookieAuthentication", new ClaimsPrincipal(claimsIdentity), authProperties);
-                    if(user.LoaiUser == "Admin")
+                    if (user.LoaiUser == "Admin")
                     {
                         return RedirectToAction("Index", "Admin");
                     }
@@ -87,7 +89,9 @@ namespace BTL_LTWeb.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return User.IsInRole("KhachHang") ?
+                    RedirectToAction("Home", "Home") :
+                    RedirectToAction("Index", "Admin");
             }
             return View();
         }
@@ -125,7 +129,9 @@ namespace BTL_LTWeb.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return User.IsInRole("KhachHang") ?
+                    RedirectToAction("Home", "Home") :
+                    RedirectToAction("Index", "Admin");
             }
             if (TempData["status"] == null || !int.TryParse(TempData["status"]?.ToString(), out int status))
             {
@@ -170,7 +176,7 @@ namespace BTL_LTWeb.Controllers
                 {
                     return BadRequest("Customer not found.");
                 }
-                
+
                 email = khachHang.Email;
                 name = khachHang.TenKhachHang ?? string.Empty;
             }
@@ -283,7 +289,9 @@ namespace BTL_LTWeb.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return User.IsInRole("KhachHang") ?
+                    RedirectToAction("Home", "Home") :
+                    RedirectToAction("Index", "Admin");
             }
             return View();
         }

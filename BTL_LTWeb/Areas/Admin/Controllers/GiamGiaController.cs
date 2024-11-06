@@ -13,7 +13,7 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
     [Authorize(Roles = "Admin,NhanVien")]
     public class GiamGiaController : Controller
     {
-        QLBanDoThoiTrangContext db = new QLBanDoThoiTrangContext();
+        QLBanDoThoiTrangContext db;
         private readonly EmailService _emailService;
 
         public GiamGiaController(EmailService emailService, QLBanDoThoiTrangContext context)
