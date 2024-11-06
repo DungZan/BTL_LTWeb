@@ -19,7 +19,7 @@
                         </select>
                     </div>
                 </div>
-                <canvas id="myChart"></canvas>
+                <canvas id="myChart1"></canvas>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
                         <div class="row alig n-items-start">
                             <div class="col-8">
                                 <h5 class="card-title mb-9 fw-semibold"> Doanh thu tháng </h5>
-                                <h4 class="fw-semibold mb-3">$@Model.doanhThuThang</h4>
+                                <h4 class="fw-semibold mb-3">$@Model.doanhThuThangNay</h4>
                                 <div class="d-flex align-items-center pb-1">
                                     <span class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
                                         <i class="ti ti-arrow-down-right text-danger"></i>
@@ -116,41 +116,26 @@
     }
 </div>
 @section Scripts {
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
+        <script>
+            const ctx1 = document.getElementById('myChart1');
+
+            new Chart(ctx1, {
+                type: 'bar',
             data: {
-                labels: ['Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
-                datasets: [{
-                    label: 'Doanh thu',
-                    data: [545, 12349, 2342343, 325],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
+                labels: ['Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng này'],
+            datasets: [{
+                label: 'Danh thu theo tháng',
+                    data: [13, 231, 634, @Model.doanhThuThangTruoc, @Model.doanhThuThangNay],
+            borderWidth: 1
+                    }]
+                  },
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: true
+                y: {
+                beginAtZero: true
+                      }
                     }
-                }
-            }
-        });
+                  }
+                });
     </script>
 }

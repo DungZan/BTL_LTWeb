@@ -34,11 +34,12 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
                            select dm).Distinct().ToList();
             var doanhThuNam = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Year == DateTime.Now.Year).Sum(x => x.TongTienHd);
             var doanhthuthang = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Month == DateTime.Now.Month).Sum(x => x.TongTienHd);
+            var doanhthuthangtruoc = db.THoaDonBans.Where(x => x.NgayHoaDon.Value.Month == DateTime.Now.Month-1).Sum(x => x.TongTienHd);
             HoaDonBanViewModel model = new HoaDonBanViewModel
             {
                 danhMucSp = Sanpham,
                 doanhThuNam = doanhThuNam,
-                doanhThuThang = doanhthuthang
+                doanhThuThangNay = doanhthuthang
             };
             return View(model);
         }

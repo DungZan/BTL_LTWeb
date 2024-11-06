@@ -12,6 +12,9 @@ namespace BTL_LTWeb.ViewModels
         public TMaGiamGia maGiamGia { get; set; }
 
         public decimal? doanhThuNam { get; set; }
-        public decimal? doanhThuThang { get; set; }
+        public decimal? doanhThuThangNay { get; set; }
+        public decimal? doanhThuThangTruoc { get; set; }
+        public decimal? doanhThuThangTruoc1 { get; set; }
+
     }
 }

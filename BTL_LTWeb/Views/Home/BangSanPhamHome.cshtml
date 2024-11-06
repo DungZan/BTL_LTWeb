@@ -6,11 +6,3 @@
     @await Html.PartialAsync("_ProductPartial", m)
 }
 </div>
-<ul class="pagination">
-    @for (int i = 1; i <= ViewBag.pageNum; i++)
-    {
-        <li class="page-item" data-page="@i" data-keyword="@ViewBag.keyword">
-            <a class="page-link" href="#">@i</a>
-        </li>
-    }
-</ul>
