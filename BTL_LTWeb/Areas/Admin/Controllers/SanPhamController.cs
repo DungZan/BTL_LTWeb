@@ -16,9 +16,9 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         private readonly QLBanDoThoiTrangContext db;
         private readonly int pageSize = 7;
 
-        public SanPhamController()
+        public SanPhamController(QLBanDoThoiTrangContext qLBanDoThoiTrangContext)
         {
-            db = new QLBanDoThoiTrangContext();
+            db = qLBanDoThoiTrangContext;
         }
         public IActionResult Index()
         {

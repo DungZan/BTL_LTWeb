@@ -1,14 +1,12 @@
 ﻿using BTL_LTWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using BTL_LTWeb.Services;
-using System.Text.Json.Serialization;
+using BTL_LTWeb.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Database config
 var connectionString = builder.Configuration.GetConnectionString("QLBanDoThoiTrangContext");
 builder.Services.AddDbContext<QLBanDoThoiTrangContext>(options =>
     options.UseSqlServer(connectionString));
@@ -16,7 +14,6 @@ builder.Services.AddDbContext<QLBanDoThoiTrangContext>(options =>
 builder.Services.AddTransient<EmailService>();
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
-// Add Authentication using Cookie
 builder.Services.AddAuthentication("MyCookieAuthentication")
     .AddCookie("MyCookieAuthentication", options =>
     {
@@ -59,6 +56,7 @@ app.UseSession();
 // Add Authentication and Authorization middleware
 app.UseAuthentication(); 
 app.UseAuthorization();
+app.UseMiddleware<RoleCheckMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

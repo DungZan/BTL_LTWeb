@@ -19,9 +19,9 @@ namespace BTL_LTWeb.Areas.Admin.Controllers
         private readonly QLBanDoThoiTrangContext db;
         private readonly int pageSize = 3;
 
-        public HeThongCuaHangController()
+        public HeThongCuaHangController(QLBanDoThoiTrangContext doThoiTrangContext)
         {
-            db = new QLBanDoThoiTrangContext();
+            db = doThoiTrangContext;
         }
 
         [Route("Index")]
